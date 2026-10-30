@@ -87,9 +87,11 @@ const TeacherAdminModule = {
 
     logout() {
         State.isTeacherLoggedIn = false;
+        State.isAdminTriggered = false;
         sessionStorage.removeItem(CONFIG.STORAGE_KEYS.TEACHER_SESSION);
         this.updateAuthUI();
-        Utils.showToast("Sesi Administrator Guru telah dikunci.");
+        App.switchView('exam');
+        Utils.showToast("Sesi Administrator Guru telah ditutup & dikunci.");
     },
 
     changePin(e) {
@@ -137,6 +139,7 @@ const TeacherAdminModule = {
         const gateCard = document.getElementById('teacher-gate-card');
         const adminWorkspace = document.getElementById('teacher-unlocked-workspace');
         const navAdminIcon = document.getElementById('nav-admin-icon');
+        const navTabSheet = document.getElementById('nav-tab-sheet');
 
         if (State.isTeacherLoggedIn) {
             if (triggerBtn) triggerBtn.classList.add('hidden');
@@ -146,13 +149,16 @@ const TeacherAdminModule = {
             }
             if (gateCard) gateCard.classList.add('hidden');
             if (adminWorkspace) adminWorkspace.classList.remove('hidden');
+            if (navTabSheet) {
+                navTabSheet.classList.remove('hidden');
+                navTabSheet.classList.add('flex');
+            }
             if (navAdminIcon) {
                 navAdminIcon.setAttribute('data-lucide', 'shield-check');
                 navAdminIcon.className = "w-3.5 h-3.5 text-emerald-600";
             }
             this.renderPanel();
         } else {
-            if (triggerBtn) triggerBtn.classList.remove('hidden');
             if (adminBadge) {
                 adminBadge.classList.add('hidden');
                 adminBadge.classList.remove('flex');
@@ -162,6 +168,21 @@ const TeacherAdminModule = {
             if (navAdminIcon) {
                 navAdminIcon.setAttribute('data-lucide', 'lock');
                 navAdminIcon.className = "w-3.5 h-3.5 text-amber-600";
+            }
+
+            // Sembunyikan tombol & tab dari siswa kecuali mode admin terpicu (?admin=1 atau 3x klik logo)
+            if (State.isAdminTriggered) {
+                if (triggerBtn) triggerBtn.classList.remove('hidden');
+                if (navTabSheet) {
+                    navTabSheet.classList.remove('hidden');
+                    navTabSheet.classList.add('flex');
+                }
+            } else {
+                if (triggerBtn) triggerBtn.classList.add('hidden');
+                if (navTabSheet) {
+                    navTabSheet.classList.add('hidden');
+                    navTabSheet.classList.remove('flex');
+                }
             }
         }
         lucide.createIcons();

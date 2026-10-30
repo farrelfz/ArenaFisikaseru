@@ -7,6 +7,7 @@ const App = {
         lucide.createIcons();
         State.load();
         this.bindDynamicConfigToUI();
+        this._bindHiddenAdminTriggers();
         ExamModule.init();
 
         this.applyExamConfigUI();
@@ -22,7 +23,45 @@ const App = {
         lucide.createIcons();
     },
 
+    _bindHiddenAdminTriggers() {
+        // 1. Deteksi URL Rahasia (?admin=1 atau #admin)
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('admin') === '1' || window.location.hash === '#admin') {
+                State.isAdminTriggered = true;
+                TeacherAdminModule.updateAuthUI();
+            }
+        } catch (e) {}
+
+        // 2. Easter Egg Rahasia: Klik Logo 3x berturut-turut untuk membuka akses Guru
+        let clickCount = 0;
+        let clickTimer = null;
+        const brandEl = document.getElementById('app-header-brand');
+        if (brandEl) {
+            brandEl.addEventListener('click', (e) => {
+                clickCount++;
+                clearTimeout(clickTimer);
+                if (clickCount >= 3) {
+                    clickCount = 0;
+                    State.isAdminTriggered = true;
+                    TeacherAdminModule.updateAuthUI();
+                    TeacherAdminModule.openLoginModal();
+                    Utils.showToast("Akses Guru terdeteksi. Silakan masukkan PIN.", true);
+                } else {
+                    clickTimer = setTimeout(() => {
+                        clickCount = 0;
+                    }, 1200);
+                }
+            });
+        }
+    },
+
     switchView(viewName) {
+        // Cegah siswa mengakses tab panel guru jika belum terautentikasi dan mode admin tidak terpicu
+        if (viewName === 'sheet' && !State.isTeacherLoggedIn && !State.isAdminTriggered) {
+            viewName = 'exam';
+        }
+
         const views = ['exam', 'leaderboard', 'sheet'];
         views.forEach(v => {
             const sectionEl = document.getElementById(`view-${v}`);

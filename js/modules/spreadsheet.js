@@ -89,8 +89,8 @@ const SpreadsheetService = {
         State.ipLockRegistry[record.ip] = record;
         State.save();
 
-        // Kirim ke Google Apps Script Webhook jika dikonfigurasi
-        const webhookUrl = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK);
+        // Kirim ke Google Apps Script Webhook jika dikonfigurasi (Local Override atau Default System Webhook)
+        const webhookUrl = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK) || CONFIG.DEFAULT_WEBHOOK_URL;
         if (webhookUrl && webhookUrl.startsWith("http")) {
             try {
                 await fetch(webhookUrl, {

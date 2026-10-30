@@ -15,6 +15,9 @@ const CONFIG = {
         return `https://docs.google.com/spreadsheets/d/${this.SPREADSHEET_ID}/export?format=csv`;
     },
 
+    // URL Webhook Google Apps Script Default (Otomatis dipakai di semua gawai siswa)
+    DEFAULT_WEBHOOK_URL: '',
+
     // Standar Evaluasi Akademik
     EXAM_DURATION_SECONDS: 5400, // 1 Jam 30 Menit (90 Menit)
     TOTAL_QUESTIONS: 25,

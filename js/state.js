@@ -28,6 +28,7 @@ const State = {
 
     // Sesi Guru Administrator
     isTeacherLoggedIn: false,
+    isAdminTriggered: false, // Terbuka lewat ?admin=1 atau 3x klik logo
     activeAdminSubTab: 'ctrl',
 
     // Konfigurasi Dinamis Ujian
@@ -89,7 +90,7 @@ const State = {
                 this.ipLockRegistry = cleanIpMap;
             }
 
-            const savedWebhook = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK);
+            const savedWebhook = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK) || CONFIG.DEFAULT_WEBHOOK_URL;
             if (savedWebhook) {
                 const el = document.getElementById('input-webhook-url');
                 if (el) el.value = savedWebhook;
