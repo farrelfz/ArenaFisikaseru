@@ -7,29 +7,54 @@ const SpreadsheetService = {
         let fetchedRows = [];
         let isConnected = false;
 
-        // 1. Ambil data via Google Visualization API (JSONP format)
-        try {
-            const res = await fetch(CONFIG.SPREADSHEET_GVIZ_URL, { cache: 'no-store' });
-            if (res.ok) {
-                const text = await res.text();
-                const jsonStart = text.indexOf('{');
-                const jsonEnd = text.lastIndexOf('}') + 1;
-                if (jsonStart >= 0 && jsonEnd > jsonStart) {
-                    const parsed = JSON.parse(text.substring(jsonStart, jsonEnd));
-                    if (parsed.table && parsed.table.rows) {
-                        fetchedRows = parsed.table.rows.map((r, idx) => {
-                            const cells = r.c.map(cell => (cell ? cell.v : ''));
-                            return this._parseGvizRow(cells, idx);
+        const webhookUrl = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK) || CONFIG.DEFAULT_WEBHOOK_URL;
+
+        // 1. Prioritas Utama: Ambil langsung dari Google Apps Script Web App (pasti hanya murid, skip bank soal)
+        if (webhookUrl && webhookUrl.startsWith("http")) {
+            try {
+                const res = await fetch(webhookUrl, { cache: 'no-store' });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && Array.isArray(data.rows) && data.rows.length > 0) {
+                        fetchedRows = data.rows.map((rowCells, idx) => {
+                            return this._parseGvizRow(rowCells, idx);
                         }).filter(Boolean);
+                        isConnected = true;
+                    } else if (data && data.status === 'active') {
+                        // Terhubung dengan sukses ke Apps Script tapi data murid di spreadsheet masih kosong
                         isConnected = true;
                     }
                 }
+            } catch (err) {
+                console.warn("Apps Script Web App GET tidak merespons, mencoba GVIZ:", err);
             }
-        } catch (e) {
-            console.warn("GVIZ API tidak merespons, mencoba fallback CSV:", e);
         }
 
-        // 2. Fallback baca via CSV jika GVIZ gagal
+        // 2. Fallback: Ambil data via Google Visualization API (JSONP format)
+        if (!isConnected) {
+            try {
+                const res = await fetch(CONFIG.SPREADSHEET_GVIZ_URL, { cache: 'no-store' });
+                if (res.ok) {
+                    const text = await res.text();
+                    const jsonStart = text.indexOf('{');
+                    const jsonEnd = text.lastIndexOf('}') + 1;
+                    if (jsonStart >= 0 && jsonEnd > jsonStart) {
+                        const parsed = JSON.parse(text.substring(jsonStart, jsonEnd));
+                        if (parsed.table && parsed.table.rows) {
+                            fetchedRows = parsed.table.rows.map((r, idx) => {
+                                const cells = r.c.map(cell => (cell ? cell.v : ''));
+                                return this._parseGvizRow(cells, idx);
+                            }).filter(Boolean);
+                            isConnected = true;
+                        }
+                    }
+                }
+            } catch (e) {
+                console.warn("GVIZ API tidak merespons, mencoba fallback CSV:", e);
+            }
+        }
+
+        // 3. Fallback baca via CSV jika GVIZ gagal
         if (!isConnected) {
             try {
                 const res = await fetch(CONFIG.SPREADSHEET_CSV_URL, { cache: 'no-store' });
@@ -136,6 +161,12 @@ const SpreadsheetService = {
             const absen = col0Num;
             const name = String(cells[1] || "Peserta").trim();
             const className = String(cells[2] || "XI A").trim();
+
+            // Saring ketat: Baris WAJIB kelas resmi (XI A-XI F) dan BUKAN kode soal Q01-Q25
+            if (!CONFIG.CLASSES.includes(className) || /^Q\d+$/i.test(name)) {
+                return null;
+            }
+
             const grade = parseFloat(cells[3]) || 0;
             const totalScore = parseInt(cells[5], 10) || 0;
             const correctCount = parseInt(cells[6], 10) || 0;
@@ -162,12 +193,18 @@ const SpreadsheetService = {
             };
         }
 
+        const legName = String(cells[2] || "Peserta").trim();
+        const legClass = String(cells[3] || "XI A").trim();
+        if (!CONFIG.CLASSES.includes(legClass) || /^Q\d+$/i.test(legName)) {
+            return null;
+        }
+
         return {
             id: `gviz_${idx}_${Date.now()}`,
             timestamp: cells[0] || new Date().toISOString(),
             ip: String(cells[1] || `remote_${idx}`).trim(),
-            name: String(cells[2] || "Peserta").trim(),
-            className: String(cells[3] || "XI A").trim(),
+            name: legName,
+            className: legClass,
             absen: parseInt(cells[4], 10) || 1,
             correctCount: parseInt(cells[5], 10) || 0,
             academicGrade: parseFloat(cells[6]) || 0,
@@ -208,6 +245,12 @@ const SpreadsheetService = {
             const absen = col0Num;
             const name = String(cells[1] || "Peserta").trim();
             const className = String(cells[2] || "XI A").trim();
+
+            // Saring ketat: Baris WAJIB kelas resmi (XI A-XI F) dan BUKAN kode soal Q01-Q25
+            if (!CONFIG.CLASSES.includes(className) || /^Q\d+$/i.test(name)) {
+                return null;
+            }
+
             const grade = parseFloat(cells[3]) || 0;
             const totalScore = parseInt(cells[5], 10) || 0;
             const correctCount = parseInt(cells[6], 10) || 0;
@@ -234,12 +277,18 @@ const SpreadsheetService = {
             };
         }
 
+        const legCsvName = String(cells[2] || "Peserta").trim();
+        const legCsvClass = String(cells[3] || "XI A").trim();
+        if (!CONFIG.CLASSES.includes(legCsvClass) || /^Q\d+$/i.test(legCsvName)) {
+            return null;
+        }
+
         return {
             id: `csv_${idx}_${Date.now()}`,
             timestamp: cells[0] || new Date().toISOString(),
             ip: String(cells[1] || "").trim(),
-            name: String(cells[2] || "Peserta").trim(),
-            className: String(cells[3] || "XI A").trim(),
+            name: legCsvName,
+            className: legCsvClass,
             absen: parseInt(cells[4], 10) || 1,
             correctCount: parseInt(cells[5], 10) || 0,
             academicGrade: parseFloat(cells[6]) || 0,

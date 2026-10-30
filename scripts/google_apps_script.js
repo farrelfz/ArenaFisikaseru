@@ -248,7 +248,7 @@ function ensureQuestionBankSheet(ss) {
   const sheetName = "Pertanyaan & Kunci Jawaban";
   let qSheet = ss.getSheetByName(sheetName);
   if (!qSheet) {
-    qSheet = ss.insertSheet(sheetName, 0); // Tab paling pertama
+    qSheet = ss.insertSheet(sheetName); // Ditempatkan di tab akhir agar tidak mengganggu pembacaan tab kelas siswa
   }
 
   if (qSheet.getLastRow() <= 1) {

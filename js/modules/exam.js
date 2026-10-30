@@ -305,6 +305,7 @@ const ExamModule = {
         const lockedRecord = State.findRecordByIp(State.clientIpAddress);
         const lockedBanner = document.getElementById('ip-locked-banner');
         const ipDot = document.getElementById('ip-status-dot');
+        const ipText = document.getElementById('ip-status-text');
 
         if (lockedRecord) {
             if (lockedBanner) lockedBanner.classList.remove('hidden');
@@ -316,12 +317,20 @@ const ExamModule = {
 
             const formInputs = document.querySelectorAll('#exam-start-form input, #exam-start-form select, #btn-start-exam');
             formInputs.forEach(el => el.disabled = true);
-            if (ipDot) ipDot.className = "w-2.5 h-2.5 rounded-full bg-amber-500";
+            if (ipDot) ipDot.className = "w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse";
+            if (ipText) {
+                ipText.textContent = "Sesi Selesai (Terkunci)";
+                ipText.className = "font-medium text-amber-700";
+            }
         } else {
             if (lockedBanner) lockedBanner.classList.add('hidden');
             const formInputs = document.querySelectorAll('#exam-start-form input, #exam-start-form select, #btn-start-exam');
             formInputs.forEach(el => el.disabled = false);
             if (ipDot) ipDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500";
+            if (ipText) {
+                ipText.textContent = "Sistem Siap";
+                ipText.className = "font-medium text-slate-700";
+            }
         }
     },
 
