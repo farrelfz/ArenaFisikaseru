@@ -87,7 +87,12 @@ function doPost(e) {
     const grade = parseFloat(d.academicGrade) || 0;
     const statusKKM = grade >= 75.0 ? "TUNTAS" : "REMEDIAL";
     const salahCount = 25 - (parseInt(d.correctCount, 10) || 0);
-    const tabSwitchStr = (parseInt(d.tabSwitches, 10) || 0) === 0 ? "Fokus 100%" : (d.tabSwitches + "x Pindah Tab");
+    const sw = parseInt(d.tabSwitches, 10) || 0;
+    let tabSwitchStr = "Level 1: Fokus 100% (Fair Play)";
+    if (sw === 1) tabSwitchStr = "Level 2: 1x Tab (Toleransi Ringan)";
+    else if (sw === 2) tabSwitchStr = "Level 3: 2x Tab (Waspada)";
+    else if (sw >= 3 && sw <= 4) tabSwitchStr = "Level 4: " + sw + "x Tab (Peringatan)";
+    else if (sw >= 5) tabSwitchStr = "Level 5: " + sw + "x Tab (Pelanggaran Berat)";
 
     const inputNameClean = String(d.name || "").trim().toLowerCase();
     const inputIpClean = String(d.ip || "").trim().toLowerCase();

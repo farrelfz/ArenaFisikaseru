@@ -101,7 +101,6 @@ const ExamModule = {
 
         document.getElementById('q-current-number').textContent = index + 1;
         document.getElementById('q-topic-badge').textContent = q.topic;
-        document.getElementById('q-subtopic-badge').textContent = `Butir ${q.id}`;
         document.getElementById('q-stem-text').innerHTML = q.question;
 
         const isDoubt = !!State.activeSession.doubtFlags[index];
@@ -232,9 +231,9 @@ const ExamModule = {
         const summaryEl = document.getElementById('modal-submit-summary');
 
         if (unanswered > 0) {
-            summaryEl.innerHTML = `Anda telah menjawab <strong>${answeredCount} dari ${CONFIG.TOTAL_QUESTIONS} butir soal</strong> (masih terdapat <strong class="text-amber-700">${unanswered} butir soal belum dijawab</strong>). Yakin ingin menyelesaikan ujian sekarang? Alamat IP <span class="font-mono font-semibold">${State.activeSession.ip}</span> akan dikunci setelah pengumpulan.`;
+            summaryEl.innerHTML = `Anda telah menjawab <strong>${answeredCount} dari ${CONFIG.TOTAL_QUESTIONS} butir soal</strong> (masih terdapat <strong class="text-amber-700">${unanswered} butir soal belum dijawab</strong>). Yakin ingin menyelesaikan ujian sekarang? Sesi ujian gawai Anda akan langsung diselesaikan dan hasil evaluasi dikirimkan.`;
         } else {
-            summaryEl.innerHTML = `Seluruh <strong>${CONFIG.TOTAL_QUESTIONS} butir soal telah dijawab lengkap</strong>. Setelah dikumpulkan, hasil evaluasi dan nilai akademik Anda akan langsung dihitung.`;
+            summaryEl.innerHTML = `Seluruh <strong>${CONFIG.TOTAL_QUESTIONS} butir soal telah dijawab lengkap</strong>. Setelah dikumpulkan, sesi ujian gawai Anda akan diselesaikan dan hasil evaluasi langsung dikirimkan ke sistem.`;
         }
 
         document.getElementById('modal-submit-exam').classList.remove('hidden');
@@ -515,12 +514,36 @@ const ExamModule = {
         document.addEventListener('visibilitychange', () => {
             if (document.hidden && State.activeSession && State.activeSession.startTimeMs > 0 && State.activeSession.remainingSeconds > 0) {
                 State.activeSession.tabSwitches = (State.activeSession.tabSwitches || 0) + 1;
+                const sw = State.activeSession.tabSwitches;
                 const cheatCountEl = document.getElementById('exam-hud-cheat-count');
-                if (cheatCountEl) {
-                    cheatCountEl.textContent = `${State.activeSession.tabSwitches} Pelanggaran`;
-                    cheatCountEl.className = "text-rose-600 font-bold tabular-nums";
+                
+                let warningText = "";
+                let badgeClass = "text-emerald-700 font-bold tabular-nums";
+                let statusLabel = `${sw}x Tab`;
+
+                if (sw === 1) {
+                    badgeClass = "text-blue-600 font-bold tabular-nums";
+                    statusLabel = "1x Tab (Toleransi Ringan)";
+                    warningText = "ℹ️ Peringatan Integritas: Terdeteksi 1x meninggalkan jendela ujian (Toleransi Ringan). Harap tetap berada pada lembar soal.";
+                } else if (sw === 2) {
+                    badgeClass = "text-amber-600 font-bold tabular-nums";
+                    statusLabel = "2x Tab (Waspada)";
+                    warningText = "⚠️ Peringatan Pengawas: Terdeteksi 2x berpindah tab (Waspada). Pengawas ruang memantau aktivitas Anda.";
+                } else if (sw >= 3 && sw <= 4) {
+                    badgeClass = "text-orange-600 font-bold tabular-nums";
+                    statusLabel = `${sw}x Tab (Peringatan)`;
+                    warningText = `🚨 Pelanggaran Integritas: Terdeteksi ${sw}x meninggalkan ujian. Sesi Anda masuk pemantauan ketat!`;
+                } else {
+                    badgeClass = "text-rose-600 font-bold tabular-nums animate-pulse";
+                    statusLabel = `${sw}x Tab (Pelanggaran Berat)`;
+                    warningText = `⛔ Pelanggaran Berat: Terdeteksi ${sw}x meninggalkan ujian! Catatan pelanggaran terekam di laporan pengawas.`;
                 }
-                Utils.showToast(`⚠️ Peringatan Pengawas: Terdeteksi meninggalkan jendela ujian (${State.activeSession.tabSwitches}x). Tetap fokus pada lembar evaluasi.`);
+
+                if (cheatCountEl) {
+                    cheatCountEl.textContent = statusLabel;
+                    cheatCountEl.className = badgeClass;
+                }
+                Utils.showToast(warningText, sw <= 1);
             }
         });
     }

@@ -33,19 +33,29 @@ const LeaderboardModule = {
     getFairPlayBadge(tabSwitches) {
         const sw = Number(tabSwitches) || 0;
         if (sw === 0) {
-            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200" title="Fokus 100% tanpa perpindahan jendela">
+            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200" title="Klasifikasi 1: Integritas Sempurna (0x Pindah Tab)">
                 <i data-lucide="shield-check" class="w-3 h-3 text-emerald-600"></i>
-                <span>Fair Play</span>
+                <span>Fair Play (0x)</span>
             </span>`;
-        } else if (sw <= 2) {
-            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200" title="${sw}x perpindahan jendela browser">
-                <i data-lucide="alert-triangle" class="w-3 h-3 text-amber-600"></i>
-                <span>${sw}x Tab</span>
+        } else if (sw === 1) {
+            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200" title="Klasifikasi 2: Toleransi Ringan (1x Pindah Tab)">
+                <i data-lucide="info" class="w-3 h-3 text-blue-600"></i>
+                <span>Toleransi (1x)</span>
+            </span>`;
+        } else if (sw === 2) {
+            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200" title="Klasifikasi 3: Waspada (2x Pindah Tab)">
+                <i data-lucide="alert-circle" class="w-3 h-3 text-amber-600"></i>
+                <span>Waspada (2x)</span>
+            </span>`;
+        } else if (sw >= 3 && sw <= 4) {
+            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-orange-50 text-orange-700 border border-orange-200" title="Klasifikasi 4: Peringatan (3-4x Pindah Tab)">
+                <i data-lucide="alert-triangle" class="w-3 h-3 text-orange-600"></i>
+                <span>Peringatan (${sw}x)</span>
             </span>`;
         } else {
-            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-200" title="${sw}x perpindahan jendela browser (Terdeteksi Pelanggaran)">
+            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-200" title="Klasifikasi 5: Pelanggaran Berat (≥5x Pindah Tab)">
                 <i data-lucide="alert-octagon" class="w-3 h-3 text-rose-600"></i>
-                <span>${sw}x Tab</span>
+                <span>Pelanggaran (${sw}x)</span>
             </span>`;
         }
     },
