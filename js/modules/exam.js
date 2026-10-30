@@ -5,6 +5,27 @@
 const ExamModule = {
     init() {
         this._bindAntiCheat();
+        this._bindKeyboardNavigation();
+    },
+
+    _bindKeyboardNavigation() {
+        document.addEventListener('keydown', (e) => {
+            const screen = document.getElementById('screen-active-exam');
+            if (!screen || screen.classList.contains('hidden')) return;
+
+            // Jangan tangkap jika sedang mengetik di input modal atau form
+            if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA')) return;
+
+            const key = e.key.toLowerCase();
+            if (key === 'a' || key === '1') this.selectOption(0);
+            else if (key === 'b' || key === '2') this.selectOption(1);
+            else if (key === 'c' || key === '3') this.selectOption(2);
+            else if (key === 'd' || key === '4') this.selectOption(3);
+            else if (key === 'e' || key === '5') this.selectOption(4);
+            else if (key === 'r') this.toggleDoubt();
+            else if (e.key === 'ArrowLeft') this.navigate(-1);
+            else if (e.key === 'ArrowRight') this.navigate(1);
+        });
     },
 
     start(e) {
@@ -83,6 +104,22 @@ const ExamModule = {
         document.getElementById('q-subtopic-badge').textContent = `Butir ${q.id}`;
         document.getElementById('q-stem-text').innerHTML = q.question;
 
+        const isDoubt = !!State.activeSession.doubtFlags[index];
+        const isAnswered = State.activeSession.selectedAnswers[index] !== undefined;
+        const statusBadge = document.getElementById('q-status-badge');
+        if (statusBadge) {
+            if (isDoubt) {
+                statusBadge.className = "edu-badge font-mono text-[10px] bg-amber-50 text-amber-800 border-amber-300 font-bold";
+                statusBadge.textContent = "Ditandai Ragu";
+            } else if (isAnswered) {
+                statusBadge.className = "edu-badge font-mono text-[10px] bg-emerald-50 text-emerald-800 border-emerald-300 font-bold";
+                statusBadge.textContent = "Sudah Dijawab";
+            } else {
+                statusBadge.className = "edu-badge font-mono text-[10px] bg-slate-100 text-slate-600 border-slate-200";
+                statusBadge.textContent = "Belum Dijawab";
+            }
+        }
+
         const diagramBox = document.getElementById('q-diagram-container');
         if (q.diagram) {
             diagramBox.innerHTML = q.diagram;
@@ -92,7 +129,7 @@ const ExamModule = {
             diagramBox.classList.add('hidden');
         }
 
-        // Render Opsi Jawaban
+        // Render Opsi Jawaban Interaktif & Ergonomis
         const optionsContainer = document.getElementById('q-options-container');
         const optionLetters = ['A', 'B', 'C', 'D', 'E'];
         const selectedIdx = State.activeSession.selectedAnswers[index];
@@ -100,26 +137,32 @@ const ExamModule = {
         optionsContainer.innerHTML = q.options.map((optText, optIdx) => {
             const isSelected = selectedIdx === optIdx;
             return `
-                <div onclick="ExamModule.selectOption(${optIdx})" class="exam-option-card p-4 flex items-start gap-3.5 ${isSelected ? 'selected' : ''}">
-                    <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 ${isSelected ? 'bg-blue-800 text-white' : 'bg-slate-100 text-slate-700 border border-slate-300'}">
-                        ${optionLetters[optIdx]}
+                <div onclick="ExamModule.selectOption(${optIdx})" class="exam-option-card group p-3.5 sm:p-4 flex items-start justify-between gap-3 ${isSelected ? 'selected' : ''}">
+                    <div class="flex items-start gap-3.5 min-w-0">
+                        <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 transition ${isSelected ? 'bg-blue-800 text-white shadow-sm' : 'bg-slate-100 text-slate-700 border border-slate-300 group-hover:border-blue-400 group-hover:bg-blue-50'}">
+                            ${optionLetters[optIdx]}
+                        </div>
+                        <div class="text-sm text-slate-900 pt-0.5 leading-relaxed font-medium">
+                            ${optText}
+                        </div>
                     </div>
-                    <div class="text-sm text-slate-800 pt-0.5 leading-relaxed font-medium">
-                        ${optText}
-                    </div>
+                    <span class="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded ${isSelected ? 'bg-blue-100 text-blue-900 border border-blue-300' : 'bg-slate-50 text-slate-400 border border-slate-200 group-hover:text-blue-600'} shrink-0 ml-2">
+                        [${optionLetters[optIdx]}]
+                    </span>
                 </div>
             `;
         }).join('');
 
         // Tombol Ragu-Ragu
         const doubtBtn = document.getElementById('btn-doubt-toggle');
-        const isDoubt = !!State.activeSession.doubtFlags[index];
-        if (isDoubt) {
-            doubtBtn.className = "px-3.5 py-2 text-xs font-semibold rounded-md border border-amber-300 bg-amber-50 text-amber-800 flex items-center gap-1.5";
-            doubtBtn.innerHTML = `<i data-lucide="check-square" class="w-3.5 h-3.5 text-amber-600"></i><span>Ditandai Ragu-Ragu</span>`;
-        } else {
-            doubtBtn.className = "edu-btn-secondary px-3.5 py-2 text-xs flex items-center gap-1.5";
-            doubtBtn.innerHTML = `<i data-lucide="square" class="w-3.5 h-3.5 text-slate-400"></i><span>Tandai Ragu-Ragu</span>`;
+        if (doubtBtn) {
+            if (isDoubt) {
+                doubtBtn.className = "px-3.5 py-2 text-xs font-semibold rounded-md border border-amber-300 bg-amber-50 text-amber-800 flex items-center gap-1.5";
+                doubtBtn.innerHTML = `<i data-lucide="check-square" class="w-3.5 h-3.5 text-amber-600"></i><span>Ditandai Ragu-Ragu</span>`;
+            } else {
+                doubtBtn.className = "edu-btn-secondary px-3.5 py-2 text-xs flex items-center gap-1.5";
+                doubtBtn.innerHTML = `<i data-lucide="square" class="w-3.5 h-3.5 text-slate-400"></i><span>Tandai Ragu-Ragu</span>`;
+            }
         }
 
         // Navigasi Prev/Next
@@ -135,6 +178,7 @@ const ExamModule = {
         }
 
         this.renderPalette();
+        this._updateAnsweredCount();
         lucide.createIcons();
     },
 
@@ -423,7 +467,7 @@ const ExamModule = {
 
             if (State.activeSession.remainingSeconds <= 0) {
                 clearInterval(State.activeSession.timerInterval);
-                Utils.showToast("Waktu 90 menit telah habis! Mengumpulkan jawaban otomatis.");
+                Utils.showToast("Alokasi waktu ujian telah habis! Mengumpulkan jawaban otomatis.");
                 this.finalizeSubmit();
             }
         }, 1000);
@@ -444,9 +488,27 @@ const ExamModule = {
     },
 
     _updateAnsweredCount() {
-        const answeredCount = Object.keys(State.activeSession.selectedAnswers).length;
+        if (!State.activeSession || !State.activeSession.questions) return;
+        const total = CONFIG.TOTAL_QUESTIONS;
+        const answeredCount = Object.keys(State.activeSession.selectedAnswers || {}).length;
+        const doubtCount = Object.keys(State.activeSession.doubtFlags || {}).filter(k => State.activeSession.doubtFlags[k]).length;
+        const unansweredCount = Math.max(0, total - answeredCount);
+
         const hudEl = document.getElementById('exam-hud-answered');
-        if (hudEl) hudEl.textContent = `${answeredCount} / ${CONFIG.TOTAL_QUESTIONS}`;
+        if (hudEl) hudEl.textContent = `${answeredCount} / ${total}`;
+
+        const progressBar = document.getElementById('exam-progress-bar');
+        if (progressBar) {
+            const pct = Math.round((answeredCount / total) * 100);
+            progressBar.style.width = `${pct}%`;
+        }
+
+        const palAns = document.getElementById('pal-stat-answered');
+        const palDoubt = document.getElementById('pal-stat-doubt');
+        const palUnans = document.getElementById('pal-stat-unanswered');
+        if (palAns) palAns.textContent = answeredCount;
+        if (palDoubt) palDoubt.textContent = doubtCount;
+        if (palUnans) palUnans.textContent = unansweredCount;
     },
 
     _bindAntiCheat() {

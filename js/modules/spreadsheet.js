@@ -51,18 +51,20 @@ const SpreadsheetService = {
 
         this._updateConnectionIndicator(isConnected);
 
-        // 3. Gabungkan data spreadsheet ke State
+        // 3. Gabungkan data spreadsheet ke State dengan sanitasi ketat (mencegah format usang 35 soal)
         if (fetchedRows.length > 0) {
             fetchedRows.forEach(remoteRec => {
+                const sanitized = State.sanitizeRecord(remoteRec);
+                if (!sanitized) return;
                 const existingIdx = State.leaderboardRecords.findIndex(
-                    l => l.ip === remoteRec.ip || (l.name === remoteRec.name && l.className === remoteRec.className && l.absen === remoteRec.absen)
+                    l => l.ip === sanitized.ip || (l.name === sanitized.name && l.className === sanitized.className && l.absen === sanitized.absen)
                 );
                 if (existingIdx >= 0) {
-                    State.leaderboardRecords[existingIdx] = remoteRec;
+                    State.leaderboardRecords[existingIdx] = sanitized;
                 } else {
-                    State.leaderboardRecords.push(remoteRec);
+                    State.leaderboardRecords.push(sanitized);
                 }
-                State.ipLockRegistry[remoteRec.ip] = remoteRec;
+                State.ipLockRegistry[sanitized.ip] = sanitized;
             });
             State.save();
         }
@@ -125,6 +127,41 @@ const SpreadsheetService = {
 
     _parseGvizRow(cells, idx) {
         if (!cells || cells.length < 5) return null;
+
+        // Deteksi format resmi tabel: Col 0 = No. Absen & Col 1 = Nama Siswa
+        const col0Num = parseInt(cells[0], 10);
+        const isNewFormat = !isNaN(col0Num) && col0Num >= 1 && col0Num <= 50 && typeof cells[1] === 'string' && isNaN(cells[1]);
+
+        if (isNewFormat) {
+            const absen = col0Num;
+            const name = String(cells[1] || "Peserta").trim();
+            const className = String(cells[2] || "XI A").trim();
+            const grade = parseFloat(cells[3]) || 0;
+            const totalScore = parseInt(cells[5], 10) || 0;
+            const correctCount = parseInt(cells[6], 10) || 0;
+            const durStr = String(cells[9] || "0m 0s");
+            let durationSec = 1800;
+            const mMatch = durStr.match(/(\d+)m/);
+            const sMatch = durStr.match(/(\d+)s/);
+            if (mMatch) durationSec = parseInt(mMatch[1], 10) * 60 + (sMatch ? parseInt(sMatch[1], 10) : 0);
+            const ip = String(cells[12] || `remote_${idx}`).trim();
+
+            return {
+                id: `gviz_res_${idx}_${Date.now()}`,
+                timestamp: cells[11] || new Date().toISOString(),
+                ip,
+                name,
+                className,
+                absen,
+                correctCount,
+                academicGrade: grade,
+                durationSec,
+                totalScore,
+                tabSwitches: String(cells[10] || '').includes('Pindah Tab') ? parseInt(cells[10], 10) : 0,
+                answersJson: "{}"
+            };
+        }
+
         return {
             id: `gviz_${idx}_${Date.now()}`,
             timestamp: cells[0] || new Date().toISOString(),
@@ -164,6 +201,39 @@ const SpreadsheetService = {
 
     _parseCsvRow(cells, idx) {
         if (!cells || cells.length < 5) return null;
+        const col0Num = parseInt(cells[0], 10);
+        const isNewFormat = !isNaN(col0Num) && col0Num >= 1 && col0Num <= 50 && typeof cells[1] === 'string' && isNaN(cells[1]);
+
+        if (isNewFormat) {
+            const absen = col0Num;
+            const name = String(cells[1] || "Peserta").trim();
+            const className = String(cells[2] || "XI A").trim();
+            const grade = parseFloat(cells[3]) || 0;
+            const totalScore = parseInt(cells[5], 10) || 0;
+            const correctCount = parseInt(cells[6], 10) || 0;
+            const durStr = String(cells[9] || "0m 0s");
+            let durationSec = 1800;
+            const mMatch = durStr.match(/(\d+)m/);
+            const sMatch = durStr.match(/(\d+)s/);
+            if (mMatch) durationSec = parseInt(mMatch[1], 10) * 60 + (sMatch ? parseInt(sMatch[1], 10) : 0);
+            const ip = String(cells[12] || "").trim();
+
+            return {
+                id: `csv_res_${idx}_${Date.now()}`,
+                timestamp: cells[11] || new Date().toISOString(),
+                ip,
+                name,
+                className,
+                absen,
+                correctCount,
+                academicGrade: grade,
+                durationSec,
+                totalScore,
+                tabSwitches: String(cells[10] || '').includes('Pindah Tab') ? parseInt(cells[10], 10) : 0,
+                answersJson: "{}"
+            };
+        }
+
         return {
             id: `csv_${idx}_${Date.now()}`,
             timestamp: cells[0] || new Date().toISOString(),

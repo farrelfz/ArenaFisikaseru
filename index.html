@@ -349,45 +349,52 @@
                 </div>
             </div>
 
-            <!-- 1B. RUANG PENGERJAAN UJIAN -->
+            <!-- 1B. RUANG PENGERJAAN UJIAN (ARENA RESMI) -->
             <div id="screen-active-exam" class="hidden space-y-5">
 
-                <!-- Bar Status Ujian -->
-                <div class="edu-card p-4 flex flex-wrap items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="px-2.5 py-1 rounded bg-blue-50 border border-blue-200 font-mono text-xs font-bold text-blue-900 tabular-nums" id="exam-hud-class">
-                            XI A • #01
-                        </div>
-                        <div>
-                            <div class="text-sm font-bold text-slate-900" id="exam-hud-name">Nama Siswa</div>
-                            <div class="text-[11px] font-mono text-slate-500" id="exam-hud-ip">Status: Sesi Terverifikasi</div>
-                        </div>
+                <!-- Bar Status Ujian & Progres Terpadu -->
+                <div class="edu-card overflow-hidden shadow-sm">
+                    <!-- Progress Bar Header -->
+                    <div class="w-full bg-slate-100 h-1.5 overflow-hidden">
+                        <div id="exam-progress-bar" class="bg-gradient-to-r from-blue-700 via-indigo-600 to-emerald-500 h-full transition-all duration-300" style="width: 0%"></div>
                     </div>
 
-                    <div class="flex flex-wrap items-center gap-4 sm:gap-6">
-                        <div id="exam-hud-cheat-pill" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-50 border border-slate-200 text-xs font-mono text-slate-600">
-                            <i data-lucide="eye" class="w-3.5 h-3.5 text-slate-400"></i>
-                            <span>Fokus:</span>
-                            <span id="exam-hud-cheat-count" class="text-emerald-700 font-bold tabular-nums">0 Pelanggaran</span>
-                        </div>
-
-                        <div class="hidden sm:block text-right">
-                            <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">Terjawab</div>
-                            <div class="text-sm font-mono font-bold text-slate-900 tabular-nums" id="exam-hud-answered">0 / 25</div>
-                        </div>
-
-                        <div class="flex items-center gap-3 px-3.5 py-1.5 rounded-md bg-slate-50 border border-slate-200">
-                            <i data-lucide="clock" class="w-4 h-4 text-slate-500"></i>
+                    <div class="p-4 flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="px-2.5 py-1 rounded bg-blue-50 border border-blue-200 font-mono text-xs font-bold text-blue-900 tabular-nums" id="exam-hud-class">
+                                XI A • #01
+                            </div>
                             <div>
-                                <div class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold">Sisa Waktu</div>
-                                <div id="exam-global-timer" class="font-mono text-lg font-bold text-slate-900 tabular-nums">01:15:00</div>
+                                <div class="text-sm font-bold text-slate-900" id="exam-hud-name">Nama Siswa</div>
+                                <div class="text-[11px] font-mono text-slate-500" id="exam-hud-ip">Status: Sesi Terverifikasi</div>
                             </div>
                         </div>
 
-                        <button type="button" onclick="ExamModule.openSubmitModal()" class="edu-btn-primary px-4 py-2 text-xs font-bold flex items-center gap-1.5">
-                            <i data-lucide="send" class="w-3.5 h-3.5"></i>
-                            <span>Kumpulkan</span>
-                        </button>
+                        <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+                            <div id="exam-hud-cheat-pill" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-50 border border-slate-200 text-xs font-mono text-slate-600">
+                                <i data-lucide="eye" class="w-3.5 h-3.5 text-slate-400"></i>
+                                <span>Fokus:</span>
+                                <span id="exam-hud-cheat-count" class="text-emerald-700 font-bold tabular-nums">0 Pelanggaran</span>
+                            </div>
+
+                            <div class="hidden sm:block text-right">
+                                <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">Terjawab</div>
+                                <div class="text-sm font-mono font-bold text-slate-900 tabular-nums" id="exam-hud-answered">0 / 25</div>
+                            </div>
+
+                            <div class="flex items-center gap-3 px-3.5 py-1.5 rounded-md bg-slate-50 border border-slate-200">
+                                <i data-lucide="clock" class="w-4 h-4 text-slate-500"></i>
+                                <div>
+                                    <div class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold">Sisa Waktu</div>
+                                    <div id="exam-global-timer" class="font-mono text-lg font-bold text-slate-900 tabular-nums">01:30:00</div>
+                                </div>
+                            </div>
+
+                            <button type="button" onclick="ExamModule.openSubmitModal()" class="edu-btn-primary px-4 py-2 text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                                <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                                <span>Kumpulkan</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -399,26 +406,32 @@
 
                         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
                             <div class="flex items-center gap-2">
-                                <span class="text-xs font-mono font-bold text-slate-500">SOAL</span>
-                                <span id="q-current-number" class="text-lg font-mono font-bold text-blue-900">1</span>
+                                <span class="text-xs font-mono font-bold text-slate-500 uppercase">Soal</span>
+                                <span id="q-current-number" class="text-xl font-mono font-bold text-blue-900">1</span>
                                 <span id="q-total-count" class="text-xs font-mono text-slate-400">/ 25</span>
                             </div>
-                            <div class="flex items-center gap-1.5">
+                            <div class="flex items-center gap-1.5 flex-wrap">
                                 <span id="q-topic-badge" class="edu-badge edu-badge-blue font-mono text-[11px]">Topik</span>
                                 <span id="q-subtopic-badge" class="edu-badge font-mono text-[11px]">Q01</span>
+                                <span id="q-status-badge" class="edu-badge font-mono text-[10px] bg-slate-100 text-slate-600">Belum Dijawab</span>
                             </div>
                         </div>
 
-                        <div id="q-stem-text" class="text-sm sm:text-[15px] text-slate-800 leading-relaxed font-medium">
+                        <div id="q-stem-text" class="text-sm sm:text-[15px] text-slate-900 leading-relaxed font-medium">
                             <!-- Teks soal -->
                         </div>
 
-                        <div id="q-diagram-container" class="hidden flex justify-center py-1">
+                        <div id="q-diagram-container" class="hidden flex justify-center py-2 px-3 bg-slate-50/70 rounded-lg border border-slate-200/80">
                             <!-- Diagram SVG -->
                         </div>
 
-                        <div id="q-options-container" class="space-y-2.5">
+                        <div id="q-options-container" class="space-y-3 pt-1">
                             <!-- Opsi jawaban -->
+                        </div>
+
+                        <div class="hidden sm:flex items-center justify-between text-[11px] text-slate-400 font-mono px-0.5 pt-1">
+                            <span>💡 Tekan tombol [A]–[E] pada keyboard untuk memilih opsi</span>
+                            <span>Tekan [←] / [→] untuk navigasi</span>
                         </div>
 
                         <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200">
@@ -440,30 +453,56 @@
                         </div>
                     </div>
 
-                    <!-- Panel Palet Navigasi -->
+                    <!-- Panel Palet Navigasi (Grid 5x5 Sempurna) -->
                     <div class="lg:col-span-4 edu-card p-5 space-y-4 lg:sticky lg:top-20">
-                        <div class="border-b border-slate-200 pb-2.5">
-                            <h3 class="text-sm font-bold text-slate-900">Navigasi Butir Soal</h3>
-                            <p class="text-[11px] text-slate-500">Pilih nomor untuk berpindah cepat</p>
+                        <div class="border-b border-slate-200 pb-2.5 flex items-center justify-between">
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-900">Palet Nomor Soal</h3>
+                                <p class="text-[11px] text-slate-500">25 butir terstruktur (5 × 5)</p>
+                            </div>
+                            <span class="edu-badge font-mono text-[10px]">25 PG</span>
                         </div>
 
-                        <div id="exam-palette-grid" class="grid grid-cols-6 gap-1.5">
-                            <!-- Palet nomor soal -->
+                        <div id="palette-summary-stats" class="text-[11px] font-mono text-slate-600 flex items-center justify-between px-0.5">
+                            <span>Dijawab: <strong id="pal-stat-answered" class="text-emerald-700">0</strong></span>
+                            <span>Ragu: <strong id="pal-stat-doubt" class="text-amber-700">0</strong></span>
+                            <span>Sisa: <strong id="pal-stat-unanswered" class="text-slate-600">25</strong></span>
+                        </div>
+
+                        <div id="exam-palette-grid" class="grid grid-cols-5 gap-2 pt-1">
+                            <!-- Palet nomor soal 5 x 5 -->
                         </div>
 
                         <div class="pt-2 border-t border-slate-200 space-y-2 text-[11px]">
-                            <div class="font-bold text-slate-600 uppercase tracking-wide text-[10px]">Keterangan Warna</div>
-                            <div class="flex items-center gap-2">
-                                <span class="w-4 h-4 rounded bg-emerald-50 border-[1.5px] border-emerald-500"></span>
-                                <span class="text-slate-600">Sudah dijawab</span>
+                            <div class="font-bold text-slate-600 uppercase tracking-wide text-[10px]">Petunjuk Status</div>
+                            <div class="grid grid-cols-2 gap-2 text-[11px]">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-3.5 h-3.5 rounded bg-emerald-50 border border-emerald-500"></span>
+                                    <span class="text-slate-600">Sudah dijawab</span>
+                                </div>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-3.5 h-3.5 rounded bg-amber-50 border border-amber-500"></span>
+                                    <span class="text-slate-600">Ragu-ragu</span>
+                                </div>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-3.5 h-3.5 rounded bg-white border border-slate-300"></span>
+                                    <span class="text-slate-600">Belum dijawab</span>
+                                </div>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-3.5 h-3.5 rounded border-2 border-blue-800 bg-blue-50"></span>
+                                    <span class="text-slate-800 font-bold">Sedang dibuka</span>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <span class="w-4 h-4 rounded bg-amber-50 border-[1.5px] border-amber-500"></span>
-                                <span class="text-slate-600">Ditandai ragu-ragu</span>
+                        </div>
+
+                        <!-- Referensi Konstanta Fisika Cepat -->
+                        <div class="p-2.5 rounded-lg bg-blue-50/60 border border-blue-100 text-[10px] font-mono text-blue-900 space-y-1">
+                            <div class="font-bold uppercase tracking-wide text-blue-950 flex items-center gap-1">
+                                <i data-lucide="info" class="w-3 h-3 text-blue-600"></i>
+                                <span>Konstanta Standar</span>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <span class="w-4 h-4 rounded bg-white border-[1.5px] border-slate-300"></span>
-                                <span class="text-slate-600">Belum dijawab</span>
+                            <div class="flex flex-wrap gap-x-2 gap-y-0.5 text-slate-700">
+                                <span>g = 10 m/s²</span> • <span>ρ_air = 1.000 kg/m³</span> • <span>P_atm = 10⁵ Pa</span>
                             </div>
                         </div>
                     </div>

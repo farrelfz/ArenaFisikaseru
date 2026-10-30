@@ -8,6 +8,13 @@ const LeaderboardModule = {
         this.renderFullTable();
     },
 
+    formatDisplayName(fullName) {
+        if (!fullName) return "-";
+        const parts = fullName.trim().split(/\s+/);
+        if (parts.length <= 2) return fullName;
+        return `${parts[0]} ${parts[1]}`;
+    },
+
     getTier(grade) {
         const g = Number(grade) || 0;
         if (g >= 95.0) {
@@ -117,7 +124,7 @@ const LeaderboardModule = {
                     </div>
                     <div class="text-right shrink-0">
                         <div class="text-xs font-mono font-bold text-blue-900">${Utils.formatNumber(r.totalScore)} Pts</div>
-                        <div class="text-[10px] text-emerald-700 font-semibold font-mono">${r.correctCount}/${CONFIG.TOTAL_QUESTIONS} Benar</div>
+                        <div class="text-[10px] text-emerald-700 font-semibold font-mono">${Math.min(CONFIG.TOTAL_QUESTIONS, r.correctCount)}/${CONFIG.TOTAL_QUESTIONS} Benar</div>
                     </div>
                 </div>
             `;
@@ -164,21 +171,33 @@ const LeaderboardModule = {
             const secs = (rec.durationSec || 0) % 60;
             const fairPlay = this.getFairPlayBadge(rec.tabSwitches);
 
-            let cardClass = "podium-card-silver h-[255px]";
-            let crownEl = "";
-            let medalBadge = `<span class="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-slate-200 text-slate-800 border border-slate-300">🥈 JUARA 2</span>`;
+            let cardClass = "podium-card-silver min-h-[265px] pt-7 mt-3";
+            let crownEl = `
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center w-8 h-8 rounded-full bg-slate-200 text-slate-800 shadow-md ring-4 ring-white" title="Juara 2">
+                    <span class="text-sm">🥈</span>
+                </div>
+            `;
+            let medalBadge = `<span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-slate-200 text-slate-800 border border-slate-300">🥈 JUARA 2</span>`;
 
             if (rank === 1) {
-                cardClass = "podium-card-gold h-[285px] sm:-mt-3";
+                cardClass = "podium-card-gold min-h-[295px] pt-8 -mt-2 sm:-mt-4 shadow-xl";
                 crownEl = `
-                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 flex items-center justify-center w-8 h-8 rounded-full bg-amber-400 text-amber-950 shadow-md ring-2 ring-white">
-                        <i data-lucide="crown" class="w-4 h-4"></i>
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center w-11 h-11 rounded-full bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-200 text-amber-950 shadow-xl ring-4 ring-white animate-bounce" title="👑 Juara 1 Utama Angkatan">
+                        <i data-lucide="crown" class="w-6 h-6 fill-amber-950"></i>
                     </div>
                 `;
-                medalBadge = `<span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-amber-300 text-amber-950 border border-amber-400 shadow-sm animate-pulse">👑 JUARA 1 UTAMA</span>`;
+                medalBadge = `<span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-300 text-amber-950 border border-amber-400 shadow-sm animate-pulse flex items-center gap-1.5">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-900"></i>
+                    <span>👑 JUARA 1 UTAMA</span>
+                </span>`;
             } else if (rank === 3) {
-                cardClass = "podium-card-bronze h-[245px]";
-                medalBadge = `<span class="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-orange-200 text-orange-950 border border-orange-300">🥉 JUARA 3</span>`;
+                cardClass = "podium-card-bronze min-h-[255px] pt-7 mt-3";
+                crownEl = `
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center w-8 h-8 rounded-full bg-orange-200 text-orange-950 shadow-md ring-4 ring-white" title="Juara 3">
+                        <span class="text-sm">🥉</span>
+                    </div>
+                `;
+                medalBadge = `<span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-orange-200 text-orange-950 border border-orange-300">🥉 JUARA 3</span>`;
             }
 
             return `
@@ -221,7 +240,7 @@ const LeaderboardModule = {
                             </div>
                         </div>
                         <div class="flex items-center justify-between pt-1 border-t border-slate-100 text-[10px] font-mono text-slate-500">
-                            <span>Akurasi: <strong class="text-emerald-700">${rec.correctCount}/${CONFIG.TOTAL_QUESTIONS}</strong></span>
+                            <span>Akurasi: <strong class="text-emerald-700">${Math.min(CONFIG.TOTAL_QUESTIONS, rec.correctCount)}/${CONFIG.TOTAL_QUESTIONS}</strong></span>
                             <span>Bonus: <strong class="text-emerald-700">+${Utils.formatNumber(rec.speedBonus)}</strong></span>
                         </div>
                     </div>
@@ -278,13 +297,13 @@ const LeaderboardModule = {
                     </div>
 
                     <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-blue-700 h-full rounded-full transition-all duration-500" style="width: ${Math.min(100, Math.round((cs.avgScore / 31000) * 100))}%"></div>
+                        <div class="bg-blue-700 h-full rounded-full transition-all duration-500" style="width: ${Math.min(100, Math.round((cs.avgScore / CONFIG.MAX_TOTAL_SCORE) * 100))}%"></div>
                     </div>
 
                     <div class="flex items-center justify-between text-[11px] font-mono text-slate-500 pt-0.5">
                         <span>${cs.count} Siswa • Tuntas ${cs.passRate}%</span>
-                        <span class="text-slate-800 font-semibold truncate max-w-[130px]" title="Top: ${cs.topStudent ? cs.topStudent.name : '-'}">
-                            ★ ${cs.topStudent ? cs.topStudent.name.split(' ')[0] : '-'}
+                        <span class="text-slate-800 font-semibold truncate max-w-[150px]" title="Top Scorer: ${Utils.escapeHtml(cs.topStudent ? cs.topStudent.name : '-')}">
+                            ★ ${Utils.escapeHtml(cs.topStudent ? this.formatDisplayName(cs.topStudent.name) : '-')}
                         </span>
                     </div>
                 </div>

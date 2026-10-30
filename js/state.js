@@ -39,14 +39,55 @@ const State = {
     // Record yang sedang dibuka di Mode Review
     currentReviewRecord: null,
 
+    // Fungsi Pembersih & Penyelaras Data (Mencegah Angka Hardcode / Data Usang 35 Soal)
+    sanitizeRecord(r) {
+        if (!r) return null;
+        let correctCount = Number(r.correctCount) || 0;
+
+        // Jika data lama dari era 35 butir soal, sesuaikan secara proporsional ke 25 butir
+        if (correctCount > CONFIG.TOTAL_QUESTIONS) {
+            correctCount = Math.min(CONFIG.TOTAL_QUESTIONS, Math.round((correctCount / 35) * CONFIG.TOTAL_QUESTIONS));
+        }
+
+        const durationSec = Math.min(CONFIG.EXAM_DURATION_SECONDS, Math.max(1, Number(r.durationSec) || 1800));
+        const remSec = Math.max(0, CONFIG.EXAM_DURATION_SECONDS - durationSec);
+        const academicGrade = Number(((correctCount / CONFIG.TOTAL_QUESTIONS) * 100).toFixed(1));
+        const baseScore = correctCount * CONFIG.BASE_POINTS_PER_QUESTION;
+        const accuracyRatio = correctCount / CONFIG.TOTAL_QUESTIONS;
+        const speedBonus = Math.round(accuracyRatio * (remSec / CONFIG.EXAM_DURATION_SECONDS) * CONFIG.MAX_SPEED_BONUS);
+        const totalScore = baseScore + speedBonus;
+
+        return {
+            ...r,
+            correctCount,
+            academicGrade,
+            durationSec,
+            baseScore,
+            speedBonus,
+            totalScore
+        };
+    },
+
     // Persistence Functions
     load() {
         try {
             const rawRec = localStorage.getItem(CONFIG.STORAGE_KEYS.RECORDS);
-            if (rawRec) this.leaderboardRecords = JSON.parse(rawRec);
+            if (rawRec) {
+                const parsed = JSON.parse(rawRec);
+                if (Array.isArray(parsed)) {
+                    this.leaderboardRecords = parsed.map(r => this.sanitizeRecord(r)).filter(Boolean);
+                }
+            }
 
             const rawIp = localStorage.getItem(CONFIG.STORAGE_KEYS.IP_MAP);
-            if (rawIp) this.ipLockRegistry = JSON.parse(rawIp);
+            if (rawIp) {
+                const parsedIp = JSON.parse(rawIp);
+                const cleanIpMap = {};
+                Object.keys(parsedIp || {}).forEach(k => {
+                    cleanIpMap[k] = this.sanitizeRecord(parsedIp[k]);
+                });
+                this.ipLockRegistry = cleanIpMap;
+            }
 
             const savedWebhook = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK);
             if (savedWebhook) {
