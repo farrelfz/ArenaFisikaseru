@@ -141,7 +141,8 @@ Data nilai siswa yang telah masuk ke Google Spreadsheet dilindungi oleh 3 lapis 
    - *Execute as*: **Me (Saya)**.
    - *Who has access*: **Anyone (Siapa saja)**.
    - Klik **Deploy**, lalu salin **URL Aplikasi Web** yang berakhiran `/exec`.
-8. Buka HydroArena di browser, masuk ke **Login Guru** (PIN Default: `GURU78`) ➔ Tab **Integrasi & Sandi** ➔ tempelkan URL tersebut ke kolom Webhook URL ➔ Klik **Simpan URL Webhook**.
+8. Salin **URL Aplikasi Web** yang berakhiran `/exec`. URL ini telah terintegrasi secara otomatis sebagai `DEFAULT_WEBHOOK_URL` di `js/config.js` sehingga seluruh gawai siswa akan langsung mengirim nilai ke spreadsheet tanpa konfigurasi manual.
+9. Untuk mengakses Panel Guru, gunakan metode autentikasi tersembunyi: klik **Logo HydroArena** sebanyak 3 kali berturut-turut atau buka URL dengan parameter `?admin=1`. Masukkan kode PIN resmi guru untuk mengelola sesi ujian dan data siswa.
 
 ---
 
