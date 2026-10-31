@@ -390,7 +390,7 @@ function ensureQuestionBankSheet(ss) {
     "Sebuah benda padat homogen mengapung di permukaan air (ρ<sub>air</sub> = 1.000 kg/m<sup>3</sup>) dengan 25% bagian volumenya berada di atas permukaan air. Massa jenis benda padat tersebut adalah...",
     "A",
     "750 kg/m<sup>3</sup>",
-    "Jika 25% volume berada di atas permukaan air, maka bagian volume yang tercelup di dalam air adalah V<sub>celup</sub> = 75% V = 0,75 V. Pada benda terapung berlaku ρ<sub>benda</sub> = (V<sub>celup</sub> / V<sub>total</sub>) × ρ<sub>air</sub> = 0,75 × 1.000 kg/m<sup>3</sup> = 750 kg/m<sup>3</sup>."
+    "Jika 25% volume berada di atas permukaan air, maka bagian volume yang tercelup di dalam air adalah V<sub>tercelup</sub> = 75% V = 0,75 V. Pada benda terapung berlaku ρ<sub>benda</sub> = (V<sub>tercelup</sub> / V<sub>total</sub>) × ρ<sub>air</sub> = 0,75 × 1.000 kg/m<sup>3</sup> = 750 kg/m<sup>3</sup>."
   ],
   [
     12,
