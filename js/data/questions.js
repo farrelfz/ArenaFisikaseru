@@ -1,7 +1,8 @@
 // ==========================================================================
 // HYDROARENA SMAN 78 JAKARTA - BANK 25 BUTIR SOAL TERKURASI FLUIDA XI
 // STANDAR ASESMEN KOMPETITIF (SNBT/UTBK & ANALISIS BERBOBOT)
-// FORMAT NOTASI ILMIAH RESMI DENGAN TAG SUB & SUP
+// 6 SULIT/HOTS • 16 SEDANG • 3 MUDAH (PROPORSI SEIMBANG)
+// DILENGKAPI DIAGRAM TEKNIS SVG JERNIH & BEBAS TUMPANG TINDIH
 // ==========================================================================
 
 const MASTER_QUESTIONS = [
@@ -39,7 +40,7 @@ const MASTER_QUESTIONS = [
         id: "Q04",
         num: 4,
         topic: "Tekanan Hidrostatis",
-        diagram: null,
+        diagram: SVG_THREE_VESSELS,
         question: "Tiga wadah berbeda bentuk diisi air (ρ = 1.000 kg/m<sup>3</sup>, g = 10 m/s<sup>2</sup>) hingga ketinggian yang sama, yaitu 50 cm di atas dasar. Wadah I berupa silinder lebar dengan luas dasar 400 cm<sup>2</sup>, wadah II berupa silinder sempit dengan luas dasar 100 cm<sup>2</sup>, dan wadah III berupa wadah yang melebar ke atas (corong) dengan luas dasar 250 cm<sup>2</sup>. Jika P<sub>I</sub>, P<sub>II</sub>, P<sub>III</sub> adalah tekanan hidrostatis di dasar tiap wadah dan F<sub>I</sub>, F<sub>II</sub>, F<sub>III</sub> adalah gaya hidrostatis total pada dasar tiap wadah, maka pernyataan yang benar adalah...",
         options: ["P<sub>I</sub> = P<sub>II</sub> = P<sub>III</sub> = 5.000 Pa, sedangkan F<sub>I</sub> : F<sub>II</sub> : F<sub>III</sub> = 8 : 2 : 5","P<sub>I</sub> = P<sub>II</sub> = P<sub>III</sub> = 5.000 Pa, sedangkan F<sub>I</sub> = F<sub>II</sub> = F<sub>III</sub> = 200 N","P<sub>I</sub> : P<sub>II</sub> : P<sub>III</sub> = 8 : 2 : 5, sedangkan F<sub>I</sub> = F<sub>II</sub> = F<sub>III</sub>","P<sub>I</sub> : P<sub>II</sub> : P<sub>III</sub> = 8 : 2 : 5, sedangkan F<sub>I</sub> : F<sub>II</sub> : F<sub>III</sub> = 8 : 2 : 5","P<sub>III</sub> > P<sub>I</sub> > P<sub>II</sub> karena wadah III berbentuk corong sehingga menampung volume air paling besar"],
         correctIndex: 0,
@@ -99,7 +100,7 @@ const MASTER_QUESTIONS = [
         id: "Q10",
         num: 10,
         topic: "Hukum Archimedes",
-        diagram: null,
+        diagram: SVG_ARCHIMEDES_SCALE,
         question: "Sebuah balok logam ditimbang di udara menggunakan neraca pegas menunjukkan berat 80 N. Ketika balok tersebut dicelupkan seluruhnya ke dalam air (ρ<sub>air</sub> = 1.000 kg/m<sup>3</sup>, g = 10 m/s<sup>2</sup>), neraca pegas menunjukkan angka 60 N. Massa jenis balok logam tersebut adalah...",
         options: ["4.000 kg/m<sup>3</sup>","3.000 kg/m<sup>3</sup>","2.500 kg/m<sup>3</sup>","4.800 kg/m<sup>3</sup>","2.000 kg/m<sup>3</sup>"],
         correctIndex: 0,
@@ -129,7 +130,7 @@ const MASTER_QUESTIONS = [
         id: "Q13",
         num: 13,
         topic: "Hukum Archimedes",
-        diagram: null,
+        diagram: SVG_TWO_LIQUIDS_CUBE,
         question: "Sebuah kubus kayu berada dalam kesetimbangan di antara dua lapisan cairan yang tidak bercampur, yaitu air (ρ<sub>air</sub> = 1,0 g/cm<sup>3</sup>) di bagian bawah dan minyak (ρ<sub>minyak</sub> = 0,8 g/cm<sup>3</sup>) di bagian atas. Jika 60% volume kubus tercelup di dalam air dan 40% sisanya tercelup di dalam minyak, massa jenis kubus kayu tersebut adalah...",
         options: ["0,92 g/cm<sup>3</sup>","0,90 g/cm<sup>3</sup>","0,88 g/cm<sup>3</sup>","0,84 g/cm<sup>3</sup>","0,96 g/cm<sup>3</sup>"],
         correctIndex: 0,
@@ -139,7 +140,7 @@ const MASTER_QUESTIONS = [
         id: "Q14",
         num: 14,
         topic: "Persamaan Kontinuitas",
-        diagram: null,
+        diagram: SVG_BRANCHED_PIPE,
         question: "Pipa utama saluran air berpenampang A<sub>0</sub> = 30 cm<sup>2</sup> mengalirkan air dengan kelajuan v<sub>0</sub> = 3 m/s, kemudian bercabang menjadi dua pipa. Cabang A berpenampang 12 cm<sup>2</sup> dengan kelajuan aliran 4 m/s, sedangkan cabang B berpenampang 10 cm<sup>2</sup>. Jika seluruh air dari cabang B dialirkan untuk mengisi tandon berkapasitas 1.260 liter, maka kelajuan aliran di cabang B dan waktu yang diperlukan hingga tandon penuh adalah...",
         options: ["v<sub>B</sub> = 4,2 m/s dan tandon penuh dalam 5 menit","v<sub>B</sub> = 4,2 m/s dan tandon penuh dalam 50 menit","v<sub>B</sub> = 4,2 m/s dan tandon penuh dalam 2,5 menit","v<sub>B</sub> = 4,8 m/s dan tandon penuh dalam 5 menit","v<sub>B</sub> = 13,8 m/s dan tandon penuh dalam 5 menit"],
         correctIndex: 0,
@@ -179,7 +180,7 @@ const MASTER_QUESTIONS = [
         id: "Q18",
         num: 18,
         topic: "Teorema Torricelli",
-        diagram: null,
+        diagram: SVG_DUAL_TORRICELLI,
         question: "Sebuah tangki penampung air memiliki permukaan air 5,0 meter di atas tanah. Dua lubang semprotan dibuat pada dinding tangki: lubang A pada ketinggian y<sub>A</sub> = 1,8 meter dari tanah dan lubang B pada ketinggian yang berbeda. Pancaran air dari kedua lubang mengenai tanah pada jarak horizontal yang sama dari dinding tangki (g = 10 m/s<sup>2</sup>). Ketinggian letak lubang B dan jarak horizontal pancaran tersebut adalah...",
         options: ["y<sub>B</sub> = 3,2 m dan x = 4,8 m","y<sub>B</sub> = 2,5 m dan x = 5,0 m","y<sub>B</sub> = 3,2 m dan x = 5,0 m","y<sub>B</sub> = 3,2 m dan x = 6,4 m","y<sub>B</sub> = 1,8 m dan x = 4,8 m"],
         correctIndex: 0,
