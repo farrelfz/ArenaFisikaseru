@@ -447,13 +447,10 @@
                             <!-- Diisi oleh JavaScript -->
                         </div>
 
-                        <div class="pt-2 border-t border-slate-200 flex items-center justify-between text-xs">
-                            <a href="https://docs.google.com/spreadsheets/d/1hFypaFplnQggt2Nva6Apt4lPHJ66S3kQTXWoDmDlQSg/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-blue-800 flex items-center gap-1 font-mono text-[11px] font-medium transition">
-                                <i data-lucide="table-2" class="w-3.5 h-3.5 text-emerald-600"></i>
-                                <span>Spreadsheet Nilai</span>
-                            </a>
-                            <button onclick="App.switchView('leaderboard')" class="text-blue-800 hover:text-blue-900 font-bold">
-                                Selengkapnya →
+                        <div class="pt-2 border-t border-slate-200 flex items-center justify-end text-xs">
+                            <button onclick="App.switchView('leaderboard')" class="text-blue-800 hover:text-blue-900 font-bold flex items-center gap-1">
+                                <span>Lihat Klasemen Lengkap</span>
+                                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                             </button>
                         </div>
                     </div>
@@ -743,24 +740,16 @@
         <section id="view-leaderboard" class="hidden space-y-6">
 
             <!-- Banner: Sesi Ujian Selesai (Tampil saat Guru Tutup Ujian setelah ada pengisian) -->
-            <div id="lb-exam-finished-banner" class="hidden p-4 rounded-xl bg-gradient-to-r from-amber-500/15 via-blue-500/10 to-emerald-500/15 border-2 border-amber-300 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
-                        <i data-lucide="trophy" class="w-5 h-5 text-amber-600"></i>
-                    </div>
-                    <div>
-                        <div class="text-sm font-bold text-slate-900 flex items-center gap-2">
-                            <span>Sesi Evaluasi Ujian Telah Resmi Berakhir</span>
-                            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300">HASIL FINAL</span>
-                        </div>
-                        <p class="text-xs text-slate-600 mt-0.5">Pengerjaan lembar soal telah resmi ditutup oleh Guru. Di bawah ini adalah hasil rekapitulasi nilai dan peringkat akhir seluruh murid kelas XI A – XI F.</p>
-                    </div>
+            <div id="lb-exam-finished-banner" class="hidden p-4 rounded-xl bg-gradient-to-r from-amber-500/15 via-blue-500/10 to-emerald-500/15 border-2 border-amber-300 shadow-sm flex items-center gap-3.5">
+                <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
+                    <i data-lucide="trophy" class="w-5 h-5 text-amber-600"></i>
                 </div>
-                <div class="flex items-center gap-2 shrink-0">
-                    <a href="https://docs.google.com/spreadsheets/d/1hFypaFplnQggt2Nva6Apt4lPHJ66S3kQTXWoDmDlQSg/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="edu-btn-secondary px-3 py-1.5 text-xs font-mono font-semibold flex items-center gap-1.5">
-                        <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-emerald-600"></i>
-                        <span>Spreadsheet Rapor</span>
-                    </a>
+                <div>
+                    <div class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                        <span>Sesi Evaluasi Ujian Telah Resmi Berakhir</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300">HASIL FINAL</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-0.5">Pengerjaan lembar soal telah resmi ditutup oleh Guru. Di bawah ini adalah hasil rekapitulasi nilai dan peringkat akhir seluruh murid kelas XI A – XI F.</p>
                 </div>
             </div>
 
