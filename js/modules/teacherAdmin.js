@@ -211,18 +211,48 @@ const TeacherAdminModule = {
         lucide.createIcons();
     },
 
-    toggleExamStatus() {
+    async toggleExamStatus() {
         State.examConfig.isOpen = !State.examConfig.isOpen;
         State.save();
         App.applyExamConfigUI();
         Utils.showToast(`Status Ujian diubah: ${State.examConfig.isOpen ? 'PENDAFTARAN DIBUKA' : 'PENDAFTARAN DITUTUP'}`);
+
+        // Broadcast ke Google Spreadsheet Webhook
+        const webhookUrl = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK) || CONFIG.DEFAULT_WEBHOOK_URL;
+        if (webhookUrl && webhookUrl.startsWith("http")) {
+            try {
+                await fetch(webhookUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'setExamConfig', isOpen: State.examConfig.isOpen })
+                });
+            } catch (err) {
+                console.warn("Gagal sinkronisasi status ujian ke server:", err);
+            }
+        }
     },
 
-    toggleReviewStatus() {
+    async toggleReviewStatus() {
         State.examConfig.allowReview = !State.examConfig.allowReview;
         State.save();
         App.applyExamConfigUI();
         Utils.showToast(`Mode Pembahasan diubah: ${State.examConfig.allowReview ? 'DIIZINKAN' : 'DIKUNCI'}`);
+
+        // Broadcast ke Google Spreadsheet Webhook
+        const webhookUrl = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK) || CONFIG.DEFAULT_WEBHOOK_URL;
+        if (webhookUrl && webhookUrl.startsWith("http")) {
+            try {
+                await fetch(webhookUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'setExamConfig', allowReview: State.examConfig.allowReview })
+                });
+            } catch (err) {
+                console.warn("Gagal sinkronisasi mode pembahasan ke server:", err);
+            }
+        }
     },
 
     renderPanel() {

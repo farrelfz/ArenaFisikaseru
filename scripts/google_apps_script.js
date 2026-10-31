@@ -57,6 +57,23 @@ function doPost(e) {
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
+    // Aksi Pengaturan Sesi Ujian dari Guru (Buka/Tutup Ujian, Kunci Pembahasan)
+    if (d.action === "setExamConfig") {
+      const props = PropertiesService.getScriptProperties();
+      if (typeof d.isOpen === "boolean") {
+        props.setProperty("EXAM_IS_OPEN", String(d.isOpen));
+      }
+      if (typeof d.allowReview === "boolean") {
+        props.setProperty("ALLOW_REVIEW", String(d.allowReview));
+      }
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "ok",
+        message: "Status ujian berhasil diperbarui di server.",
+        examIsOpen: props.getProperty("EXAM_IS_OPEN") !== "false",
+        allowReview: props.getProperty("ALLOW_REVIEW") !== "false"
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
     // 1 KELAS 1 SHEET (Contoh: "XI A", "XI B", dst)
     const targetSheetName = (d.className || "XI A").trim();
     let sheet = ss.getSheetByName(targetSheetName);
@@ -535,7 +552,14 @@ function ensureQuestionBankSheet(ss) {
 
 function doGet() {
   try {
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    let ss;
+    try { ss = SpreadsheetApp.getActiveSpreadsheet(); } catch (e) {}
+    if (!ss) ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+
+    const props = PropertiesService.getScriptProperties();
+    const examIsOpen = props.getProperty("EXAM_IS_OPEN") !== "false";
+    const allowReview = props.getProperty("ALLOW_REVIEW") !== "false";
+
     const allRows = [];
     ss.getSheets().forEach(sh => {
       if (sh.getName() === "Pertanyaan & Kunci Jawaban") return;
@@ -548,6 +572,8 @@ function doGet() {
     });
     return ContentService.createTextOutput(JSON.stringify({
       status: "active",
+      examIsOpen: examIsOpen,
+      allowReview: allowReview,
       totalSheets: ss.getSheets().length,
       totalRecords: allRows.length,
       rows: allRows

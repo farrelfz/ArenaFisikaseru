@@ -323,6 +323,29 @@ const LeaderboardModule = {
         if (window.lucide) lucide.createIcons();
     },
 
+    setClassFilter(cls) {
+        const select = document.getElementById('lb-class-filter');
+        if (select) select.value = cls;
+        this.renderClassFilterButtons(cls);
+        this.renderFullTable();
+    },
+
+    renderClassFilterButtons(activeCls = "ALL") {
+        const container = document.getElementById('lb-class-quick-pills');
+        if (!container) return;
+        const classes = ['ALL', ...CONFIG.CLASSES];
+        container.innerHTML = classes.map(c => {
+            const isActive = c === activeCls;
+            const label = c === 'ALL' ? 'Semua Kelas' : c;
+            return `
+                <button type="button" onclick="LeaderboardModule.setClassFilter('${c}')"
+                    class="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold transition shadow-sm ${isActive ? 'bg-blue-800 text-white shadow-blue-900/20' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}">
+                    ${label}
+                </button>
+            `;
+        }).join('');
+    },
+
     renderFullTable() {
         const classFilter = (document.getElementById('lb-class-filter')?.value) || 'ALL';
         const searchQuery = ((document.getElementById('lb-search-input')?.value) || '').toLowerCase().trim();
@@ -351,6 +374,9 @@ const LeaderboardModule = {
 
         // Render Podium Top 3 (berdasarkan filter kelas yang aktif bila ada)
         this.renderPodiumTop3(filtered.slice(0, 3));
+
+        // Render Quick Class Filter Buttons
+        this.renderClassFilterButtons(classFilter);
 
         // Render Class Battle (selalu komparatif 6 kelas)
         this.renderClassBattle(allRecords);

@@ -62,16 +62,21 @@ const App = {
             viewName = 'exam';
         }
 
+        // Jika ujian sudah selesai (tertutup dan sudah ada nilai) dan bukan guru, cegah akses tab ujian
+        if (viewName === 'exam' && !State.examConfig.isOpen && State.leaderboardRecords.length > 0 && !State.isTeacherLoggedIn && !State.isAdminTriggered) {
+            viewName = 'leaderboard';
+        }
+
         const views = ['exam', 'leaderboard', 'sheet'];
         views.forEach(v => {
             const sectionEl = document.getElementById(`view-${v}`);
             const tabBtn = document.getElementById(`nav-tab-${v}`);
             if (v === viewName) {
                 if (sectionEl) sectionEl.classList.remove('hidden');
-                if (tabBtn) tabBtn.className = "px-3.5 py-1.5 rounded-md text-xs font-bold transition-all bg-blue-800 text-white shadow-sm flex items-center gap-1.5";
+                if (tabBtn) tabBtn.className = "px-3 sm:px-3.5 py-1.5 rounded-md text-xs font-bold transition-all bg-blue-800 text-white shadow-sm flex items-center justify-center gap-1.5 flex-1 sm:flex-none";
             } else {
                 if (sectionEl) sectionEl.classList.add('hidden');
-                if (tabBtn) tabBtn.className = "px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all text-slate-600 hover:text-slate-900 flex items-center gap-1.5";
+                if (tabBtn) tabBtn.className = "px-3 sm:px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all text-slate-600 hover:text-slate-900 flex items-center justify-center gap-1.5 flex-1 sm:flex-none";
             }
         });
 
@@ -89,9 +94,21 @@ const App = {
         const statusDot = document.getElementById('header-exam-status-dot');
         const statusText = document.getElementById('header-exam-status-text');
         const statusPill = document.getElementById('header-exam-status-pill');
+        const navTabExam = document.getElementById('nav-tab-exam');
+        const studyGuide = document.getElementById('lobby-study-guide-card');
+        const examStartForm = document.getElementById('exam-start-form');
+        const finBanner = document.getElementById('lb-exam-finished-banner');
+
+        const totalRecords = State.leaderboardRecords.length;
 
         if (State.examConfig.isOpen) {
+            // KONDISI A: UJIAN DIBUKA
+            if (navTabExam) navTabExam.classList.remove('hidden');
             if (closedBanner) closedBanner.classList.add('hidden');
+            if (studyGuide) studyGuide.classList.add('hidden');
+            if (examStartForm) examStartForm.classList.remove('hidden');
+            if (finBanner) finBanner.classList.add('hidden');
+
             if (startBtn) {
                 startBtn.disabled = false;
                 startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
@@ -100,13 +117,37 @@ const App = {
             if (statusText) statusText.textContent = "Ujian Buka";
             if (statusPill) statusPill.className = "hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-800";
         } else {
-            if (closedBanner) closedBanner.classList.remove('hidden');
+            // KONDISI B: UJIAN DITUTUP
+            if (totalRecords > 0) {
+                // KONDISI B2: UJIAN SELESAI (SUDAH ADA NILAI / DATA TERISI)
+                if (!State.isTeacherLoggedIn && !State.isAdminTriggered) {
+                    if (navTabExam) navTabExam.classList.add('hidden');
+                } else {
+                    if (navTabExam) navTabExam.classList.remove('hidden');
+                }
+
+                if (finBanner) finBanner.classList.remove('hidden');
+
+                // Alihkan ke klasemen akhir jika murid sedang di tab ujian
+                const viewExam = document.getElementById('view-exam');
+                if (viewExam && !viewExam.classList.contains('hidden') && !State.isTeacherLoggedIn && !State.isAdminTriggered) {
+                    this.switchView('leaderboard');
+                }
+            } else {
+                // KONDISI B1: SEBELUM UJIAN DIMULAI (BELUM ADA DATA)
+                if (navTabExam) navTabExam.classList.remove('hidden');
+                if (finBanner) finBanner.classList.add('hidden');
+
+                if (studyGuide) studyGuide.classList.remove('hidden');
+                if (examStartForm) examStartForm.classList.add('hidden');
+            }
+
             if (startBtn) {
                 startBtn.disabled = true;
                 startBtn.classList.add('opacity-50', 'cursor-not-allowed');
             }
             if (statusDot) statusDot.className = "w-2 h-2 rounded-full bg-rose-500";
-            if (statusText) statusText.textContent = "Pendaftaran Ditutup";
+            if (statusText) statusText.textContent = totalRecords > 0 ? "Ujian Ditutup" : "Belum Dibuka";
             if (statusPill) statusPill.className = "hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-800";
         }
 

@@ -15,6 +15,17 @@ const SpreadsheetService = {
                 const res = await fetch(webhookUrl, { cache: 'no-store' });
                 if (res.ok) {
                     const data = await res.json();
+
+                    // Sinkronisasi status ujian global dari server jika ada
+                    if (data && typeof data.examIsOpen === 'boolean') {
+                        State.examConfig.isOpen = data.examIsOpen;
+                    }
+                    if (data && typeof data.allowReview === 'boolean') {
+                        State.examConfig.allowReview = data.allowReview;
+                    }
+                    State.save();
+                    App.applyExamConfigUI();
+
                     if (data && Array.isArray(data.rows) && data.rows.length > 0) {
                         fetchedRows = data.rows.map((rowCells, idx) => {
                             return this._parseGvizRow(rowCells, idx);
