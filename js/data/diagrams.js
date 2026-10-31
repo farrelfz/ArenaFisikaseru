@@ -31,9 +31,9 @@ const SVG_HYDRAULIC_JACK = `<svg viewBox="0 0 380 140" class="w-full max-w-md h-
     <rect x="212" y="30" width="81" height="9" fill="#0284c7" rx="2"/>
     <line x1="82" y1="8" x2="82" y2="28" stroke="#dc2626" stroke-width="2.5"/>
     <polygon points="82,30 77,20 87,20" fill="#dc2626"/>
-    <text x="35" y="20" fill="#dc2626" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="700">F₁ = 220 N</text>
+    <text x="40" y="20" fill="#dc2626" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="700">F₁ = ? (Gaya Masukan)</text>
     <text x="38" y="130" fill="#475569" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="600">A₁ = 8,5 cm²</text>
-    <text x="205" y="20" fill="#1e3a8a" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="700">F₂ = ? (Beban)</text>
+    <text x="205" y="20" fill="#1e3a8a" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="700">F₂ = Beban (W)</text>
     <text x="205" y="130" fill="#475569" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="600">A₂ = 340 cm²</text>
 </svg>`;
 
@@ -118,8 +118,8 @@ const SVG_AIRFOIL = `<svg viewBox="0 0 380 125" class="w-full max-w-md h-28 bg-s
     <path d="M65 72 Q 155 22, 295 72 Z" fill="#e2e8f0" stroke="#334155" stroke-width="2"/>
     <path d="M35 45 Q 155 10, 325 48" fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="4,2"/>
     <path d="M35 88 L 325 88" fill="none" stroke="#64748b" stroke-width="1.5"/>
-    <text x="115" y="24" fill="#2563eb" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="700">Aliran Atas (v_atas lebih cepat, P_atas rendah)</text>
-    <text x="115" y="106" fill="#475569" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="600">Aliran Bawah (v_bawah lebih lambat, P_bawah tinggi)</text>
+    <text x="140" y="24" fill="#2563eb" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="700">Aliran Udara Atas (v₁)</text>
+    <text x="140" y="106" fill="#475569" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="600">Aliran Udara Bawah (v₂)</text>
 </svg>`;
 
 if (typeof module !== "undefined") {

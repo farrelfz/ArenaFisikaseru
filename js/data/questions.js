@@ -1,7 +1,7 @@
 // ==========================================================================
 // HYDROARENA SMAN 78 JAKARTA - BANK 25 BUTIR SOAL TERKURASI FLUIDA XI
-// STANDAR SILABUS RESMI: FLUIDA STATIS & FLUIDA DINAMIS
-// NOTASI TIPOGRAFI STANDAR ILMIAH (SUB & SUP)
+// STANDAR ASESMEN KOMPETITIF (SNBT/UTBK & ANALISIS BERBOBOT)
+// FORMAT NOTASI ILMIAH RESMI DENGAN TAG SUB & SUP
 // ==========================================================================
 
 const MASTER_QUESTIONS = [
@@ -40,20 +40,20 @@ const MASTER_QUESTIONS = [
         num: 4,
         topic: "Tekanan Hidrostatis",
         diagram: null,
-        question: "Berdasarkan prinsip fisika pada fluida statis, pernyataan yang paling tepat mengenai hubungan antara posisi titik di dalam zat cair homogen dengan tekanan hidrostatis adalah...",
-        options: ["Tekanan hidrostatis berbanding lurus dengan kedalaman titik yang diukur vertikal dari permukaan bebas zat cair","Tekanan hidrostatis berbanding lurus dengan jarak titik yang diukur vertikal dari dasar wadah","Tekanan hidrostatis bergantung pada luas penampang horizontal wadah silinder","Tekanan hidrostatis bernilai maksimum tepat pada permukaan bebas zat cair","Tekanan hidrostatis berbanding terbalik dengan percepatan gravitasi di tempat tersebut"],
+        question: "Tiga wadah berbeda bentuk diisi air (ρ = 1.000 kg/m<sup>3</sup>, g = 10 m/s<sup>2</sup>) hingga ketinggian yang sama, yaitu 50 cm di atas dasar. Wadah I berupa silinder lebar dengan luas dasar 400 cm<sup>2</sup>, wadah II berupa silinder sempit dengan luas dasar 100 cm<sup>2</sup>, dan wadah III berupa wadah yang melebar ke atas (corong) dengan luas dasar 250 cm<sup>2</sup>. Jika P<sub>I</sub>, P<sub>II</sub>, P<sub>III</sub> adalah tekanan hidrostatis di dasar tiap wadah dan F<sub>I</sub>, F<sub>II</sub>, F<sub>III</sub> adalah gaya hidrostatis total pada dasar tiap wadah, maka pernyataan yang benar adalah...",
+        options: ["P<sub>I</sub> = P<sub>II</sub> = P<sub>III</sub> = 5.000 Pa, sedangkan F<sub>I</sub> : F<sub>II</sub> : F<sub>III</sub> = 8 : 2 : 5","P<sub>I</sub> = P<sub>II</sub> = P<sub>III</sub> = 5.000 Pa, sedangkan F<sub>I</sub> = F<sub>II</sub> = F<sub>III</sub> = 200 N","P<sub>I</sub> : P<sub>II</sub> : P<sub>III</sub> = 8 : 2 : 5, sedangkan F<sub>I</sub> = F<sub>II</sub> = F<sub>III</sub>","P<sub>I</sub> : P<sub>II</sub> : P<sub>III</sub> = 8 : 2 : 5, sedangkan F<sub>I</sub> : F<sub>II</sub> : F<sub>III</sub> = 8 : 2 : 5","P<sub>III</sub> > P<sub>I</sub> > P<sub>II</sub> karena wadah III berbentuk corong sehingga menampung volume air paling besar"],
         correctIndex: 0,
-        explanation: "Sesuai persamaan P<sub>h</sub> = ρ·g·h, variabel h selalu diukur secara vertikal dari permukaan bebas zat cair ke titik pengamatan, sehingga makin dalam posisi titik dari permukaan, makin besar tekanan hidrostatisnya."
+        explanation: "Tekanan hidrostatis adalah besaran intensif yang hanya bergantung pada kedalaman: P = ρ·g·h = 1.000 × 10 × 0,50 = 5.000 Pa, sama untuk ketiga wadah. Gaya hidrostatis bersifat ekstensif: F = P·A, sehingga F<sub>I</sub> = 5.000 × 0,04 = 200 N; F<sub>II</sub> = 5.000 × 0,01 = 50 N; F<sub>III</sub> = 5.000 × 0,025 = 125 N. Perbandingannya: F<sub>I</sub> : F<sub>II</sub> : F<sub>III</sub> = 200 : 50 : 125 = 8 : 2 : 5 (Paradoks Hidrostatika)."
     },
     {
         id: "Q05",
         num: 5,
         topic: "Prinsip Pascal",
         diagram: SVG_HYDRAULIC_JACK,
-        question: "Sebuah dongkrak hidrolik digunakan untuk mengangkat beban. Jika luas penampang piston kecil 8,5 cm<sup>2</sup> dan piston besar 340 cm<sup>2</sup>, serta gaya tekan yang diberikan pada piston kecil sebesar 220 N, maka gaya angkat yang dihasilkan pada piston besar adalah...",
-        options: ["8.800 N","4.400 N","6.600 N","880 N","17.600 N"],
+        question: "Sebuah dongkrak hidrolik memiliki piston kecil dengan luas penampang A<sub>1</sub> = 8,5 cm<sup>2</sup> dan piston besar dengan A<sub>2</sub> = 340 cm<sup>2</sup>. Dongkrak tersebut digunakan untuk mengangkat mobil bermassa 800 kg (g = 10 m/s<sup>2</sup>) setinggi 8 cm. Jika efisiensi sistem adalah 80% dan setiap kali penekanan piston kecil turun sejauh 20 cm, maka gaya minimum yang harus diberikan pada setiap penekanan dan jumlah penekanan yang diperlukan berturut-turut adalah...",
+        options: ["250 N dan 16 kali penekanan","200 N dan 16 kali penekanan","250 N dan 40 kali penekanan","312,5 N dan 16 kali penekanan","200 N dan 20 kali penekanan"],
         correctIndex: 0,
-        explanation: "Berdasarkan Hukum Pascal: F<sub>1</sub> / A<sub>1</sub> = F<sub>2</sub> / A<sub>2</sub> → F<sub>2</sub> = (A<sub>2</sub> / A<sub>1</sub>) × F<sub>1</sub> = (340 cm<sup>2</sup> / 8,5 cm<sup>2</sup>) × 220 N = 40 × 220 N = 8.800 N."
+        explanation: "Keuntungan mekanis KM = A<sub>2</sub> / A<sub>1</sub> = 340 / 8,5 = 40. Berat mobil W = m·g = 800 × 10 = 8.000 N, sehingga gaya ideal F<sub>1(ideal)</sub> = 8.000 / 40 = 200 N. Dengan efisiensi 80%: F<sub>1(nyata)</sub> = 200 / 0,80 = 250 N. Jarak tempuh piston kecil: A<sub>1</sub>·s<sub>1</sub> = A<sub>2</sub>·s<sub>2</sub> → s<sub>1</sub> = 40 × 8 cm = 320 cm. Jumlah penekanan: 320 cm / 20 cm = 16 kali penekanan."
     },
     {
         id: "Q06",
@@ -139,11 +139,11 @@ const MASTER_QUESTIONS = [
         id: "Q14",
         num: 14,
         topic: "Persamaan Kontinuitas",
-        diagram: SVG_HORIZONTAL_PIPE,
-        question: "Air mengalir melalui pipa horizontal yang memiliki dua penampang berbeda seperti pada gambar. Pada bagian pertama, luas penampang pipa A<sub>1</sub> = 24 cm<sup>2</sup> dengan kecepatan aliran v<sub>1</sub> = 1,8 m/s. Pipa kemudian menyempit sehingga luas penampang pada bagian kedua menjadi A<sub>2</sub> = 8 cm<sup>2</sup>. Kecepatan aliran air pada bagian kedua (v<sub>2</sub>) adalah...",
-        options: ["5,4 m/s","3,6 m/s","0,6 m/s","7,2 m/s","4,8 m/s"],
+        diagram: null,
+        question: "Pipa utama saluran air berpenampang A<sub>0</sub> = 30 cm<sup>2</sup> mengalirkan air dengan kelajuan v<sub>0</sub> = 3 m/s, kemudian bercabang menjadi dua pipa. Cabang A berpenampang 12 cm<sup>2</sup> dengan kelajuan aliran 4 m/s, sedangkan cabang B berpenampang 10 cm<sup>2</sup>. Jika seluruh air dari cabang B dialirkan untuk mengisi tandon berkapasitas 1.260 liter, maka kelajuan aliran di cabang B dan waktu yang diperlukan hingga tandon penuh adalah...",
+        options: ["v<sub>B</sub> = 4,2 m/s dan tandon penuh dalam 5 menit","v<sub>B</sub> = 4,2 m/s dan tandon penuh dalam 50 menit","v<sub>B</sub> = 4,2 m/s dan tandon penuh dalam 2,5 menit","v<sub>B</sub> = 4,8 m/s dan tandon penuh dalam 5 menit","v<sub>B</sub> = 13,8 m/s dan tandon penuh dalam 5 menit"],
         correctIndex: 0,
-        explanation: "Berdasarkan persamaan kontinuitas A<sub>1</sub>·v<sub>1</sub> = A<sub>2</sub>·v<sub>2</sub> → 24 cm<sup>2</sup> × 1,8 m/s = 8 cm<sup>2</sup> × v<sub>2</sub> → v<sub>2</sub> = 3 × 1,8 m/s = 5,4 m/s."
+        explanation: "Debit pipa utama terbagi ke kedua cabang: Q<sub>0</sub> = Q<sub>A</sub> + Q<sub>B</sub>. Q<sub>0</sub> = 30×10<sup>−4</sup> × 3 = 9×10<sup>−3</sup> m<sup>3</sup>/s = 9 L/s. Q<sub>A</sub> = 12×10<sup>−4</sup> × 4 = 4,8×10<sup>−3</sup> m<sup>3</sup>/s = 4,8 L/s. Maka Q<sub>B</sub> = 9 − 4,8 = 4,2 L/s = 4,2×10<sup>−3</sup> m<sup>3</sup>/s. Kelajuan cabang B: v<sub>B</sub> = Q<sub>B</sub> / A<sub>B</sub> = 4,2×10<sup>−3</sup> / 10×10<sup>−4</sup> = 4,2 m/s. Waktu pengisian tandon: t = Volume / Q<sub>B</sub> = 1.260 L / 4,2 L/s = 300 sekon = 5 menit."
     },
     {
         id: "Q15",
@@ -179,21 +179,21 @@ const MASTER_QUESTIONS = [
         id: "Q18",
         num: 18,
         topic: "Teorema Torricelli",
-        diagram: SVG_TORRICELLI_TANK,
-        question: "Berdasarkan tangki terbuka dengan permukaan air 5,8 meter dari tanah dan lubang kebocoran pada ketinggian y = 2,3 meter di atas permukaan tanah (g = 10 m/s<sup>2</sup>), waktu yang diperlukan air untuk mencapai permukaan tanah sejak keluar secara horizontal dari lubang adalah...",
-        options: ["t = √0,46 sekon (≈ 0,68 sekon)","t = √0,70 sekon (≈ 0,84 sekon)","t = 0,46 sekon","t = √1,16 sekon (≈ 1,08 sekon)","t = 0,23 sekon"],
+        diagram: null,
+        question: "Sebuah tangki penampung air memiliki permukaan air 5,0 meter di atas tanah. Dua lubang semprotan dibuat pada dinding tangki: lubang A pada ketinggian y<sub>A</sub> = 1,8 meter dari tanah dan lubang B pada ketinggian yang berbeda. Pancaran air dari kedua lubang mengenai tanah pada jarak horizontal yang sama dari dinding tangki (g = 10 m/s<sup>2</sup>). Ketinggian letak lubang B dan jarak horizontal pancaran tersebut adalah...",
+        options: ["y<sub>B</sub> = 3,2 m dan x = 4,8 m","y<sub>B</sub> = 2,5 m dan x = 5,0 m","y<sub>B</sub> = 3,2 m dan x = 5,0 m","y<sub>B</sub> = 3,2 m dan x = 6,4 m","y<sub>B</sub> = 1,8 m dan x = 4,8 m"],
         correctIndex: 0,
-        explanation: "Gerak vertikal air setelah keluar horizontal dari lubang (v<sub>0y</sub> = 0) adalah gerak jatuh bebas dari ketinggian y = 2,3 m: y = ½·g·t<sup>2</sup> → t = √(2y / g) = √(2 × 2,3 / 10) = √0,46 s ≈ 0,68 s."
+        explanation: "Jarak pancar x = 2√((H − y)·y). Syarat x<sub>A</sub> = x<sub>B</sub> berarti nilai perkalian kedalaman dan ketinggian sama: (H − y<sub>A</sub>)·y<sub>A</sub> = (H − y<sub>B</sub>)·y<sub>B</sub>. Berdasarkan sifat simetri akar persamaan kuadrat, y<sub>A</sub> + y<sub>B</sub> = H = 5,0 m → y<sub>B</sub> = 5,0 − 1,8 = 3,2 m. Jarak jangkauan: x = 2√(3,2 × 1,8) = 2√5,76 = 2 × 2,4 = 4,8 meter."
     },
     {
         id: "Q19",
         num: 19,
         topic: "Persamaan Bernoulli",
         diagram: SVG_HORIZONTAL_PIPE,
-        question: "Berdasarkan hasil perhitungan kecepatan dan tekanan pada pipa horizontal yang menyempit dari 24 cm<sup>2</sup> menjadi 8 cm<sup>2</sup>, kesimpulan fisis yang benar mengenai hubungan antara luas penampang, kecepatan aliran, dan tekanan statis adalah...",
-        options: ["Pada penampang yang lebih sempit, kecepatan aliran meningkat sehingga energi kinetik per satuan volume bertambah dan tekanan statis menurun","Pada penampang yang lebih sempit, kecepatan aliran meningkat sehingga tekanan statis ikut meningkat secara proporsional","Penyempitan penampang menyebabkan debit aliran berkurang drastis sehingga tekanan statis menurun","Tekanan statis pada kedua penampang tetap sama karena ketinggian pipa tidak berubah","Kecepatan aliran berbanding lurus dengan luas penampang dan berbanding lurus dengan tekanan statis"],
+        question: "Air mengalir melalui pipa horizontal yang menyempit dari penampang A<sub>1</sub> = 24 cm<sup>2</sup> menuju A<sub>2</sub> = 8 cm<sup>2</sup>. Manometer pada kedua penampang mencatat selisih tekanan statis sebesar 16.000 Pa (ρ<sub>air</sub> = 1.000 kg/m<sup>3</sup>). Kelajuan aliran air pada penampang masuk (v<sub>1</sub>) dan selisih tekanan statis yang terbaca jika debit aliran digandakan menjadi dua kali lipat semula adalah...",
+        options: ["v<sub>1</sub> = 2 m/s dan selisih tekanan menjadi 64.000 Pa","v<sub>1</sub> = 2 m/s dan selisih tekanan menjadi 32.000 Pa","v<sub>1</sub> = 2 m/s dan selisih tekanan menjadi 4.000 Pa","v<sub>1</sub> ≈ 5,66 m/s dan selisih tekanan menjadi 64.000 Pa","v<sub>1</sub> = 4 m/s dan selisih tekanan menjadi 16.000 Pa"],
         correctIndex: 0,
-        explanation: "Sesuai kekekalan energi mekanik fluida (Hukum Bernoulli) pada pipa horizontal, P + ½ρv<sup>2</sup> = konstan. Ketika penampang menyempit, laju v membesar sehingga tekanan dinamis (½ρv<sup>2</sup>) naik dan tekanan statis (P) turun dari 250.000 Pa menjadi 237.040 Pa."
+        explanation: "Persamaan kontinuitas: A<sub>1</sub>v<sub>1</sub> = A<sub>2</sub>v<sub>2</sub> → v<sub>2</sub> = 3v<sub>1</sub>. Persamaan Bernoulli pipa horizontal: ΔP = ½ρ(v<sub>2</sub><sup>2</sup> − v<sub>1</sub><sup>2</sup>) = ½(1.000)(9v<sub>1</sub><sup>2</sup> − v<sub>1</sub><sup>2</sup>) = 4.000v<sub>1</sub><sup>2</sup>. Diketahui ΔP = 16.000 Pa → 4.000v<sub>1</sub><sup>2</sup> = 16.000 → v<sub>1</sub><sup>2</sup> = 4 → v<sub>1</sub> = 2 m/s. Karena ΔP sebanding dengan kuadrat kelajuan (ΔP ∝ v<sup>2</sup> ∝ Q<sup>2</sup>), saat debit digandakan 2×, selisih tekanan meningkat 2<sup>2</sup> = 4× lipat: 4 × 16.000 = 64.000 Pa."
     },
     {
         id: "Q20",
@@ -230,10 +230,10 @@ const MASTER_QUESTIONS = [
         num: 23,
         topic: "Gaya Angkat Pesawat",
         diagram: SVG_AIRFOIL,
-        question: "Perhatikan penampang sayap pesawat terbang (aerofoil) di atas! Agar sayap pesawat menghasilkan gaya angkat ke atas yang optimal saat bergerak maju di udara, hubungan kelajuan aliran udara dan tekanan statis pada bagian atas dan bawah sayap yang benar adalah...",
-        options: ["v<sub>atas</sub> > v<sub>bawah</sub> sehingga P<sub>atas</sub> < P<sub>bawah</sub>","v<sub>atas</sub> < v<sub>bawah</sub> sehingga P<sub>atas</sub> > P<sub>bawah</sub>","v<sub>atas</sub> > v<sub>bawah</sub> sehingga P<sub>atas</sub> > P<sub>bawah</sub>","v<sub>atas</sub> = v<sub>bawah</sub> sehingga P<sub>atas</sub> < P<sub>bawah</sub>","v<sub>atas</sub> < v<sub>bawah</sub> sehingga P<sub>atas</sub> < P<sub>bawah</sub>"],
+        question: "Sebuah pesawat terbang bermassa total 54 ton (W = 540.000 N, g = 10 m/s<sup>2</sup>) memiliki luas total kedua sayap A = 40 m<sup>2</sup>. Saat terbang mendatar stabil (gaya angkat sama dengan berat pesawat), kelajuan aliran udara di atas sayap terukur 1,25 kali kelajuan aliran udara di bawah sayap. Jika massa jenis udara luar ρ = 1,2 kg/m<sup>3</sup>, besar kelajuan aliran udara di bawah sayap (v<sub>2</sub>) dan di atas sayap (v<sub>1</sub>) berturut-turut adalah...",
+        options: ["v<sub>2</sub> = 200 m/s dan v<sub>1</sub> = 250 m/s","v<sub>2</sub> = 250 m/s dan v<sub>1</sub> = 200 m/s","v<sub>2</sub> = 200 m/s dan v<sub>1</sub> = 200 m/s","v<sub>2</sub> ≈ 141 m/s dan v<sub>1</sub> ≈ 177 m/s","v<sub>2</sub> = 100 m/s dan v<sub>1</sub> = 125 m/s"],
         correctIndex: 0,
-        explanation: "Bentuk lengkungan sayap membuat garis alir udara di bagian atas lebih rapat sehingga kelajuan udara di atas sayap lebih besar (v<sub>atas</sub> > v<sub>bawah</sub>). Menurut prinsip Bernoulli, tekanan di atas sayap menjadi lebih kecil (P<sub>atas</sub> < P<sub>bawah</sub>) sehingga muncul gaya dorong ke atas."
+        explanation: "Gaya angkat pesawat saat terbang mendatar: F<sub>angkat</sub> = W = 540.000 N. Rumus gaya angkat Bernoulli: F<sub>angkat</sub> = ½ · ρ · A · (v<sub>1</sub><sup>2</sup> − v<sub>2</sub><sup>2</sup>). Substitusi v<sub>1</sub> = 1,25 v<sub>2</sub> → v<sub>1</sub><sup>2</sup> − v<sub>2</sub><sup>2</sup> = (1,5625 − 1)v<sub>2</sub><sup>2</sup> = 0,5625 v<sub>2</sub><sup>2</sup>. Maka: ½ × 1,2 × 40 × 0,5625 v<sub>2</sub><sup>2</sup> = 13,5 v<sub>2</sub><sup>2</sup> = 540.000 → v<sub>2</sub><sup>2</sup> = 40.000 → v<sub>2</sub> = 200 m/s dan v<sub>1</sub> = 1,25 × 200 = 250 m/s."
     },
     {
         id: "Q24",
