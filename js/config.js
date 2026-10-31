@@ -16,7 +16,7 @@ const CONFIG = {
     },
 
     // URL Webhook Google Apps Script Default (Otomatis dipakai di semua gawai siswa)
-    DEFAULT_WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbyKGf8MKKo8A-dRwsZpfmN2ZHUE-js7dZj78ttKsNe2O_1HmiHFPW-PZkNIJ7ilp3wTrg/exec',
+    DEFAULT_WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbwvUGQWhlwJQGcmCmWVpCjVBSiuIYyd0oHiPwl6nLXMKP4_l_C_5naBfzQgDT4Zrv4X1w/exec',
 
     // Standar Evaluasi Akademik
     EXAM_DURATION_SECONDS: 5400, // 1 Jam 30 Menit (90 Menit)
