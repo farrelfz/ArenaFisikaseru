@@ -47,7 +47,7 @@ Aplikasi ini menggabungkan:
 │  - Acak Butir Soal & Pilihan Opsi (Fisher-Yates)                          │
 │  - Pemantau Perpindahan Tab (Visibility Change API)                       │
 │  - Deteksi IP Klien & Kunci Perangkat (Single-Submission Lock)            │
-│  - Kalkulasi Skor: Dasar (Maks 25.000) + Bonus Kecepatan (Maks 6.000)     │
+│  - Kalkulasi Skor: Dasar (Maks 75.000) + Bonus Kecepatan (Maks 25.000)     │
 └─────────────────────────────────┬─────────────────────────────────────────┘
                                   │
                                   ▼
@@ -95,11 +95,11 @@ Soal telah dikurasi secara ketat bersama model penalaran fisika agar proporsiona
 
 Untuk membangun iklim kompetisi akademik yang positif, HydroArena menerapkan sistem gamifikasi sains:
 
-### 1. Skema Skor Berimbang
-* **Skor Dasar**: $\text{Jumlah Benar} \times 1.000$ (Maksimal **25.000 Pts**)
+### 1. Skema Skor 100.000 Poin Standar Arena
+* **Skor Dasar**: $\text{Jumlah Benar} \times 3.000$ (Maksimal **75.000 Pts**)
 * **Bonus Kecepatan (*Speedrun*)**: Proporsional terhadap rasio akurasi dan sisa waktu pengerjaan:
-  $$\text{Bonus} = \left(\frac{\text{Jumlah Benar}}{25}\right) \times \left(\frac{\text{Sisa Waktu Detik}}{5.400}\right) \times 6.000 \quad (\text{Maksimal } \mathbf{6.000\text{ Pts}})$$
-* **Total Skor Maksimum**: **$31.000\text{ Pts}$**
+  $$\text{Bonus} = \left(\frac{\text{Jumlah Benar}}{25}\right) \times \left(\frac{\text{Sisa Waktu Detik}}{5.400}\right) \times 25.000 \quad (\text{Maksimal } \mathbf{25.000\text{ Pts}})$$
+* **Total Skor Maksimum**: Tepat **$100.000\text{ Pts}$**
 * **Nilai Quiz**: $(\text{Benar} / 25) \times 100$ (Standar KKM SMAN 78 = $\mathbf{75.0}$, setara minimal **19 butir benar**).
 
 ### 2. Tingkatan Gelar (*Tier Fluida*)

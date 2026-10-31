@@ -21,8 +21,8 @@ const CONFIG = {
     // Standar Evaluasi Akademik
     EXAM_DURATION_SECONDS: 5400, // 1 Jam 30 Menit (90 Menit)
     TOTAL_QUESTIONS: 25,
-    BASE_POINTS_PER_QUESTION: 1000,
-    MAX_SPEED_BONUS: 6000,
+    BASE_POINTS_PER_QUESTION: 3000, // 25 × 3.000 = 75.000 Pts (Skor Dasar Akurasi)
+    MAX_SPEED_BONUS: 25000,         // Maksimum Bonus Kecepatan = 25.000 Pts (Total Skor Puncak = 100.000 Pts)
     ACADEMIC_KKM: 75.0,
     CLASSES: ['XI A', 'XI B', 'XI C', 'XI D', 'XI E', 'XI F'],
 

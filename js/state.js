@@ -85,16 +85,16 @@ const State = {
             // Jika leaderboard kosong atau data lama kotor, isi dengan data sample 10 siswa resmi
             if (!this.leaderboardRecords || this.leaderboardRecords.length === 0) {
                 this.leaderboardRecords = [
-                    { name: "Ahmad Rayhan Kusuma", className: "XI C", absen: 5, correctCount: 25, academicGrade: 100, durationSec: 1650, baseScore: 25000, speedBonus: 4167, totalScore: 29167, tabSwitches: 0, ip: "103.119.67.5" },
-                    { name: "Daffa Ibnu Hafidz", className: "XI E", absen: 11, correctCount: 25, academicGrade: 100, durationSec: 1780, baseScore: 25000, speedBonus: 4022, totalScore: 29022, tabSwitches: 0, ip: "103.119.69.11" },
-                    { name: "Clarissa Aurelia Putri", className: "XI D", absen: 19, correctCount: 24, academicGrade: 96, durationSec: 1820, baseScore: 24000, speedBonus: 3812, totalScore: 27812, tabSwitches: 0, ip: "103.119.68.19" },
-                    { name: "Rizky Dwi Pratama", className: "XI B", absen: 7, correctCount: 24, academicGrade: 96, durationSec: 1950, baseScore: 24000, speedBonus: 3627, totalScore: 27627, tabSwitches: 0, ip: "103.119.66.7" },
-                    { name: "Annisa Nabila Rahma", className: "XI A", absen: 14, correctCount: 23, academicGrade: 92, durationSec: 1620, baseScore: 23000, speedBonus: 3939, totalScore: 26939, tabSwitches: 0, ip: "103.119.65.14" },
-                    { name: "Siti Sarah Nurhaliza", className: "XI B", absen: 21, correctCount: 23, academicGrade: 92, durationSec: 1750, baseScore: 23000, speedBonus: 3762, totalScore: 26762, tabSwitches: 0, ip: "103.119.66.21" },
-                    { name: "Kayla Salsabila Azka", className: "XI F", absen: 16, correctCount: 23, academicGrade: 92, durationSec: 1890, baseScore: 23000, speedBonus: 3571, totalScore: 26571, tabSwitches: 0, ip: "103.119.70.16" },
-                    { name: "Muhammad Zaidan Al-Farisi", className: "XI A", absen: 3, correctCount: 22, academicGrade: 88, durationSec: 1540, baseScore: 22000, speedBonus: 3894, totalScore: 25894, tabSwitches: 0, ip: "103.119.65.3" },
-                    { name: "Fathia Zahra Azzahra", className: "XI C", absen: 18, correctCount: 22, academicGrade: 88, durationSec: 1700, baseScore: 22000, speedBonus: 3677, totalScore: 25677, tabSwitches: 0, ip: "103.119.67.18" },
-                    { name: "Bima Arya Wicaksana", className: "XI D", absen: 8, correctCount: 21, academicGrade: 84, durationSec: 1600, baseScore: 21000, speedBonus: 3624, totalScore: 24624, tabSwitches: 0, ip: "103.119.68.8" }
+                    { name: "Ahmad Rayhan Kusuma", className: "XI C", absen: 5, correctCount: 25, academicGrade: 100, durationSec: 1650, baseScore: 75000, speedBonus: 17361, totalScore: 92361, tabSwitches: 0, ip: "103.119.67.5" },
+                    { name: "Daffa Ibnu Hafidz", className: "XI E", absen: 11, correctCount: 25, academicGrade: 100, durationSec: 1780, baseScore: 75000, speedBonus: 16759, totalScore: 91759, tabSwitches: 0, ip: "103.119.69.11" },
+                    { name: "Clarissa Aurelia Putri", className: "XI D", absen: 19, correctCount: 24, academicGrade: 96, durationSec: 1820, baseScore: 72000, speedBonus: 15911, totalScore: 87911, tabSwitches: 0, ip: "103.119.68.19" },
+                    { name: "Rizky Dwi Pratama", className: "XI B", absen: 7, correctCount: 24, academicGrade: 96, durationSec: 1950, baseScore: 72000, speedBonus: 15333, totalScore: 87333, tabSwitches: 0, ip: "103.119.66.7" },
+                    { name: "Annisa Nabila Rahma", className: "XI A", absen: 14, correctCount: 23, academicGrade: 92, durationSec: 1620, baseScore: 69000, speedBonus: 16100, totalScore: 85100, tabSwitches: 0, ip: "103.119.65.14" },
+                    { name: "Siti Sarah Nurhaliza", className: "XI B", absen: 21, correctCount: 23, academicGrade: 92, durationSec: 1750, baseScore: 69000, speedBonus: 15546, totalScore: 84546, tabSwitches: 0, ip: "103.119.66.21" },
+                    { name: "Kayla Salsabila Azka", className: "XI F", absen: 16, correctCount: 23, academicGrade: 92, durationSec: 1890, baseScore: 69000, speedBonus: 14950, totalScore: 83950, tabSwitches: 0, ip: "103.119.70.16" },
+                    { name: "Muhammad Zaidan Al-Farisi", className: "XI A", absen: 3, correctCount: 22, academicGrade: 88, durationSec: 1540, baseScore: 66000, speedBonus: 15726, totalScore: 81726, tabSwitches: 0, ip: "103.119.65.3" },
+                    { name: "Fathia Zahra Azzahra", className: "XI C", absen: 18, correctCount: 22, academicGrade: 88, durationSec: 1700, baseScore: 66000, speedBonus: 15074, totalScore: 81074, tabSwitches: 0, ip: "103.119.67.18" },
+                    { name: "Bima Arya Wicaksana", className: "XI D", absen: 8, correctCount: 21, academicGrade: 84, durationSec: 1600, baseScore: 63000, speedBonus: 14778, totalScore: 77778, tabSwitches: 0, ip: "103.119.68.8" }
                 ];
             }
 
