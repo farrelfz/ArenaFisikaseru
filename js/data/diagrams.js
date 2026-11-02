@@ -83,24 +83,47 @@ const SVG_HYDRAULIC_JACK = `<svg viewBox="0 0 380 145" class="w-full max-w-md h-
     <text x="260" y="133" fill="#475569" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="600" text-anchor="middle">A₂ = 340 cm²</text>
 </svg>`;
 
-// Q08 - Q09: Pipa U Dua Cairan Tak Campur
-const SVG_U_TUBE = `<svg viewBox="0 0 380 140" class="w-full max-w-md h-36 bg-slate-50 rounded-lg border border-slate-200 p-1">
+// Q08: Pipa U Minyak dan Air
+const SVG_U_TUBE = `<svg viewBox="0 0 380 145" class="w-full max-w-md h-36 bg-slate-50 rounded-lg border border-slate-200 p-1">
     <!-- Pipa U Kaca -->
     <path d="M115 15 L115 95 Q115 112 132 112 L238 112 Q255 112 255 95 L255 15" fill="none" stroke="#cbd5e1" stroke-width="20"/>
     
     <!-- Lapisan Cairan Kanan (Air) -->
-    <path d="M115 62 L115 95 Q115 112 132 112 L238 112 Q255 112 255 95 L255 34" fill="none" stroke="#93c5fd" stroke-width="15"/>
+    <path d="M115 68 L115 95 Q115 112 132 112 L238 112 Q255 112 255 95 L255 40" fill="none" stroke="#93c5fd" stroke-width="15"/>
     
-    <!-- Lapisan Cairan Kiri (Minyak) -->
-    <line x1="115" y1="24" x2="115" y2="68" stroke="#f59e0b" stroke-width="15"/>
+    <!-- Lapisan Cairan Kiri (Minyak h₁ = 15 cm) -->
+    <line x1="115" y1="22" x2="115" y2="68" stroke="#f59e0b" stroke-width="15"/>
     
     <!-- Garis Bidang Batas Horizontal -->
     <line x1="85" y1="68" x2="285" y2="68" stroke="#334155" stroke-width="1.5" stroke-dasharray="4,3"/>
     <text x="288" y="72" fill="#475569" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="600">Bidang Batas</text>
     
-    <!-- Label Ketinggian -->
-    <text x="45" y="45" fill="#d97706" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="700">Minyak (h₁)</text>
-    <text x="268" y="45" fill="#0284c7" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="700">Air (h₂)</text>
+    <!-- Label Ketinggian Sesuai Soal Q08 -->
+    <text x="40" y="45" fill="#d97706" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700">Minyak (h₁ = 15 cm)</text>
+    <text x="268" y="45" fill="#0284c7" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700">Air (h₂ = 12 cm)</text>
+</svg>`;
+
+// Q09: Pipa U Raksa dengan Air dan Cairan X (Permukaan Raksa Sejajar)
+const SVG_U_TUBE_MERCURY = `<svg viewBox="0 0 390 150" class="w-full max-w-md h-36 bg-slate-50 rounded-lg border border-slate-200 p-1">
+    <!-- Pipa U Kaca -->
+    <path d="M120 15 L120 95 Q120 112 137 112 L243 112 Q260 112 260 95 L260 15" fill="none" stroke="#cbd5e1" stroke-width="20"/>
+    
+    <!-- Dasar Pipa: Raksa / Mercury (Abu-abu logam setimbang sejajar) -->
+    <path d="M120 70 L120 95 Q120 112 137 112 L243 112 Q260 112 260 95 L260 70" fill="none" stroke="#64748b" stroke-width="15"/>
+    
+    <!-- Kaki Kiri: Air (h₁ = 16 cm) -->
+    <line x1="120" y1="20" x2="120" y2="70" stroke="#38bdf8" stroke-width="15"/>
+    
+    <!-- Kaki Kanan: Cairan X (h₂ = ?) -->
+    <line x1="260" y1="12" x2="260" y2="70" stroke="#fbbf24" stroke-width="15"/>
+
+    <!-- Garis Batas Raksa Sejajar -->
+    <line x1="90" y1="70" x2="290" y2="70" stroke="#0f172a" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <text x="190" y="85" fill="#334155" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="700" text-anchor="middle">Permukaan Raksa Sejajar</text>
+
+    <!-- Label Kiri & Kanan -->
+    <text x="35" y="45" fill="#0284c7" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700">Air (h₁ = 16 cm)</text>
+    <text x="278" y="42" fill="#d97706" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700">Cairan X (h₂ = ?)</text>
 </svg>`;
 
 // Q10: Hukum Archimedes (Penimbangan Batu di Udara vs Air)
@@ -171,7 +194,7 @@ const SVG_BRANCHED_PIPE = `<svg viewBox="0 0 390 145" class="w-full max-w-md h-3
     <text x="265" y="102" fill="#dc2626" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700">v_B = ? → Tandon 1.260 L</text>
 </svg>`;
 
-// Q15 & Q19 & Q22: Pipa Horizontal Menyempit (Bernoulli & Debit)
+// Q15 & Q22: Pipa Horizontal Menyempit (Bernoulli & Debit)
 const SVG_HORIZONTAL_PIPE = `<svg viewBox="0 0 380 145" class="w-full max-w-md h-36 bg-slate-50 rounded-lg border border-slate-200 p-1">
     <path d="M30 28 L175 28 L215 48 L345 48 L345 86 L215 86 L175 106 L30 106 Z" fill="#e0f2fe" stroke="#334155" stroke-width="2"/>
     <line x1="65" y1="67" x2="135" y2="67" stroke="#0284c7" stroke-width="2.5"/>
@@ -183,6 +206,36 @@ const SVG_HORIZONTAL_PIPE = `<svg viewBox="0 0 380 145" class="w-full max-w-md h
     <text x="225" y="38" fill="#0f172a" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="700">Penampang 2 (A₂ = 8 cm²)</text>
     <text x="35" y="125" fill="#475569" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="600">v₁ = 1,8 m/s | P₁ = 250.000 Pa</text>
     <text x="235" y="108" fill="#1e3a8a" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700">v₂ = ? | P₂ = ?</text>
+</svg>`;
+
+// Q19: Pipa Horizontal Bernoulli dengan Manometer (Selisih Tekanan Delta P = 16.000 Pa)
+const SVG_MANOMETER_PIPE = `<svg viewBox="0 0 390 155" class="w-full max-w-md h-36 bg-slate-50 rounded-lg border border-slate-200 p-1">
+    <!-- Pipa Horizontal Menyempit -->
+    <path d="M25 45 L155 45 L195 65 L365 65 L365 105 L195 105 L155 125 L25 125 Z" fill="#e0f2fe" stroke="#334155" stroke-width="2"/>
+
+    <!-- Tabung Manometer 1 (Pipa Masuk Lebar) -->
+    <rect x="80" y="15" width="16" height="30" fill="#ffffff" stroke="#334155" stroke-width="1.5"/>
+    <rect x="81" y="24" width="14" height="21" fill="#38bdf8" opacity="0.9"/>
+
+    <!-- Tabung Manometer 2 (Pipa Sempit) -->
+    <rect x="270" y="25" width="16" height="40" fill="#ffffff" stroke="#334155" stroke-width="1.5"/>
+    <rect x="271" y="48" width="14" height="17" fill="#38bdf8" opacity="0.9"/>
+
+    <!-- Indikator Selisih Tekanan Delta P = 16.000 Pa -->
+    <line x1="97" y1="24" x2="270" y2="24" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,2"/>
+    <line x1="97" y1="48" x2="270" y2="48" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,2"/>
+    <line x1="185" y1="24" x2="185" y2="48" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="190" y="39" fill="#dc2626" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700">ΔP = 16.000 Pa</text>
+
+    <!-- Panah Aliran -->
+    <line x1="45" y1="85" x2="105" y2="85" stroke="#0284c7" stroke-width="2.5"/>
+    <polygon points="110,85 100,79 100,91" fill="#0284c7"/>
+    <line x1="230" y1="85" x2="300" y2="85" stroke="#0284c7" stroke-width="2.5"/>
+    <polygon points="305,85 295,79 295,91" fill="#0284c7"/>
+
+    <!-- Label Parameter Bersih Sesuai Q19 -->
+    <text x="90" y="142" fill="#0f172a" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700" text-anchor="middle">A₁ = 24 cm² (v₁ = ?)</text>
+    <text x="280" y="125" fill="#0f172a" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="700" text-anchor="middle">A₂ = 8 cm²</text>
 </svg>`;
 
 // Q17 & Q20: Teorema Torricelli Satu Lubang
@@ -291,10 +344,12 @@ if (typeof module !== "undefined") {
         SVG_THREE_VESSELS,
         SVG_HYDRAULIC_JACK,
         SVG_U_TUBE,
+        SVG_U_TUBE_MERCURY,
         SVG_ARCHIMEDES_SCALE,
         SVG_TWO_LIQUIDS_CUBE,
         SVG_BRANCHED_PIPE,
         SVG_HORIZONTAL_PIPE,
+        SVG_MANOMETER_PIPE,
         SVG_TORRICELLI_TANK,
         SVG_DUAL_TORRICELLI,
         SVG_STEPPED_PIPE_ABC,
