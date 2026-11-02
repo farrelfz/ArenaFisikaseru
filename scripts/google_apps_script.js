@@ -20,6 +20,10 @@ function onOpen() {
     .addItem("🟢 Paksa Buka Pendaftaran (Manual Override)", "manualOpenExam")
     .addItem("🔴 Paksa Tutup Pendaftaran (Manual Override)", "manualCloseExam")
     .addSeparator()
+    .addItem("🔓 Buka Kunci Pembahasan Siswa (Manual)", "manualOpenReview")
+    .addItem("🔒 Kunci Pembahasan Siswa (Manual)", "manualLockReview")
+    .addItem("⏰ Pembahasan Otomatis (Buka Jumat 16:00 WIB)", "manualAutoReview")
+    .addSeparator()
     .addItem("Buat / Reset Sheet Bank Soal & Kunci (25 Soal)", "manualInitQuestionBank")
     .addToUi();
 }
@@ -37,6 +41,21 @@ function manualOpenExam() {
 function manualCloseExam() {
   PropertiesService.getScriptProperties().setProperty("EXAM_OVERRIDE", "manual_closed");
   SpreadsheetApp.getUi().alert("STATUS: Pendaftaran Ujian DITUTUP MANUAL (Override). Akses pengerjaan dikunci.");
+}
+
+function manualOpenReview() {
+  PropertiesService.getScriptProperties().setProperty("REVIEW_OVERRIDE", "manual_allowed");
+  SpreadsheetApp.getUi().alert("STATUS: Kunci jawaban & pembahasan DIBUKA MANUAL untuk siswa.");
+}
+
+function manualLockReview() {
+  PropertiesService.getScriptProperties().setProperty("REVIEW_OVERRIDE", "manual_locked");
+  SpreadsheetApp.getUi().alert("STATUS: Kunci jawaban & pembahasan DIKUNCI MANUAL. Siswa tidak dapat melihat kunci jawaban.");
+}
+
+function manualAutoReview() {
+  PropertiesService.getScriptProperties().setProperty("REVIEW_OVERRIDE", "auto");
+  SpreadsheetApp.getUi().alert("STATUS: Kunci jawaban mengikuti JADWAL OTOMATIS: Terbuka otomatis hari Jumat jam 16:00 WIB setelah ujian selesai!");
 }
 
 function manualInitQuestionBank() {
@@ -98,17 +117,36 @@ function doPost(e) {
     // Aksi Pengaturan Sesi Ujian dari Guru (Buka/Tutup Ujian, Kunci Pembahasan)
     if (d.action === "setExamConfig") {
       const props = PropertiesService.getScriptProperties();
+      if (d.override !== undefined) {
+        props.setProperty("EXAM_OVERRIDE", String(d.override));
+      }
       if (typeof d.isOpen === "boolean") {
-        props.setProperty("EXAM_IS_OPEN", String(d.isOpen));
+        props.setProperty("EXAM_OVERRIDE", d.isOpen ? "manual_open" : "manual_closed");
+      }
+      if (d.overrideReview !== undefined) {
+        props.setProperty("REVIEW_OVERRIDE", String(d.overrideReview));
       }
       if (typeof d.allowReview === "boolean") {
-        props.setProperty("ALLOW_REVIEW", String(d.allowReview));
+        props.setProperty("REVIEW_OVERRIDE", d.allowReview ? "manual_allowed" : "manual_locked");
       }
+      
+      const ov = props.getProperty("EXAM_OVERRIDE") || "auto";
+      let openStatus = false;
+      if (ov === "manual_open") openStatus = true;
+      else if (ov === "manual_closed") openStatus = false;
+      else openStatus = isWithinExamSchedule();
+
+      const revOv = props.getProperty("REVIEW_OVERRIDE") || "auto";
+      let reviewStatus = false;
+      if (revOv === "manual_allowed") reviewStatus = true;
+      else if (revOv === "manual_locked") reviewStatus = false;
+      else reviewStatus = !isWithinExamSchedule();
+
       return ContentService.createTextOutput(JSON.stringify({
         status: "ok",
-        message: "Status ujian berhasil diperbarui di server.",
-        examIsOpen: props.getProperty("EXAM_IS_OPEN") === "true",
-        allowReview: props.getProperty("ALLOW_REVIEW") !== "false"
+        message: "Status ujian & pembahasan berhasil diperbarui di server.",
+        examIsOpen: openStatus,
+        allowReview: reviewStatus
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
@@ -612,8 +650,11 @@ function doGet(e) {
       if (e.parameter.isOpen !== undefined) {
         props.setProperty("EXAM_OVERRIDE", e.parameter.isOpen === "true" ? "manual_open" : "manual_closed");
       }
+      if (e.parameter.overrideReview !== undefined) {
+        props.setProperty("REVIEW_OVERRIDE", String(e.parameter.overrideReview));
+      }
       if (e.parameter.allowReview !== undefined) {
-        props.setProperty("ALLOW_REVIEW", String(e.parameter.allowReview));
+        props.setProperty("REVIEW_OVERRIDE", e.parameter.allowReview === "true" ? "manual_allowed" : "manual_locked");
       }
     }
 
@@ -627,7 +668,16 @@ function doGet(e) {
       examIsOpen = isWithinExamSchedule();
     }
 
-    const allowReview = props.getProperty("ALLOW_REVIEW") !== "false";
+    const reviewOverride = props.getProperty("REVIEW_OVERRIDE") || "auto";
+    let allowReview = false;
+    if (reviewOverride === "manual_allowed") {
+      allowReview = true;
+    } else if (reviewOverride === "manual_locked") {
+      allowReview = false;
+    } else {
+      // Otomatis: Kunci jawaban & pembahasan HANYA terbuka saat ujian tertutup (mulai Jumat jam 16:00 WIB)
+      allowReview = !isWithinExamSchedule();
+    }
 
     const allRows = [];
     ss.getSheets().forEach(sh => {

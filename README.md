@@ -140,11 +140,11 @@ Sistem mencatat perpindahan jendela (*tab switches*) via Page Visibility API:
 
 ## 🔄 Alur Cerdas Sesi Ujian (*Lifecycle Management*)
 
-| Status Sesi | Kondisi Sistem | Tampilan Sisi Murid |
-|---|---|---|
-| **Sebelum Ujian Buka** | Pendaftaran ditutup & belum ada data pengerjaan | **Panel Kisi-Kisi Soal & Panduan Belajar Mandiri**: 8 kartu materi inti, rumus kunci, tabel konstanta standar fisika, tips sukses ujian, dan tombol pendaftaran terkunci. |
-| **Saat Ujian Berlangsung** | Pendaftaran dibuka guru | **Lembar Ujian Aktif**: Formulir nama, kelas, absen, pengacakan 25 soal + opsi A–E, timer hitung mundur 90 menit, navigasi keyboard ([A]–[E], [←]/[→]), palet nomor 5×5, dan penanda ragu-ragu. |
-| **Setelah Ujian Selesai** | Pendaftaran ditutup guru & data nilai sudah masuk | **Klasemen Akhir Angkatan**: Tab Ujian otomatis disembunyikan, murid langsung melihat banner hasil final, Podium 3 Besar (👑 Juara 1 Emas, 🥈 Perak, 🥉 Perunggu), Piala Rombel Antar-Kelas, dan filter per-kelas. |
+| Status Sesi | Jadwal & Kondisi | Akses Kunci Jawaban & Pembahasan | Tampilan Sisi Murid |
+|---|---|---|---|
+| **Sebelum Ujian Buka** | Sebelum Rabu 06:30 WIB | Belum Tersedia | **Panel Kisi-Kisi Soal & Panduan Belajar Mandiri**: 8 kartu materi inti, rumus kunci, tabel konstanta standar fisika, tips sukses ujian, dan tombol pendaftaran terkunci. |
+| **Saat Ujian Berlangsung** | Rabu 06:30 s.d. Jumat 16:00 WIB | **DIKUNCI OTOMATIS** *(Cegah Bocoran)* | **Lembar Ujian Aktif**: Pengerjaan 25 butir soal, timer 90 menit, anti-cheat pemantau tab, dan setelah submit siswa hanya melihat skor akhir tanpa kunci jawaban. |
+| **Setelah Ujian Ditutup** | Mulai Jumat jam 16:00 WIB ke atas | **DIBUKA OTOMATIS** | **Klasemen Akhir & Pembahasan Terbuka**: Tab ujian tertutup otomatis, siswa dapat meninjau lembar pembahasan lengkap (soal, jawaban siswa, kunci benar, dan penjelasan konsep ilmiah). |
 
 ---
 

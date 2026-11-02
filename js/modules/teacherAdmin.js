@@ -248,19 +248,37 @@ const TeacherAdminModule = {
     },
 
     async toggleReviewStatus() {
-        State.examConfig.allowReview = !State.examConfig.allowReview;
+        const willAllow = !State.examConfig.allowReview;
+        State.examConfig.allowReview = willAllow;
         State.save();
         App.applyExamConfigUI();
-        Utils.showToast(`Mode Pembahasan diubah: ${State.examConfig.allowReview ? 'DIIZINKAN' : 'DIKUNCI'}`);
+        Utils.showToast(`Mode Pembahasan diubah: ${willAllow ? 'DIIZINKAN MANUAL' : 'DIKUNCI MANUAL'}`);
 
         // Broadcast langsung ke Google Spreadsheet Webhook via GET query parameter (Bebas CORS!)
         const webhookUrl = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK) || CONFIG.DEFAULT_WEBHOOK_URL;
         if (webhookUrl && webhookUrl.startsWith("http")) {
             try {
-                const target = `${webhookUrl}?action=setExamConfig&allowReview=${State.examConfig.allowReview}`;
+                const target = `${webhookUrl}?action=setExamConfig&allowReview=${willAllow}`;
                 await fetch(target, { cache: 'no-store' });
             } catch (err) {
                 console.warn("Gagal sinkronisasi mode pembahasan ke server:", err);
+            }
+        }
+    },
+
+    async resetReviewToAutoSchedule() {
+        State.examConfig.overrideReviewMode = 'auto';
+        State.save();
+        App.applyExamConfigUI();
+        Utils.showToast("Kunci jawaban dikembalikan ke JADWAL OTOMATIS: Terbuka hari Jumat jam 16:00 WIB setelah ujian selesai.", true);
+
+        const webhookUrl = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK) || CONFIG.DEFAULT_WEBHOOK_URL;
+        if (webhookUrl && webhookUrl.startsWith("http")) {
+            try {
+                const target = `${webhookUrl}?action=setExamConfig&overrideReview=auto`;
+                await fetch(target, { cache: 'no-store' });
+            } catch (err) {
+                console.warn("Gagal sinkronisasi jadwal otomatis kunci jawaban ke server:", err);
             }
         }
     },

@@ -32,11 +32,14 @@ const State = {
     activeAdminSubTab: 'ctrl',
 
     // Konfigurasi Dinamis Ujian
-    // Bawaan: Mode Jadwal Otomatis (Terbuka Rabu 06:30 WIB s.d. Jumat 16:00 WIB)
+    // Bawaan: Mode Jadwal Otomatis
+    // - Pendaftaran Ujian Terbuka: Rabu 06:30 WIB s.d. Jumat 16:00 WIB
+    // - Kunci Jawaban & Pembahasan: Terkunci selama ujian, Terbuka Otomatis setelah ujian ditutup (Jumat 16:00 WIB)
     examConfig: {
         _isOpen: false,
         overrideMode: 'auto', // 'auto' | 'manual_open' | 'manual_closed'
-        allowReview: true,
+        _allowReview: false,
+        overrideReviewMode: 'auto', // 'auto' | 'manual_allowed' | 'manual_locked'
         get isOpen() {
             if (this.overrideMode === 'manual_open') return true;
             if (this.overrideMode === 'manual_closed') return false;
@@ -48,6 +51,19 @@ const State = {
         set isOpen(val) {
             this._isOpen = !!val;
             this.overrideMode = val ? 'manual_open' : 'manual_closed';
+        },
+        get allowReview() {
+            if (this.overrideReviewMode === 'manual_allowed') return true;
+            if (this.overrideReviewMode === 'manual_locked') return false;
+            // Mode 'auto': Kunci jawaban dan pembahasan HANYA terbuka saat ujian tertutup (mulai Jumat jam 16:00 WIB)
+            if (typeof Utils !== 'undefined' && Utils.isWithinExamSchedule) {
+                return !Utils.isWithinExamSchedule();
+            }
+            return this._allowReview;
+        },
+        set allowReview(val) {
+            this._allowReview = !!val;
+            this.overrideReviewMode = val ? 'manual_allowed' : 'manual_locked';
         }
     },
 
@@ -129,7 +145,8 @@ const State = {
                 try {
                     const parsed = JSON.parse(savedConfig);
                     if (parsed.overrideMode) this.examConfig.overrideMode = parsed.overrideMode;
-                    if (parsed.allowReview !== undefined) this.examConfig.allowReview = parsed.allowReview;
+                    if (parsed.overrideReviewMode) this.examConfig.overrideReviewMode = parsed.overrideReviewMode;
+                    else if (parsed.allowReview !== undefined) this.examConfig.allowReview = parsed.allowReview;
                 } catch (e) {}
             }
 
@@ -148,6 +165,7 @@ const State = {
             localStorage.setItem(CONFIG.STORAGE_KEYS.IP_MAP, JSON.stringify(this.ipLockRegistry));
             localStorage.setItem(CONFIG.STORAGE_KEYS.EXAM_CONFIG, JSON.stringify({
                 overrideMode: this.examConfig.overrideMode,
+                overrideReviewMode: this.examConfig.overrideReviewMode,
                 allowReview: this.examConfig.allowReview
             }));
         } catch (e) {

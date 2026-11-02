@@ -198,14 +198,19 @@ const App = {
         const btnToggleReview = document.getElementById('btn-toggle-review-status');
         const reviewDesc = document.getElementById('ctrl-review-status-desc');
         if (btnToggleReview && reviewDesc) {
+            const isAutoReview = State.examConfig.overrideReviewMode === 'auto';
             if (State.examConfig.allowReview) {
-                reviewDesc.textContent = "Status saat ini: Siswa DIIZINKAN membuka kunci jawaban & pembahasan setelah submit.";
-                btnToggleReview.textContent = "Kunci Pembahasan";
-                btnToggleReview.className = "edu-btn-secondary px-4 py-2 text-xs font-semibold text-amber-700 hover:bg-amber-50 border-amber-200";
+                reviewDesc.textContent = isAutoReview
+                    ? "Status: DIBUKA OTOMATIS (Ujian telah ditutup, pembahasan & kunci terbuka untuk siswa)."
+                    : "Status: DIBUKA MANUAL oleh Guru (Mengabaikan jadwal kunci otomatis).";
+                btnToggleReview.textContent = "Paksa Kunci Pembahasan";
+                btnToggleReview.className = "edu-btn-secondary px-3.5 py-2 text-xs font-semibold text-amber-700 hover:bg-amber-50 border-amber-200";
             } else {
-                reviewDesc.textContent = "Status saat ini: Pembahasan DIKUNCI. Siswa hanya dapat melihat skor tanpa bocoran kunci jawaban.";
-                btnToggleReview.textContent = "Izinkan Pembahasan";
-                btnToggleReview.className = "edu-btn-primary px-4 py-2 text-xs font-semibold";
+                reviewDesc.textContent = isAutoReview
+                    ? "Status: DIKUNCI OTOMATIS (Akan terbuka otomatis hari Jumat jam 16:00 WIB setelah ujian selesai)."
+                    : "Status: DIKUNCI MANUAL oleh Guru.";
+                btnToggleReview.textContent = "Paksa Buka Pembahasan";
+                btnToggleReview.className = "edu-btn-primary px-3.5 py-2 text-xs font-semibold";
             }
         }
     },

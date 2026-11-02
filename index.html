@@ -182,7 +182,7 @@
                         <div class="flex flex-wrap items-center gap-2 pt-1">
                             <button type="button" onclick="ExamModule.openLockedReviewMode()" class="edu-btn-primary px-4 py-2 text-xs flex items-center gap-2">
                                 <i data-lucide="book-open-check" class="w-3.5 h-3.5"></i>
-                                <span>Buka Pembahasan & Review Soal</span>
+                                <span>Lihat Skor & Pembahasan Soal</span>
                             </button>
                             <button type="button" onclick="App.switchView('leaderboard')" class="edu-btn-secondary px-3.5 py-2 text-xs">
                                 Lihat Klasemen
@@ -716,9 +716,12 @@
                     <div class="flex items-start gap-2.5">
                         <i data-lucide="lock" class="w-4 h-4 text-amber-600 shrink-0 mt-0.5"></i>
                         <div class="space-y-0.5">
-                            <div class="text-sm font-bold text-amber-900">Pembahasan Soal Dikunci oleh Guru</div>
+                            <div class="text-sm font-bold text-amber-900 flex items-center gap-1.5">
+                                <span>Kunci Jawaban & Pembahasan Belum Terbuka</span>
+                                <span class="px-2 py-0.2 rounded bg-amber-200/80 text-amber-950 font-mono text-[10px] font-bold">TERKUNCI</span>
+                            </div>
                             <p class="text-xs text-amber-800 leading-relaxed">
-                                Guru pengampu belum membuka akses pembahasan untuk sesi evaluasi ini. Nilai dan statistik Anda tetap dapat dilihat di atas.
+                                Untuk menjaga integritas dan kerahasiaan evaluasi, <strong>kunci jawaban dan pembahasan butir soal akan otomatis terbuka pada hari Jumat pukul 16:00 WIB</strong> setelah seluruh sesi ujian angkatan resmi berakhir. Skor dan catatan capaian Anda telah tersimpan aman di atas.
                             </p>
                         </div>
                     </div>
@@ -1171,11 +1174,16 @@
                                 <div class="edu-panel p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                                     <div class="space-y-0.5">
                                         <div class="text-xs font-bold text-slate-800">Kunci Jawaban & Pembahasan</div>
-                                        <div class="text-[11px] text-slate-600 leading-relaxed" id="ctrl-review-status-desc">Status saat ini: Pembahasan DIIZINKAN.</div>
+                                        <div class="text-[11px] text-slate-600 leading-relaxed" id="ctrl-review-status-desc">Status: DIKUNCI OTOMATIS (Buka Jumat 16:00 WIB).</div>
                                     </div>
-                                    <button type="button" id="btn-toggle-review-status" onclick="TeacherAdminModule.toggleReviewStatus()" class="edu-btn-secondary px-4 py-2 text-xs font-semibold shrink-0 text-amber-700 border-amber-200">
-                                        Kunci Pembahasan
-                                    </button>
+                                    <div class="flex items-center gap-1.5 shrink-0">
+                                        <button type="button" id="btn-toggle-review-status" onclick="TeacherAdminModule.toggleReviewStatus()" class="edu-btn-secondary px-3.5 py-2 text-xs font-semibold shrink-0 text-amber-700 border-amber-200">
+                                            Kunci Pembahasan
+                                        </button>
+                                        <button type="button" id="btn-reset-review-schedule" onclick="TeacherAdminModule.resetReviewToAutoSchedule()" class="edu-btn-secondary px-2.5 py-2 text-xs font-semibold text-blue-700 hover:bg-blue-50 border-blue-200" title="Kembalikan Kunci Jawaban ke Jadwal Otomatis (Terbuka Jumat 16:00 WIB)">
+                                            ⏰ Auto
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1381,6 +1389,10 @@ function onOpen() {
     .addItem("🟢 Paksa Buka Pendaftaran (Manual Override)", "manualOpenExam")
     .addItem("🔴 Paksa Tutup Pendaftaran (Manual Override)", "manualCloseExam")
     .addSeparator()
+    .addItem("🔓 Buka Kunci Pembahasan Siswa (Manual)", "manualOpenReview")
+    .addItem("🔒 Kunci Pembahasan Siswa (Manual)", "manualLockReview")
+    .addItem("⏰ Pembahasan Otomatis (Buka Jumat 16:00 WIB)", "manualAutoReview")
+    .addSeparator()
     .addItem("Buat / Reset Sheet Bank Soal &amp; Kunci (25 Soal)", "manualInitQuestionBank")
     .addToUi();
 }
@@ -1398,6 +1410,21 @@ function manualOpenExam() {
 function manualCloseExam() {
   PropertiesService.getScriptProperties().setProperty("EXAM_OVERRIDE", "manual_closed");
   SpreadsheetApp.getUi().alert("STATUS: Pendaftaran Ujian DITUTUP MANUAL (Override). Akses pengerjaan dikunci.");
+}
+
+function manualOpenReview() {
+  PropertiesService.getScriptProperties().setProperty("REVIEW_OVERRIDE", "manual_allowed");
+  SpreadsheetApp.getUi().alert("STATUS: Kunci jawaban &amp; pembahasan DIBUKA MANUAL untuk siswa.");
+}
+
+function manualLockReview() {
+  PropertiesService.getScriptProperties().setProperty("REVIEW_OVERRIDE", "manual_locked");
+  SpreadsheetApp.getUi().alert("STATUS: Kunci jawaban &amp; pembahasan DIKUNCI MANUAL. Siswa tidak dapat melihat kunci jawaban.");
+}
+
+function manualAutoReview() {
+  PropertiesService.getScriptProperties().setProperty("REVIEW_OVERRIDE", "auto");
+  SpreadsheetApp.getUi().alert("STATUS: Kunci jawaban mengikuti JADWAL OTOMATIS: Terbuka otomatis hari Jumat jam 16:00 WIB setelah ujian selesai!");
 }
 
 function manualInitQuestionBank() {
@@ -1459,17 +1486,36 @@ function doPost(e) {
     // Aksi Pengaturan Sesi Ujian dari Guru (Buka/Tutup Ujian, Kunci Pembahasan)
     if (d.action === "setExamConfig") {
       const props = PropertiesService.getScriptProperties();
+      if (d.override !== undefined) {
+        props.setProperty("EXAM_OVERRIDE", String(d.override));
+      }
       if (typeof d.isOpen === "boolean") {
-        props.setProperty("EXAM_IS_OPEN", String(d.isOpen));
+        props.setProperty("EXAM_OVERRIDE", d.isOpen ? "manual_open" : "manual_closed");
+      }
+      if (d.overrideReview !== undefined) {
+        props.setProperty("REVIEW_OVERRIDE", String(d.overrideReview));
       }
       if (typeof d.allowReview === "boolean") {
-        props.setProperty("ALLOW_REVIEW", String(d.allowReview));
+        props.setProperty("REVIEW_OVERRIDE", d.allowReview ? "manual_allowed" : "manual_locked");
       }
+      
+      const ov = props.getProperty("EXAM_OVERRIDE") || "auto";
+      let openStatus = false;
+      if (ov === "manual_open") openStatus = true;
+      else if (ov === "manual_closed") openStatus = false;
+      else openStatus = isWithinExamSchedule();
+
+      const revOv = props.getProperty("REVIEW_OVERRIDE") || "auto";
+      let reviewStatus = false;
+      if (revOv === "manual_allowed") reviewStatus = true;
+      else if (revOv === "manual_locked") reviewStatus = false;
+      else reviewStatus = !isWithinExamSchedule();
+
       return ContentService.createTextOutput(JSON.stringify({
         status: "ok",
-        message: "Status ujian berhasil diperbarui di server.",
-        examIsOpen: props.getProperty("EXAM_IS_OPEN") === "true",
-        allowReview: props.getProperty("ALLOW_REVIEW") !== "false"
+        message: "Status ujian &amp; pembahasan berhasil diperbarui di server.",
+        examIsOpen: openStatus,
+        allowReview: reviewStatus
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
@@ -1973,8 +2019,11 @@ function doGet(e) {
       if (e.parameter.isOpen !== undefined) {
         props.setProperty("EXAM_OVERRIDE", e.parameter.isOpen === "true" ? "manual_open" : "manual_closed");
       }
+      if (e.parameter.overrideReview !== undefined) {
+        props.setProperty("REVIEW_OVERRIDE", String(e.parameter.overrideReview));
+      }
       if (e.parameter.allowReview !== undefined) {
-        props.setProperty("ALLOW_REVIEW", String(e.parameter.allowReview));
+        props.setProperty("REVIEW_OVERRIDE", e.parameter.allowReview === "true" ? "manual_allowed" : "manual_locked");
       }
     }
 
@@ -1988,7 +2037,16 @@ function doGet(e) {
       examIsOpen = isWithinExamSchedule();
     }
 
-    const allowReview = props.getProperty("ALLOW_REVIEW") !== "false";
+    const reviewOverride = props.getProperty("REVIEW_OVERRIDE") || "auto";
+    let allowReview = false;
+    if (reviewOverride === "manual_allowed") {
+      allowReview = true;
+    } else if (reviewOverride === "manual_locked") {
+      allowReview = false;
+    } else {
+      // Otomatis: Kunci jawaban &amp; pembahasan HANYA terbuka saat ujian tertutup (mulai Jumat jam 16:00 WIB)
+      allowReview = !isWithinExamSchedule();
+    }
 
     const allRows = [];
     ss.getSheets().forEach(sh =&gt; {
