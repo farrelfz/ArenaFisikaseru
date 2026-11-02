@@ -137,6 +137,11 @@ body {
     color: #b91c1c;
 }
 
+/* Anti Pull-to-Refresh saat Ujian Berlangsung */
+#screen-active-exam {
+    overscroll-behavior-y: contain;
+}
+
 /* Radio Pilihan Jawaban Soal Ujian */
 .exam-option-card {
     border: 1.5px solid #e2e8f0;

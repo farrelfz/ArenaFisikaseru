@@ -50,7 +50,8 @@ const CONFIG = {
         TEACHER_PIN: 'hydroarena_78_teacher_pin_v4_edu',
         EXAM_CONFIG: 'hydroarena_78_exam_config_v4_edu',
         TEACHER_SESSION: 'hydroarena_78_teacher_session_v4_edu',
-        FALLBACK_IP: 'hydroarena_78_device_ip_v4_edu'
+        FALLBACK_IP: 'hydroarena_78_device_ip_v4_edu',
+        ACTIVE_SESSION: 'hydroarena_78_active_exam_session_v4_edu'
     },
 
     // Default Passcode Guru Administrator

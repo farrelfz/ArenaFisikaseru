@@ -18,6 +18,9 @@ const App = {
         await Utils.detectIp();
         ExamModule.checkAndEnforceIpLockUI();
 
+        // Pulihkan sesi ujian siswa jika sebelumnya ter-refresh / HP mati / peramban tertutup
+        ExamModule.restoreActiveSession();
+
         await SpreadsheetService.sync(false);
         this.renderAllViews();
         lucide.createIcons();

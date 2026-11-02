@@ -563,6 +563,7 @@ const TeacherAdminModule = {
         delete State.ipLockRegistry[State.clientIpAddress];
         State.leaderboardRecords = State.leaderboardRecords.filter(r => r.ip !== State.clientIpAddress);
         State.save();
+        ExamModule.clearActiveSession();
         App.renderAllViews();
         ExamModule.checkAndEnforceIpLockUI();
         Utils.showToast(`Kunci IP perangkat pengawas (${State.clientIpAddress}) telah dibuka kembali.`);
@@ -589,6 +590,7 @@ const TeacherAdminModule = {
         State.leaderboardRecords = [];
         State.ipLockRegistry = {};
         State.save();
+        ExamModule.clearActiveSession();
         App.renderAllViews();
         ExamModule.checkAndEnforceIpLockUI();
         Utils.showToast("Data klasemen lokal telah berhasil dibersihkan.");

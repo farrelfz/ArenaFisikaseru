@@ -3,9 +3,22 @@
 // ==========================================================================
 
 const ExamModule = {
+    _isSubmitting: false,
+
     init() {
         this._bindAntiCheat();
         this._bindKeyboardNavigation();
+        this._bindBeforeUnload();
+    },
+
+    _bindBeforeUnload() {
+        window.addEventListener('beforeunload', (e) => {
+            if (State.activeSession && State.activeSession.startTimeMs > 0 && State.activeSession.remainingSeconds > 0 && !this._isSubmitting) {
+                e.preventDefault();
+                e.returnValue = 'Ujian sedang berlangsung! Progres jawaban Anda telah disimpan otomatis di perangkat.';
+                return e.returnValue;
+            }
+        });
     },
 
     _bindKeyboardNavigation() {
@@ -71,6 +84,8 @@ const ExamModule = {
             doubtFlags: {},
             tabSwitches: 0
         };
+
+        this.saveActiveSession();
 
         // 5. Alihkan Tampilan ke Layar Ujian
         document.getElementById('screen-lobby').classList.add('hidden');
@@ -178,7 +193,7 @@ const ExamModule = {
 
         this.renderPalette();
         this._updateAnsweredCount();
-        lucide.createIcons();
+        if (typeof lucide !== 'undefined') lucide.createIcons();
     },
 
     selectOption(optIdx) {
@@ -186,18 +201,21 @@ const ExamModule = {
         State.activeSession.selectedAnswers[curIdx] = optIdx;
         this.renderQuestion(curIdx);
         this._updateAnsweredCount();
+        this.saveActiveSession();
     },
 
     toggleDoubt() {
         const curIdx = State.activeSession.currentIndex;
         State.activeSession.doubtFlags[curIdx] = !State.activeSession.doubtFlags[curIdx];
         this.renderQuestion(curIdx);
+        this.saveActiveSession();
     },
 
     navigate(delta) {
         const newIdx = State.activeSession.currentIndex + delta;
         if (newIdx >= 0 && newIdx < CONFIG.TOTAL_QUESTIONS) {
             this.renderQuestion(newIdx);
+            this.saveActiveSession();
         } else if (newIdx >= CONFIG.TOTAL_QUESTIONS) {
             this.openSubmitModal();
         }
@@ -251,6 +269,8 @@ const ExamModule = {
     async finalizeSubmit() {
         this.closeSubmitModal();
         clearInterval(State.activeSession.timerInterval);
+        this._isSubmitting = true;
+        this.clearActiveSession();
 
         const durationSec = Math.max(1, CONFIG.EXAM_DURATION_SECONDS - State.activeSession.remainingSeconds);
         const remainingSec = Math.max(0, State.activeSession.remainingSeconds);
@@ -270,9 +290,9 @@ const ExamModule = {
             };
         });
 
-        // Skor Kompetitif Edukasi:
-        // Skor Dasar = 1.000 / nomor benar (Maks 25.000)
-        // Bonus Kecepatan = proporsional terhadap ketelitian & sisa waktu (Maks 6.000)
+        // Skor Kompetitif Edukasi (Skala Puncak 100.000):
+        // Skor Dasar = 3.000 / nomor benar (Maks 75.000)
+        // Bonus Kecepatan = proporsional terhadap ketelitian & sisa waktu (Maks 25.000)
         const baseScore = correctCount * CONFIG.BASE_POINTS_PER_QUESTION;
         const accuracyRatio = correctCount / CONFIG.TOTAL_QUESTIONS;
         const speedBonus = Math.round(accuracyRatio * (remainingSec / CONFIG.EXAM_DURATION_SECONDS) * CONFIG.MAX_SPEED_BONUS);
@@ -299,6 +319,7 @@ const ExamModule = {
         await SpreadsheetService.pushRecord(completedRecord);
         this.checkAndEnforceIpLockUI();
         this.openReviewScreen(completedRecord);
+        this._isSubmitting = false;
     },
 
     checkAndEnforceIpLockUI() {
@@ -445,7 +466,7 @@ const ExamModule = {
                 </div>
             `;
         }).join('');
-        lucide.createIcons();
+        if (typeof lucide !== 'undefined') lucide.createIcons();
     },
 
     _buildShuffledQuestions() {
@@ -467,10 +488,13 @@ const ExamModule = {
 
     _startTimer() {
         clearInterval(State.activeSession.timerInterval);
-        this._updateTimerDisplay(State.activeSession.remainingSeconds);
 
-        State.activeSession.timerInterval = setInterval(() => {
-            State.activeSession.remainingSeconds -= 1;
+        // Sinkronisasi waktu presisi berbasis selisih jam dinding nyata (wall-clock timestamp delta)
+        // Mencegah perlambatan/kecurangan timer saat layar ponsel mati atau tab throttling aktif
+        const syncTime = () => {
+            if (!State.activeSession || !State.activeSession.startTimeMs) return;
+            const elapsedSec = Math.floor((Date.now() - State.activeSession.startTimeMs) / 1000);
+            State.activeSession.remainingSeconds = Math.max(0, CONFIG.EXAM_DURATION_SECONDS - elapsedSec);
             this._updateTimerDisplay(State.activeSession.remainingSeconds);
 
             if (State.activeSession.remainingSeconds <= 0) {
@@ -478,7 +502,109 @@ const ExamModule = {
                 Utils.showToast("Alokasi waktu ujian telah habis! Mengumpulkan jawaban otomatis.");
                 this.finalizeSubmit();
             }
-        }, 1000);
+        };
+
+        syncTime();
+        State.activeSession.timerInterval = setInterval(syncTime, 1000);
+    },
+
+    saveActiveSession() {
+        if (!State.activeSession || !State.activeSession.startTimeMs || State.activeSession.startTimeMs === 0) return;
+        try {
+            const payload = {
+                name: State.activeSession.name,
+                className: State.activeSession.className,
+                absen: State.activeSession.absen,
+                ip: State.activeSession.ip,
+                startTimeMs: State.activeSession.startTimeMs,
+                questions: State.activeSession.questions,
+                currentIndex: State.activeSession.currentIndex,
+                selectedAnswers: State.activeSession.selectedAnswers,
+                doubtFlags: State.activeSession.doubtFlags,
+                tabSwitches: State.activeSession.tabSwitches
+            };
+            localStorage.setItem(CONFIG.STORAGE_KEYS.ACTIVE_SESSION, JSON.stringify(payload));
+        } catch (e) {
+            console.error("Gagal auto-save sesi aktif:", e);
+        }
+    },
+
+    clearActiveSession() {
+        try {
+            localStorage.removeItem(CONFIG.STORAGE_KEYS.ACTIVE_SESSION);
+        } catch (e) {}
+    },
+
+    restoreActiveSession() {
+        try {
+            const raw = localStorage.getItem(CONFIG.STORAGE_KEYS.ACTIVE_SESSION);
+            if (!raw) return false;
+            const session = JSON.parse(raw);
+            if (!session || !session.startTimeMs || !session.questions || session.questions.length === 0) {
+                this.clearActiveSession();
+                return false;
+            }
+
+            // Jika perangkat sudah tercatat pernah mengumpulkan ujian, batalkan pemulihan
+            const lockedRecord = State.findRecordByIp(State.clientIpAddress);
+            if (lockedRecord) {
+                this.clearActiveSession();
+                return false;
+            }
+
+            // Hitung sisa waktu presisi jam dinding (wall-clock delta)
+            const elapsedSec = Math.floor((Date.now() - session.startTimeMs) / 1000);
+            const remainingSec = CONFIG.EXAM_DURATION_SECONDS - elapsedSec;
+
+            State.activeSession = {
+                name: session.name || "Peserta",
+                className: session.className || "XI A",
+                absen: session.absen || 1,
+                ip: session.ip || State.clientIpAddress,
+                startTimeMs: session.startTimeMs,
+                remainingSeconds: Math.max(0, remainingSec),
+                timerInterval: null,
+                questions: session.questions,
+                currentIndex: session.currentIndex || 0,
+                selectedAnswers: session.selectedAnswers || {},
+                doubtFlags: session.doubtFlags || {},
+                tabSwitches: session.tabSwitches || 0
+            };
+
+            // Jika waktu telah habis saat perangkat mati atau peramban ditutup
+            if (remainingSec <= 0) {
+                Utils.showToast("Waktu ujian telah habis saat sesi tidak aktif. Mengumpulkan jawaban otomatis...", false);
+                this.finalizeSubmit();
+                return true;
+            }
+
+            // Pulihkan tampilan ke ruang pengerjaan ujian
+            document.getElementById('screen-lobby').classList.add('hidden');
+            document.getElementById('screen-review').classList.add('hidden');
+            document.getElementById('screen-active-exam').classList.remove('hidden');
+
+            document.getElementById('exam-hud-name').textContent = State.activeSession.name;
+            document.getElementById('exam-hud-class').textContent = `${State.activeSession.className} • #${String(State.activeSession.absen).padStart(2, '0')}`;
+            document.getElementById('exam-hud-ip').textContent = `Sesi Dipulihkan Otomatis`;
+
+            const cheatPill = document.getElementById('exam-hud-cheat-pill');
+            const cheatCount = document.getElementById('exam-hud-cheat-count');
+            if (cheatPill && cheatCount) {
+                cheatPill.classList.remove('hidden');
+                cheatCount.textContent = `${State.activeSession.tabSwitches} Pelanggaran`;
+            }
+
+            this._startTimer();
+            this.renderQuestion(State.activeSession.currentIndex);
+            this.renderPalette();
+            this._updateAnsweredCount();
+            Utils.showToast("Sesi ujian Anda berhasil dipulihkan secara otomatis. Melanjutkan pengerjaan...", true);
+            return true;
+        } catch (e) {
+            console.error("Gagal memulihkan sesi aktif:", e);
+            this.clearActiveSession();
+            return false;
+        }
     },
 
     _updateTimerDisplay(seconds) {
@@ -506,7 +632,7 @@ const ExamModule = {
         if (hudEl) hudEl.textContent = `${answeredCount} / ${total}`;
 
         const progressBar = document.getElementById('exam-progress-bar');
-        if (progressBar) {
+        if (progressBar && progressBar.style) {
             const pct = Math.round((answeredCount / total) * 100);
             progressBar.style.width = `${pct}%`;
         }
@@ -523,6 +649,7 @@ const ExamModule = {
         document.addEventListener('visibilitychange', () => {
             if (document.hidden && State.activeSession && State.activeSession.startTimeMs > 0 && State.activeSession.remainingSeconds > 0) {
                 State.activeSession.tabSwitches = (State.activeSession.tabSwitches || 0) + 1;
+                this.saveActiveSession();
                 const sw = State.activeSession.tabSwitches;
                 const cheatCountEl = document.getElementById('exam-hud-cheat-count');
                 
