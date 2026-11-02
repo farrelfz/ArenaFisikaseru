@@ -100,8 +100,9 @@ const ExamModule = {
         const cheatCount = document.getElementById('exam-hud-cheat-count');
         if (cheatPill && cheatCount) {
             cheatPill.classList.remove('hidden');
-            cheatCount.textContent = "0 Pelanggaran";
-            cheatCount.className = "text-emerald-700 font-bold tabular-nums";
+            const st = this._getAntiCheatStatus(0);
+            cheatCount.textContent = st.statusLabel;
+            cheatCount.className = st.badgeClass;
         }
 
         this._startTimer();
@@ -280,13 +281,25 @@ const ExamModule = {
 
         State.activeSession.questions.forEach((q, idx) => {
             const chosenIdx = State.activeSession.selectedAnswers[idx];
-            const isCorrect = chosenIdx === q.correctIndex;
+            let correctIdx = -1;
+            if (q._v) {
+                try {
+                    const decoded = (typeof atob !== 'undefined') ? atob(q._v) : Buffer.from(q._v, 'base64').toString();
+                    correctIdx = parseInt(decoded.split(':')[1], 10);
+                } catch (e) {
+                    correctIdx = q.correctIndex !== undefined ? q.correctIndex : -1;
+                }
+            } else if (q.correctIndex !== undefined) {
+                correctIdx = q.correctIndex;
+            }
+
+            const isCorrect = chosenIdx !== undefined && chosenIdx === correctIdx;
             if (isCorrect) correctCount += 1;
 
             perQuestionDetail[q.id] = {
                 isCorrect,
                 chosenText: chosenIdx !== undefined ? q.options[chosenIdx] : null,
-                correctText: q.options[q.correctIndex]
+                correctText: correctIdx >= 0 && q.options[correctIdx] ? q.options[correctIdx] : ""
             };
         });
 
@@ -478,10 +491,17 @@ const ExamModule = {
             }));
             const shuffledOpts = Utils.shuffleArray(optObjs);
             const newCorrectIdx = shuffledOpts.findIndex(o => o.isCorrect);
+            // Obfuscate kunci jawaban pada sesi pengerjaan aktif di browser agar tidak terbaca via inspect DevTools
+            const tokenStr = `${q.id}:${newCorrectIdx}:${CONFIG.BASE_POINTS_PER_QUESTION}`;
+            const token = (typeof btoa !== 'undefined') ? btoa(tokenStr) : Buffer.from(tokenStr).toString('base64');
             return {
-                ...q,
+                id: q.id,
+                topic: q.topic,
+                level: q.level,
+                question: q.question,
+                diagram: q.diagram,
                 options: shuffledOpts.map(o => o.text),
-                correctIndex: newCorrectIdx
+                _v: token
             };
         });
     },
@@ -591,7 +611,9 @@ const ExamModule = {
             const cheatCount = document.getElementById('exam-hud-cheat-count');
             if (cheatPill && cheatCount) {
                 cheatPill.classList.remove('hidden');
-                cheatCount.textContent = `${State.activeSession.tabSwitches} Pelanggaran`;
+                const st = this._getAntiCheatStatus(State.activeSession.tabSwitches || 0);
+                cheatCount.textContent = st.statusLabel;
+                cheatCount.className = st.badgeClass;
             }
 
             this._startTimer();
@@ -645,41 +667,91 @@ const ExamModule = {
         if (palUnans) palUnans.textContent = unansweredCount;
     },
 
+    _getAntiCheatStatus(sw) {
+        const count = Number(sw) || 0;
+        if (count === 0) {
+            return {
+                badgeClass: "text-emerald-700 font-bold tabular-nums",
+                statusLabel: "0x • Aliran Tunak",
+                warningText: ""
+            };
+        } else if (count === 1) {
+            return {
+                badgeClass: "text-blue-600 font-bold tabular-nums",
+                statusLabel: "1x Tab • Riak Fluktuasi",
+                warningText: "💧 Peringatan Integritas: Terdeteksi 1x Riak Fluktuasi (meninggalkan jendela ujian). Harap jaga aliran fokus tetap tunak."
+            };
+        } else if (count === 2) {
+            return {
+                badgeClass: "text-amber-600 font-bold tabular-nums",
+                statusLabel: "2x Tab • Olakan Vortiks",
+                warningText: "🌀 Peringatan Pengawas: Terdeteksi 2x Olakan Vortiks (berpindah tab). Pengawas memantau deviasi aliran pengerjaan Anda."
+            };
+        } else if (count >= 3 && count <= 4) {
+            return {
+                badgeClass: "text-orange-600 font-bold tabular-nums",
+                statusLabel: `${count}x Tab • Kavitasi Kritis`,
+                warningText: `⚠️ Pelanggaran Integritas: Terdeteksi ${count}x Kavitasi Kritis! Instabilitas aliran pengerjaan Anda masuk pemantauan ketat pengawas!`
+            };
+        } else {
+            return {
+                badgeClass: "text-rose-600 font-bold tabular-nums animate-pulse",
+                statusLabel: `${count}x Tab • Separasi Ekstrem`,
+                warningText: `⛔ Pelanggaran Berat: Terdeteksi ${count}x Separasi Ekstrem! Integritas aliran pengerjaan terputus dan terekam di berita acara pengawas.`
+            };
+        }
+    },
+
+    _handleTabSwitch() {
+        if (!State.activeSession || !State.activeSession.startTimeMs || State.activeSession.remainingSeconds <= 0) return;
+        const now = Date.now();
+        if (this._lastSwitchTime && (now - this._lastSwitchTime < 800)) return;
+        this._lastSwitchTime = now;
+
+        State.activeSession.tabSwitches = (State.activeSession.tabSwitches || 0) + 1;
+        this.saveActiveSession();
+        const sw = State.activeSession.tabSwitches;
+        const cheatCountEl = document.getElementById('exam-hud-cheat-count');
+        const st = this._getAntiCheatStatus(sw);
+
+        if (cheatCountEl) {
+            cheatCountEl.textContent = st.statusLabel;
+            cheatCountEl.className = st.badgeClass;
+        }
+        if (st.warningText) {
+            Utils.showToast(st.warningText, sw <= 1);
+        }
+    },
+
     _bindAntiCheat() {
+        // 1. Deteksi perpindahan tab / minimize peramban (Page Visibility API)
         document.addEventListener('visibilitychange', () => {
-            if (document.hidden && State.activeSession && State.activeSession.startTimeMs > 0 && State.activeSession.remainingSeconds > 0) {
-                State.activeSession.tabSwitches = (State.activeSession.tabSwitches || 0) + 1;
-                this.saveActiveSession();
-                const sw = State.activeSession.tabSwitches;
-                const cheatCountEl = document.getElementById('exam-hud-cheat-count');
-                
-                let warningText = "";
-                let badgeClass = "text-emerald-700 font-bold tabular-nums";
-                let statusLabel = `${sw}x Tab`;
+            if (document.hidden) {
+                this._handleTabSwitch();
+            }
+        });
 
-                if (sw === 1) {
-                    badgeClass = "text-blue-600 font-bold tabular-nums";
-                    statusLabel = "1x Tab • Riak Fluktuasi";
-                    warningText = "💧 Peringatan Integritas: Terdeteksi 1x Riak Fluktuasi (meninggalkan jendela ujian). Harap jaga aliran fokus tetap tunak.";
-                } else if (sw === 2) {
-                    badgeClass = "text-amber-600 font-bold tabular-nums";
-                    statusLabel = "2x Tab • Olakan Vortiks";
-                    warningText = "🌀 Peringatan Pengawas: Terdeteksi 2x Olakan Vortiks (berpindah tab). Pengawas memantau deviasi aliran pengerjaan Anda.";
-                } else if (sw >= 3 && sw <= 4) {
-                    badgeClass = "text-orange-600 font-bold tabular-nums";
-                    statusLabel = `${sw}x Tab • Kavitasi Kritis`;
-                    warningText = `⚠️ Pelanggaran Integritas: Terdeteksi ${sw}x Kavitasi Kritis! Instabilitas aliran pengerjaan Anda masuk pemantauan ketat pengawas!`;
-                } else {
-                    badgeClass = "text-rose-600 font-bold tabular-nums animate-pulse";
-                    statusLabel = `${sw}x Tab • Separasi Ekstrem`;
-                    warningText = `⛔ Pelanggaran Berat: Terdeteksi ${sw}x Separasi Ekstrem! Integritas aliran pengerjaan terputus dan terekam di berita acara pengawas.`;
-                }
+        // 2. Deteksi pelepasan fokus jendela (Window Blur / Split-Screen Apps)
+        window.addEventListener('blur', () => {
+            this._handleTabSwitch();
+        });
 
-                if (cheatCountEl) {
-                    cheatCountEl.textContent = statusLabel;
-                    cheatCountEl.className = badgeClass;
+        // 3. Proteksi Klik Kanan (Context Menu) selama pengerjaan ujian aktif
+        document.addEventListener('contextmenu', (e) => {
+            if (State.activeSession && State.activeSession.startTimeMs > 0 && State.activeSession.remainingSeconds > 0) {
+                e.preventDefault();
+                Utils.showToast("Klik kanan dinonaktifkan demi menjaga integritas ujian.", false);
+            }
+        });
+
+        // 4. Proteksi Pintasan Pengembang (F12, Ctrl+Shift+I/J/C, Ctrl+U)
+        document.addEventListener('keydown', (e) => {
+            if (State.activeSession && State.activeSession.startTimeMs > 0 && State.activeSession.remainingSeconds > 0) {
+                const key = e.key ? e.key.toUpperCase() : '';
+                if (key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(key)) || (e.ctrlKey && key === 'U')) {
+                    e.preventDefault();
+                    Utils.showToast("Pintasan pengembang dinonaktifkan demi integritas ujian.", false);
                 }
-                Utils.showToast(warningText, sw <= 1);
             }
         });
     }
