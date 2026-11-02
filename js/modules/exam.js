@@ -26,8 +26,10 @@ const ExamModule = {
             const screen = document.getElementById('screen-active-exam');
             if (!screen || screen.classList.contains('hidden')) return;
 
-            // Jangan tangkap jika sedang mengetik di input modal atau form
+            // Jangan tangkap jika sedang mengetik di input atau jika modal submit/login sedang terbuka
             if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA')) return;
+            const submitModal = document.getElementById('modal-submit-exam');
+            if (submitModal && !submitModal.classList.contains('hidden')) return;
 
             const key = e.key.toLowerCase();
             if (key === 'a' || key === '1') this.selectOption(0);
