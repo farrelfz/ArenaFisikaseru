@@ -3,6 +3,8 @@
 // ==========================================================================
 
 const CONFIG = {
+    VERSION: '1.0.0',
+
     // Google Spreadsheet Integration
     SPREADSHEET_ID: '1hFypaFplnQggt2Nva6Apt4lPHJ66S3kQTXWoDmDlQSg',
     get SPREADSHEET_EDIT_URL() {
