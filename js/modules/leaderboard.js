@@ -617,12 +617,6 @@ const LeaderboardModule = {
         const container = document.getElementById('lb-item-analysis');
         if (!container) return;
 
-        const levelBadge = (lvl) => {
-            if (lvl === 'HOTS') return `<span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-purple-100 text-purple-800 border border-purple-200">HOTS</span>`;
-            if (lvl === 'Sedang') return `<span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-blue-100 text-blue-800 border border-blue-200">Sedang</span>`;
-            return `<span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">Mudah</span>`;
-        };
-
         container.innerHTML = MASTER_QUESTIONS.map(q => {
             let attempts = 0;
             let correct = 0;
@@ -643,11 +637,7 @@ const LeaderboardModule = {
             return `
                 <div class="edu-panel p-2.5 space-y-1.5 text-xs hover:border-blue-300 transition-colors">
                     <div class="flex items-center justify-between font-mono">
-                        <div class="flex items-center gap-1.5 min-w-0">
-                            <span class="font-bold text-slate-800 text-[11px] shrink-0">#${q.id}</span>
-                            ${levelBadge(q.level)}
-                            <span class="text-slate-700 text-[11px] truncate font-sans font-medium" title="${q.topic}">${q.topic}</span>
-                        </div>
+                        <span class="font-bold text-slate-800 text-[11px] truncate" title="${q.topic}">#${q.id} • ${q.topic}</span>
                         <span class="text-slate-700 text-[11px] tabular-nums font-semibold shrink-0 ml-2">${statText}</span>
                     </div>
                     <div class="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
