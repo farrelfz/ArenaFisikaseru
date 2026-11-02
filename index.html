@@ -1293,8 +1293,21 @@ const SPREADSHEET_ID = "1hFypaFplnQggt2Nva6Apt4lPHJ66S3kQTXWoDmDlQSg";
 function onOpen() {
   SpreadsheetApp.getUi()
     .createMenu("HydroArena SMAN 78")
+    .addItem("🟢 Buka Pendaftaran Ujian (Semua Siswa)", "manualOpenExam")
+    .addItem("🔴 Tutup Pendaftaran Ujian", "manualCloseExam")
+    .addSeparator()
     .addItem("Buat / Reset Sheet Bank Soal &amp; Kunci (25 Soal)", "manualInitQuestionBank")
     .addToUi();
+}
+
+function manualOpenExam() {
+  PropertiesService.getScriptProperties().setProperty("EXAM_IS_OPEN", "true");
+  SpreadsheetApp.getUi().alert("STATUS: Pendaftaran Ujian RESMI DIBUKA untuk seluruh siswa!");
+}
+
+function manualCloseExam() {
+  PropertiesService.getScriptProperties().setProperty("EXAM_IS_OPEN", "false");
+  SpreadsheetApp.getUi().alert("STATUS: Pendaftaran Ujian DITUTUP. Akses pengerjaan dikunci.");
 }
 
 function manualInitQuestionBank() {
@@ -1836,13 +1849,24 @@ function ensureQuestionBankSheet(ss) {
   return qSheet;
 }
 
-function doGet() {
+function doGet(e) {
   try {
     let ss;
-    try { ss = SpreadsheetApp.getActiveSpreadsheet(); } catch (e) {}
+    try { ss = SpreadsheetApp.getActiveSpreadsheet(); } catch (err) {}
     if (!ss) ss = SpreadsheetApp.openById(SPREADSHEET_ID);
 
     const props = PropertiesService.getScriptProperties();
+
+    // Terima instruksi kontrol status ujian via GET parameter (bebas kendala CORS peramban)
+    if (e &amp;&amp; e.parameter &amp;&amp; e.parameter.action === "setExamConfig") {
+      if (e.parameter.isOpen !== undefined) {
+        props.setProperty("EXAM_IS_OPEN", String(e.parameter.isOpen));
+      }
+      if (e.parameter.allowReview !== undefined) {
+        props.setProperty("ALLOW_REVIEW", String(e.parameter.allowReview));
+      }
+    }
+
     const examIsOpen = props.getProperty("EXAM_IS_OPEN") === "true"; // Bawaan: FALSE (tertutup) sebelum dibuka guru
     const allowReview = props.getProperty("ALLOW_REVIEW") !== "false";
 

@@ -23,7 +23,22 @@ const App = {
 
         await SpreadsheetService.sync(false);
         this.renderAllViews();
+        this._startLobbyPolling();
         lucide.createIcons();
+    },
+
+    _startLobbyPolling() {
+        clearInterval(this._lobbyPollInterval);
+        this._lobbyPollInterval = setInterval(async () => {
+            // Jangan lakukan polling jika siswa sedang aktif mengerjakan lembar soal
+            const activeExamScreen = document.getElementById('screen-active-exam');
+            if (activeExamScreen && !activeExamScreen.classList.contains('hidden')) return;
+
+            // Jangan polling jika sesi guru sedang aktif mengedit konfigurasi
+            if (State.isTeacherLoggedIn) return;
+
+            await SpreadsheetService.sync(false);
+        }, 12000); // Polling otomatis setiap 12 detik
     },
 
     _bindHiddenAdminTriggers() {

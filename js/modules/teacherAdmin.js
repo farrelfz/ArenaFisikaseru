@@ -217,16 +217,12 @@ const TeacherAdminModule = {
         App.applyExamConfigUI();
         Utils.showToast(`Status Ujian diubah: ${State.examConfig.isOpen ? 'PENDAFTARAN DIBUKA' : 'PENDAFTARAN DITUTUP'}`);
 
-        // Broadcast ke Google Spreadsheet Webhook
+        // Broadcast langsung ke Google Spreadsheet Webhook via GET query parameter (Bebas CORS!)
         const webhookUrl = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK) || CONFIG.DEFAULT_WEBHOOK_URL;
         if (webhookUrl && webhookUrl.startsWith("http")) {
             try {
-                await fetch(webhookUrl, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'setExamConfig', isOpen: State.examConfig.isOpen })
-                });
+                const target = `${webhookUrl}?action=setExamConfig&isOpen=${State.examConfig.isOpen}`;
+                await fetch(target, { cache: 'no-store' });
             } catch (err) {
                 console.warn("Gagal sinkronisasi status ujian ke server:", err);
             }
@@ -239,16 +235,12 @@ const TeacherAdminModule = {
         App.applyExamConfigUI();
         Utils.showToast(`Mode Pembahasan diubah: ${State.examConfig.allowReview ? 'DIIZINKAN' : 'DIKUNCI'}`);
 
-        // Broadcast ke Google Spreadsheet Webhook
+        // Broadcast langsung ke Google Spreadsheet Webhook via GET query parameter (Bebas CORS!)
         const webhookUrl = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK) || CONFIG.DEFAULT_WEBHOOK_URL;
         if (webhookUrl && webhookUrl.startsWith("http")) {
             try {
-                await fetch(webhookUrl, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ action: 'setExamConfig', allowReview: State.examConfig.allowReview })
-                });
+                const target = `${webhookUrl}?action=setExamConfig&allowReview=${State.examConfig.allowReview}`;
+                await fetch(target, { cache: 'no-store' });
             } catch (err) {
                 console.warn("Gagal sinkronisasi mode pembahasan ke server:", err);
             }

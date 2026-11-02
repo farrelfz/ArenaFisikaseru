@@ -18,13 +18,19 @@ const SpreadsheetService = {
 
                     // Sinkronisasi status ujian global dari server jika ada
                     if (data && typeof data.examIsOpen === 'boolean') {
+                        const previousStatus = State.examConfig.isOpen;
                         State.examConfig.isOpen = data.examIsOpen;
+                        if (typeof data.allowReview === 'boolean') {
+                            State.examConfig.allowReview = data.allowReview;
+                        }
+                        State.save();
+                        App.applyExamConfigUI();
+
+                        // Beri notifikasi langsung jika ujian baru saja dibuka oleh Guru
+                        if (!previousStatus && data.examIsOpen) {
+                            Utils.showToast("🟢 Pendaftaran Ujian telah RESMI DIBUKA oleh Guru! Silakan lengkapi identitas untuk memulai.", true);
+                        }
                     }
-                    if (data && typeof data.allowReview === 'boolean') {
-                        State.examConfig.allowReview = data.allowReview;
-                    }
-                    State.save();
-                    App.applyExamConfigUI();
 
                     if (data && Array.isArray(data.rows) && data.rows.length > 0) {
                         fetchedRows = data.rows.map((rowCells, idx) => {
