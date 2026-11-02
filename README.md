@@ -28,7 +28,7 @@
 Platform ini mengintegrasikan:
 1. **Bank Soal Terkurasi 25 Butir:** Disusun proporsional menurut kurva kesulitan standar SNBT/UTBK (3 Mudah, 16 Sedang, 6 HOTS), dilengkapi 21 diagram teknis SVG beresolusi tinggi tanpa tumpang tindih teks serta tipografi ilmiah standar (`<sub>` dan `<sup>`).
 2. **Pengacakan Ganda (*Dual Randomization*):** Nomor butir soal diacak dengan algoritma *Fisher-Yates* dan urutan pilihan opsi jawaban (A–E) diacak per sesi siswa, menjamin integritas evaluasi bebas contek.
-3. **Gamifikasi Edukasi Berskala 100.000 Poin:** Memadukan skor dasar akurasi (maks. 75.000 Pts) dan bonus kecepatan *speedrun* (maks. 25.000 Pts), dilengkapi *Podium Kehormatan 3 Besar*, *Piala Rombel Antar-Kelas (XI A–XI F)*, dan *Tier Gelar Fluida*.
+3. **Gamifikasi Edukasi Berskala 100.000 Poin:** Memadukan skor dasar akurasi (maks. 75.000 Pts) dan bonus kecepatan *speedrun* (maks. 25.000 Pts), dilengkapi *Podium Kehormatan 3 Besar*, *10 Terbaik Satu Angkatan (Top 10 Hall of Fame)*, *Piala Rombel Antar-Kelas (XI A–XI F)*, dan *Tier Gelar Fluida*.
 4. **Siklus Hidup Ujian Cerdas (*Smart Lifecycle*):**
    - **Sebelum Ujian Dibuka (Buka Otomatis: Rabu 06:30 WIB s.d. Jumat 16:00 WIB):** Menampilkan panel kisi-kisi materi, indikator soal, konstanta standar, dan panduan belajar mandiri siswa.
    - **Saat Ujian Dibuka:** Pendaftaran aktif dan pengerjaan lembar soal berlangsung dengan pemantauan integritas.
