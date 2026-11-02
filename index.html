@@ -792,27 +792,62 @@
                     </button>
                 </div>
 
-                <!-- 4 Metrik Ringkasan Angkatan -->
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-2 relative z-10 text-slate-900">
-                    <div class="bg-white/95 backdrop-blur-sm p-3.5 rounded-lg border border-white/40 shadow-sm space-y-0.5">
-                        <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">Total Siswa Berlaga</div>
-                        <div id="lb-stat-count" class="text-lg font-mono font-bold text-slate-900 tabular-nums">0 Siswa</div>
-                        <div class="text-[10px] text-slate-500 font-mono">Lintas XI A s/d XI F</div>
+                <!-- 4 Metrik Ringkasan Angkatan (Gaya Frosted Luxury Glass) -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 pt-2 relative z-10 text-white">
+                    <div class="bg-white/10 hover:bg-white/15 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow-md space-y-1 transition duration-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-semibold text-slate-300 uppercase tracking-wider font-mono">Siswa Berlaga</span>
+                            <div class="w-7 h-7 rounded-lg bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-300">
+                                <i data-lucide="users" class="w-3.5 h-3.5"></i>
+                            </div>
+                        </div>
+                        <div id="lb-stat-count" class="text-2xl font-mono font-bold text-white tracking-tight tabular-nums">0 Siswa</div>
+                        <div class="text-[10px] text-slate-300 font-mono flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                            <span>Lintas XI A s/d XI F</span>
+                        </div>
                     </div>
-                    <div class="bg-white/95 backdrop-blur-sm p-3.5 rounded-lg border border-white/40 shadow-sm space-y-0.5">
-                        <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">Rerata Nilai Quiz</div>
-                        <div id="lb-stat-avg" class="text-lg font-mono font-bold text-blue-900 tabular-nums">0.0 / 100</div>
-                        <div class="text-[10px] text-slate-500 font-mono">Standar KKM 75.0</div>
+
+                    <div class="bg-white/10 hover:bg-white/15 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow-md space-y-1 transition duration-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-semibold text-slate-300 uppercase tracking-wider font-mono">Rerata Nilai</span>
+                            <div class="w-7 h-7 rounded-lg bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center text-indigo-300">
+                                <i data-lucide="activity" class="w-3.5 h-3.5"></i>
+                            </div>
+                        </div>
+                        <div id="lb-stat-avg" class="text-2xl font-mono font-bold text-cyan-300 tracking-tight tabular-nums">0.0 / 100</div>
+                        <div class="text-[10px] text-slate-300 font-mono flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                            <span>Standar KKM 75.0</span>
+                        </div>
                     </div>
-                    <div class="bg-white/95 backdrop-blur-sm p-3.5 rounded-lg border border-white/40 shadow-sm space-y-0.5">
-                        <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">Skor Tertinggi</div>
-                        <div id="lb-stat-top" class="text-lg font-mono font-bold text-amber-700 tabular-nums">0 Pts</div>
-                        <div class="text-[10px] text-slate-500 font-mono">Juara #1 Angkatan</div>
+
+                    <div class="bg-white/10 hover:bg-white/15 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow-md space-y-1 transition duration-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-semibold text-slate-300 uppercase tracking-wider font-mono">Skor Tertinggi</span>
+                            <div class="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300">
+                                <i data-lucide="crown" class="w-3.5 h-3.5"></i>
+                            </div>
+                        </div>
+                        <div id="lb-stat-top" class="text-2xl font-mono font-bold text-amber-300 tracking-tight tabular-nums">0 Pts</div>
+                        <div class="text-[10px] text-slate-300 font-mono flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                            <span>Juara #1 Angkatan</span>
+                        </div>
                     </div>
-                    <div class="bg-white/95 backdrop-blur-sm p-3.5 rounded-lg border border-white/40 shadow-sm space-y-0.5">
-                        <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">Tingkat Ketuntasan</div>
-                        <div id="lb-stat-pass" class="text-lg font-mono font-bold text-emerald-700 tabular-nums">0% (0 Tuntas)</div>
-                        <div class="text-[10px] text-slate-500 font-mono">Target KKM ≥ 75.0</div>
+
+                    <div class="bg-white/10 hover:bg-white/15 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow-md space-y-1 transition duration-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-semibold text-slate-300 uppercase tracking-wider font-mono">Kelulusan KKM</span>
+                            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-300">
+                                <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                            </div>
+                        </div>
+                        <div id="lb-stat-pass" class="text-2xl font-mono font-bold text-emerald-300 tracking-tight tabular-nums">0% (0 Tuntas)</div>
+                        <div class="text-[10px] text-slate-300 font-mono flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                            <span>Target KKM ≥ 75.0</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -960,26 +995,41 @@
                             </h3>
                             <p class="text-[11px] text-slate-500">Gelar kehormatan berdasarkan capaian nilai kuis</p>
                         </div>
-                        <div class="space-y-1.5 text-xs font-mono">
-                            <div class="p-2 rounded bg-purple-50/70 border border-purple-200 flex items-center justify-between">
-                                <span class="font-bold text-purple-900 flex items-center gap-1">⚡ SUPERFLUIDA</span>
-                                <span class="text-purple-700 text-[11px] font-semibold">Nilai 95 – 100</span>
+                        <div class="space-y-2 text-xs font-mono">
+                            <div class="p-2.5 rounded-lg bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200/90 shadow-sm space-y-0.5">
+                                <div class="flex items-center justify-between font-bold">
+                                    <span class="text-purple-900 flex items-center gap-1">⚡ SUPERFLUIDA</span>
+                                    <span class="text-purple-700 text-[11px] font-semibold">Nilai 95 – 100</span>
+                                </div>
+                                <div class="text-[10px] text-purple-700/80 font-sans">Fluida ideal kuantum tanpa hambatan gesekan viskositas (η = 0)</div>
                             </div>
-                            <div class="p-2 rounded bg-emerald-50/70 border border-emerald-200 flex items-center justify-between">
-                                <span class="font-bold text-emerald-900 flex items-center gap-1">🌊 SUPERKRITIS</span>
-                                <span class="text-emerald-700 text-[11px] font-semibold">Nilai 85 – 94</span>
+                            <div class="p-2.5 rounded-lg bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200/90 shadow-sm space-y-0.5">
+                                <div class="flex items-center justify-between font-bold">
+                                    <span class="text-emerald-900 flex items-center gap-1">🌊 SUPERKRITIS</span>
+                                    <span class="text-emerald-700 text-[11px] font-semibold">Nilai 85 – 94</span>
+                                </div>
+                                <div class="text-[10px] text-emerald-700/80 font-sans">Aliran energi kinetik tinggi melampaui cepat rambat gelombang (Fr > 1)</div>
                             </div>
-                            <div class="p-2 rounded bg-blue-50/70 border border-blue-200 flex items-center justify-between">
-                                <span class="font-bold text-blue-900 flex items-center gap-1">🌀 TURBULEN (KKM)</span>
-                                <span class="text-blue-700 text-[11px] font-semibold">Nilai 75 – 84</span>
+                            <div class="p-2.5 rounded-lg bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200/90 shadow-sm space-y-0.5">
+                                <div class="flex items-center justify-between font-bold">
+                                    <span class="text-blue-900 flex items-center gap-1">🌀 TURBULEN (KKM)</span>
+                                    <span class="text-blue-700 text-[11px] font-semibold">Nilai 75 – 84</span>
+                                </div>
+                                <div class="text-[10px] text-blue-700/80 font-sans">Rezim pusaran dinamis berenergi tinggi (Reynolds Re > 4000)</div>
                             </div>
-                            <div class="p-2 rounded bg-amber-50/70 border border-amber-200 flex items-center justify-between">
-                                <span class="font-bold text-amber-900 flex items-center gap-1">⏳ TRANSISI</span>
-                                <span class="text-amber-700 text-[11px] font-semibold">Nilai 60 – 74</span>
+                            <div class="p-2.5 rounded-lg bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200/90 shadow-sm space-y-0.5">
+                                <div class="flex items-center justify-between font-bold">
+                                    <span class="text-amber-900 flex items-center gap-1">⏳ TRANSISI</span>
+                                    <span class="text-amber-700 text-[11px] font-semibold">Nilai 60 – 74</span>
+                                </div>
+                                <div class="text-[10px] text-amber-700/80 font-sans">Fase kritis ambang peralihan laminer menuju turbulensi</div>
                             </div>
-                            <div class="p-2 rounded bg-slate-50 border border-slate-200 flex items-center justify-between">
-                                <span class="font-bold text-slate-700 flex items-center gap-1">💧 LAMINER</span>
-                                <span class="text-slate-500 text-[11px] font-semibold">Nilai &lt; 60</span>
+                            <div class="p-2.5 rounded-lg bg-gradient-to-r from-slate-50 to-gray-50 border border-slate-200 shadow-sm space-y-0.5">
+                                <div class="flex items-center justify-between font-bold">
+                                    <span class="text-slate-700 flex items-center gap-1">💧 LAMINER</span>
+                                    <span class="text-slate-500 text-[11px] font-semibold">Nilai &lt; 60</span>
+                                </div>
+                                <div class="text-[10px] text-slate-500 font-sans">Aliran lambat berlapis dengan dominasi gesekan viskositas fluida</div>
                             </div>
                         </div>
 

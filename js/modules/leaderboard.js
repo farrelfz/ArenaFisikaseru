@@ -147,32 +147,65 @@ const LeaderboardModule = {
         const container = document.getElementById('lb-podium-container');
         if (!container) return;
 
-        if (sorted.length === 0) {
-            container.innerHTML = `
-                <div class="col-span-full p-8 text-center bg-slate-50 rounded-xl border border-dashed border-slate-300 text-slate-500 space-y-2">
-                    <div class="w-12 h-12 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center mx-auto text-slate-400">
-                        <i data-lucide="crown" class="w-6 h-6"></i>
-                    </div>
-                    <div class="text-sm font-bold text-slate-800">Podium Kehormatan Belum Terisi</div>
-                    <p class="text-xs text-slate-500 max-w-sm mx-auto">Selesaikan 25 butir soal dengan tepat dan cepat untuk menempati tahta juara HydroArena!</p>
-                </div>
-            `;
-            if (window.lucide) lucide.createIcons();
-            return;
-        }
-
-        const rank1 = sorted[0] || null;
-        const rank2 = sorted[1] || null;
-        const rank3 = sorted[2] || null;
+        const rank1 = (sorted && sorted[0]) || null;
+        const rank2 = (sorted && sorted[1]) || null;
+        const rank3 = (sorted && sorted[2]) || null;
 
         const buildPodiumCard = (rec, rank, styleType) => {
             if (!rec) {
-                return `
-                    <div class="p-6 rounded-xl border border-dashed border-slate-200 bg-slate-50 text-center text-slate-400 text-xs flex flex-col justify-center items-center h-48">
-                        <span class="font-mono text-slate-400 font-bold mb-1">POSISI #${rank}</span>
-                        <span>Menunggu Peserta</span>
-                    </div>
-                `;
+                if (rank === 1) {
+                    return `
+                        <div class="edu-card p-6 rounded-xl podium-empty-gold min-h-[295px] pt-8 -mt-2 sm:-mt-4 flex flex-col justify-between items-center text-center shadow-lg transition-transform hover:-translate-y-1">
+                            <div class="absolute -top-6 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center w-11 h-11 rounded-full bg-gradient-to-tr from-amber-400 via-amber-300 to-yellow-100 text-amber-950 shadow-lg ring-4 ring-white animate-bounce" title="Tahta Juara 1">
+                                <i data-lucide="crown" class="w-6 h-6 fill-amber-950"></i>
+                            </div>
+                            <div class="space-y-2 mt-4">
+                                <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-200/90 text-amber-950 border border-amber-300 inline-flex items-center gap-1.5 shadow-sm">
+                                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-800"></i>
+                                    <span>👑 TAHTA UTAMA ANGKATAN</span>
+                                </span>
+                                <h4 class="text-sm font-bold text-slate-800 mt-2">Slot Juara 1 Terbuka</h4>
+                                <p class="text-xs text-slate-500 max-w-[200px] mx-auto leading-relaxed">Raih total skor tertinggi dan klaim tahta emas bergengsi ini!</p>
+                            </div>
+                            <div class="w-full p-3 rounded-lg bg-white/90 border border-amber-200 text-xs font-mono text-amber-900 font-semibold space-y-0.5">
+                                <div>Target: Akurasi Tinggi + Speedrun</div>
+                                <div class="text-[10px] text-amber-700 font-normal">Tier Superfluida • Aliran Tunak</div>
+                            </div>
+                        </div>
+                    `;
+                } else if (rank === 2) {
+                    return `
+                        <div class="edu-card p-6 rounded-xl podium-empty-silver min-h-[265px] pt-7 mt-3 flex flex-col justify-between items-center text-center shadow-md transition-transform hover:-translate-y-1">
+                            <div class="absolute -top-4 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center w-8 h-8 rounded-full bg-slate-200 text-slate-800 shadow-md ring-4 ring-white" title="Slot Juara 2">
+                                <span class="text-sm">🥈</span>
+                            </div>
+                            <div class="space-y-1.5 mt-2">
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-slate-200 text-slate-800 border border-slate-300 inline-block">🥈 JUARA 2 PERAK</span>
+                                <h4 class="text-xs font-bold text-slate-800 mt-1">Slot Juara 2 Terbuka</h4>
+                                <p class="text-[11px] text-slate-500 max-w-[190px] mx-auto leading-relaxed">Tuntaskan 25 butir soal dengan efisiensi waktu tinggi.</p>
+                            </div>
+                            <div class="w-full p-2.5 rounded-lg bg-white/90 border border-slate-200 text-[11px] font-mono text-slate-700 font-semibold">
+                                <div>Slot Podium Siap Diperebutkan</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="edu-card p-6 rounded-xl podium-empty-bronze min-h-[255px] pt-7 mt-3 flex flex-col justify-between items-center text-center shadow-md transition-transform hover:-translate-y-1">
+                            <div class="absolute -top-4 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center w-8 h-8 rounded-full bg-orange-200 text-orange-950 shadow-md ring-4 ring-white" title="Slot Juara 3">
+                                <span class="text-sm">🥉</span>
+                            </div>
+                            <div class="space-y-1.5 mt-2">
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-orange-200 text-orange-950 border border-orange-300 inline-block">🥉 JUARA 3 PERUNGGU</span>
+                                <h4 class="text-xs font-bold text-slate-800 mt-1">Slot Juara 3 Terbuka</h4>
+                                <p class="text-[11px] text-slate-500 max-w-[190px] mx-auto leading-relaxed">Pertahankan akurasi dan kecepatan Anda.</p>
+                            </div>
+                            <div class="w-full p-2.5 rounded-lg bg-white/90 border border-orange-200 text-[11px] font-mono text-orange-900 font-semibold">
+                                <div>Slot Podium Siap Diperebutkan</div>
+                            </div>
+                        </div>
+                    `;
+                }
             }
 
             const tier = this.getTier(rec.academicGrade);
@@ -279,21 +312,10 @@ const LeaderboardModule = {
         const container = document.getElementById('lb-top10-container');
         if (!container) return;
 
-        if (!top10 || top10.length === 0) {
-            container.innerHTML = `
-                <div class="col-span-full p-6 text-center bg-slate-900/60 rounded-xl border border-slate-800 text-slate-400 space-y-1.5">
-                    <i data-lucide="award" class="w-8 h-8 text-amber-400/50 mx-auto mb-1"></i>
-                    <div class="text-xs font-bold text-slate-200">Klasemen 10 Terbaik Angkatan Belum Terisi</div>
-                    <p class="text-[11px] text-slate-400 max-w-md mx-auto">Selesaikan 25 butir soal dengan nilai tuntas dan bonus kecepatan tertinggi untuk menempati Top 10 Hall of Fame!</p>
-                </div>
-            `;
-            if (window.lucide) lucide.createIcons();
-            return;
-        }
-
         let html = '';
+        const list = top10 || [];
         for (let i = 0; i < 10; i++) {
-            const r = top10[i];
+            const r = list[i] || null;
             const rank = i + 1;
 
             if (r) {
@@ -303,24 +325,23 @@ const LeaderboardModule = {
                 const initials = (r.name || "P").split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
 
                 let rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-slate-800 text-slate-300 border border-slate-700">#${rank}</span>`;
-                let borderClass = "border-slate-800 hover:border-slate-600 bg-slate-900/90";
+                let cardStyle = "hof-card-elite";
 
                 if (rank === 1) {
                     rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-gradient-to-r from-amber-400 to-yellow-300 text-slate-950 shadow-sm flex items-center gap-1">🥇 #1</span>`;
-                    borderClass = "border-amber-500/60 bg-gradient-to-br from-amber-950/40 via-slate-900 to-slate-900 shadow-md";
+                    cardStyle = "hof-card-gold";
                 } else if (rank === 2) {
                     rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-slate-200 text-slate-900 shadow-sm flex items-center gap-1">🥈 #2</span>`;
-                    borderClass = "border-slate-400/60 bg-gradient-to-br from-slate-800/60 via-slate-900 to-slate-900";
+                    cardStyle = "hof-card-silver";
                 } else if (rank === 3) {
                     rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-orange-400 text-slate-950 shadow-sm flex items-center gap-1">🥉 #3</span>`;
-                    borderClass = "border-orange-500/60 bg-gradient-to-br from-orange-950/40 via-slate-900 to-slate-900";
+                    cardStyle = "hof-card-bronze";
                 } else if (rank <= 5) {
-                    rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-blue-900/60 text-blue-300 border border-blue-600/40">🎖️ #${rank}</span>`;
-                    borderClass = "border-blue-900/60 hover:border-blue-600/40 bg-slate-900/90";
+                    rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-blue-900/80 text-blue-300 border border-blue-600/50">🎖️ #${rank}</span>`;
                 }
 
                 html += `
-                    <div class="p-3.5 rounded-xl border ${borderClass} flex flex-col justify-between transition-all hover:-translate-y-0.5 shadow-sm text-left">
+                    <div class="p-3.5 rounded-xl ${cardStyle} flex flex-col justify-between transition-all hover:-translate-y-1 shadow-sm text-left">
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
                                 ${rankBadge}
@@ -355,9 +376,24 @@ const LeaderboardModule = {
                 `;
             } else {
                 html += `
-                    <div class="p-3.5 rounded-xl border border-dashed border-slate-800/80 bg-slate-900/40 flex flex-col justify-center items-center text-center min-h-[115px] text-slate-500">
-                        <span class="font-mono text-[11px] font-bold text-slate-500 mb-1">#${rank} TERBUKA</span>
-                        <span class="text-[10px] text-slate-600">Menunggu Penantang</span>
+                    <div class="p-3.5 rounded-xl hof-card-empty flex flex-col justify-between text-left min-h-[125px] transition-all hover:border-slate-700">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2 py-0.5 rounded font-mono font-bold text-[10px] ${rank === 1 ? 'bg-amber-400/20 text-amber-300 border border-amber-400/40' : rank <= 3 ? 'bg-slate-700 text-slate-300' : 'bg-slate-800 text-slate-400'}">
+                                #${rank} TERBUKA
+                            </span>
+                            <span class="text-[9px] font-mono text-slate-500">Hall of Fame</span>
+                        </div>
+                        <div class="my-1.5 space-y-0.5">
+                            <div class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full ${rank === 1 ? 'bg-amber-400 animate-pulse' : 'bg-slate-500'}"></span>
+                                <span>Slot Diperebutkan</span>
+                            </div>
+                            <div class="text-[10px] text-slate-500 font-mono">Target: Tuntas KKM (≥75)</div>
+                        </div>
+                        <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between font-mono text-[10px] text-slate-400">
+                            <span>Kelas XI A – F</span>
+                            <span class="text-blue-400 font-semibold">Siap Berlaga</span>
+                        </div>
                     </div>
                 `;
             }
@@ -387,25 +423,37 @@ const LeaderboardModule = {
         classStats.sort((a, b) => b.avgScore - a.avgScore);
 
         container.innerHTML = classStats.map((cs, idx) => {
-            const rankBadge = idx === 0 ? "🥇 #1" : idx === 1 ? "🥈 #2" : idx === 2 ? "🥉 #3" : `#${idx + 1}`;
+            const hasData = cs.count > 0;
+            const rankBadge = hasData
+                ? (idx === 0 ? "🥇 #1" : idx === 1 ? "🥈 #2" : idx === 2 ? "🥉 #3" : `#${idx + 1}`)
+                : `<span class="text-slate-400 font-bold">#${idx + 1}</span>`;
+            const scoreDisplay = hasData
+                ? `<span class="text-xs font-bold text-blue-900 tabular-nums">${Utils.formatNumber(cs.avgScore)} <span class="text-[10px] text-slate-500 font-normal">Rerata</span></span>`
+                : `<span class="text-[11px] font-mono text-slate-400">Siap Berlaga</span>`;
+            const progressPct = hasData ? Math.min(100, Math.round((cs.avgScore / CONFIG.MAX_TOTAL_SCORE) * 100)) : 0;
+            const statusLine = hasData ? `${cs.count} Siswa • Tuntas ${cs.passRate}%` : `0 Siswa Terdaftar`;
+            const topScorerLine = hasData && cs.topStudent
+                ? `★ ${Utils.escapeHtml(this.formatDisplayName(cs.topStudent.name))}`
+                : `<span class="text-slate-400 font-normal">★ Menunggu</span>`;
+
             return `
                 <div class="p-3.5 rounded-lg bg-white border border-slate-200 hover:border-blue-300 transition shadow-sm space-y-2">
                     <div class="flex items-center justify-between font-mono">
                         <div class="flex items-center gap-2">
-                            <span class="text-xs font-bold text-slate-700">${rankBadge}</span>
+                            <span class="text-xs font-bold">${rankBadge}</span>
                             <span class="text-xs font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-200">${cs.cls}</span>
                         </div>
-                        <span class="text-xs font-bold text-blue-900 tabular-nums">${Utils.formatNumber(cs.avgScore)} <span class="text-[10px] text-slate-500 font-normal">Rerata</span></span>
+                        ${scoreDisplay}
                     </div>
 
                     <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                        <div class="bg-blue-700 h-full rounded-full transition-all duration-500" style="width: ${Math.min(100, Math.round((cs.avgScore / CONFIG.MAX_TOTAL_SCORE) * 100))}%"></div>
+                        <div class="bg-blue-700 h-full rounded-full transition-all duration-500" style="width: ${progressPct}%"></div>
                     </div>
 
                     <div class="flex items-center justify-between text-[11px] font-mono text-slate-500 pt-0.5">
-                        <span>${cs.count} Siswa • Tuntas ${cs.passRate}%</span>
-                        <span class="text-slate-800 font-semibold truncate max-w-[150px]" title="Top Scorer: ${Utils.escapeHtml(cs.topStudent ? cs.topStudent.name : '-')}">
-                            ★ ${Utils.escapeHtml(cs.topStudent ? this.formatDisplayName(cs.topStudent.name) : '-')}
+                        <span>${statusLine}</span>
+                        <span class="text-slate-800 font-semibold truncate max-w-[150px]" title="Top Scorer">
+                            ${topScorerLine}
                         </span>
                     </div>
                 </div>
@@ -569,6 +617,12 @@ const LeaderboardModule = {
         const container = document.getElementById('lb-item-analysis');
         if (!container) return;
 
+        const levelBadge = (lvl) => {
+            if (lvl === 'HOTS') return `<span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-purple-100 text-purple-800 border border-purple-200">HOTS</span>`;
+            if (lvl === 'Sedang') return `<span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-blue-100 text-blue-800 border border-blue-200">Sedang</span>`;
+            return `<span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">Mudah</span>`;
+        };
+
         container.innerHTML = MASTER_QUESTIONS.map(q => {
             let attempts = 0;
             let correct = 0;
@@ -582,15 +636,22 @@ const LeaderboardModule = {
                 } catch (e) {}
             });
             const pct = attempts > 0 ? Math.round((correct / attempts) * 100) : 0;
+            const statText = attempts > 0
+                ? `${correct}/${attempts} (${pct}%)`
+                : `<span class="text-slate-400 font-normal">Siap Diuji</span>`;
 
             return `
-                <div class="edu-panel p-2.5 space-y-1 text-xs">
+                <div class="edu-panel p-2.5 space-y-1.5 text-xs hover:border-blue-300 transition-colors">
                     <div class="flex items-center justify-between font-mono">
-                        <span class="font-bold text-slate-800 text-[11px]">#${q.id} • ${q.topic}</span>
-                        <span class="text-slate-600 text-[11px] tabular-nums font-semibold">${correct}/${attempts} (${pct}%)</span>
+                        <div class="flex items-center gap-1.5 min-w-0">
+                            <span class="font-bold text-slate-800 text-[11px] shrink-0">#${q.id}</span>
+                            ${levelBadge(q.level)}
+                            <span class="text-slate-700 text-[11px] truncate font-sans font-medium" title="${q.topic}">${q.topic}</span>
+                        </div>
+                        <span class="text-slate-700 text-[11px] tabular-nums font-semibold shrink-0 ml-2">${statText}</span>
                     </div>
                     <div class="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
-                        <div class="h-full rounded-full ${pct >= 75 ? 'bg-emerald-600' : pct >= 50 ? 'bg-amber-500' : 'bg-rose-500'}" style="width: ${pct}%"></div>
+                        <div class="h-full rounded-full transition-all duration-500 ${attempts === 0 ? 'bg-slate-300' : pct >= 75 ? 'bg-emerald-600' : pct >= 50 ? 'bg-amber-500' : 'bg-rose-500'}" style="width: ${attempts === 0 ? 0 : pct}%"></div>
                     </div>
                 </div>
             `;

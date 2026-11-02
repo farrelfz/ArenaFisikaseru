@@ -344,3 +344,54 @@ body {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
 }
+
+/* Empty State Pedestals (Sleek Olympic / Esports Pre-Exam Cards) */
+.podium-empty-gold {
+    background: linear-gradient(180deg, rgba(254, 240, 138, 0.25) 0%, rgba(255, 255, 255, 0.9) 60%, rgba(254, 240, 138, 0.15) 100%);
+    border: 2px dashed #eab308;
+    position: relative;
+    border-radius: 0.85rem;
+}
+
+.podium-empty-silver {
+    background: linear-gradient(180deg, rgba(226, 232, 240, 0.4) 0%, rgba(255, 255, 255, 0.9) 60%, rgba(241, 245, 249, 0.25) 100%);
+    border: 2px dashed #94a3b8;
+    position: relative;
+    border-radius: 0.85rem;
+}
+
+.podium-empty-bronze {
+    background: linear-gradient(180deg, rgba(254, 215, 170, 0.3) 0%, rgba(255, 255, 255, 0.9) 60%, rgba(255, 237, 213, 0.2) 100%);
+    border: 2px dashed #f97316;
+    position: relative;
+    border-radius: 0.85rem;
+}
+
+/* Hall of Fame Dark Metallic Cards */
+.hof-card-gold {
+    background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.15) 0%, rgba(15, 23, 42, 0.95) 70%);
+    border: 1px solid rgba(245, 158, 11, 0.5);
+    box-shadow: 0 4px 14px -2px rgba(245, 158, 11, 0.18);
+}
+
+.hof-card-silver {
+    background: radial-gradient(circle at top right, rgba(148, 163, 184, 0.15) 0%, rgba(15, 23, 42, 0.95) 70%);
+    border: 1px solid rgba(148, 163, 184, 0.45);
+    box-shadow: 0 4px 14px -2px rgba(148, 163, 184, 0.15);
+}
+
+.hof-card-bronze {
+    background: radial-gradient(circle at top right, rgba(234, 88, 12, 0.15) 0%, rgba(15, 23, 42, 0.95) 70%);
+    border: 1px solid rgba(234, 88, 12, 0.45);
+    box-shadow: 0 4px 14px -2px rgba(234, 88, 12, 0.15);
+}
+
+.hof-card-elite {
+    background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.12) 0%, rgba(15, 23, 42, 0.95) 70%);
+    border: 1px solid rgba(59, 130, 246, 0.35);
+}
+
+.hof-card-empty {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px dashed rgba(71, 85, 105, 0.6);
+}
