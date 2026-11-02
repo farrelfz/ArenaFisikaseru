@@ -26,6 +26,17 @@ const CONFIG = {
     ACADEMIC_KKM: 75.0,
     CLASSES: ['XI A', 'XI B', 'XI C', 'XI D', 'XI E', 'XI F'],
 
+    // Jadwal Pelaksanaan Ujian Resmi (WIB / Asia/Jakarta)
+    // Terbuka otomatis hari Rabu jam 06:30 WIB s.d. Jumat jam 16:00 WIB
+    SCHEDULE: {
+        ENABLED: true,
+        OPEN_DAY_NAME: 'Rabu',
+        OPEN_HOUR_TEXT: '06:30 WIB',
+        CLOSE_DAY_NAME: 'Jumat',
+        CLOSE_HOUR_TEXT: '16:00 WIB',
+        LABEL: 'Rabu 06:30 WIB s.d. Jumat 16:00 WIB'
+    },
+
     // Helper Dinamis (Menghindari Hardcode Angka di Template UI)
     get DURATION_MINUTES() {
         return Math.floor(this.EXAM_DURATION_SECONDS / 60);

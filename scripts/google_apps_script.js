@@ -15,27 +15,52 @@ const SPREADSHEET_ID = "1hFypaFplnQggt2Nva6Apt4lPHJ66S3kQTXWoDmDlQSg";
 function onOpen() {
   SpreadsheetApp.getUi()
     .createMenu("HydroArena SMAN 78")
-    .addItem("🟢 Buka Pendaftaran Ujian (Semua Siswa)", "manualOpenExam")
-    .addItem("🔴 Tutup Pendaftaran Ujian", "manualCloseExam")
+    .addItem("⏰ Jadwal Otomatis (Rabu 06:30 s.d. Jumat 16:00 WIB)", "manualAutoSchedule")
+    .addSeparator()
+    .addItem("🟢 Paksa Buka Pendaftaran (Manual Override)", "manualOpenExam")
+    .addItem("🔴 Paksa Tutup Pendaftaran (Manual Override)", "manualCloseExam")
     .addSeparator()
     .addItem("Buat / Reset Sheet Bank Soal & Kunci (25 Soal)", "manualInitQuestionBank")
     .addToUi();
 }
 
+function manualAutoSchedule() {
+  PropertiesService.getScriptProperties().setProperty("EXAM_OVERRIDE", "auto");
+  SpreadsheetApp.getUi().alert("STATUS: Ujian diatur mengikuti JADWAL OTOMATIS (Rabu 06:30 WIB s.d. Jumat 16:00 WIB)!");
+}
+
 function manualOpenExam() {
-  PropertiesService.getScriptProperties().setProperty("EXAM_IS_OPEN", "true");
-  SpreadsheetApp.getUi().alert("STATUS: Pendaftaran Ujian RESMI DIBUKA untuk seluruh siswa!");
+  PropertiesService.getScriptProperties().setProperty("EXAM_OVERRIDE", "manual_open");
+  SpreadsheetApp.getUi().alert("STATUS: Pendaftaran Ujian DIBUKA MANUAL (Override) untuk seluruh siswa!");
 }
 
 function manualCloseExam() {
-  PropertiesService.getScriptProperties().setProperty("EXAM_IS_OPEN", "false");
-  SpreadsheetApp.getUi().alert("STATUS: Pendaftaran Ujian DITUTUP. Akses pengerjaan dikunci.");
+  PropertiesService.getScriptProperties().setProperty("EXAM_OVERRIDE", "manual_closed");
+  SpreadsheetApp.getUi().alert("STATUS: Pendaftaran Ujian DITUTUP MANUAL (Override). Akses pengerjaan dikunci.");
 }
 
 function manualInitQuestionBank() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   ensureQuestionBankSheet(ss);
   SpreadsheetApp.getUi().alert("Sheet \"Pertanyaan & Kunci Jawaban\" (25 Soal) berhasil dibuat dan diisi lengkap!");
+}
+
+// Jadwal Ujian Resmi: Terbuka Rabu 06:30 WIB s.d. Jumat 16:00 WIB
+function isWithinExamSchedule() {
+  const str = Utilities.formatDate(new Date(), "Asia/Jakarta", "u,HH,mm");
+  const parts = str.split(",");
+  const day = parseInt(parts[0], 10); // 1 = Sen, 2 = Sel, 3 = Rab, 4 = Kam, 5 = Jum, 6 = Sab, 7 = Min
+  const hour = parseInt(parts[1], 10);
+  const minute = parseInt(parts[2], 10);
+  const totalMins = hour * 60 + minute;
+
+  // 3 = Rabu (>= 06:30 / 390m)
+  // 4 = Kamis (sepanjang hari)
+  // 5 = Jumat (< 16:00 / 960m)
+  if (day === 3) return totalMins >= 390;
+  if (day === 4) return true;
+  if (day === 5) return totalMins < 960;
+  return false;
 }
 
 // ==========================================================================
@@ -581,15 +606,27 @@ function doGet(e) {
 
     // Terima instruksi kontrol status ujian via GET parameter (bebas kendala CORS peramban)
     if (e && e.parameter && e.parameter.action === "setExamConfig") {
+      if (e.parameter.override !== undefined) {
+        props.setProperty("EXAM_OVERRIDE", String(e.parameter.override));
+      }
       if (e.parameter.isOpen !== undefined) {
-        props.setProperty("EXAM_IS_OPEN", String(e.parameter.isOpen));
+        props.setProperty("EXAM_OVERRIDE", e.parameter.isOpen === "true" ? "manual_open" : "manual_closed");
       }
       if (e.parameter.allowReview !== undefined) {
         props.setProperty("ALLOW_REVIEW", String(e.parameter.allowReview));
       }
     }
 
-    const examIsOpen = props.getProperty("EXAM_IS_OPEN") === "true"; // Bawaan: FALSE (tertutup) sebelum dibuka guru
+    const overrideMode = props.getProperty("EXAM_OVERRIDE") || "auto";
+    let examIsOpen = false;
+    if (overrideMode === "manual_open") {
+      examIsOpen = true;
+    } else if (overrideMode === "manual_closed") {
+      examIsOpen = false;
+    } else {
+      examIsOpen = isWithinExamSchedule();
+    }
+
     const allowReview = props.getProperty("ALLOW_REVIEW") !== "false";
 
     const allRows = [];

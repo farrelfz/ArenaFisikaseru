@@ -372,6 +372,13 @@ const LeaderboardModule = {
         if (elStatTop) elStatTop.textContent = `${Utils.formatNumber(topScore)} Pts`;
         if (elStatPass) elStatPass.textContent = `${passRate}% (${passedCount} Tuntas)`;
 
+        // Update Counter Lengkap Tabel
+        const elTableCountBadge = document.getElementById('lb-table-count-badge');
+        const elFooterTotal = document.getElementById('lb-footer-total-count');
+        const classLabel = classFilter === 'ALL' ? 'Seluruh Kelas (XI A–XI F)' : `Kelas ${classFilter}`;
+        if (elTableCountBadge) elTableCountBadge.textContent = `${filtered.length} Siswa Terdaftar`;
+        if (elFooterTotal) elFooterTotal.textContent = `${filtered.length} Siswa • ${classLabel}`;
+
         // Render Podium Top 3 (berdasarkan filter kelas yang aktif bila ada)
         this.renderPodiumTop3(filtered.slice(0, 3));
 

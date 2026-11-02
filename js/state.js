@@ -31,10 +31,24 @@ const State = {
     isAdminTriggered: false, // Terbuka lewat ?admin=1 atau 3x klik logo
     activeAdminSubTab: 'ctrl',
 
-    // Konfigurasi Dinamis Ujian (Bawaan: Ditutup sebelum dibuka oleh Guru)
+    // Konfigurasi Dinamis Ujian
+    // Bawaan: Mode Jadwal Otomatis (Terbuka Rabu 06:30 WIB s.d. Jumat 16:00 WIB)
     examConfig: {
-        isOpen: false,
-        allowReview: true
+        _isOpen: false,
+        overrideMode: 'auto', // 'auto' | 'manual_open' | 'manual_closed'
+        allowReview: true,
+        get isOpen() {
+            if (this.overrideMode === 'manual_open') return true;
+            if (this.overrideMode === 'manual_closed') return false;
+            if (typeof Utils !== 'undefined' && Utils.isWithinExamSchedule) {
+                return Utils.isWithinExamSchedule();
+            }
+            return this._isOpen;
+        },
+        set isOpen(val) {
+            this._isOpen = !!val;
+            this.overrideMode = val ? 'manual_open' : 'manual_closed';
+        }
     },
 
     // Record yang sedang dibuka di Mode Review
@@ -112,7 +126,11 @@ const State = {
 
             const savedConfig = localStorage.getItem(CONFIG.STORAGE_KEYS.EXAM_CONFIG);
             if (savedConfig) {
-                this.examConfig = Object.assign(this.examConfig, JSON.parse(savedConfig));
+                try {
+                    const parsed = JSON.parse(savedConfig);
+                    if (parsed.overrideMode) this.examConfig.overrideMode = parsed.overrideMode;
+                    if (parsed.allowReview !== undefined) this.examConfig.allowReview = parsed.allowReview;
+                } catch (e) {}
             }
 
             const teacherSession = sessionStorage.getItem(CONFIG.STORAGE_KEYS.TEACHER_SESSION);
@@ -128,7 +146,10 @@ const State = {
         try {
             localStorage.setItem(CONFIG.STORAGE_KEYS.RECORDS, JSON.stringify(this.leaderboardRecords));
             localStorage.setItem(CONFIG.STORAGE_KEYS.IP_MAP, JSON.stringify(this.ipLockRegistry));
-            localStorage.setItem(CONFIG.STORAGE_KEYS.EXAM_CONFIG, JSON.stringify(this.examConfig));
+            localStorage.setItem(CONFIG.STORAGE_KEYS.EXAM_CONFIG, JSON.stringify({
+                overrideMode: this.examConfig.overrideMode,
+                allowReview: this.examConfig.allowReview
+            }));
         } catch (e) {
             console.error("Gagal menyimpan ke LocalStorage:", e);
         }

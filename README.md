@@ -30,7 +30,7 @@ Platform ini mengintegrasikan:
 2. **Pengacakan Ganda (*Dual Randomization*):** Nomor butir soal diacak dengan algoritma *Fisher-Yates* dan urutan pilihan opsi jawaban (A–E) diacak per sesi siswa, menjamin integritas evaluasi bebas contek.
 3. **Gamifikasi Edukasi Berskala 100.000 Poin:** Memadukan skor dasar akurasi (maks. 75.000 Pts) dan bonus kecepatan *speedrun* (maks. 25.000 Pts), dilengkapi *Podium Kehormatan 3 Besar*, *Piala Rombel Antar-Kelas (XI A–XI F)*, dan *Tier Gelar Fluida*.
 4. **Siklus Hidup Ujian Cerdas (*Smart Lifecycle*):**
-   - **Sebelum Ujian Dibuka:** Menampilkan panel kisi-kisi materi, indikator soal, konstanta standar, dan panduan belajar mandiri siswa.
+   - **Sebelum Ujian Dibuka (Buka Otomatis: Rabu 06:30 WIB s.d. Jumat 16:00 WIB):** Menampilkan panel kisi-kisi materi, indikator soal, konstanta standar, dan panduan belajar mandiri siswa.
    - **Saat Ujian Dibuka:** Pendaftaran aktif dan pengerjaan lembar soal berlangsung dengan pemantauan integritas.
    - **Setelah Ujian Ditutup:** Tab ujian otomatis disembunyikan, siswa langsung dialihkan ke Klasemen Akhir Angkatan dengan filter per-rombel.
 5. **Perlindungan Data 3 Lapis (*Anti-Overwrite*):** Mencegah duplikasi nama siswa, nomor absen ganda di rombel yang sama, serta spamming gawai/IP via *Google Apps Script Mutex LockService*.

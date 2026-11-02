@@ -132,7 +132,7 @@ const App = {
                 startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
             }
             if (statusDot) statusDot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
-            if (statusText) statusText.textContent = "Ujian Buka";
+            if (statusText) statusText.textContent = "Ujian Buka (s.d. Jumat 16:00)";
             if (statusPill) statusPill.className = "hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-800";
         } else {
             // KONDISI B: UJIAN DITUTUP
@@ -165,7 +165,7 @@ const App = {
                 startBtn.classList.add('opacity-50', 'cursor-not-allowed');
             }
             if (statusDot) statusDot.className = "w-2 h-2 rounded-full bg-rose-500";
-            if (statusText) statusText.textContent = totalRecords > 0 ? "Ujian Ditutup" : "Belum Dibuka";
+            if (statusText) statusText.textContent = totalRecords > 0 ? "Ujian Ditutup" : "Buka Rabu 06:30 WIB";
             if (statusPill) statusPill.className = "hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-800";
         }
 
@@ -175,15 +175,20 @@ const App = {
         const metricStatus = document.getElementById('metric-exam-status-text');
 
         if (ctrlDesc && btnToggleExam && metricStatus) {
+            const isAuto = State.examConfig.overrideMode === 'auto';
             if (State.examConfig.isOpen) {
-                ctrlDesc.textContent = "Status saat ini: Pendaftaran TERBUKA. Seluruh siswa kelas XI dapat memulai pengerjaan ujian.";
-                btnToggleExam.textContent = "Tutup Pendaftaran Ujian";
+                ctrlDesc.textContent = isAuto
+                    ? "Status: TERBUKA OTOMATIS (Sesuai jadwal: Rabu 06:30 s.d. Jumat 16:00 WIB)."
+                    : "Status: DIBUKA MANUAL oleh Guru (Mengabaikan jadwal otomatis).";
+                btnToggleExam.textContent = "Paksa Tutup Pendaftaran";
                 btnToggleExam.className = "edu-btn-secondary px-4 py-2 text-xs font-semibold text-rose-700 hover:bg-rose-50 border-rose-200";
                 metricStatus.textContent = "TERBUKA";
                 metricStatus.className = "text-lg font-mono font-bold text-emerald-700";
             } else {
-                ctrlDesc.textContent = "Status saat ini: Pendaftaran DITUTUP. Siswa baru tidak dapat mengakses lembar soal.";
-                btnToggleExam.textContent = "Buka Pendaftaran Ujian";
+                ctrlDesc.textContent = isAuto
+                    ? "Status: DITUTUP OTOMATIS (Akan terbuka otomatis hari Rabu jam 06:30 WIB s.d. Jumat 16:00 WIB)."
+                    : "Status: DITUTUP MANUAL oleh Guru.";
+                btnToggleExam.textContent = "Paksa Buka Pendaftaran";
                 btnToggleExam.className = "edu-btn-primary px-4 py-2 text-xs font-semibold";
                 metricStatus.textContent = "DITUTUP";
                 metricStatus.className = "text-lg font-mono font-bold text-rose-700";

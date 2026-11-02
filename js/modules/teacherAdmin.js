@@ -212,19 +212,37 @@ const TeacherAdminModule = {
     },
 
     async toggleExamStatus() {
-        State.examConfig.isOpen = !State.examConfig.isOpen;
+        const willOpen = !State.examConfig.isOpen;
+        State.examConfig.isOpen = willOpen;
         State.save();
         App.applyExamConfigUI();
-        Utils.showToast(`Status Ujian diubah: ${State.examConfig.isOpen ? 'PENDAFTARAN DIBUKA' : 'PENDAFTARAN DITUTUP'}`);
+        Utils.showToast(`Status Ujian diubah: ${willOpen ? 'DIBUKA MANUAL' : 'DITUTUP MANUAL'}`);
 
         // Broadcast langsung ke Google Spreadsheet Webhook via GET query parameter (Bebas CORS!)
         const webhookUrl = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK) || CONFIG.DEFAULT_WEBHOOK_URL;
         if (webhookUrl && webhookUrl.startsWith("http")) {
             try {
-                const target = `${webhookUrl}?action=setExamConfig&isOpen=${State.examConfig.isOpen}`;
+                const target = `${webhookUrl}?action=setExamConfig&isOpen=${willOpen}`;
                 await fetch(target, { cache: 'no-store' });
             } catch (err) {
                 console.warn("Gagal sinkronisasi status ujian ke server:", err);
+            }
+        }
+    },
+
+    async resetToAutoSchedule() {
+        State.examConfig.overrideMode = 'auto';
+        State.save();
+        App.applyExamConfigUI();
+        Utils.showToast("Pengaturan ujian dikembalikan ke JADWAL OTOMATIS (Rabu 06:30 s.d. Jumat 16:00 WIB).", true);
+
+        const webhookUrl = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK) || CONFIG.DEFAULT_WEBHOOK_URL;
+        if (webhookUrl && webhookUrl.startsWith("http")) {
+            try {
+                const target = `${webhookUrl}?action=setExamConfig&override=auto`;
+                await fetch(target, { cache: 'no-store' });
+            } catch (err) {
+                console.warn("Gagal sinkronisasi mode jadwal otomatis ke server:", err);
             }
         }
     },

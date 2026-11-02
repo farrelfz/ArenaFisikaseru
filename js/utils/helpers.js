@@ -32,6 +32,45 @@ const Utils = {
         return copy;
     },
 
+    isWithinExamSchedule() {
+        try {
+            const formatter = new Intl.DateTimeFormat("en-US", {
+                timeZone: "Asia/Jakarta",
+                weekday: "short",
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                hour12: false
+            });
+            const parts = formatter.formatToParts(new Date());
+            const p = {};
+            parts.forEach(part => p[part.type] = part.value);
+
+            const dayMap = { "Sun": 0, "Mon": 1, "Tue": 2, "Wed": 3, "Thu": 4, "Fri": 5, "Sat": 6 };
+            const day = dayMap[p.weekday];
+            let hour = parseInt(p.hour, 10);
+            if (hour === 24) hour = 0;
+            const minute = parseInt(p.minute, 10);
+            const totalMins = hour * 60 + minute;
+
+            // Rabu (Day 3): Buka mulai 06:30 WIB (390 menit)
+            // Kamis (Day 4): Terbuka 24 jam penuh
+            // Jumat (Day 5): Tertutup otomatis tepat jam 16:00 WIB (960 menit)
+            if (day === 3) {
+                return totalMins >= 390;
+            } else if (day === 4) {
+                return true;
+            } else if (day === 5) {
+                return totalMins < 960;
+            }
+            return false;
+        } catch (e) {
+            return false;
+        }
+    },
+
     showToast(msg, isSuccess = true) {
         const toast = document.getElementById('edu-toast');
         const text = document.getElementById('edu-toast-text');
