@@ -31,9 +31,9 @@ const State = {
     isAdminTriggered: false, // Terbuka lewat ?admin=1 atau 3x klik logo
     activeAdminSubTab: 'ctrl',
 
-    // Konfigurasi Dinamis Ujian
+    // Konfigurasi Dinamis Ujian (Bawaan: Ditutup sebelum dibuka oleh Guru)
     examConfig: {
-        isOpen: true,
+        isOpen: false,
         allowReview: true
     },
 
@@ -72,30 +72,21 @@ const State = {
     // Persistence Functions
     load() {
         try {
+            // Bersihkan sisa cache v4 jika ada
+            ['hydroarena_78_records_v4_edu', 'hydroarena_78_ip_locks_v4_edu', 'hydroarena_78_active_exam_session_v4_edu'].forEach(k => {
+                try { localStorage.removeItem(k); } catch (e) {}
+            });
+
             const rawRec = localStorage.getItem(CONFIG.STORAGE_KEYS.RECORDS);
             if (rawRec) {
                 const parsed = JSON.parse(rawRec);
                 if (Array.isArray(parsed)) {
                     this.leaderboardRecords = parsed
                         .map(r => this.sanitizeRecord(r))
-                        .filter(r => r && CONFIG.CLASSES.includes(r.className) && !/^Q\d+$/i.test(r.name));
+                        .filter(r => r && CONFIG.CLASSES.includes(r.className) && !/^Q\d+$/i.test(r.name) && !/tester|penguji/i.test(r.name));
                 }
-            }
-
-            // Jika leaderboard kosong atau data lama kotor, isi dengan data sample 10 siswa resmi
-            if (!this.leaderboardRecords || this.leaderboardRecords.length === 0) {
-                this.leaderboardRecords = [
-                    { name: "Ahmad Rayhan Kusuma", className: "XI C", absen: 5, correctCount: 25, academicGrade: 100, durationSec: 1650, baseScore: 75000, speedBonus: 17361, totalScore: 92361, tabSwitches: 0, ip: "103.119.67.5" },
-                    { name: "Daffa Ibnu Hafidz", className: "XI E", absen: 11, correctCount: 25, academicGrade: 100, durationSec: 1780, baseScore: 75000, speedBonus: 16759, totalScore: 91759, tabSwitches: 0, ip: "103.119.69.11" },
-                    { name: "Clarissa Aurelia Putri", className: "XI D", absen: 19, correctCount: 24, academicGrade: 96, durationSec: 1820, baseScore: 72000, speedBonus: 15911, totalScore: 87911, tabSwitches: 0, ip: "103.119.68.19" },
-                    { name: "Rizky Dwi Pratama", className: "XI B", absen: 7, correctCount: 24, academicGrade: 96, durationSec: 1950, baseScore: 72000, speedBonus: 15333, totalScore: 87333, tabSwitches: 0, ip: "103.119.66.7" },
-                    { name: "Annisa Nabila Rahma", className: "XI A", absen: 14, correctCount: 23, academicGrade: 92, durationSec: 1620, baseScore: 69000, speedBonus: 16100, totalScore: 85100, tabSwitches: 0, ip: "103.119.65.14" },
-                    { name: "Siti Sarah Nurhaliza", className: "XI B", absen: 21, correctCount: 23, academicGrade: 92, durationSec: 1750, baseScore: 69000, speedBonus: 15546, totalScore: 84546, tabSwitches: 0, ip: "103.119.66.21" },
-                    { name: "Kayla Salsabila Azka", className: "XI F", absen: 16, correctCount: 23, academicGrade: 92, durationSec: 1890, baseScore: 69000, speedBonus: 14950, totalScore: 83950, tabSwitches: 0, ip: "103.119.70.16" },
-                    { name: "Muhammad Zaidan Al-Farisi", className: "XI A", absen: 3, correctCount: 22, academicGrade: 88, durationSec: 1540, baseScore: 66000, speedBonus: 15726, totalScore: 81726, tabSwitches: 0, ip: "103.119.65.3" },
-                    { name: "Fathia Zahra Azzahra", className: "XI C", absen: 18, correctCount: 22, academicGrade: 88, durationSec: 1700, baseScore: 66000, speedBonus: 15074, totalScore: 81074, tabSwitches: 0, ip: "103.119.67.18" },
-                    { name: "Bima Arya Wicaksana", className: "XI D", absen: 8, correctCount: 21, academicGrade: 84, durationSec: 1600, baseScore: 63000, speedBonus: 14778, totalScore: 77778, tabSwitches: 0, ip: "103.119.68.8" }
-                ];
+            } else {
+                this.leaderboardRecords = [];
             }
 
             const rawIp = localStorage.getItem(CONFIG.STORAGE_KEYS.IP_MAP);
@@ -104,11 +95,13 @@ const State = {
                 const cleanIpMap = {};
                 Object.keys(parsedIp || {}).forEach(k => {
                     const rec = this.sanitizeRecord(parsedIp[k]);
-                    if (rec && CONFIG.CLASSES.includes(rec.className) && !/^Q\d+$/i.test(rec.name)) {
+                    if (rec && CONFIG.CLASSES.includes(rec.className) && !/^Q\d+$/i.test(rec.name) && !/tester|penguji/i.test(rec.name)) {
                         cleanIpMap[k] = rec;
                     }
                 });
                 this.ipLockRegistry = cleanIpMap;
+            } else {
+                this.ipLockRegistry = {};
             }
 
             const savedWebhook = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK) || CONFIG.DEFAULT_WEBHOOK_URL;

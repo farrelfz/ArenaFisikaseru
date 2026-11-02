@@ -69,8 +69,16 @@ function doPost(e) {
       return ContentService.createTextOutput(JSON.stringify({
         status: "ok",
         message: "Status ujian berhasil diperbarui di server.",
-        examIsOpen: props.getProperty("EXAM_IS_OPEN") !== "false",
+        examIsOpen: props.getProperty("EXAM_IS_OPEN") === "true",
         allowReview: props.getProperty("ALLOW_REVIEW") !== "false"
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // Validasi data siswa wajib lengkap
+    if (!d.name || !d.className || isNaN(parseInt(d.absen, 10))) {
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "error",
+        message: "Data identitas siswa (Nama, Kelas, No. Absen) tidak valid atau kosong."
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
@@ -557,7 +565,7 @@ function doGet() {
     if (!ss) ss = SpreadsheetApp.openById(SPREADSHEET_ID);
 
     const props = PropertiesService.getScriptProperties();
-    const examIsOpen = props.getProperty("EXAM_IS_OPEN") !== "false";
+    const examIsOpen = props.getProperty("EXAM_IS_OPEN") === "true"; // Bawaan: FALSE (tertutup) sebelum dibuka guru
     const allowReview = props.getProperty("ALLOW_REVIEW") !== "false";
 
     const allRows = [];
@@ -566,7 +574,13 @@ function doGet() {
       const vals = sh.getDataRange().getValues();
       if (vals.length > 1) {
         for (let i = 1; i < vals.length; i++) {
-          allRows.push(vals[i]);
+          const rowAbsen = parseInt(vals[i][0], 10);
+          const rowName = String(vals[i][1] || "").trim();
+          const rowClass = String(vals[i][2] || "").trim();
+          // Hanya sertakan baris siswa valid (nama ada, kelas ada, absen valid, bukan tester)
+          if (!isNaN(rowAbsen) && rowName && rowName.length >= 2 && !rowName.includes("#NUM!") && !/tester|penguji/i.test(rowName)) {
+            allRows.push(vals[i]);
+          }
         }
       }
     });

@@ -44,14 +44,14 @@ const CONFIG = {
 
     // Storage Keys (LocalStorage & SessionStorage)
     STORAGE_KEYS: {
-        RECORDS: 'hydroarena_78_records_v4_edu',
-        IP_MAP: 'hydroarena_78_ip_locks_v4_edu',
-        WEBHOOK: 'hydroarena_78_webhook_url_v4_edu',
-        TEACHER_PIN: 'hydroarena_78_teacher_pin_v4_edu',
-        EXAM_CONFIG: 'hydroarena_78_exam_config_v4_edu',
-        TEACHER_SESSION: 'hydroarena_78_teacher_session_v4_edu',
-        FALLBACK_IP: 'hydroarena_78_device_ip_v4_edu',
-        ACTIVE_SESSION: 'hydroarena_78_active_exam_session_v4_edu'
+        RECORDS: 'hydroarena_78_records_v5_live',
+        IP_MAP: 'hydroarena_78_ip_locks_v5_live',
+        WEBHOOK: 'hydroarena_78_webhook_url_v5_live',
+        TEACHER_PIN: 'hydroarena_78_teacher_pin_v5_live',
+        EXAM_CONFIG: 'hydroarena_78_exam_config_v5_live',
+        TEACHER_SESSION: 'hydroarena_78_teacher_session_v5_live',
+        FALLBACK_IP: 'hydroarena_78_device_ip_v5_live',
+        ACTIVE_SESSION: 'hydroarena_78_active_exam_session_v5_live'
     },
 
     // Default Passcode Guru Administrator

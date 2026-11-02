@@ -173,8 +173,8 @@ const SpreadsheetService = {
             const name = String(cells[1] || "Peserta").trim();
             const className = String(cells[2] || "XI A").trim();
 
-            // Saring ketat: Baris WAJIB kelas resmi (XI A-XI F) dan BUKAN kode soal Q01-Q25
-            if (!CONFIG.CLASSES.includes(className) || /^Q\d+$/i.test(name)) {
+            // Saring ketat: Baris WAJIB kelas resmi (XI A-XI F), BUKAN kode soal Q01-Q25, dan BUKAN tester
+            if (!CONFIG.CLASSES.includes(className) || /^Q\d+$/i.test(name) || !name || name.length < 2 || name === "Peserta" || /tester|penguji/i.test(name)) {
                 return null;
             }
 
@@ -204,9 +204,9 @@ const SpreadsheetService = {
             };
         }
 
-        const legName = String(cells[2] || "Peserta").trim();
-        const legClass = String(cells[3] || "XI A").trim();
-        if (!CONFIG.CLASSES.includes(legClass) || /^Q\d+$/i.test(legName)) {
+        const legName = String(cells[2] || "").trim();
+        const legClass = String(cells[3] || "").trim();
+        if (!CONFIG.CLASSES.includes(legClass) || /^Q\d+$/i.test(legName) || !legName || legName.length < 2 || legName === "Peserta" || /tester|penguji/i.test(legName)) {
             return null;
         }
 
@@ -257,8 +257,8 @@ const SpreadsheetService = {
             const name = String(cells[1] || "Peserta").trim();
             const className = String(cells[2] || "XI A").trim();
 
-            // Saring ketat: Baris WAJIB kelas resmi (XI A-XI F) dan BUKAN kode soal Q01-Q25
-            if (!CONFIG.CLASSES.includes(className) || /^Q\d+$/i.test(name)) {
+            // Saring ketat: Baris WAJIB kelas resmi (XI A-XI F), BUKAN kode soal Q01-Q25, dan BUKAN tester
+            if (!CONFIG.CLASSES.includes(className) || /^Q\d+$/i.test(name) || !name || name.length < 2 || name === "Peserta" || /tester|penguji/i.test(name)) {
                 return null;
             }
 
@@ -288,9 +288,9 @@ const SpreadsheetService = {
             };
         }
 
-        const legCsvName = String(cells[2] || "Peserta").trim();
-        const legCsvClass = String(cells[3] || "XI A").trim();
-        if (!CONFIG.CLASSES.includes(legCsvClass) || /^Q\d+$/i.test(legCsvName)) {
+        const legCsvName = String(cells[2] || "").trim();
+        const legCsvClass = String(cells[3] || "").trim();
+        if (!CONFIG.CLASSES.includes(legCsvClass) || /^Q\d+$/i.test(legCsvName) || !legCsvName || legCsvName.length < 2 || legCsvName === "Peserta" || /tester|penguji/i.test(legCsvName)) {
             return null;
         }
 
