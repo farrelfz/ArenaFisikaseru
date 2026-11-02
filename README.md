@@ -116,19 +116,25 @@ $$\begin{aligned}
 
 ### 🎖️ Tingkatan Gelar (*Tier Fluida*)
 Gelar kehormatan disematkan otomatis pada profil hasil dan tabel klasemen:
-* ⚡ **SUPERSONIK** (Nilai $95 - 100$) — Badge Ungu / Violet Glowing
-* 🔥 **KRITIS** (Nilai $85 - 94$) — Badge Hijau Zamrud
-* 🌊 **TURBULEN** (Nilai $75 - 84$, Lolos KKM) — Badge Biru Laut
-* ⏳ **TRANSISI** (Nilai $60 - 74$) — Badge Amber / Kuning
-* 💧 **LAMINER** (Nilai $< 60$) — Badge Abu-abu
+* ⚡ **SUPERFLUIDA** (Nilai $95 - 100$) — Badge Ungu / Violet Glowing (Regime fluida ideal kuantum tanpa hambatan viskositas $\eta=0$).
+* 🌊 **SUPERKRITIS** (Nilai $85 - 94$) — Badge Hijau Zamrud (Regime aliran berenergi kinetik tinggi melampaui cepat rambat gelombang, Bilangan Froude $Fr > 1$).
+* 🌀 **TURBULEN** (Nilai $75 - 84$, Lolos KKM) — Badge Biru Laut (Regime pusaran berenergi tinggi dengan Bilangan Reynolds $Re > 4000$).
+* ⏳ **TRANSISI** (Nilai $60 - 74$) — Badge Amber / Kuning (Fase kritis peralihan laminer menuju turbulen $2000 \le Re \le 4000$).
+* 💧 **LAMINER** (Nilai $< 60$) — Badge Abu-abu (Aliran teratur berlapis lambat dengan hambatan gesekan viskositas dominan $Re < 2000$).
 
-### 🛡️ 5 Klasifikasi Integritas Fokus Tab (*Fair Play*)
+### 🛡️ 5 Klasifikasi Integritas Aliran Pengerjaan (*Fluid Integrity Levels*)
 Sistem mencatat perpindahan jendela (*tab switches*) via Page Visibility API:
-* **Level 1 (0x Pindah Tab):** `🛡️ Fair Play (0x)` — Integritas Sempurna (Fokus 100%).
-* **Level 2 (1x Pindah Tab):** `ℹ️ Toleransi (1x)` — Toleransi Ringan.
-* **Level 3 (2x Pindah Tab):** `⚠️ Waspada (2x)` — Peringatan Awal Pengawas.
-* **Level 4 (3–4x Pindah Tab):** `🚨 Peringatan (3–4x)` — Pemantauan Ketat Pengawas.
-* **Level 5 (≥5x Pindah Tab):** `⛔ Pelanggaran (≥5x)` — Pelanggaran Berat Tercatat.
+* **Level 1 (0x Pindah Tab):** `🛡️ Aliran Tunak (0x)` — Integritas Purna (*Steady laminar flow*, fokus 100% tanpa deviasi).
+* **Level 2 (1x Pindah Tab):** `💧 Riak Fluktuasi (1x)` — Toleransi Ringan (*Surface ripple*, fluktuasi kecil).
+* **Level 3 (2x Pindah Tab):** `🌀 Olakan Vortiks (2x)` — Waspada (*Vortex disturbance*, arus mulai terganggu).
+* **Level 4 (3–4x Pindah Tab):** `⚠️ Kavitasi Kritis (3–4x)` — Peringatan Keras (*Cavitation collapse*, instabilitas aliran tinggi).
+* **Level 5 (≥5x Pindah Tab):** `⛔ Separasi Ekstrem (≥5x)` — Pelanggaran Berat (*Boundary layer separation*, aliran terputus).
+
+### 🏆 Gamifikasi & Papan Klasemen
+* **Podium Kehormatan 3 Besar:** Menampilkan 3 kartu juara berjenjang (🥇 Juara 1 Emas di tengah bermahkota, 🥈 Juara 2 Perak, 🥉 Juara 3 Perunggu).
+* **10 Terbaik Satu Angkatan (Top 10 Hall of Fame):** Papan galeri 10 kartu elit peraih skor kompetitif tertinggi lintas seluruh rombel XI A – XI F.
+* **Piala Rombel Antar-Kelas:** Peringkat komparatif rata-rata skor dan tingkat kelulusan 6 rombel (XI A – XI F).
+* **Daftar Peringkat Lengkap Seluruh Siswa:** Menampilkan seluruh nama murid tanpa batas kuota 10 orang, dilengkapi filter tombol cepat per-kelas dan pencarian instan.
 
 ---
 

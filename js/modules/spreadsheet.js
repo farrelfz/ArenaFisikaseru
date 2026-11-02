@@ -205,7 +205,11 @@ const SpreadsheetService = {
                 academicGrade: grade,
                 durationSec,
                 totalScore,
-                tabSwitches: String(cells[10] || '').includes('Pindah Tab') ? parseInt(cells[10], 10) : 0,
+                tabSwitches: (() => {
+                    const raw = String(cells[10] || '');
+                    const m = raw.match(/(\d+)x\s*Tab/i);
+                    return m ? parseInt(m[1], 10) : (raw.includes('Tab') ? (parseInt(raw, 10) || 0) : 0);
+                })(),
                 answersJson: "{}"
             };
         }
@@ -289,7 +293,11 @@ const SpreadsheetService = {
                 academicGrade: grade,
                 durationSec,
                 totalScore,
-                tabSwitches: String(cells[10] || '').includes('Pindah Tab') ? parseInt(cells[10], 10) : 0,
+                tabSwitches: (() => {
+                    const raw = String(cells[10] || '');
+                    const m = raw.match(/(\d+)x\s*Tab/i);
+                    return m ? parseInt(m[1], 10) : (raw.includes('Tab') ? (parseInt(raw, 10) || 0) : 0);
+                })(),
                 answersJson: "{}"
             };
         }

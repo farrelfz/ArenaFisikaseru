@@ -18,9 +18,9 @@ const LeaderboardModule = {
     getTier(grade) {
         const g = Number(grade) || 0;
         if (g >= 95.0) {
-            return { name: "SUPERSONIK", class: "tier-supersonik", label: "≥ 95" };
+            return { name: "SUPERFLUIDA", class: "tier-superfluida", label: "≥ 95" };
         } else if (g >= 85.0) {
-            return { name: "KRITIS", class: "tier-kritis", label: "85-94" };
+            return { name: "SUPERKRITIS", class: "tier-superkritis", label: "85-94" };
         } else if (g >= 75.0) {
             return { name: "TURBULEN", class: "tier-turbulen", label: "75-84" };
         } else if (g >= 60.0) {
@@ -33,29 +33,29 @@ const LeaderboardModule = {
     getFairPlayBadge(tabSwitches) {
         const sw = Number(tabSwitches) || 0;
         if (sw === 0) {
-            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200" title="Klasifikasi 1: Integritas Sempurna (0x Pindah Tab)">
+            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200" title="Klasifikasi 1: Integritas Purna (Aliran Tunak • 0x Pindah Tab)">
                 <i data-lucide="shield-check" class="w-3 h-3 text-emerald-600"></i>
-                <span>Fair Play (0x)</span>
+                <span>Aliran Tunak (0x)</span>
             </span>`;
         } else if (sw === 1) {
-            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200" title="Klasifikasi 2: Toleransi Ringan (1x Pindah Tab)">
-                <i data-lucide="info" class="w-3 h-3 text-blue-600"></i>
-                <span>Toleransi (1x)</span>
+            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200" title="Klasifikasi 2: Toleransi Ringan (Riak Fluktuasi • 1x Pindah Tab)">
+                <i data-lucide="waves" class="w-3 h-3 text-blue-600"></i>
+                <span>Riak Fluktuasi (1x)</span>
             </span>`;
         } else if (sw === 2) {
-            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200" title="Klasifikasi 3: Waspada (2x Pindah Tab)">
+            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200" title="Klasifikasi 3: Waspada (Olakan Vortiks • 2x Pindah Tab)">
                 <i data-lucide="alert-circle" class="w-3 h-3 text-amber-600"></i>
-                <span>Waspada (2x)</span>
+                <span>Olakan Vortiks (2x)</span>
             </span>`;
         } else if (sw >= 3 && sw <= 4) {
-            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-orange-50 text-orange-700 border border-orange-200" title="Klasifikasi 4: Peringatan (3-4x Pindah Tab)">
+            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-orange-50 text-orange-700 border border-orange-200" title="Klasifikasi 4: Peringatan Keras (Kavitasi Kritis • ${sw}x Pindah Tab)">
                 <i data-lucide="alert-triangle" class="w-3 h-3 text-orange-600"></i>
-                <span>Peringatan (${sw}x)</span>
+                <span>Kavitasi Kritis (${sw}x)</span>
             </span>`;
         } else {
-            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-200" title="Klasifikasi 5: Pelanggaran Berat (≥5x Pindah Tab)">
+            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-200" title="Klasifikasi 5: Pelanggaran Berat (Separasi Ekstrem • ≥5x Pindah Tab)">
                 <i data-lucide="alert-octagon" class="w-3 h-3 text-rose-600"></i>
-                <span>Pelanggaran (${sw}x)</span>
+                <span>Separasi Ekstrem (${sw}x)</span>
             </span>`;
         }
     },
@@ -275,6 +275,98 @@ const LeaderboardModule = {
         if (window.lucide) lucide.createIcons();
     },
 
+    renderTop10(top10) {
+        const container = document.getElementById('lb-top10-container');
+        if (!container) return;
+
+        if (!top10 || top10.length === 0) {
+            container.innerHTML = `
+                <div class="col-span-full p-6 text-center bg-slate-900/60 rounded-xl border border-slate-800 text-slate-400 space-y-1.5">
+                    <i data-lucide="award" class="w-8 h-8 text-amber-400/50 mx-auto mb-1"></i>
+                    <div class="text-xs font-bold text-slate-200">Klasemen 10 Terbaik Angkatan Belum Terisi</div>
+                    <p class="text-[11px] text-slate-400 max-w-md mx-auto">Selesaikan 25 butir soal dengan nilai tuntas dan bonus kecepatan tertinggi untuk menempati Top 10 Hall of Fame!</p>
+                </div>
+            `;
+            if (window.lucide) lucide.createIcons();
+            return;
+        }
+
+        let html = '';
+        for (let i = 0; i < 10; i++) {
+            const r = top10[i];
+            const rank = i + 1;
+
+            if (r) {
+                const tier = this.getTier(r.academicGrade);
+                const mins = Math.floor((r.durationSec || 0) / 60);
+                const secs = (r.durationSec || 0) % 60;
+                const initials = (r.name || "P").split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
+
+                let rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-slate-800 text-slate-300 border border-slate-700">#${rank}</span>`;
+                let borderClass = "border-slate-800 hover:border-slate-600 bg-slate-900/90";
+
+                if (rank === 1) {
+                    rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-gradient-to-r from-amber-400 to-yellow-300 text-slate-950 shadow-sm flex items-center gap-1">🥇 #1</span>`;
+                    borderClass = "border-amber-500/60 bg-gradient-to-br from-amber-950/40 via-slate-900 to-slate-900 shadow-md";
+                } else if (rank === 2) {
+                    rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-slate-200 text-slate-900 shadow-sm flex items-center gap-1">🥈 #2</span>`;
+                    borderClass = "border-slate-400/60 bg-gradient-to-br from-slate-800/60 via-slate-900 to-slate-900";
+                } else if (rank === 3) {
+                    rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-orange-400 text-slate-950 shadow-sm flex items-center gap-1">🥉 #3</span>`;
+                    borderClass = "border-orange-500/60 bg-gradient-to-br from-orange-950/40 via-slate-900 to-slate-900";
+                } else if (rank <= 5) {
+                    rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-blue-900/60 text-blue-300 border border-blue-600/40">🎖️ #${rank}</span>`;
+                    borderClass = "border-blue-900/60 hover:border-blue-600/40 bg-slate-900/90";
+                }
+
+                html += `
+                    <div class="p-3.5 rounded-xl border ${borderClass} flex flex-col justify-between transition-all hover:-translate-y-0.5 shadow-sm text-left">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                ${rankBadge}
+                                <span class="px-2 py-0.5 rounded font-mono text-[10px] font-bold ${tier.class}">${tier.name}</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 pt-1">
+                                <div class="w-7 h-7 rounded-full bg-slate-800 border border-slate-700 text-white font-mono font-bold text-[10px] flex items-center justify-center shrink-0">
+                                    ${initials}
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <h4 class="text-xs font-bold text-white truncate" title="${Utils.escapeHtml(r.name)}">${Utils.escapeHtml(r.name)}</h4>
+                                    <div class="text-[10px] text-slate-400 font-mono flex items-center gap-1 mt-0.5">
+                                        <span class="px-1.5 py-0.2 rounded bg-slate-800 text-blue-300 font-bold border border-slate-700">${Utils.escapeHtml(r.className)}</span>
+                                        <span>Absen #${String(r.absen || 0).padStart(2, '0')}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 pt-2 border-t border-slate-800/80 flex items-center justify-between font-mono">
+                            <div>
+                                <div class="text-[9px] text-slate-400 uppercase tracking-wider">Total Skor</div>
+                                <div class="text-xs font-bold text-amber-300">${Utils.formatNumber(r.totalScore)} Pts</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-[9px] text-slate-400 uppercase tracking-wider">Nilai • Waktu</div>
+                                <div class="text-[11px] font-semibold text-emerald-400">${r.academicGrade} <span class="text-slate-500">•</span> ${mins}m ${secs}s</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="p-3.5 rounded-xl border border-dashed border-slate-800/80 bg-slate-900/40 flex flex-col justify-center items-center text-center min-h-[115px] text-slate-500">
+                        <span class="font-mono text-[11px] font-bold text-slate-500 mb-1">#${rank} TERBUKA</span>
+                        <span class="text-[10px] text-slate-600">Menunggu Penantang</span>
+                    </div>
+                `;
+            }
+        }
+
+        container.innerHTML = html;
+        if (window.lucide) lucide.createIcons();
+    },
+
     renderClassBattle(records) {
         const container = document.getElementById('lb-class-battle-container');
         if (!container) return;
@@ -380,7 +472,16 @@ const LeaderboardModule = {
         if (elFooterTotal) elFooterTotal.textContent = `${filtered.length} Siswa • ${classLabel}`;
 
         // Render Podium Top 3 (berdasarkan filter kelas yang aktif bila ada)
+        const elPodiumTitle = document.getElementById('lb-podium-title');
+        if (elPodiumTitle) {
+            elPodiumTitle.textContent = classFilter === 'ALL'
+                ? 'Podium Kehormatan 3 Besar • Satu Angkatan'
+                : `Podium Kehormatan 3 Besar • Kelas ${classFilter}`;
+        }
         this.renderPodiumTop3(filtered.slice(0, 3));
+
+        // Render 10 Terbaik Satu Angkatan (Selalu Top 10 Lintas Seluruh Rombel XI A–XI F)
+        this.renderTop10(allRecords.slice(0, 10));
 
         // Render Quick Class Filter Buttons
         this.renderClassFilterButtons(classFilter);

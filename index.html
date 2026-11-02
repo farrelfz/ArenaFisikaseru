@@ -808,12 +808,39 @@
                 <div class="flex items-center justify-between px-1">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
                         <i data-lucide="crown" class="w-4 h-4 text-amber-500"></i>
-                        <span>Podium Kehormatan 3 Besar</span>
+                        <span id="lb-podium-title">Podium Kehormatan 3 Besar</span>
                     </h3>
                     <span class="text-[11px] font-mono text-slate-500">Live Top 3 Competitors</span>
                 </div>
                 <div id="lb-podium-container" class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end pt-2">
                     <!-- Diisi oleh JavaScript (Juara 2, Juara 1 Emas di tengah, Juara 3) -->
+                </div>
+            </div>
+
+            <!-- 2B-2. Deretan 10 Terbaik Satu Angkatan (Top 10 Hall of Fame) -->
+            <div class="edu-card p-5 space-y-3.5 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white shadow-xl border border-slate-800">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                    <div class="space-y-0.5">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                            <h3 class="text-sm font-bold text-white flex items-center gap-2 tracking-wide font-mono">
+                                <i data-lucide="medal" class="w-4 h-4 text-amber-400"></i>
+                                <span>10 TERBAIK SATU ANGKATAN • TOP 10 HALL OF FAME</span>
+                            </h3>
+                        </div>
+                        <p class="text-xs text-slate-400">Daftar kehormatan 10 siswa peraih total skor kompetitif tertinggi lintas seluruh rombel XI A – XI F</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="px-2.5 py-1 rounded bg-amber-400/20 text-amber-300 border border-amber-400/40 font-mono text-[11px] font-bold flex items-center gap-1.5">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
+                            <span>Top 10 Angkatan</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Container Grid 10 Terbaik Angkatan (5 Kolom x 2 Baris) -->
+                <div id="lb-top10-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                    <!-- Diisi oleh JavaScript (10 Kartu Elit) -->
                 </div>
             </div>
 
@@ -921,24 +948,57 @@
                         </div>
                         <div class="space-y-1.5 text-xs font-mono">
                             <div class="p-2 rounded bg-purple-50/70 border border-purple-200 flex items-center justify-between">
-                                <span class="font-bold text-purple-900">⚡ SUPERSONIK</span>
+                                <span class="font-bold text-purple-900 flex items-center gap-1">⚡ SUPERFLUIDA</span>
                                 <span class="text-purple-700 text-[11px] font-semibold">Nilai 95 – 100</span>
                             </div>
                             <div class="p-2 rounded bg-emerald-50/70 border border-emerald-200 flex items-center justify-between">
-                                <span class="font-bold text-emerald-900">🔥 KRITIS</span>
+                                <span class="font-bold text-emerald-900 flex items-center gap-1">🌊 SUPERKRITIS</span>
                                 <span class="text-emerald-700 text-[11px] font-semibold">Nilai 85 – 94</span>
                             </div>
                             <div class="p-2 rounded bg-blue-50/70 border border-blue-200 flex items-center justify-between">
-                                <span class="font-bold text-blue-900">🌊 TURBULEN (KKM)</span>
+                                <span class="font-bold text-blue-900 flex items-center gap-1">🌀 TURBULEN (KKM)</span>
                                 <span class="text-blue-700 text-[11px] font-semibold">Nilai 75 – 84</span>
                             </div>
                             <div class="p-2 rounded bg-amber-50/70 border border-amber-200 flex items-center justify-between">
-                                <span class="font-bold text-amber-900">⏳ TRANSISI</span>
+                                <span class="font-bold text-amber-900 flex items-center gap-1">⏳ TRANSISI</span>
                                 <span class="text-amber-700 text-[11px] font-semibold">Nilai 60 – 74</span>
                             </div>
                             <div class="p-2 rounded bg-slate-50 border border-slate-200 flex items-center justify-between">
-                                <span class="font-bold text-slate-700">💧 LAMINER</span>
+                                <span class="font-bold text-slate-700 flex items-center gap-1">💧 LAMINER</span>
                                 <span class="text-slate-500 text-[11px] font-semibold">Nilai &lt; 60</span>
+                            </div>
+                        </div>
+
+                        <!-- Panduan Indikator Integritas Aliran (Anti-Cheat) -->
+                        <div class="pt-3 border-t border-slate-200 space-y-1.5">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1">
+                                    <i data-lucide="shield-alert" class="w-3 h-3 text-blue-700"></i>
+                                    <span>Integritas Aliran Pengerjaan</span>
+                                </span>
+                                <span class="text-[9px] font-mono text-slate-400">Pindah Tab</span>
+                            </div>
+                            <div class="space-y-1 text-[11px] font-mono">
+                                <div class="px-2 py-1 rounded bg-emerald-50/70 border border-emerald-200 text-emerald-900 flex items-center justify-between text-[10px]">
+                                    <span class="font-bold">🛡️ Aliran Tunak</span>
+                                    <span>0x Tab • Purna</span>
+                                </div>
+                                <div class="px-2 py-1 rounded bg-blue-50/70 border border-blue-200 text-blue-900 flex items-center justify-between text-[10px]">
+                                    <span class="font-bold">💧 Riak Fluktuasi</span>
+                                    <span>1x Tab • Toleransi</span>
+                                </div>
+                                <div class="px-2 py-1 rounded bg-amber-50/70 border border-amber-200 text-amber-900 flex items-center justify-between text-[10px]">
+                                    <span class="font-bold">🌀 Olakan Vortiks</span>
+                                    <span>2x Tab • Waspada</span>
+                                </div>
+                                <div class="px-2 py-1 rounded bg-orange-50/70 border border-orange-200 text-orange-900 flex items-center justify-between text-[10px]">
+                                    <span class="font-bold">⚠️ Kavitasi Kritis</span>
+                                    <span>3–4x Tab • Peringatan</span>
+                                </div>
+                                <div class="px-2 py-1 rounded bg-rose-50/70 border border-rose-200 text-rose-900 flex items-center justify-between text-[10px]">
+                                    <span class="font-bold">⛔ Separasi Ekstrem</span>
+                                    <span>≥5x Tab • Pelanggaran</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1452,11 +1512,11 @@ function doPost(e) {
     const statusKKM = grade &gt;= 75.0 ? "TUNTAS" : "REMEDIAL";
     const salahCount = 25 - (parseInt(d.correctCount, 10) || 0);
     const sw = parseInt(d.tabSwitches, 10) || 0;
-    let tabSwitchStr = "Level 1: Fokus 100% (Fair Play)";
-    if (sw === 1) tabSwitchStr = "Level 2: 1x Tab (Toleransi Ringan)";
-    else if (sw === 2) tabSwitchStr = "Level 3: 2x Tab (Waspada)";
-    else if (sw &gt;= 3 &amp;&amp; sw &lt;= 4) tabSwitchStr = "Level 4: " + sw + "x Tab (Peringatan)";
-    else if (sw &gt;= 5) tabSwitchStr = "Level 5: " + sw + "x Tab (Pelanggaran Berat)";
+    let tabSwitchStr = "Level 1: Aliran Tunak (0x Tab - Integritas Purna)";
+    if (sw === 1) tabSwitchStr = "Level 2: Riak Fluktuasi (1x Tab - Toleransi Ringan)";
+    else if (sw === 2) tabSwitchStr = "Level 3: Olakan Vortiks (2x Tab - Waspada)";
+    else if (sw &gt;= 3 &amp;&amp; sw &lt;= 4) tabSwitchStr = "Level 4: Kavitasi Kritis (" + sw + "x Tab - Peringatan)";
+    else if (sw &gt;= 5) tabSwitchStr = "Level 5: Separasi Ekstrem (" + sw + "x Tab - Pelanggaran Berat)";
 
     const inputNameClean = String(d.name || "").trim().toLowerCase();
     const inputIpClean = String(d.ip || "").trim().toLowerCase();

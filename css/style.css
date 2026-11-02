@@ -291,7 +291,8 @@ body {
     border-top-right-radius: 0.65rem;
 }
 
-/* Tier Badges (Nama Fluida Fisika) */
+/* Tier Badges (Nama Regim Fluida Fisika) */
+.tier-superfluida,
 .tier-supersonik {
     background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
     color: #6b21a8;
@@ -299,6 +300,7 @@ body {
     font-weight: 700;
 }
 
+.tier-superkritis,
 .tier-kritis {
     background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
     color: #065f46;
@@ -307,9 +309,9 @@ body {
 }
 
 .tier-turbulen {
-    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-    color: #15803d;
-    border: 1px solid #86efac;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    color: #1d4ed8;
+    border: 1px solid #93c5fd;
     font-weight: 700;
 }
 

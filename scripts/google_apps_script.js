@@ -151,11 +151,11 @@ function doPost(e) {
     const statusKKM = grade >= 75.0 ? "TUNTAS" : "REMEDIAL";
     const salahCount = 25 - (parseInt(d.correctCount, 10) || 0);
     const sw = parseInt(d.tabSwitches, 10) || 0;
-    let tabSwitchStr = "Level 1: Fokus 100% (Fair Play)";
-    if (sw === 1) tabSwitchStr = "Level 2: 1x Tab (Toleransi Ringan)";
-    else if (sw === 2) tabSwitchStr = "Level 3: 2x Tab (Waspada)";
-    else if (sw >= 3 && sw <= 4) tabSwitchStr = "Level 4: " + sw + "x Tab (Peringatan)";
-    else if (sw >= 5) tabSwitchStr = "Level 5: " + sw + "x Tab (Pelanggaran Berat)";
+    let tabSwitchStr = "Level 1: Aliran Tunak (0x Tab - Integritas Purna)";
+    if (sw === 1) tabSwitchStr = "Level 2: Riak Fluktuasi (1x Tab - Toleransi Ringan)";
+    else if (sw === 2) tabSwitchStr = "Level 3: Olakan Vortiks (2x Tab - Waspada)";
+    else if (sw >= 3 && sw <= 4) tabSwitchStr = "Level 4: Kavitasi Kritis (" + sw + "x Tab - Peringatan)";
+    else if (sw >= 5) tabSwitchStr = "Level 5: Separasi Ekstrem (" + sw + "x Tab - Pelanggaran Berat)";
 
     const inputNameClean = String(d.name || "").trim().toLowerCase();
     const inputIpClean = String(d.ip || "").trim().toLowerCase();

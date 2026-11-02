@@ -659,20 +659,20 @@ const ExamModule = {
 
                 if (sw === 1) {
                     badgeClass = "text-blue-600 font-bold tabular-nums";
-                    statusLabel = "1x Tab (Toleransi Ringan)";
-                    warningText = "ℹ️ Peringatan Integritas: Terdeteksi 1x meninggalkan jendela ujian (Toleransi Ringan). Harap tetap berada pada lembar soal.";
+                    statusLabel = "1x Tab • Riak Fluktuasi";
+                    warningText = "💧 Peringatan Integritas: Terdeteksi 1x Riak Fluktuasi (meninggalkan jendela ujian). Harap jaga aliran fokus tetap tunak.";
                 } else if (sw === 2) {
                     badgeClass = "text-amber-600 font-bold tabular-nums";
-                    statusLabel = "2x Tab (Waspada)";
-                    warningText = "⚠️ Peringatan Pengawas: Terdeteksi 2x berpindah tab (Waspada). Pengawas ruang memantau aktivitas Anda.";
+                    statusLabel = "2x Tab • Olakan Vortiks";
+                    warningText = "🌀 Peringatan Pengawas: Terdeteksi 2x Olakan Vortiks (berpindah tab). Pengawas memantau deviasi aliran pengerjaan Anda.";
                 } else if (sw >= 3 && sw <= 4) {
                     badgeClass = "text-orange-600 font-bold tabular-nums";
-                    statusLabel = `${sw}x Tab (Peringatan)`;
-                    warningText = `🚨 Pelanggaran Integritas: Terdeteksi ${sw}x meninggalkan ujian. Sesi Anda masuk pemantauan ketat!`;
+                    statusLabel = `${sw}x Tab • Kavitasi Kritis`;
+                    warningText = `⚠️ Pelanggaran Integritas: Terdeteksi ${sw}x Kavitasi Kritis! Instabilitas aliran pengerjaan Anda masuk pemantauan ketat pengawas!`;
                 } else {
                     badgeClass = "text-rose-600 font-bold tabular-nums animate-pulse";
-                    statusLabel = `${sw}x Tab (Pelanggaran Berat)`;
-                    warningText = `⛔ Pelanggaran Berat: Terdeteksi ${sw}x meninggalkan ujian! Catatan pelanggaran terekam di laporan pengawas.`;
+                    statusLabel = `${sw}x Tab • Separasi Ekstrem`;
+                    warningText = `⛔ Pelanggaran Berat: Terdeteksi ${sw}x Separasi Ekstrem! Integritas aliran pengerjaan terputus dan terekam di berita acara pengawas.`;
                 }
 
                 if (cheatCountEl) {
