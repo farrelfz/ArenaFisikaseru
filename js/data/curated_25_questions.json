@@ -1,0 +1,590 @@
+[
+  {
+    "no": 1,
+    "id": "VEC-01-001",
+    "zoneId": 1,
+    "zoneName": "Vector Fundamentals",
+    "difficulty": 1,
+    "bloom": "C2 (Pemahaman)",
+    "question": "Kelompok besaran berikut yang seluruhnya merupakan besaran vektor adalah …",
+    "options": [
+      "energi, gaya, dan jarak",
+      "usaha, daya, dan momentum",
+      "kecepatan, gaya, dan perpindahan",
+      "massa, waktu, dan suhu",
+      "jarak, kelajuan, dan percepatan"
+    ],
+    "correctKey": "C",
+    "correctAnswer": "kecepatan, gaya, dan perpindahan",
+    "explanation": "Besaran vektor memiliki besar sekaligus arah. Kecepatan, gaya, dan perpindahan memenuhi keduanya. Jarak, kelajuan, massa, waktu, suhu, usaha, energi, dan daya adalah besaran skalar (hanya besar).",
+    "diagram": null
+  },
+  {
+    "no": 2,
+    "id": "VEC-01-002",
+    "zoneId": 1,
+    "zoneName": "Vector Fundamentals",
+    "difficulty": 1,
+    "bloom": "C2 (Pemahaman)",
+    "question": "Perhatikan besaran berikut: (1) berat, (2) massa, (3) kuat arus listrik, (4) impuls, (5) tekanan. Besaran yang tergolong vektor adalah …",
+    "options": [
+      "(2), (3), dan (5)",
+      "(1), (3), dan (4)",
+      "(1), (2), dan (4)",
+      "(1) dan (4)",
+      "(4) dan (5)"
+    ],
+    "correctKey": "D",
+    "correctAnswer": "(1) dan (4)",
+    "explanation": "Berat adalah gaya gravitasi (vektor), impuls adalah perubahan momentum (vektor). Massa adalah skalar. Kuat arus listrik dan tekanan diperlakukan sebagai skalar dalam kurikulum fisika SMA.",
+    "diagram": null
+  },
+  {
+    "no": 3,
+    "id": "VEC-01-030",
+    "zoneId": 1,
+    "zoneName": "Vector Fundamentals",
+    "difficulty": 3,
+    "bloom": "C4 (Analisis)",
+    "question": "Sebuah mobil menempuh perjalanan: 40 km ke timur lalu 30 km ke utara. Perbandingan besar perpindahan terhadap jarak total yang ditempuh adalah …",
+    "options": [
+      "70 : 50 = 7 : 5",
+      "30 : 70 = 3 : 7",
+      "40 : 30 = 4 : 3",
+      "1 : 1",
+      "50 : 70 = 5 : 7"
+    ],
+    "correctKey": "E",
+    "correctAnswer": "50 : 70 = 5 : 7",
+    "explanation": "Jarak total = 40 + 30 = 70 km. Perpindahan adalah resultan tegak lurus: √(40² + 30²) = 50 km. Jadi perpindahan : jarak = 50 : 70 = 5 : 7.",
+    "diagram": null
+  },
+  {
+    "no": 4,
+    "id": "VEC-02-001",
+    "zoneId": 2,
+    "zoneName": "Vector Representation",
+    "difficulty": 1,
+    "bloom": "C2 (Pemahaman)",
+    "question": "Pada sistem koordinat Kartesius, titik yang berada di kuadran II memiliki …",
+    "options": [
+      "x positif dan y positif",
+      "x negatif dan y positif",
+      "x positif dan y negatif",
+      "x nol dan y positif",
+      "x negatif dan y negatif"
+    ],
+    "correctKey": "B",
+    "correctAnswer": "x negatif dan y positif",
+    "explanation": "Kuadran I (+,+), II (−,+), III (−,−), IV (+,−). Kuadran II berarti x < 0 dan y > 0.",
+    "diagram": null
+  },
+  {
+    "no": 5,
+    "id": "VEC-02-011",
+    "zoneId": 2,
+    "zoneName": "Vector Representation",
+    "difficulty": 2,
+    "bloom": "C3 (Aplikasi)",
+    "question": "Vektor posisi sebuah drone adalah r = 3i + 4j meter. Jarak drone dari titik asal adalah …",
+    "options": [
+      "5",
+      "7",
+      "1",
+      "25"
+    ],
+    "correctKey": "A",
+    "correctAnswer": "5",
+    "explanation": "Jarak dari titik asal sama dengan besar vektor posisi.",
+    "diagram": {
+      "type": "vector-plane",
+      "params": {
+        "vectors": [
+          {
+            "x": 3,
+            "y": 4,
+            "label": "r"
+          }
+        ],
+        "showResultant": true
+      }
+    }
+  },
+  {
+    "no": 6,
+    "id": "VEC-02-005",
+    "zoneId": 2,
+    "zoneName": "Vector Representation",
+    "difficulty": 1,
+    "bloom": "C2 (Pemahaman)",
+    "question": "Sebuah benda bergerak 4 m ke kiri sepanjang sumbu X. Dalam notasi vektor dengan arah kanan positif, perpindahan benda ditulis …",
+    "options": [
+      "+4i m",
+      "+4j m",
+      "4(i + j) m",
+      "−4i m",
+      "−4j m"
+    ],
+    "correctKey": "D",
+    "correctAnswer": "−4i m",
+    "explanation": "Gerak ke kiri berlawanan dengan arah positif sumbu X sehingga komponennya −4 m pada arah i.",
+    "diagram": null
+  },
+  {
+    "no": 7,
+    "id": "VEC-03-004",
+    "zoneId": 3,
+    "zoneName": "Vector Operations",
+    "difficulty": 1,
+    "bloom": "C2 (Pemahaman)",
+    "question": "Pengurangan vektor A − B ekuivalen dengan …",
+    "options": [
+      "A + (−B)",
+      "−(A + B)",
+      "−A + B",
+      "B − A",
+      "A + B"
+    ],
+    "correctKey": "A",
+    "correctAnswer": "A + (−B)",
+    "explanation": "Mengurangi B sama dengan menambahkan vektor negatif B, yaitu vektor B yang dibalik arahnya.",
+    "diagram": null
+  },
+  {
+    "no": 8,
+    "id": "VEC-03-007",
+    "zoneId": 3,
+    "zoneName": "Vector Operations",
+    "difficulty": 2,
+    "bloom": "C3 (Aplikasi)",
+    "question": "Dua vektor A = 6i + 0j dan B = 0i + 8j (satuan SI). Besar resultan A + B adalah …",
+    "options": [
+      "2",
+      "10",
+      "48",
+      "14"
+    ],
+    "correctKey": "B",
+    "correctAnswer": "10",
+    "explanation": "Resultan diperoleh dengan menjumlahkan komponen sejenis, lalu menghitung besarnya.",
+    "diagram": null
+  },
+  {
+    "no": 9,
+    "id": "VEC-03-032",
+    "zoneId": 3,
+    "zoneName": "Vector Operations",
+    "difficulty": 2,
+    "bloom": "C3 (Aplikasi)",
+    "question": "Gambar 1 menunjukkan dua vektor dengan hubungan vektor tegak lurus. Besar resultannya adalah … satuan.",
+    "options": [
+      "20",
+      "10",
+      "5",
+      "14"
+    ],
+    "correctKey": "B",
+    "correctAnswer": "10",
+    "explanation": "Resultan dihitung dari komponen kedua vektor, sesuai arah masing-masing pada diagram.",
+    "diagram": {
+      "type": "vector-plane",
+      "params": {
+        "vectors": [
+          {
+            "x": 6,
+            "y": 0,
+            "label": "F₁"
+          },
+          {
+            "x": 0,
+            "y": 8,
+            "label": "F₂"
+          }
+        ],
+        "showResultant": true
+      }
+    }
+  },
+  {
+    "no": 10,
+    "id": "VEC-04-001",
+    "zoneId": 4,
+    "zoneName": "Geometrical Vector Methods",
+    "difficulty": 1,
+    "bloom": "C2 (Pemahaman)",
+    "question": "Pada metode segitiga, resultan dua vektor diperoleh dengan cara …",
+    "options": [
+      "menggambar kedua vektor dari titik pangkal yang sama lalu menarik diagonal",
+      "menjumlahkan panjang kedua panah tanpa memperhatikan arah",
+      "menyambung ujung vektor pertama ke pangkal vektor kedua, lalu menarik vektor dari pangkal pertama ke ujung kedua",
+      "memutar vektor pertama sebesar 90°",
+      "membalik arah vektor kedua lalu menyambungkannya"
+    ],
+    "correctKey": "C",
+    "correctAnswer": "menyambung ujung vektor pertama ke pangkal vektor kedua, lalu menarik vektor dari pangkal pertama ke ujung kedua",
+    "explanation": "Metode segitiga menyambung vektor secara ujung-ke-pangkal; resultan menghubungkan titik awal ke titik akhir.",
+    "diagram": null
+  },
+  {
+    "no": 11,
+    "id": "VEC-04-004",
+    "zoneId": 4,
+    "zoneName": "Geometrical Vector Methods",
+    "difficulty": 2,
+    "bloom": "C3 (Aplikasi)",
+    "question": "Rumus aturan kosinus untuk besar resultan dua vektor yang membentuk sudut θ adalah …",
+    "options": [
+      "R = A B sin θ",
+      "R = √(A² − B²)",
+      "R = √(A² + B² + 2AB cos θ)",
+      "R = √(A² + B² − 2AB cos θ)",
+      "R = A + B cos θ"
+    ],
+    "correctKey": "C",
+    "correctAnswer": "R = √(A² + B² + 2AB cos θ)",
+    "explanation": "Untuk resultan (bukan selisih), tanda pada suku silang adalah positif: R² = A² + B² + 2AB cos θ.",
+    "diagram": null
+  },
+  {
+    "no": 12,
+    "id": "VEC-04-006",
+    "zoneId": 4,
+    "zoneName": "Geometrical Vector Methods",
+    "difficulty": 3,
+    "bloom": "C4 (Analisis)",
+    "question": "Dua vektor besarnya 3 satuan dan 4 satuan membentuk sudut 90°. Besar resultan kedua vektor adalah … satuan.",
+    "options": [
+      "7",
+      "1",
+      "5",
+      "6"
+    ],
+    "correctKey": "C",
+    "correctAnswer": "5",
+    "explanation": "Kedua vektor tidak tegak lurus, sehingga komponen silang harus diperhitungkan melalui aturan kosinus.",
+    "diagram": {
+      "type": "vector-parallelogram",
+      "params": {
+        "a": 3,
+        "b": 4,
+        "theta": 90
+      }
+    }
+  },
+  {
+    "no": 13,
+    "id": "VEC-05-002",
+    "zoneId": 5,
+    "zoneName": "Vector Components",
+    "difficulty": 1,
+    "bloom": "C2 (Pemahaman)",
+    "question": "Komponen vertikal (sumbu Y) dari vektor A yang membentuk sudut θ terhadap sumbu X positif adalah …",
+    "options": [
+      "A / cos θ",
+      "A sin θ",
+      "A / sin θ",
+      "A cos θ",
+      "A tan θ"
+    ],
+    "correctKey": "B",
+    "correctAnswer": "A sin θ",
+    "explanation": "Proyeksi pada sumbu Y berhadapan dengan sudut θ, sehingga digunakan sinus: Ay = A sin θ.",
+    "diagram": null
+  },
+  {
+    "no": 14,
+    "id": "VEC-05-005",
+    "zoneId": 5,
+    "zoneName": "Vector Components",
+    "difficulty": 2,
+    "bloom": "C3 (Aplikasi)",
+    "question": "Sebuah vektor gaya besarnya 10 N membentuk sudut 30° terhadap sumbu X positif. Komponen horizontal (sumbu X) vektor tersebut adalah … N.",
+    "options": [
+      "8,66",
+      "-8,66",
+      "10",
+      "5"
+    ],
+    "correctKey": "A",
+    "correctAnswer": "8,66",
+    "explanation": "Gunakan Ax = A cos θ dan Ay = A sin θ. Pada θ = 30°, komponen x = 10 × cos 30°.",
+    "diagram": {
+      "type": "vector-plane",
+      "params": {
+        "vectors": [
+          {
+            "x": 8.66,
+            "y": 5,
+            "label": "A"
+          }
+        ],
+        "showComponents": true
+      }
+    }
+  },
+  {
+    "no": 15,
+    "id": "VEC-05-011",
+    "zoneId": 5,
+    "zoneName": "Vector Components",
+    "difficulty": 2,
+    "bloom": "C3 (Aplikasi)",
+    "question": "Sebuah vektor gaya besarnya 12 N membentuk sudut 120° terhadap sumbu X positif. Komponen horizontal (sumbu X) vektor tersebut adalah … N.",
+    "options": [
+      "12",
+      "-6",
+      "6",
+      "10,39"
+    ],
+    "correctKey": "B",
+    "correctAnswer": "-6",
+    "explanation": "Gunakan Ax = A cos θ dan Ay = A sin θ. Pada θ = 120°, komponen x = 12 × cos 120°.",
+    "diagram": {
+      "type": "vector-plane",
+      "params": {
+        "vectors": [
+          {
+            "x": -6,
+            "y": 10.392,
+            "label": "A"
+          }
+        ],
+        "showComponents": true
+      }
+    }
+  },
+  {
+    "no": 16,
+    "id": "VEC-06-005",
+    "zoneId": 6,
+    "zoneName": "GVA — Gerak Vertikal ke Atas",
+    "difficulty": 2,
+    "bloom": "C3 (Aplikasi)",
+    "question": "Pernyataan yang benar tentang massa benda pada GVA (ideal) adalah …",
+    "options": [
+      "benda lebih ringan memiliki percepatan lebih besar",
+      "benda lebih berat mencapai ketinggian lebih besar",
+      "massa memperbesar percepatan gravitasi",
+      "massa tidak memengaruhi waktu tempuh maupun ketinggian maksimum",
+      "massa menentukan arah gerak benda"
+    ],
+    "correctKey": "D",
+    "correctAnswer": "massa tidak memengaruhi waktu tempuh maupun ketinggian maksimum",
+    "explanation": "Semua benda mengalami percepatan gravitasi sama besarnya sehingga gerak ideal tidak bergantung massa.",
+    "diagram": null
+  },
+  {
+    "no": 17,
+    "id": "VEC-06-009",
+    "zoneId": 6,
+    "zoneName": "GVA — Gerak Vertikal ke Atas",
+    "difficulty": 2,
+    "bloom": "C3 (Aplikasi)",
+    "question": "Sebuah bola dilempar vertikal ke atas dengan kecepatan awal 20 m/s dari permukaan tanah (g = 10 m/s², hambatan udara diabaikan). Waktu yang diperlukan untuk mencapai titik tertinggi adalah … sekon.",
+    "options": [
+      "4",
+      "5",
+      "2",
+      "200"
+    ],
+    "correctKey": "C",
+    "correctAnswer": "2",
+    "explanation": "Di titik tertinggi v = 0, sehingga 0 = v₀ − gt dan t = v₀/g.",
+    "diagram": {
+      "type": "gva",
+      "params": {
+        "v0": 20,
+        "y0": 0,
+        "g": 10
+      }
+    }
+  },
+  {
+    "no": 18,
+    "id": "VEC-06-059",
+    "zoneId": 6,
+    "zoneName": "GVA — Gerak Vertikal ke Atas",
+    "difficulty": 3,
+    "bloom": "C4 (Analisis)",
+    "question": "Grafik kecepatan terhadap waktu untuk sebuah benda GVA berupa garis lurus dengan v = 30 − 10t (m/s). Kecepatan benda pada t = 5 s adalah … m/s.",
+    "options": [
+      "20",
+      "30",
+      "-20",
+      "0"
+    ],
+    "correctKey": "C",
+    "correctAnswer": "-20",
+    "explanation": "Substitusikan t = 5 s: v = 30 − 10(5) = −20 m/s. Tanda negatif menandakan benda sudah bergerak turun.",
+    "diagram": {
+      "type": "graph-vt",
+      "params": {
+        "v0": 30,
+        "g": 10,
+        "tMax": 8
+      }
+    }
+  },
+  {
+    "no": 19,
+    "id": "VEC-07-002",
+    "zoneId": 7,
+    "zoneName": "GVB — Gerak Vertikal ke Bawah",
+    "difficulty": 1,
+    "bloom": "C2 (Pemahaman)",
+    "question": "Pada GVB, kelajuan benda …",
+    "options": [
+      "bertambah lalu berkurang",
+      "berkurang karena melawan gravitasi",
+      "berkurang setelah mencapai titik terendah",
+      "bertambah karena percepatan gravitasi searah dengan gerak",
+      "tetap karena tidak ada gaya"
+    ],
+    "correctKey": "D",
+    "correctAnswer": "bertambah karena percepatan gravitasi searah dengan gerak",
+    "explanation": "Arah gerak dan arah percepatan sama-sama ke bawah, sehingga kelajuan bertambah.",
+    "diagram": null
+  },
+  {
+    "no": 20,
+    "id": "VEC-07-009",
+    "zoneId": 7,
+    "zoneName": "GVB — Gerak Vertikal ke Bawah",
+    "difficulty": 2,
+    "bloom": "C3 (Aplikasi)",
+    "question": "Benda dilempar vertikal ke bawah dengan kecepatan  awal 5 m/s dari ketinggian 20 m (g = 10 m/s²). Kecepatan benda saat tiba di tanah adalah … m/s.",
+    "options": [
+      "5",
+      "205",
+      "20,616",
+      "200"
+    ],
+    "correctKey": "C",
+    "correctAnswer": "20,616",
+    "explanation": "Gunakan vₜ² = v₀² + 2gh. Perhatikan bahwa v₀ tidak boleh diabaikan.",
+    "diagram": {
+      "type": "gvb",
+      "params": {
+        "v0": 5,
+        "h": 20,
+        "g": 10
+      }
+    }
+  },
+  {
+    "no": 21,
+    "id": "VEC-07-010",
+    "zoneId": 7,
+    "zoneName": "GVB — Gerak Vertikal ke Bawah",
+    "difficulty": 2,
+    "bloom": "C3 (Aplikasi)",
+    "question": "Benda dilempar vertikal ke bawah dengan kecepatan  awal 10 m/s dari ketinggian 15 m (g = 10 m/s²). Kecepatan benda saat tiba di tanah adalah … m/s.",
+    "options": [
+      "20",
+      "160",
+      "10",
+      "150"
+    ],
+    "correctKey": "A",
+    "correctAnswer": "20",
+    "explanation": "Gunakan vₜ² = v₀² + 2gh. Perhatikan bahwa v₀ tidak boleh diabaikan.",
+    "diagram": {
+      "type": "gvb",
+      "params": {
+        "v0": 10,
+        "h": 15,
+        "g": 10
+      }
+    }
+  },
+  {
+    "no": 22,
+    "id": "VEC-08-002",
+    "zoneId": 8,
+    "zoneName": "GJB — Gerak Jatuh Bebas",
+    "difficulty": 1,
+    "bloom": "C2 (Pemahaman)",
+    "question": "Pada GJB ideal, besaran yang memengaruhi waktu jatuh adalah …",
+    "options": [
+      "volume benda dan suhu udara",
+      "massa dan berat benda",
+      "ketinggian dan percepatan gravitasi",
+      "kecepatan awal dan massa",
+      "bentuk dan warna benda"
+    ],
+    "correctKey": "C",
+    "correctAnswer": "ketinggian dan percepatan gravitasi",
+    "explanation": "t = √(2h/g) hanya bergantung pada h dan g. Massa tidak berpengaruh pada GJB ideal.",
+    "diagram": null
+  },
+  {
+    "no": 23,
+    "id": "VEC-08-009",
+    "zoneId": 8,
+    "zoneName": "GJB — Gerak Jatuh Bebas",
+    "difficulty": 1,
+    "bloom": "C2 (Pemahaman)",
+    "question": "Benda dijatuhkan tanpa kecepatan awal dari ketinggian 5 m (g = 10 m/s²). Waktu benda menyentuh tanah adalah … sekon.",
+    "options": [
+      "1",
+      "2",
+      "0,707",
+      "0,316"
+    ],
+    "correctKey": "A",
+    "correctAnswer": "1",
+    "explanation": "GJB mulai dari v₀ = 0 sehingga h = ½gt². Dengan h = 5 m diperoleh t = √(2h/g) = √(1) ≈ 1 s.",
+    "diagram": {
+      "type": "gjb",
+      "params": {
+        "h": 5,
+        "g": 10
+      }
+    }
+  },
+  {
+    "no": 24,
+    "id": "VEC-08-018",
+    "zoneId": 8,
+    "zoneName": "GJB — Gerak Jatuh Bebas",
+    "difficulty": 2,
+    "bloom": "C3 (Aplikasi)",
+    "question": "Benda jatuh bebas dari ketinggian 20 m (g = 10 m/s²). Kelajuan benda saat menyentuh tanah adalah … m/s.",
+    "options": [
+      "20",
+      "10",
+      "40",
+      "200"
+    ],
+    "correctKey": "A",
+    "correctAnswer": "20",
+    "explanation": "Dengan v₀ = 0, rumus v² = v₀² + 2gh tereduksi menjadi v = √(2gh). Untuk h = 20 m: v = √(400) ≈ 20 m/s.",
+    "diagram": {
+      "type": "gjb",
+      "params": {
+        "h": 20,
+        "g": 10
+      }
+    }
+  },
+  {
+    "no": 25,
+    "id": "VEC-08-031",
+    "zoneId": 8,
+    "zoneName": "GJB — Gerak Jatuh Bebas",
+    "difficulty": 3,
+    "bloom": "C4 (Analisis)",
+    "question": "Dua benda dijatuhkan dari ketinggian h dan 4h. Perbandingan waktu jatuh keduanya adalah …",
+    "options": [
+      "1 : √2",
+      "1 : 4",
+      "1 : 2",
+      "1 : 16",
+      "2 : 1"
+    ],
+    "correctKey": "C",
+    "correctAnswer": "1 : 2",
+    "explanation": "t ∝ √h, sehingga t₂/t₁ = √4 = 2.",
+    "diagram": null
+  }
+]

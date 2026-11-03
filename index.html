@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VectorArena — Arena Evaluasi Kompetitif Fisika Vektor & Kinematika | SMAN 78 Jakarta</title>
-    <meta name="description" content="Portal evaluasi dan kompetisi sains fisika materi Vektor dan Kinematika Gerak Vertikal untuk Kelas X SMAN 78 Jakarta. Dilengkapi 240 butir soal terkurasi, 8 Zona Kurikulum, 5 Mode Gamifikasi, Diagram Visual SVG, Podium 3 Besar, dan Peringkat Komprehensif.">
+    <meta name="description" content="Portal evaluasi dan kompetisi sains fisika materi Vektor dan Kinematika Gerak Vertikal untuk Kelas X SMAN 78 Jakarta. Dilengkapi 25 butir soal evaluasi terstandarisasi C2–C4, 8 Cakupan Topik Silabus, Diagram Visual SVG, dan Peringkat Komprehensif.">
     <meta name="theme-color" content="#1e1b4b">
 
     <!-- Open Graph & Twitter Social Metadata -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://farrelfz.github.io/VectorArena/">
     <meta property="og:title" content="VectorArena — Arena Kompetisi Fisika Vektor & Kinematika">
-    <meta property="og:description" content="Arena kompetisi sains interaktif materi Vektor dan Kinematika Gerak Vertikal Kelas X SMAN 78 Jakarta. Dilengkapi 8 Zona Kurikulum, 5 Mode Game, diagram SVG interaktif, dan pemeringkatan real-time.">
+    <meta property="og:description" content="Arena kompetisi sains interaktif materi Vektor dan Kinematika Gerak Vertikal Kelas X SMAN 78 Jakarta. Dilengkapi 8 Cakupan Topik Silabus, diagram SVG interaktif, dan pemeringkatan real-time.">
     <meta property="og:image" content="https://farrelfz.github.io/VectorArena/assets/logo.svg">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="VectorArena — SMAN 78 Jakarta">
@@ -187,7 +187,7 @@
                     </div>
                 </div>
 
-                <!-- Grid 12 Kolom: Kiri (Hero + Form Registrasi), Kanan (Top 5 + Ringkasan Zona) -->
+                <!-- Grid 12 Kolom: Kiri (Hero + Form Registrasi), Kanan (Top 5 + Ringkasan Silabus) -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
                     <!-- Kiri 7 Kolom: Orientasi Silabus & Formulir Identitas Siswa -->
@@ -210,55 +210,26 @@
                             </h1>
 
                             <p class="text-sm text-slate-600 leading-relaxed">
-                                Instrumen evaluasi pembelajaran kompetitif materi <strong>Vektor Analitis</strong> dan <strong>Gerak Lurus Berubah Beraturan (GVA, GVB, GJB, Grafik v-t)</strong>. Dilengkapi visualisasi grafik interaktif, bank soal deterministik 240 butir, dan pengacakan ganda terstandarisasi.
+                                Instrumen evaluasi pembelajaran kompetitif materi <strong>Vektor Analitis</strong> dan <strong>Gerak Lurus Berubah Beraturan (GVA, GVB, GJB, Grafik v-t)</strong>. Dilengkapi visualisasi grafik interaktif, 25 butir soal terstandarisasi C2–C4, dan pengacakan opsi jawaban ganda.
                             </p>
 
-                            <!-- Pilihan 5 Mode Gamifikasi -->
-                            <div class="pt-2 space-y-2">
-                                <div class="flex items-center justify-between">
-                                    <span class="text-xs font-bold text-slate-700 uppercase tracking-wide">Pilih Mode Evaluasi:</span>
-                                    <span id="lobby-active-mode-desc" class="text-[11px] font-mono text-indigo-800 font-bold">25 Soal • Durasi 90 Menit</span>
-                                </div>
-                                <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
-                                    <button type="button" onclick="ExamModule.setMode('sprint')" data-mode="sprint" class="game-mode-card p-2.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-left transition flex flex-col justify-between min-h-[64px]">
-                                        <div class="font-bold text-slate-900 flex items-center gap-1">
-                                            <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-500"></i>
-                                            <span>Sprint</span>
+                            <!-- Spesifikasi Evaluasi Fisika -->
+                            <div class="pt-2">
+                                <div class="p-3 rounded-xl bg-indigo-50/80 border border-indigo-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="w-8 h-8 rounded-lg bg-indigo-900 text-white flex items-center justify-center shrink-0">
+                                            <i data-lucide="award" class="w-4 h-4"></i>
                                         </div>
-                                        <span class="text-[10px] text-slate-500 font-mono">10 Soal • 20m</span>
-                                    </button>
-                                    <button type="button" onclick="ExamModule.setMode('duel')" data-mode="duel" class="game-mode-card p-2.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-left transition flex flex-col justify-between min-h-[64px]">
-                                        <div class="font-bold text-slate-900 flex items-center gap-1">
-                                            <i data-lucide="swords" class="w-3.5 h-3.5 text-rose-500"></i>
-                                            <span>Duel</span>
+                                        <div>
+                                            <div class="text-xs font-bold text-indigo-950">Evaluasi Resmi 25 Butir Soal</div>
+                                            <div class="text-[11px] text-indigo-800/80">Sebaran merata 8 Cakupan Topik Silabus (C2 – C4)</div>
                                         </div>
-                                        <span class="text-[10px] text-slate-500 font-mono">15 Soal • 30m</span>
-                                    </button>
-                                    <button type="button" onclick="ExamModule.setMode('ranked')" data-mode="ranked" class="game-mode-card p-2.5 rounded-lg border-2 border-indigo-600 bg-indigo-50/70 text-left transition flex flex-col justify-between min-h-[64px]">
-                                        <div class="font-bold text-indigo-900 flex items-center gap-1">
-                                            <i data-lucide="award" class="w-3.5 h-3.5 text-indigo-600"></i>
-                                            <span>Ranked</span>
-                                        </div>
-                                        <span class="text-[10px] text-indigo-700 font-mono font-bold">25 Soal • 90m</span>
-                                    </button>
-                                    <button type="button" onclick="ExamModule.setMode('race')" data-mode="race" class="game-mode-card p-2.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-left transition flex flex-col justify-between min-h-[64px]">
-                                        <div class="font-bold text-slate-900 flex items-center gap-1">
-                                            <i data-lucide="gauge" class="w-3.5 h-3.5 text-emerald-500"></i>
-                                            <span>Race</span>
-                                        </div>
-                                        <span class="text-[10px] text-slate-500 font-mono">20 Soal • 45m</span>
-                                    </button>
-                                    <button type="button" onclick="ExamModule.setMode('campaign')" data-mode="campaign" class="game-mode-card p-2.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-left transition flex flex-col justify-between min-h-[64px] col-span-2 sm:col-span-1">
-                                        <div class="font-bold text-slate-900 flex items-center gap-1">
-                                            <i data-lucide="map" class="w-3.5 h-3.5 text-purple-500"></i>
-                                            <span>Ekspedisi</span>
-                                        </div>
-                                        <span class="text-[10px] text-slate-500 font-mono">24 Soal • 80m</span>
-                                    </button>
-                                </div>
-                                <div class="text-[11px] font-mono text-slate-600 bg-slate-100 p-2 rounded flex items-center justify-between">
-                                    <span>Mode Terpilih: <strong id="lobby-active-mode-name" class="text-indigo-950 font-bold">Ujian Komprehensif (Ranked)</strong></span>
-                                    <span class="text-[10px] text-slate-500 font-sans">Bobot KKM: 75.0</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 self-start sm:self-auto font-mono text-xs">
+                                        <span class="px-2.5 py-1 rounded-md bg-white border border-indigo-200 text-indigo-900 font-bold">25 Soal</span>
+                                        <span class="px-2.5 py-1 rounded-md bg-white border border-indigo-200 text-indigo-900 font-bold">90 Menit</span>
+                                        <span class="px-2.5 py-1 rounded-md bg-emerald-100 border border-emerald-300 text-emerald-900 font-bold">KKM: 75.0</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -306,8 +277,8 @@
                             <!-- Panel Spesifikasi Sesi -->
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
                                 <div class="edu-panel p-2.5">
-                                    <div class="text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Bank Soal</div>
-                                    <div class="text-xs font-mono font-bold text-slate-900 mt-0.5">240 Terkurasi</div>
+                                    <div class="text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Jumlah Soal</div>
+                                    <div class="text-xs font-mono font-bold text-slate-900 mt-0.5">25 Butir Soal</div>
                                 </div>
                                 <div class="edu-panel p-2.5">
                                     <div class="text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Konstanta g</div>
@@ -342,7 +313,7 @@
                         </form>
                     </div>
 
-                    <!-- Kanan 5 Kolom: Top 5 Sementara & Cakupan 8 Zona Kurikulum -->
+                    <!-- Kanan 5 Kolom: Top 5 Sementara & Cakupan 8 Topik Silabus -->
                     <div class="lg:col-span-5 space-y-6">
 
                         <!-- Kartu Klasemen Top 5 Sementara -->
@@ -363,44 +334,44 @@
                             </div>
                         </div>
 
-                        <!-- Cakupan 8 Zona Kurikulum Vektor & Kinematika -->
+                        <!-- Cakupan 8 Topik Silabus Vektor & Kinematika -->
                         <div class="edu-card p-5 space-y-3">
                             <div class="flex items-center justify-between border-b border-slate-200 pb-2">
-                                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700">8 Zona Kurikulum Silabus</h3>
-                                <span class="edu-badge edu-badge-indigo font-mono text-[10px]">8 Zona • 240 Soal</span>
+                                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700">8 Cakupan Topik Silabus</h3>
+                                <span class="edu-badge edu-badge-indigo font-mono text-[10px]">25 Soal Terkurasi</span>
                             </div>
                             <div class="space-y-1.5 text-xs">
                                 <div class="flex items-center justify-between py-1 border-b border-slate-100">
-                                    <span class="text-slate-700 font-medium">Z1: Konsep Dasar & Notasi Vektor</span>
-                                    <span class="font-mono font-bold text-slate-600 tabular-nums">25 Soal</span>
+                                    <span class="text-slate-700 font-medium">1. Konsep Dasar & Notasi Vektor</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">3 Soal</span>
                                 </div>
                                 <div class="flex items-center justify-between py-1 border-b border-slate-100">
-                                    <span class="text-slate-700 font-medium">Z2: Vektor Posisi & Komponen 2D</span>
-                                    <span class="font-mono font-bold text-slate-600 tabular-nums">25 Soal</span>
+                                    <span class="text-slate-700 font-medium">2. Vektor Posisi & Komponen 2D</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">3 Soal</span>
                                 </div>
                                 <div class="flex items-center justify-between py-1 border-b border-slate-100">
-                                    <span class="text-slate-700 font-medium">Z3: Penjumlahan Grafis & Jajaran Genjang</span>
-                                    <span class="font-mono font-bold text-slate-600 tabular-nums">35 Soal</span>
+                                    <span class="text-slate-700 font-medium">3. Penjumlahan Grafis & Jajaran Genjang</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">3 Soal</span>
                                 </div>
                                 <div class="flex items-center justify-between py-1 border-b border-slate-100">
-                                    <span class="text-slate-700 font-medium">Z4: Perkalian Dot & Cross Vektor</span>
-                                    <span class="font-mono font-bold text-slate-600 tabular-nums">35 Soal</span>
+                                    <span class="text-slate-700 font-medium">4. Metode Geometris & Aturan Kosinus</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">3 Soal</span>
                                 </div>
                                 <div class="flex items-center justify-between py-1 border-b border-slate-100">
-                                    <span class="text-slate-700 font-medium">Z5: Gerak Vertikal ke Atas (GVA)</span>
-                                    <span class="font-mono font-bold text-slate-600 tabular-nums">40 Soal</span>
+                                    <span class="text-slate-700 font-medium">5. Penguraian Komponen Sumbu X-Y</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">3 Soal</span>
                                 </div>
                                 <div class="flex items-center justify-between py-1 border-b border-slate-100">
-                                    <span class="text-slate-700 font-medium">Z6: Gerak Vertikal ke Bawah (GVB)</span>
-                                    <span class="font-mono font-bold text-slate-600 tabular-nums">30 Soal</span>
+                                    <span class="text-slate-700 font-medium">6. Gerak Vertikal ke Atas (GVA)</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">3 Soal</span>
                                 </div>
                                 <div class="flex items-center justify-between py-1 border-b border-slate-100">
-                                    <span class="text-slate-700 font-medium">Z7: Gerak Jatuh Bebas (GJB)</span>
-                                    <span class="font-mono font-bold text-slate-600 tabular-nums">25 Soal</span>
+                                    <span class="text-slate-700 font-medium">7. Gerak Vertikal ke Bawah (GVB)</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">3 Soal</span>
                                 </div>
                                 <div class="flex items-center justify-between py-1">
-                                    <span class="text-slate-700 font-medium">Z8: Analisis Grafik v-t & GLBB</span>
-                                    <span class="font-mono font-bold text-slate-600 tabular-nums">25 Soal</span>
+                                    <span class="text-slate-700 font-medium">8. Gerak Jatuh Bebas (GJB)</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">4 Soal</span>
                                 </div>
                             </div>
                         </div>
@@ -443,7 +414,7 @@
                             <span class="text-xs font-mono font-bold text-slate-900">
                                 Soal No. <span id="q-current-number" class="text-indigo-700 text-sm">1</span> dari <span id="q-total-number">25</span>
                             </span>
-                            <span id="q-topic-badge" class="edu-badge edu-badge-indigo">Zona 1: Vektor</span>
+                            <span id="q-topic-badge" class="edu-badge edu-badge-indigo">Topik: Vektor</span>
                             <span id="q-difficulty-badge" class="edu-badge edu-badge-amber">MEDIUM</span>
                             <span id="q-status-badge" class="edu-badge">Belum Dijawab</span>
                         </div>
@@ -875,7 +846,7 @@
                             </div>
                             <div class="p-2.5 rounded-lg bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-200 shadow-sm space-y-0.5">
                                 <div class="flex items-center justify-between font-bold">
-                                    <span class="text-indigo-900 flex items-center gap-1">🛰️ ORBITAL (KKM)</span>
+                                    <span class="text-indigo-900 flex items-center gap-1">🛰️ ORBITAL</span>
                                     <span class="text-indigo-700 text-[11px] font-semibold">Nilai 75 – 84</span>
                                 </div>
                                 <div class="text-[10px] text-indigo-700/80 font-sans">Mencapai kecepatan lepas orbit standar tuntas KKM</div>
@@ -910,13 +881,21 @@
                                     <span class="font-bold">🛡️ Fokus Penuh</span>
                                     <span>0x Tab • Purna</span>
                                 </div>
+                                <div class="px-2 py-1 rounded bg-teal-50 border border-teal-200 text-teal-900 flex items-center justify-between text-[10px]">
+                                    <span class="font-bold">⚡ Dispersi Ringan</span>
+                                    <span>1x Tab</span>
+                                </div>
                                 <div class="px-2 py-1 rounded bg-amber-50 border border-amber-200 text-amber-900 flex items-center justify-between text-[10px]">
                                     <span class="font-bold">⚠️ Fluktuasi</span>
-                                    <span>1 – 2x Tab</span>
+                                    <span>2x Tab</span>
+                                </div>
+                                <div class="px-2 py-1 rounded bg-orange-50 border border-orange-200 text-orange-900 flex items-center justify-between text-[10px]">
+                                    <span class="font-bold">🚨 Defleksi Lintasan</span>
+                                    <span>3 – 4x Tab</span>
                                 </div>
                                 <div class="px-2 py-1 rounded bg-rose-50 border border-rose-200 text-rose-900 flex items-center justify-between text-[10px]">
-                                    <span class="font-bold">🚨 Pelanggaran</span>
-                                    <span>&gt; 2x Tab</span>
+                                    <span class="font-bold">⛔ Diskontinuitas</span>
+                                    <span>&gt; 4x Tab</span>
                                 </div>
                             </div>
                         </div>
@@ -1202,6 +1181,7 @@
     <!-- ================================================================= -->
     <script src="js/config.js?v=1.1.0"></script>
     <script src="js/data/questions.js?v=1.1.0"></script>
+    <script src="js/data/curated_25.js?v=1.1.0"></script>
     <script src="js/state.js?v=1.1.0"></script>
     <script src="js/utils/helpers.js?v=1.1.0"></script>
     <script src="js/visualizers/diagrams.js?v=1.1.0"></script>

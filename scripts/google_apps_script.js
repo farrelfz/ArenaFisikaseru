@@ -360,8 +360,8 @@ function ensureQuestionBankSheet(ss) {
     const masterData = [
   [
     1,
-    "Q01",
-    "Z1: Vector Fundamentals",
+    "VEC-01-001",
+    "Vector Fundamentals [C2 (Pemahaman)]",
     "Kelompok besaran berikut yang seluruhnya merupakan besaran vektor adalah …",
     "C",
     "kecepatan, gaya, dan perpindahan",
@@ -369,8 +369,8 @@ function ensureQuestionBankSheet(ss) {
   ],
   [
     2,
-    "Q02",
-    "Z1: Vector Fundamentals",
+    "VEC-01-002",
+    "Vector Fundamentals [C2 (Pemahaman)]",
     "Perhatikan besaran berikut: (1) berat, (2) massa, (3) kuat arus listrik, (4) impuls, (5) tekanan. Besaran yang tergolong vektor adalah …",
     "D",
     "(1) dan (4)",
@@ -378,17 +378,17 @@ function ensureQuestionBankSheet(ss) {
   ],
   [
     3,
-    "Q03",
-    "Z1: Vector Fundamentals",
-    "Manakah pernyataan yang benar tentang besaran skalar?",
-    "B",
-    "Besaran skalar hanya memiliki nilai dan tidak memiliki arah",
-    "Skalar dicirikan oleh nilai (dan satuan) saja. Nilainya boleh negatif (misalnya suhu), dan penjumlahannya mengikuti aljabar biasa, bukan aturan vektor."
+    "VEC-01-030",
+    "Vector Fundamentals [C4 (Analisis)]",
+    "Sebuah mobil menempuh perjalanan: 40 km ke timur lalu 30 km ke utara. Perbandingan besar perpindahan terhadap jarak total yang ditempuh adalah …",
+    "E",
+    "50 : 70 = 5 : 7",
+    "Jarak total = 40 + 30 = 70 km. Perpindahan adalah resultan tegak lurus: √(40² + 30²) = 50 km. Jadi perpindahan : jarak = 50 : 70 = 5 : 7."
   ],
   [
     4,
-    "Q04",
-    "Z2: Vector Representation",
+    "VEC-02-001",
+    "Vector Representation [C2 (Pemahaman)]",
     "Pada sistem koordinat Kartesius, titik yang berada di kuadran II memiliki …",
     "B",
     "x negatif dan y positif",
@@ -396,53 +396,53 @@ function ensureQuestionBankSheet(ss) {
   ],
   [
     5,
-    "Q05",
-    "Z2: Vector Representation",
-    "Vektor posisi menyatakan …",
-    "B",
-    "letak suatu titik terhadap titik acuan (biasanya titik asal)",
-    "Vektor posisi r menghubungkan titik asal O ke posisi titik yang ditinjau."
+    "VEC-02-011",
+    "Vector Representation [C3 (Aplikasi)]",
+    "Vektor posisi sebuah drone adalah r = 3i + 4j meter. Jarak drone dari titik asal adalah …",
+    "A",
+    "5",
+    "Jarak dari titik asal sama dengan besar vektor posisi."
   ],
   [
     6,
-    "Q06",
-    "Z2: Vector Representation",
-    "Perbedaan utama perpindahan dan jarak adalah …",
-    "E",
-    "perpindahan adalah vektor, jarak adalah skalar",
-    "Perpindahan hanya bergantung pada posisi awal dan akhir (vektor). Jarak mengikuti seluruh lintasan (skalar) dan tidak pernah lebih kecil dari besar perpindahan."
+    "VEC-02-005",
+    "Vector Representation [C2 (Pemahaman)]",
+    "Sebuah benda bergerak 4 m ke kiri sepanjang sumbu X. Dalam notasi vektor dengan arah kanan positif, perpindahan benda ditulis …",
+    "D",
+    "−4i m",
+    "Gerak ke kiri berlawanan dengan arah positif sumbu X sehingga komponennya −4 m pada arah i."
   ],
   [
     7,
-    "Q07",
-    "Z3: Vector Operations",
-    "Sifat komutatif pada penjumlahan vektor dinyatakan oleh …",
-    "B",
-    "A + B = B + A",
-    "Komutatif berarti urutan penjumlahan tidak mengubah resultan. A + (B + C) = (A + B) + C adalah sifat asosiatif."
-  ],
-  [
-    8,
-    "Q08",
-    "Z3: Vector Operations",
+    "VEC-03-004",
+    "Vector Operations [C2 (Pemahaman)]",
     "Pengurangan vektor A − B ekuivalen dengan …",
     "A",
     "A + (−B)",
     "Mengurangi B sama dengan menambahkan vektor negatif B, yaitu vektor B yang dibalik arahnya."
   ],
   [
-    9,
-    "Q09",
-    "Z3: Vector Operations",
-    "Dua vektor A = 3i + 0j dan B = 5i + 0j (satuan SI). Besar resultan A + B adalah …",
-    "D",
-    "8",
+    8,
+    "VEC-03-007",
+    "Vector Operations [C3 (Aplikasi)]",
+    "Dua vektor A = 6i + 0j dan B = 0i + 8j (satuan SI). Besar resultan A + B adalah …",
+    "B",
+    "10",
     "Resultan diperoleh dengan menjumlahkan komponen sejenis, lalu menghitung besarnya."
   ],
   [
+    9,
+    "VEC-03-032",
+    "Vector Operations [C3 (Aplikasi)]",
+    "Gambar 1 menunjukkan dua vektor dengan hubungan vektor tegak lurus. Besar resultannya adalah … satuan.",
+    "B",
+    "10",
+    "Resultan dihitung dari komponen kedua vektor, sesuai arah masing-masing pada diagram."
+  ],
+  [
     10,
-    "Q10",
-    "Z4: Geometrical Vector Methods",
+    "VEC-04-001",
+    "Geometrical Vector Methods [C2 (Pemahaman)]",
     "Pada metode segitiga, resultan dua vektor diperoleh dengan cara …",
     "C",
     "menyambung ujung vektor pertama ke pangkal vektor kedua, lalu menarik vektor dari pangkal pertama ke ujung kedua",
@@ -450,26 +450,26 @@ function ensureQuestionBankSheet(ss) {
   ],
   [
     11,
-    "Q11",
-    "Z4: Geometrical Vector Methods",
-    "Pada metode jajar genjang, kedua vektor digambar dari titik pangkal yang sama, dan resultan digambarkan sebagai …",
-    "D",
-    "diagonal jajar genjang dari titik pangkal",
-    "Diagonal jajar genjang yang berpangkal di titik awal menyatakan jumlah kedua vektor."
+    "VEC-04-004",
+    "Geometrical Vector Methods [C3 (Aplikasi)]",
+    "Rumus aturan kosinus untuk besar resultan dua vektor yang membentuk sudut θ adalah …",
+    "C",
+    "R = √(A² + B² + 2AB cos θ)",
+    "Untuk resultan (bukan selisih), tanda pada suku silang adalah positif: R² = A² + B² + 2AB cos θ."
   ],
   [
     12,
-    "Q12",
-    "Z4: Geometrical Vector Methods",
-    "Metode poligon digunakan untuk menentukan resultan …",
-    "B",
-    "tiga vektor atau lebih dengan menyambung ujung ke pangkal secara berurutan",
-    "Poligon adalah generalisasi metode segitiga untuk banyak vektor; resultan menghubungkan titik awal ke titik akhir."
+    "VEC-04-006",
+    "Geometrical Vector Methods [C4 (Analisis)]",
+    "Dua vektor besarnya 3 satuan dan 4 satuan membentuk sudut 90°. Besar resultan kedua vektor adalah … satuan.",
+    "C",
+    "5",
+    "Kedua vektor tidak tegak lurus, sehingga komponen silang harus diperhitungkan melalui aturan kosinus."
   ],
   [
     13,
-    "Q13",
-    "Z5: Vector Components",
+    "VEC-05-002",
+    "Vector Components [C2 (Pemahaman)]",
     "Komponen vertikal (sumbu Y) dari vektor A yang membentuk sudut θ terhadap sumbu X positif adalah …",
     "B",
     "A sin θ",
@@ -477,26 +477,26 @@ function ensureQuestionBankSheet(ss) {
   ],
   [
     14,
-    "Q14",
-    "Z5: Vector Components",
-    "Vektor yang berada di kuadran III memiliki komponen …",
-    "B",
-    "x negatif dan y negatif",
-    "Kuadran III berada di kiri bawah, sehingga kedua komponen bernilai negatif."
+    "VEC-05-005",
+    "Vector Components [C3 (Aplikasi)]",
+    "Sebuah vektor gaya besarnya 10 N membentuk sudut 30° terhadap sumbu X positif. Komponen horizontal (sumbu X) vektor tersebut adalah … N.",
+    "A",
+    "8,66",
+    "Gunakan Ax = A cos θ dan Ay = A sin θ. Pada θ = 30°, komponen x = 10 × cos 30°."
   ],
   [
     15,
-    "Q15",
-    "Z5: Vector Components",
-    "Sebuah vektor berarah 150° dari sumbu X positif. Komponen x dan y vektor tersebut berturut-turut …",
-    "C",
-    "negatif dan positif",
-    "150° berada di kuadran II: cos 150° < 0 dan sin 150° > 0."
+    "VEC-05-011",
+    "Vector Components [C3 (Aplikasi)]",
+    "Sebuah vektor gaya besarnya 12 N membentuk sudut 120° terhadap sumbu X positif. Komponen horizontal (sumbu X) vektor tersebut adalah … N.",
+    "B",
+    "-6",
+    "Gunakan Ax = A cos θ dan Ay = A sin θ. Pada θ = 120°, komponen x = 12 × cos 120°."
   ],
   [
     16,
-    "Q16",
-    "Z6: GVA — Gerak Vertikal ke Atas",
+    "VEC-06-005",
+    "GVA — Gerak Vertikal ke Atas [C3 (Aplikasi)]",
     "Pernyataan yang benar tentang massa benda pada GVA (ideal) adalah …",
     "D",
     "massa tidak memengaruhi waktu tempuh maupun ketinggian maksimum",
@@ -504,26 +504,26 @@ function ensureQuestionBankSheet(ss) {
   ],
   [
     17,
-    "Q17",
-    "Z6: GVA — Gerak Vertikal ke Atas",
-    "Pada t = ½ t_puncak, kecepatan benda GVA yang dilempar dengan v₀ adalah …",
-    "E",
-    "½ v₀",
-    "v = v₀ − gt. Pada t = v₀/(2g) diperoleh v = v₀ − g·v₀/(2g) = v₀/2."
-  ],
-  [
-    18,
-    "Q18",
-    "Z6: GVA — Gerak Vertikal ke Atas",
+    "VEC-06-009",
+    "GVA — Gerak Vertikal ke Atas [C3 (Aplikasi)]",
     "Sebuah bola dilempar vertikal ke atas dengan kecepatan awal 20 m/s dari permukaan tanah (g = 10 m/s², hambatan udara diabaikan). Waktu yang diperlukan untuk mencapai titik tertinggi adalah … sekon.",
     "C",
     "2",
     "Di titik tertinggi v = 0, sehingga 0 = v₀ − gt dan t = v₀/g."
   ],
   [
+    18,
+    "VEC-06-059",
+    "GVA — Gerak Vertikal ke Atas [C4 (Analisis)]",
+    "Grafik kecepatan terhadap waktu untuk sebuah benda GVA berupa garis lurus dengan v = 30 − 10t (m/s). Kecepatan benda pada t = 5 s adalah … m/s.",
+    "C",
+    "-20",
+    "Substitusikan t = 5 s: v = 30 − 10(5) = −20 m/s. Tanda negatif menandakan benda sudah bergerak turun."
+  ],
+  [
     19,
-    "Q19",
-    "Z7: GVB — Gerak Vertikal ke Bawah",
+    "VEC-07-002",
+    "GVB — Gerak Vertikal ke Bawah [C2 (Pemahaman)]",
     "Pada GVB, kelajuan benda …",
     "D",
     "bertambah karena percepatan gravitasi searah dengan gerak",
@@ -531,26 +531,26 @@ function ensureQuestionBankSheet(ss) {
   ],
   [
     20,
-    "Q20",
-    "Z7: GVB — Gerak Vertikal ke Bawah",
-    "Sebuah batu dilempar ke bawah dengan kecepatan awal 5 m/s dari jendela. Gerak batu termasuk …",
-    "A",
-    "GVB karena v₀ ≠ 0 dan berarah ke bawah",
-    "Klasifikasi bergantung pada ada/tidaknya kecepatan awal saat dilepas."
+    "VEC-07-009",
+    "GVB — Gerak Vertikal ke Bawah [C3 (Aplikasi)]",
+    "Benda dilempar vertikal ke bawah dengan kecepatan  awal 5 m/s dari ketinggian 20 m (g = 10 m/s²). Kecepatan benda saat tiba di tanah adalah … m/s.",
+    "C",
+    "20,616",
+    "Gunakan vₜ² = v₀² + 2gh. Perhatikan bahwa v₀ tidak boleh diabaikan."
   ],
   [
     21,
-    "Q21",
-    "Z7: GVB — Gerak Vertikal ke Bawah",
-    "Dibandingkan benda GJB dari ketinggian yang sama, benda GVB memerlukan waktu …",
-    "E",
-    "lebih singkat karena sudah memiliki kecepatan awal",
-    "Dengan v₀ > 0 ke bawah, benda menempuh jarak lebih cepat dibanding mulai dari diam."
+    "VEC-07-010",
+    "GVB — Gerak Vertikal ke Bawah [C3 (Aplikasi)]",
+    "Benda dilempar vertikal ke bawah dengan kecepatan  awal 10 m/s dari ketinggian 15 m (g = 10 m/s²). Kecepatan benda saat tiba di tanah adalah … m/s.",
+    "A",
+    "20",
+    "Gunakan vₜ² = v₀² + 2gh. Perhatikan bahwa v₀ tidak boleh diabaikan."
   ],
   [
     22,
-    "Q22",
-    "Z8: GJB — Gerak Jatuh Bebas",
+    "VEC-08-002",
+    "GJB — Gerak Jatuh Bebas [C2 (Pemahaman)]",
     "Pada GJB ideal, besaran yang memengaruhi waktu jatuh adalah …",
     "C",
     "ketinggian dan percepatan gravitasi",
@@ -558,34 +558,33 @@ function ensureQuestionBankSheet(ss) {
   ],
   [
     23,
-    "Q23",
-    "Z8: GJB — Gerak Jatuh Bebas",
-    "Kelajuan benda pada GJB setelah jatuh selama t adalah …",
+    "VEC-08-009",
+    "GJB — Gerak Jatuh Bebas [C2 (Pemahaman)]",
+    "Benda dijatuhkan tanpa kecepatan awal dari ketinggian 5 m (g = 10 m/s²). Waktu benda menyentuh tanah adalah … sekon.",
     "A",
-    "v = gt",
-    "Karena v₀ = 0, v = v₀ + gt = gt."
+    "1",
+    "GJB mulai dari v₀ = 0 sehingga h = ½gt². Dengan h = 5 m diperoleh t = √(2h/g) = √(1) ≈ 1 s."
   ],
   [
     24,
-    "Q24",
-    "Z8: GJB — Gerak Jatuh Bebas",
-    "Jarak yang ditempuh benda GJB setelah t sekon adalah …",
+    "VEC-08-018",
+    "GJB — Gerak Jatuh Bebas [C3 (Aplikasi)]",
+    "Benda jatuh bebas dari ketinggian 20 m (g = 10 m/s²). Kelajuan benda saat menyentuh tanah adalah … m/s.",
     "A",
-    "h = ½gt²",
-    "Dengan v₀ = 0, persamaan posisi tereduksi menjadi s = ½gt²."
+    "20",
+    "Dengan v₀ = 0, rumus v² = v₀² + 2gh tereduksi menjadi v = √(2gh). Untuk h = 20 m: v = √(400) ≈ 20 m/s."
   ],
   [
     25,
-    "Q25",
-    "Z8: GJB — Gerak Jatuh Bebas",
-    "Jika hambatan udara diperhitungkan, pernyataan yang benar tentang benda yang dijatuhkan dari ketinggian h adalah …",
+    "VEC-08-031",
+    "GJB — Gerak Jatuh Bebas [C4 (Analisis)]",
+    "Dua benda dijatuhkan dari ketinggian h dan 4h. Perbandingan waktu jatuh keduanya adalah …",
     "C",
-    "waktu jatuhnya lebih lama daripada GJB ideal",
-    "Hambatan udara melawan gerak sehingga percepatan efektif lebih kecil dari g dan waktu jatuh bertambah."
+    "1 : 2",
+    "t ∝ √h, sehingga t₂/t₁ = √4 = 2."
   ]
 ];
 
-    const startRow = 2;
     const numRows = masterData.length;
     qSheet.getRange(startRow, 1, numRows, 7).setValues(masterData);
 

@@ -59,11 +59,15 @@ const ExamModule = {
 
     _getAntiCheatStatus(switches) {
         if (!switches || switches <= 0) {
-            return { statusLabel: 'Fokus Penuh (0 Pelanggaran)', badgeClass: 'font-mono text-[11px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' };
-        } else if (switches <= 2) {
-            return { statusLabel: `Peringatan (${switches}x Tab Switch)`, badgeClass: 'font-mono text-[11px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30' };
+            return { statusLabel: '🛡️ Fokus Penuh (0x Tab)', badgeClass: 'font-mono text-[11px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' };
+        } else if (switches === 1) {
+            return { statusLabel: '⚡ Dispersi Ringan (1x Tab)', badgeClass: 'font-mono text-[11px] px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30' };
+        } else if (switches === 2) {
+            return { statusLabel: '⚠️ Fluktuasi (2x Tab)', badgeClass: 'font-mono text-[11px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30' };
+        } else if (switches <= 4) {
+            return { statusLabel: `🚨 Defleksi Lintasan (${switches}x Tab)`, badgeClass: 'font-mono text-[11px] px-2 py-0.5 rounded bg-orange-500/20 text-orange-300 border border-orange-500/30' };
         } else {
-            return { statusLabel: `Terdeteksi (${switches}x Pelanggaran)`, badgeClass: 'font-mono text-[11px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30' };
+            return { statusLabel: `⛔ Diskontinuitas (${switches}x Tab)`, badgeClass: 'font-mono text-[11px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30' };
         }
     },
 
@@ -170,7 +174,7 @@ const ExamModule = {
 
         document.getElementById('q-current-number').textContent = index + 1;
         document.getElementById('q-total-number').textContent = total;
-        document.getElementById('q-topic-badge').textContent = q.topic || `Zona ${q.zoneId}`;
+        document.getElementById('q-topic-badge').textContent = q.topic || q.zoneName || `Topik ${q.zoneId}`;
         document.getElementById('q-difficulty-badge').textContent = q.difficulty ? q.difficulty.toUpperCase() : 'MEDIUM';
 
         // Render Prompt Soal dengan Mini-TeX
@@ -514,11 +518,16 @@ const ExamModule = {
             answersMap = JSON.parse(record.answersJson || "{}");
         } catch (e) {}
 
-        const questionsToReview = QUESTIONS_BANK.filter(q => answersMap[q.id] !== undefined);
-        const reviewList = questionsToReview.length > 0 ? questionsToReview : QUESTIONS_BANK.slice(0, record.totalQuestions || CONFIG.TOTAL_QUESTIONS);
+        const allKnownQuestions = (typeof CURATED_25_QUESTIONS !== 'undefined' && CURATED_25_QUESTIONS.length > 0)
+            ? CURATED_25_QUESTIONS
+            : QUESTIONS_BANK;
+
+        const questionsToReview = allKnownQuestions.filter(q => answersMap[q.id] !== undefined);
+        const reviewList = questionsToReview.length > 0 ? questionsToReview : allKnownQuestions.slice(0, record.totalQuestions || CONFIG.TOTAL_QUESTIONS);
 
         container.innerHTML = reviewList.map((q, idx) => {
-            const detail = answersMap[q.id] || { isCorrect: false, chosenText: "(Tidak dijawab)", correctText: q.options[q.correctIndex] };
+            const correctOptionText = q.correctAnswer || (q.options && q.correctIndex !== undefined ? q.options[q.correctIndex] : "");
+            const detail = answersMap[q.id] || { isCorrect: false, chosenText: "(Tidak dijawab)", correctText: correctOptionText };
             const isCorrect = detail.isCorrect;
 
             return `
@@ -528,7 +537,7 @@ const ExamModule = {
                             <span class="font-mono font-bold text-xs px-2.5 py-0.5 rounded-full ${isCorrect ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}">
                                 Soal #${idx + 1}
                             </span>
-                            <span class="text-xs font-semibold text-slate-300">${q.topic || `Zona ${q.zoneId}`}</span>
+                            <span class="text-xs font-semibold text-slate-300">${q.topic || q.zoneName || `Topik ${q.zoneId}`}</span>
                         </div>
                         <span class="text-xs font-bold ${isCorrect ? 'text-emerald-400' : 'text-rose-400'}">
                             ${isCorrect ? '✓ Jawaban Tepat (+3.000)' : '✕ Belum Tepat'}
@@ -536,11 +545,11 @@ const ExamModule = {
                     </div>
 
                     <div class="text-sm text-slate-200 leading-relaxed font-medium">
-                        ${Utils.renderMiniTeX(q.question)}
+                        ${Utils.renderMiniTeX(q.question || q.questionText)}
                     </div>
 
                     ${q.diagram && q.diagram.type ? `
-                        <div id=\"review-diagram-${q.id}\" class=\"flex justify-center\"></div>
+                        <div id="review-diagram-${q.id}" class="flex justify-center"></div>
                     ` : ''}
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs pt-1">
@@ -550,7 +559,7 @@ const ExamModule = {
                         </div>
                         <div class="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/40">
                             <div class="text-emerald-400 font-semibold mb-0.5">Kunci Jawaban yang Benar:</div>
-                            <div class="font-medium text-emerald-200">${Utils.renderMiniTeX(detail.correctText)}</div>
+                            <div class="font-medium text-emerald-200">${Utils.renderMiniTeX(detail.correctText || correctOptionText)}</div>
                         </div>
                     </div>
 
@@ -576,6 +585,34 @@ const ExamModule = {
     },
 
     _buildQuestionsForMode(modeObj) {
+        // Jika CURATED_25_QUESTIONS tersedia, gunakan sebagai bank ujian 25 butir resmi
+        let sourceBank = (typeof CURATED_25_QUESTIONS !== 'undefined' && CURATED_25_QUESTIONS.length === 25)
+            ? CURATED_25_QUESTIONS
+            : null;
+
+        if (sourceBank) {
+            return sourceBank.map(q => {
+                const optObjs = q.options.map((text, idx) => ({
+                    text,
+                    isCorrect: (q.correctAnswer !== undefined) ? (text === q.correctAnswer) : (idx === q.correctIndex)
+                }));
+                const shuffledOpts = Utils.shuffle(optObjs);
+                const newCorrectIdx = shuffledOpts.findIndex(o => o.isCorrect);
+                const tokenStr = `${q.id}:${newCorrectIdx}:${CONFIG.BASE_POINTS_PER_QUESTION}`;
+                const token = (typeof btoa !== 'undefined') ? btoa(tokenStr) : Buffer.from(tokenStr).toString('base64');
+                return {
+                    id: q.id,
+                    zoneId: q.zoneId,
+                    topic: q.zoneName || q.topic,
+                    difficulty: q.difficulty,
+                    question: q.question || q.questionText,
+                    diagram: q.diagram,
+                    options: shuffledOpts.map(o => o.text),
+                    _v: token
+                };
+            });
+        }
+
         let pool = [...QUESTIONS_BANK];
         if (modeObj.id === 'sprint') {
             pool = pool.filter(q => q.difficulty === 'easy' || q.difficulty === 'medium');
@@ -596,7 +633,7 @@ const ExamModule = {
         return shuffled.map(q => {
             const optObjs = q.options.map((text, idx) => ({
                 text,
-                isCorrect: idx === q.correctIndex
+                isCorrect: (q.correctAnswer !== undefined) ? (text === q.correctAnswer) : (idx === q.correctIndex)
             }));
             const shuffledOpts = Utils.shuffle(optObjs);
             const newCorrectIdx = shuffledOpts.findIndex(o => o.isCorrect);
@@ -605,9 +642,9 @@ const ExamModule = {
             return {
                 id: q.id,
                 zoneId: q.zoneId,
-                topic: q.topic,
+                topic: q.topic || q.zoneName,
                 difficulty: q.difficulty,
-                question: q.question,
+                question: q.question || q.questionText,
                 diagram: q.diagram,
                 options: shuffledOpts.map(o => o.text),
                 _v: token

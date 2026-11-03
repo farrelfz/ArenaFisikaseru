@@ -39,17 +39,27 @@ const LeaderboardModule = {
         if (sw === 0) {
             return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200" title="Integritas Sempurna • 0x Pindah Tab">
                 <i data-lucide="shield-check" class="w-3 h-3 text-emerald-600"></i>
-                <span>Fokus Penuh (0x)</span>
+                <span>🛡️ Fokus Penuh (0x)</span>
             </span>`;
-        } else if (sw <= 2) {
-            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200" title="Peringatan Ringan • ${sw}x Pindah Tab">
+        } else if (sw === 1) {
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-teal-50 text-teal-800 border border-teal-200" title="Dispersi Ringan • 1x Pindah Tab">
+                <i data-lucide="zap" class="w-3 h-3 text-teal-600"></i>
+                <span>⚡ Dispersi (1x)</span>
+            </span>`;
+        } else if (sw === 2) {
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200" title="Fluktuasi Sedang • 2x Pindah Tab">
                 <i data-lucide="alert-circle" class="w-3 h-3 text-amber-600"></i>
-                <span>Fluktuasi (${sw}x)</span>
+                <span>⚠️ Fluktuasi (2x)</span>
+            </span>`;
+        } else if (sw <= 4) {
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-orange-50 text-orange-800 border border-orange-200" title="Defleksi Lintasan • ${sw}x Pindah Tab">
+                <i data-lucide="alert-triangle" class="w-3 h-3 text-orange-600"></i>
+                <span>🚨 Defleksi (${sw}x)</span>
             </span>`;
         } else {
-            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-50 text-rose-800 border border-rose-200" title="Pelanggaran Berat • ${sw}x Pindah Tab">
-                <i data-lucide="alert-triangle" class="w-3 h-3 text-rose-600"></i>
-                <span>Pelanggaran (${sw}x)</span>
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-50 text-rose-800 border border-rose-200" title="Diskontinuitas Fokus Ekstrem • ${sw}x Pindah Tab">
+                <i data-lucide="octagon-alert" class="w-3 h-3 text-rose-600"></i>
+                <span>⛔ Diskontinuitas (${sw}x)</span>
             </span>`;
         }
     },
