@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArenaFisikaSeru — Dua Arena Evaluasi Kompetitif Fisika | SMAN 78 Jakarta</title>
+    <meta name="description" content="ArenaFisikaSeru: kumpulan arena evaluasi kompetitif Fisika SMAN 78 Jakarta. HydroArena untuk Fluida (Kelas XI) dan VectorArena untuk Vektor & Kinematika (Kelas X).">
+    <meta name="theme-color" content="#06070d">
+    <link rel="icon" type="image/svg+xml" href="VectorArena/assets/logo.svg">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://farrelfz.github.io/ArenaFisikaseru/">
+    <meta property="og:title" content="ArenaFisikaSeru — Dua Arena Evaluasi Kompetitif Fisika">
+    <meta property="og:description" content="HydroArena (Fluida, Kelas XI) dan VectorArena (Vektor & Kinematika, Kelas X) — platform evaluasi kompetitif Fisika SMAN 78 Jakarta.">
+
+    <style>
+        :root {
+            --bg: #06070d;
+            --surface: rgba(255, 255, 255, 0.035);
+            --border: rgba(255, 255, 255, 0.09);
+            --text: #eef1f8;
+            --muted: #8b93a7;
+            --hydro: #3b82f6;
+            --hydro-soft: rgba(59, 130, 246, 0.16);
+            --vector: #8b5cf6;
+            --vector-soft: rgba(139, 92, 246, 0.16);
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body { height: 100%; }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Latar: dua medan warna yang mewakili dua arena */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background:
+                radial-gradient(60rem 40rem at 12% 8%, var(--hydro-soft), transparent 65%),
+                radial-gradient(55rem 38rem at 88% 92%, var(--vector-soft), transparent 65%),
+                radial-gradient(30rem 25rem at 50% 50%, rgba(255, 255, 255, 0.03), transparent 70%);
+        }
+
+        .wrap {
+            width: min(1080px, 100% - 2.5rem);
+            margin-inline: auto;
+        }
+
+        header { padding: clamp(2.5rem, 7vw, 5rem) 0 0; }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            border-radius: 999px;
+            padding: 0.45rem 0.9rem;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #34d399;
+            box-shadow: 0 0 10px #34d399;
+        }
+
+        h1 {
+            margin: 1.35rem 0 0;
+            font-size: clamp(2.4rem, 7vw, 4.2rem);
+            line-height: 0.98;
+            letter-spacing: -0.035em;
+            font-weight: 800;
+        }
+
+        h1 span {
+            background: linear-gradient(100deg, #60a5fa 0%, #a78bfa 55%, #f0abfc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .lede {
+            margin: 1.15rem 0 0;
+            max-width: 46ch;
+            font-size: clamp(0.98rem, 2.2vw, 1.1rem);
+            line-height: 1.65;
+            color: var(--muted);
+        }
+
+        main { flex: 1; padding: 2.75rem 0 3rem; }
+
+        .grid {
+            display: grid;
+            gap: 1.15rem;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr));
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.6rem;
+            border: 1px solid var(--border);
+            border-radius: 1.1rem;
+            background: var(--surface);
+            text-decoration: none;
+            color: inherit;
+            isolation: isolate;
+            transition: transform 220ms cubic-bezier(.2,.7,.3,1), border-color 220ms ease, background 220ms ease;
+        }
+
+        .card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 220ms ease;
+        }
+
+        .card--hydro::after { background: radial-gradient(28rem 14rem at 20% 0%, var(--hydro-soft), transparent 70%); }
+        .card--vector::after { background: radial-gradient(28rem 14rem at 20% 0%, var(--vector-soft), transparent 70%); }
+
+        .card:hover,
+        .card:focus-visible {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.055);
+            outline: none;
+        }
+
+        .card:hover::after,
+        .card:focus-visible::after { opacity: 1; }
+
+        .card--hydro:hover, .card--hydro:focus-visible { border-color: rgba(59, 130, 246, 0.55); }
+        .card--vector:hover, .card--vector:focus-visible { border-color: rgba(139, 92, 246, 0.55); }
+
+        .card__top {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .card__logo {
+            width: 40px;
+            height: 40px;
+            flex: none;
+            border-radius: 0.65rem;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.05);
+            display: grid;
+            place-items: center;
+            padding: 6px;
+        }
+
+        .card__logo img { width: 100%; height: 100%; object-fit: contain; }
+
+        .card__name {
+            margin: 0;
+            font-size: 1.28rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .card__topic {
+            margin: 0.1rem 0 0;
+            font-size: 0.8rem;
+            color: var(--muted);
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        }
+
+        .card__desc {
+            margin: 0;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: #c3cad9;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: auto;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            padding: 0.28rem 0.6rem;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding-top: 0.35rem;
+        }
+
+        .card--hydro .cta { color: #93c5fd; }
+        .card--vector .cta { color: #c4b5fd; }
+
+        .cta svg { width: 15px; height: 15px; transition: transform 200ms ease; }
+        .card:hover .cta svg { transform: translateX(4px); }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 1.4rem 0 2rem;
+            font-size: 0.78rem;
+            color: var(--muted);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.25rem;
+            justify-content: space-between;
+        }
+
+        footer a { color: #a5b4fc; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .card, .cta svg { transition: none; }
+            .card:hover, .card:focus-visible { transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <header class="wrap">
+        <p class="eyebrow">SMAN 78 Jakarta · Fisika</p>
+        <h1>Arena<span>FisikaSeru</span></h1>
+        <p class="lede">
+            Dua arena evaluasi kompetitif fisika dalam satu tempat. Pilih medan
+            pertandinganmu — masing-masing punya soal terkurasi, bonus kecepatan,
+            dan klasemen real-time.
+        </p>
+    </header>
+
+    <main class="wrap">
+        <div class="grid">
+            <a class="card card--hydro" href="HydroArena/">
+                <div class="card__top">
+                    <span class="card__logo"><img src="HydroArena/assets/logo.svg" alt="" width="28" height="28"></span>
+                    <div>
+                        <h2 class="card__name">HydroArena</h2>
+                        <p class="card__topic">Fluida Statis &amp; Dinamis</p>
+                    </div>
+                </div>
+                <p class="card__desc">
+                    Arena kompetisi fisika fluida untuk Kelas XI MIPA.
+                    25 butir soal terkurasi, bonus kecepatan hingga 100.000 poin,
+                    podium 3 besar, dan piala rombel XI A–XI F.
+                </p>
+                <div class="tags">
+                    <span class="tag">Kelas XI A–XI F</span>
+                    <span class="tag">25 Soal</span>
+                    <span class="tag">Aliran Tunak</span>
+                </div>
+                <span class="cta">
+                    Masuk HydroArena
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
+            </a>
+
+            <a class="card card--vector" href="VectorArena/">
+                <div class="card__top">
+                    <span class="card__logo"><img src="VectorArena/assets/logo.svg" alt="" width="28" height="28"></span>
+                    <div>
+                        <h2 class="card__name">VectorArena</h2>
+                        <p class="card__topic">Vektor &amp; Kinematika Gerak Vertikal</p>
+                    </div>
+                </div>
+                <p class="card__desc">
+                    Arena kompetisi vektor dan gerak vertikal untuk Kelas X.
+                    8 zona materi dengan diagram SVG, 5 mode permainan,
+                    dan klasemen lintas 11 rombel X A–X K.
+                </p>
+                <div class="tags">
+                    <span class="tag">Kelas X A–X K</span>
+                    <span class="tag">8 Zona</span>
+                    <span class="tag">Relativistik</span>
+                </div>
+                <span class="cta">
+                    Masuk VectorArena
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
+            </a>
+        </div>
+    </main>
+
+    <footer class="wrap">
+        <span>&copy; 2026 ArenaFisikaSeru · SMAN 78 Jakarta</span>
+        <span><a href="https://github.com/farrelfz/ArenaFisikaseru">Sumber di GitHub</a></span>
+    </footer>
+</body>
+</html>

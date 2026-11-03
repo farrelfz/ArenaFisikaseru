@@ -1,0 +1,20 @@
+# Dependensi & artefak build
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Log, env, dan berkas OS
+*.log
+.env
+.env.*
+.DS_Store
+Thumbs.db
+
+# Berkas kerja sementara
+.tmp/
+tmp/
