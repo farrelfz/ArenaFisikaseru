@@ -924,7 +924,7 @@
                                     <h3 class="text-sm font-bold text-slate-900">Daftar Peringkat Lengkap Seluruh Siswa</h3>
                                     <span id="lb-table-count-badge" class="edu-badge edu-badge-blue font-mono text-[10px] font-bold">Semua Siswa</span>
                                 </div>
-                                <p class="text-xs text-slate-500 mt-0.5">Menampilkan seluruh data murid tanpa batasan kuota 10 orang • Diurutkan dari total skor tertinggi</p>
+                                <p class="text-xs text-slate-500 mt-0.5">Menampilkan seluruh data murid • Diurutkan dari total skor tertinggi</p>
                             </div>
                             <div class="flex flex-wrap items-center gap-2">
                                 <select id="lb-class-filter" onchange="LeaderboardModule.renderFullTable()" class="edu-input px-2.5 py-1.5 text-xs font-medium">
@@ -977,7 +977,7 @@
                             </div>
                             <span class="text-emerald-700 font-semibold flex items-center gap-1 text-[11px]">
                                 <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-600"></i>
-                                <span>Seluruh peringkat siswa di kelas ini ditampilkan lengkap tanpa batasan kuota</span>
+                                <span>Seluruh peringkat siswa di kelas ini ditampilkan lengkap</span>
                             </span>
                         </div>
                     </div>
@@ -1158,6 +1158,17 @@
                             </button>
                         </div>
 
+                        <div class="flex items-center gap-1.5">
+                            <button type="button" onclick="TeacherExcelExport.exportToExcel()" class="edu-btn-secondary px-3 py-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 flex items-center gap-1.5 shadow-sm bg-emerald-50 border-emerald-300 hover:bg-emerald-100" title="Unduh Rekapitulasi Multi-Tab Excel (.xlsx)">
+                                <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-emerald-600"></i>
+                                <span>Unduh Excel (Multi-Tab)</span>
+                            </button>
+                            <button type="button" onclick="TeacherAdminModule.printReport()" class="edu-btn-secondary px-3 py-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 flex items-center gap-1.5 shadow-sm" title="Cetak Rekap / Halaman Panel Guru">
+                                <i data-lucide="printer" class="w-3.5 h-3.5 text-blue-700"></i>
+                                <span>Cetak</span>
+                            </button>
+                        </div>
+
                         <button type="button" onclick="TeacherAdminModule.logout()" class="edu-btn-secondary px-3 py-1.5 text-xs text-rose-700 hover:bg-rose-50 border-rose-200 flex items-center gap-1.5">
                             <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
                             <span>Kunci Panel</span>
@@ -1334,9 +1345,9 @@
                                     <h3 class="text-sm font-bold text-slate-900">Rekapitulasi Prestasi Per Kelas</h3>
                                     <p class="text-xs text-slate-500">Kriteria Ketuntasan Minimal (KKM) Fisika: 75.0</p>
                                 </div>
-                                <button type="button" onclick="TeacherAdminModule.exportCsv()" class="edu-btn-secondary px-3 py-1.5 text-xs font-mono flex items-center gap-1.5 self-start sm:self-auto">
-                                    <i data-lucide="download" class="w-3.5 h-3.5 text-emerald-600"></i>
-                                    <span>Unduh CSV</span>
+                                <button type="button" onclick="TeacherExcelExport.exportToExcel()" class="edu-btn-secondary px-3 py-1.5 text-xs font-mono flex items-center gap-1.5 self-start sm:self-auto bg-emerald-50 border-emerald-300 hover:bg-emerald-100">
+                                    <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-emerald-600"></i>
+                                    <span>Unduh Excel (Multi-Tab)</span>
                                 </button>
                             </div>
 
@@ -2328,6 +2339,7 @@ function doGet(e) {
     <script src="js/modules/spreadsheet.js?v=1.0.0"></script>
     <script src="js/modules/exam.js?v=1.0.0"></script>
     <script src="js/modules/leaderboard.js?v=1.0.0"></script>
+    <script src="js/modules/teacherExcelExport.js?v=1.0.0"></script>
     <script src="js/modules/teacherAdmin.js?v=1.0.0"></script>
     <script src="js/app.js?v=1.0.0"></script>
 </body>

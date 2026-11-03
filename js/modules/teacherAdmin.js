@@ -706,30 +706,81 @@ const TeacherAdminModule = {
             "Durasi_Detik", "Skor_Dasar", "Bonus_Kecepatan", "Total_Skor", "Pelanggaran_Tab"
         ];
 
-        const rows = sorted.map((r, idx) => [
-            idx + 1,
-            `"${r.timestamp || ''}"`,
-            `"${r.ip || ''}"`,
-            `"${(r.name || '').replace(/"/g, '""')}"`,
-            `"${r.className || ''}"`,
-            r.absen || 1,
-            r.correctCount || 0,
-            r.academicGrade || 0,
-            r.durationSec || 0,
-            r.baseScore || 0,
-            r.speedBonus || 0,
-            r.totalScore || 0,
-            r.tabSwitches || 0
-        ].join(','));
+        // Format CSV row helper dengan escape double quotes standar RFC 4180
+        const formatRow = (cols) => cols.map(c => `"${String(c !== undefined && c !== null ? c : '').replace(/"/g, '""')}"`).join(',');
 
-        const csvContent = "data:text/csv;charset=utf-8," + [headers.join(','), ...rows].join('\n');
-        const encodedUri = encodeURI(csvContent);
+        const contentParts = [
+            "sep=,", // Hint eksplisit untuk Microsoft Excel agar membaca koma sebagai delimiter tanpa terpengaruh regional settings
+            formatRow(headers)
+        ];
+
+        // Kelompokkan data per rombel kelas agar terpisah rapi
+        const classes = [...CONFIG.CLASSES];
+
+        classes.forEach(cls => {
+            const classRecords = sorted.filter(r => r.className === cls);
+            if (classRecords.length > 0) {
+                contentParts.push("");
+                contentParts.push(formatRow([`=== KELAS ${cls} (Total: ${classRecords.length} Peserta) ===`]));
+                contentParts.push(formatRow(headers));
+                classRecords.forEach((r, idx) => {
+                    contentParts.push(formatRow([
+                        idx + 1,
+                        r.timestamp || '',
+                        r.ip || '',
+                        r.name || '',
+                        r.className || '',
+                        r.absen || 1,
+                        r.correctCount || 0,
+                        r.academicGrade || 0,
+                        r.durationSec || 0,
+                        r.baseScore || 0,
+                        r.speedBonus || 0,
+                        r.totalScore || 0,
+                        r.tabSwitches || 0
+                    ]));
+                });
+            }
+        });
+
+        // Bagian Rekap Seluruh Siswa (Lengkap Semua Kelas)
+        contentParts.push("");
+        contentParts.push(formatRow([`=== SEMUA KELAS / KLASEMEN UMUM (Total: ${sorted.length} Peserta) ===`]));
+        contentParts.push(formatRow(headers));
+        sorted.forEach((r, idx) => {
+            contentParts.push(formatRow([
+                idx + 1,
+                r.timestamp || '',
+                r.ip || '',
+                r.name || '',
+                r.className || '',
+                r.absen || 1,
+                r.correctCount || 0,
+                r.academicGrade || 0,
+                r.durationSec || 0,
+                r.baseScore || 0,
+                r.speedBonus || 0,
+                r.totalScore || 0,
+                r.tabSwitches || 0
+            ]));
+        });
+
+        // Gunakan UTF-8 BOM (\uFEFF) dan Blob agar karakter nama/tanda baca tidak rusak di Excel Windows/Mac/Linux
+        const csvContent = "\uFEFF" + contentParts.join('\r\n');
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.setAttribute('href', encodedUri);
+        link.setAttribute('href', url);
         link.setAttribute('download', `Rekap_Nilai_Fisika_Fluida_SMAN78_${new Date().toISOString().slice(0, 10)}.csv`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        Utils.showToast("File CSV nilai berhasil diunduh.");
+    },
+
+    printReport() {
+        window.print();
     }
 };
 
