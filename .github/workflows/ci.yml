@@ -19,7 +19,11 @@ concurrency:
 jobs:
   verify:
     name: Sintaks, tes, dan tautan
-    runs-on: ubuntu-latest
+    # Dikunci ke 24.04, bukan ubuntu-latest: Playwright 1.55 belum menyediakan
+    # Chromium untuk image ubuntu26.04 yang kini dipakai ubuntu-latest, dan
+    # CI-nya gagal di luar kode aplikasi. Mengunci runner membuat hasil uji
+    # dapat direproduksi. Naikkan saat Playwright mendukung image baru.
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
