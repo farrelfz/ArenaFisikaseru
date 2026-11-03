@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none" role="img" aria-label="HydroArena SMAN 78 Logo">
+  <defs>
+    <!-- Background Shield Gradient -->
+    <linearGradient id="shieldGrad" x1="6" y1="4" x2="42" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="60%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <!-- Hydrodynamic Fluid Droplet Gradient -->
+    <linearGradient id="fluidDropGrad" x1="24" y1="10" x2="24" y2="38" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+
+    <!-- Sleek Streamline Wave Gradient -->
+    <linearGradient id="streamGrad" x1="12" y1="24" x2="36" y2="34" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#bae6fd" stop-opacity="0.6"/>
+    </linearGradient>
+
+    <!-- Subtle Glow Shadow -->
+    <filter id="subtleGlow" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0284c7" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Academic Shield Frame -->
+  <path d="M24 4 L38 9 C38 23 32 37 24 44 C16 37 10 23 10 9 Z" 
+        fill="url(#shieldGrad)" 
+        stroke="#60a5fa" 
+        stroke-width="1.5" 
+        stroke-linejoin="round"/>
+
+  <!-- Inner Dynamic Fluid Droplet -->
+  <path d="M24 11 C24 11 16 22 16 28 C16 32.4 19.6 36 24 36 C28.4 36 32 32.4 32 28 C32 22 24 11 24 11 Z" 
+        fill="url(#fluidDropGrad)" 
+        filter="url(#subtleGlow)"/>
+
+  <!-- Hydrodynamic Laminar Flow Waves -->
+  <path d="M19 28 C21 24.5 25 24.5 29 27" 
+        stroke="url(#streamGrad)" 
+        stroke-width="2" 
+        stroke-linecap="round"/>
+        
+  <path d="M20 31.5 C22 29.5 25 29.5 28 31" 
+        stroke="#ffffff" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        stroke-opacity="0.85"/>
+
+  <!-- Core Spark Particle -->
+  <circle cx="24" cy="18" r="1.5" fill="#ffffff" opacity="0.95"/>
+</svg>

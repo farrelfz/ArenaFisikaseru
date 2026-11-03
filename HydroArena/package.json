@@ -1,0 +1,22 @@
+{
+  "name": "hydroarena-fisika-fluida",
+  "version": "1.0.0",
+  "description": "Portal evaluasi pembelajaran Fisika Fluida Statis & Dinamis untuk Kelas XI SMAN 78 Jakarta",
+  "private": true,
+  "keywords": [
+    "fisika",
+    "fluida",
+    "evaluasi",
+    "pendidikan",
+    "sman78"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "serve": "npx --yes serve . -l 8080",
+    "check": "node --check js/config.js && node --check js/state.js && node --check js/app.js && node --check js/utils/helpers.js && node --check js/modules/exam.js && node --check js/modules/leaderboard.js && node --check js/modules/teacherAdmin.js && node --check js/modules/spreadsheet.js && node --check js/data/questions.js && node --check js/data/diagrams.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
