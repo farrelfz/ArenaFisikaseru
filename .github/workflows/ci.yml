@@ -1,0 +1,56 @@
+name: CI
+
+# GitHub Pages pada repo ini memakai "Deploy from a branch" (main, /),
+# jadi setiap push ke main otomatis terbit. Workflow ini bukan deployer,
+# melainkan penjaga kualitas: sintaks, tes, dan tautan aset lokal.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Sintaks, tes, dan tautan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cek sintaks JavaScript
+        run: |
+          git ls-files -z '*.js' '*.mjs' \
+            | xargs -0 -r -n1 node --check
+
+      - name: Cek sintaks Python
+        run: |
+          git ls-files -z '*.py' \
+            | xargs -0 -r -n1 python3 -m py_compile
+
+      - name: Tes VectorArena
+        working-directory: VectorArena
+        run: npm test --silent
+
+      - name: Tes HydroArena
+        working-directory: HydroArena
+        run: npm test --silent
+
+      - name: Cek tautan aset lokal
+        run: node scripts/check-links.mjs

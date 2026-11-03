@@ -16,6 +16,8 @@ Landing page: https://farrelfz.github.io/ArenaFisikaseru/
 ArenaFisikaseru/
 ├── index.html                  # landing page pemilih arena
 ├── .nojekyll                   # lewati pemrosesan Jekyll di GitHub Pages
+├── .github/workflows/ci.yml    # CI: sintaks, tes, tautan
+├── scripts/check-links.mjs     # pemeriksa referensi aset lokal
 ├── HydroArena/                 # aplikasi arena 1 (Kelas XI, fluida)
 │   ├── index.html
 │   ├── css/ js/ assets/ docs/ scripts/
@@ -26,6 +28,9 @@ ArenaFisikaseru/
     ├── data/questions.json     # bank soal (build:bank)
     └── simulated_*.json
 ```
+
+Setiap arena menyimpan dataset simulasinya sendiri di dalam foldernya —
+tidak ada salinan duplikat di root.
 
 Kedua subfolder adalah **salinan utuh** dari repositori asalnya
 (`farrelfz/HydroArena`, `farrelfz/VectorArena`), disatukan dengan
@@ -67,9 +72,19 @@ Karena kedua arena juga masih punya repositori sendiri, ada dua alur:
 ## Pemeriksaan cepat
 
 ```bash
-node --test VectorArena/tests/js/*.mjs   # invarian dataset simulasi
-python3 -m pytest HydroArena -q          # bila tersedia
+# dari root repositori
+node scripts/check-links.mjs        # semua src/href lokal harus resolve
+node --check VectorArena/js/app.js  # cek sintaks satu berkas
+
+# dari folder masing-masing arena
+cd VectorArena && npm test          # 20 tes invarian dataset simulasi
+cd ../HydroArena && npm test        # 50 skenario simulasi
 ```
+
+Semua perintah di atas juga dijalankan otomatis oleh
+`.github/workflows/ci.yml` pada setiap push ke `main` dan setiap pull
+request. Workflow itu **tidak** men-deploy apa pun — penerbitan tetap
+ditangani GitHub Pages lewat branch `main`.
 
 ## Lisensi
 
