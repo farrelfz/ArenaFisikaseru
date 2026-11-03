@@ -114,7 +114,7 @@ const ExamModule = {
         const absenVal = parseInt(document.getElementById('input-absen').value, 10);
 
         if (!nameVal || !classVal || isNaN(absenVal) || absenVal < 1 || absenVal > 40) {
-            Utils.showToast("Harap lengkapi Nama Lengkap, Kelas (XI A–F), dan No. Absen (1–40).", false);
+            Utils.showToast("Harap lengkapi Nama Lengkap, Kelas (X A–K), dan No. Absen (1–40).", false);
             return;
         }
 
@@ -711,7 +711,7 @@ const ExamModule = {
         localStorage.removeItem(CONFIG.STORAGE_KEYS.ACTIVE_SESSION);
         State.activeSession = {
             name: "",
-            className: "XI A",
+            className: "X A",
             absen: 1,
             mode: "ranked",
             ip: "",

@@ -16,7 +16,7 @@ const State = {
     // Sesi Ujian Murid yang Sedang Berjalan
     activeSession: {
         name: "",
-        className: "XI A",
+        className: "X A",
         absen: 1,
         mode: "ranked",
         ip: "",

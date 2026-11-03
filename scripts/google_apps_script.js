@@ -1,15 +1,16 @@
 // ==========================================================================
 // KODE GOOGLE APPS SCRIPT VECTORARENA SMAN 78 JAKARTA (EDISI 25 BUTIR SOAL)
 // PORTAL EVALUASI & KOMPETISI SAINS: VEKTOR & KINEMATIKA GERAK VERTIKAL
+// KELAS X A s.d. X K (11 ROMBEL) — SMAN 78 JAKARTA
 //
 // FITUR UTAMA:
 // 1. Sheet Khusus "Pertanyaan & Kunci Jawaban" (25 Soal Terkurasi 8 Zona)
-// 2. Sheet Kelas Terpisah (1 Kelas 1 Sheet: "XI A", "XI B", ..., "XI F")
+// 2. Sheet Kelas Terpisah (1 Kelas 1 Sheet: "X A", "X B", ..., "X K")
 // 3. Kolom "Nilai Quiz" (0-100) & Urutan Tabel Rapi Berdasarkan No. Absen
 // 4. Highlight Visual Kondisional (Hijau Pastel = Tuntas, Merah Muda = Remedial)
 // 5. 3 Lapis Validasi Anti-Timpa (Cek Nama, Cek Absen, Cek IP/Device)
 // 6. LockService Mutex (Perlindungan Tombol Klik Ganda / Double-Click)
-// 7. Kontrol Status Ujian & Pembahasan Otomatis / Manual Override
+// 7. Kontrol Status Ujian Manual oleh Guru (Tanpa Batasan Jadwal Otomatis)
 // ==========================================================================
 
 // GANTI DENGAN ID GOOGLE SPREADSHEET ANDA JIKA DIGUNAKAN DI LUAR CONTAINER SCRIPT
@@ -19,47 +20,34 @@ const SPREADSHEET_ID = ""; // Kosongkan jika script ditempel langsung di Extensi
 function onOpen() {
   SpreadsheetApp.getUi()
     .createMenu("VectorArena SMAN 78")
-    .addItem("⏰ Jadwal Otomatis (Senin 07:00 s.d. Sabtu 18:00 WIB)", "manualAutoSchedule")
+    .addItem("🟢 Buka Akses Ujian Siswa", "manualOpenExam")
+    .addItem("🔴 Tutup Akses Ujian Siswa", "manualCloseExam")
     .addSeparator()
-    .addItem("🟢 Paksa Buka Pendaftaran (Manual Override)", "manualOpenExam")
-    .addItem("🔴 Paksa Tutup Pendaftaran (Manual Override)", "manualCloseExam")
-    .addSeparator()
-    .addItem("🔓 Buka Kunci Pembahasan Siswa (Manual)", "manualOpenReview")
-    .addItem("🔒 Kunci Pembahasan Siswa (Manual)", "manualLockReview")
-    .addItem("⏰ Pembahasan Otomatis (Buka Saat Ujian Tutup)", "manualAutoReview")
+    .addItem("🔓 Buka Kunci Pembahasan Siswa", "manualOpenReview")
+    .addItem("🔒 Kunci Pembahasan Siswa", "manualLockReview")
     .addSeparator()
     .addItem("📚 Buat / Reset Sheet Bank Soal & Kunci (25 Soal)", "manualInitQuestionBank")
     .addToUi();
 }
 
-function manualAutoSchedule() {
-  PropertiesService.getScriptProperties().setProperty("EXAM_OVERRIDE", "auto");
-  SpreadsheetApp.getUi().alert("STATUS: Ujian diatur mengikuti JADWAL OTOMATIS (Senin 07:00 WIB s.d. Sabtu 18:00 WIB)!");
-}
-
 function manualOpenExam() {
   PropertiesService.getScriptProperties().setProperty("EXAM_OVERRIDE", "manual_open");
-  SpreadsheetApp.getUi().alert("STATUS: Pendaftaran Ujian DIBUKA MANUAL (Override) untuk seluruh siswa!");
+  SpreadsheetApp.getUi().alert("STATUS: Pendaftaran Ujian DIBUKA untuk seluruh siswa Kelas X!");
 }
 
 function manualCloseExam() {
   PropertiesService.getScriptProperties().setProperty("EXAM_OVERRIDE", "manual_closed");
-  SpreadsheetApp.getUi().alert("STATUS: Pendaftaran Ujian DITUTUP MANUAL (Override). Akses pengerjaan dikunci.");
+  SpreadsheetApp.getUi().alert("STATUS: Pendaftaran Ujian DITUTUP. Akses pengerjaan dikunci.");
 }
 
 function manualOpenReview() {
   PropertiesService.getScriptProperties().setProperty("REVIEW_OVERRIDE", "manual_allowed");
-  SpreadsheetApp.getUi().alert("STATUS: Kunci jawaban & pembahasan DIBUKA MANUAL untuk siswa.");
+  SpreadsheetApp.getUi().alert("STATUS: Kunci jawaban & pembahasan DIBUKA untuk siswa.");
 }
 
 function manualLockReview() {
   PropertiesService.getScriptProperties().setProperty("REVIEW_OVERRIDE", "manual_locked");
-  SpreadsheetApp.getUi().alert("STATUS: Kunci jawaban & pembahasan DIKUNCI MANUAL untuk siswa.");
-}
-
-function manualAutoReview() {
-  PropertiesService.getScriptProperties().setProperty("REVIEW_OVERRIDE", "auto");
-  SpreadsheetApp.getUi().alert("STATUS: Keterbukaan pembahasan diatur OTOMATIS (Terbuka saat sesi ujian berakhir)!");
+  SpreadsheetApp.getUi().alert("STATUS: Kunci jawaban & pembahasan DIKUNCI untuk siswa.");
 }
 
 function manualInitQuestionBank() {
@@ -72,24 +60,6 @@ function manualInitQuestionBank() {
   }
   ensureQuestionBankSheet(ss);
   SpreadsheetApp.getUi().alert("Sheet \"Pertanyaan & Kunci Jawaban\" (25 Soal) berhasil dibuat dan diisi lengkap!");
-}
-
-// Jadwal Ujian Resmi: Terbuka Senin 07:00 WIB s.d. Sabtu 18:00 WIB
-function isWithinExamSchedule() {
-  const str = Utilities.formatDate(new Date(), "Asia/Jakarta", "u,HH,mm");
-  const parts = str.split(",");
-  const day = parseInt(parts[0], 10); // 1 = Sen, 2 = Sel, 3 = Rab, 4 = Kam, 5 = Jum, 6 = Sab, 7 = Min
-  const hour = parseInt(parts[1], 10);
-  const minute = parseInt(parts[2], 10);
-  const totalMins = hour * 60 + minute;
-
-  // 1 = Senin (>= 07:00 / 420m)
-  // 2-5 = Selasa s.d. Jumat (sepanjang hari)
-  // 6 = Sabtu (< 18:00 / 1080m)
-  if (day === 1) return totalMins >= 420;
-  if (day >= 2 && day <= 5) return true;
-  if (day === 6) return totalMins < 1080;
-  return false;
 }
 
 // ==========================================================================
@@ -149,17 +119,11 @@ function doPost(e) {
         props.setProperty("REVIEW_OVERRIDE", d.allowReview ? "manual_allowed" : "manual_locked");
       }
       
-      const ov = props.getProperty("EXAM_OVERRIDE") || "auto";
-      let openStatus = false;
-      if (ov === "manual_open") openStatus = true;
-      else if (ov === "manual_closed") openStatus = false;
-      else openStatus = isWithinExamSchedule();
+      const ov = props.getProperty("EXAM_OVERRIDE") || "manual_open";
+      let openStatus = (ov !== "manual_closed");
 
-      const revOv = props.getProperty("REVIEW_OVERRIDE") || "auto";
-      let reviewStatus = false;
-      if (revOv === "manual_allowed") reviewStatus = true;
-      else if (revOv === "manual_locked") reviewStatus = false;
-      else reviewStatus = !isWithinExamSchedule();
+      const revOv = props.getProperty("REVIEW_OVERRIDE") || "manual_allowed";
+      let reviewStatus = (revOv !== "manual_locked");
 
       return ContentService.createTextOutput(JSON.stringify({
         status: "ok",
@@ -177,8 +141,8 @@ function doPost(e) {
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
-    // 1 KELAS 1 SHEET (Contoh: "XI A", "XI B", ..., "XI F")
-    const targetSheetName = (d.className || "XI A").trim();
+    // 1 KELAS 1 SHEET (Contoh: "X A", "X B", ..., "X K")
+    const targetSheetName = (d.className || "X A").trim();
     let sheet = ss.getSheetByName(targetSheetName);
 
     // Parse detail jawaban murid
@@ -685,26 +649,11 @@ function doGet(e) {
       }
     }
 
-    const overrideMode = props.getProperty("EXAM_OVERRIDE") || "auto";
-    let examIsOpen = false;
-    if (overrideMode === "manual_open") {
-      examIsOpen = true;
-    } else if (overrideMode === "manual_closed") {
-      examIsOpen = false;
-    } else {
-      examIsOpen = isWithinExamSchedule();
-    }
+    const overrideMode = props.getProperty("EXAM_OVERRIDE") || "manual_open";
+    let examIsOpen = (overrideMode !== "manual_closed");
 
-    const reviewOverride = props.getProperty("REVIEW_OVERRIDE") || "auto";
-    let allowReview = false;
-    if (reviewOverride === "manual_allowed") {
-      allowReview = true;
-    } else if (reviewOverride === "manual_locked") {
-      allowReview = false;
-    } else {
-      // Otomatis: Kunci jawaban & pembahasan HANYA terbuka saat ujian tertutup (mulai Sabtu 18:00 WIB)
-      allowReview = !isWithinExamSchedule();
-    }
+    const reviewOverride = props.getProperty("REVIEW_OVERRIDE") || "manual_allowed";
+    let allowReview = (reviewOverride !== "manual_locked");
 
     const allRows = [];
     ss.getSheets().forEach(sh => {

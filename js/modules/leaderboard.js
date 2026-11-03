@@ -352,7 +352,9 @@ const LeaderboardModule = {
         const container = document.getElementById('lb-class-battle-container');
         if (!container) return;
 
-        const classes = ['XI A', 'XI B', 'XI C', 'XI D', 'XI E', 'XI F'];
+        const classes = (typeof CONFIG !== 'undefined' && CONFIG.CLASSES)
+            ? CONFIG.CLASSES
+            : ['X A', 'X B', 'X C', 'X D', 'X E', 'X F', 'X G', 'X H', 'X I', 'X J', 'X K'];
         const records = State.leaderboardRecords;
 
         const stats = classes.map(c => {

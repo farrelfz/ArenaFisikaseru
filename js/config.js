@@ -49,16 +49,12 @@ const CONFIG = {
     BASE_POINTS_PER_QUESTION: 3000, // 25 × 3.000 = 75.000 Pts
     MAX_SPEED_BONUS: 25000,         // Maksimum Bonus Kecepatan = 25.000 Pts (Puncak = 100.000 Pts)
     ACADEMIC_KKM: 75.0,
-    CLASSES: ['XI A', 'XI B', 'XI C', 'XI D', 'XI E', 'XI F'],
+    CLASSES: ['X A', 'X B', 'X C', 'X D', 'X E', 'X F', 'X G', 'X H', 'X I', 'X J', 'X K'],
 
-    // Jadwal Pelaksanaan Ujian Resmi (WIB / Asia/Jakarta)
+    // Kontrol Status Akses Ujian (Manual oleh Guru / Selalu Terbuka jika tidak ditutup manual)
     SCHEDULE: {
-        ENABLED: true,
-        OPEN_DAY_NAME: 'Senin',
-        OPEN_HOUR_TEXT: '07:00 WIB',
-        CLOSE_DAY_NAME: 'Sabtu',
-        CLOSE_HOUR_TEXT: '18:00 WIB',
-        LABEL: 'Senin 07:00 WIB s.d. Sabtu 18:00 WIB'
+        ENABLED: false, // Tidak ada jadwal otomatis
+        LABEL: 'Akses Penuh Manual (Dikontrol oleh Guru)'
     },
 
     // Helper Dinamis (Menghindari Hardcode Angka di Template UI)
