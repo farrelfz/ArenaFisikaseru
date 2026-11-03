@@ -16,6 +16,8 @@ Landing page: https://farrelfz.github.io/ArenaFisikaseru/
 ArenaFisikaseru/
 ├── index.html                  # landing page pemilih arena
 ├── .nojekyll                   # lewati pemrosesan Jekyll di GitHub Pages
+├── robots.txt                  # boleh dirayapi + menunjuk sitemap
+├── sitemap.xml                 # tiga URL kanonik saja
 ├── .github/workflows/ci.yml    # CI: sintaks, tes, tautan
 ├── scripts/check-links.mjs     # pemeriksa referensi aset lokal
 ├── HydroArena/                 # aplikasi arena 1 (Kelas XI, fluida)
@@ -54,26 +56,33 @@ python3 -m http.server 8080
 # lalu buka http://localhost:8080/
 ```
 
+## Satu alamat resmi
+
+Aplikasi hanya hidup di sini:
+
+- https://farrelfz.github.io/ArenaFisikaseru/VectorArena/
+- https://farrelfz.github.io/ArenaFisikaseru/HydroArena/
+
+Repo lama (`farrelfz/VectorArena`, `farrelfz/HydroArena`) sekarang **hanya
+berisi halaman pengalihan** — `meta refresh` + `location.replace` yang tetap
+membawa query (`?admin=1`) dan hash (`#admin`) — sehingga tautan lama tidak
+mati, tetapi tidak ada lagi salinan kedua yang bisa tertinggal versinya.
+
+Kedua alamat berada di origin yang sama (`farrelfz.github.io`) dan aplikasi
+menyimpan state di `localStorage` dengan kunci tetap
+(`hydroarena_78_*_v5_live`, `vectorarena_*_v1_live`). Jadi data nilai, PIN
+guru, dan status ujian **otomatis sama** di kedua alamat: pengalihan tidak
+menghilangkan data apa pun, dan tidak ada migrasi yang perlu dilakukan.
+
 ## Memperbarui salah satu arena
 
-Karena kedua arena juga masih punya repositori sendiri, ada dua alur:
+Sumber kebenaran ada di repo ini. Cukup ubah folder `HydroArena/` atau
+`VectorArena/`, commit, lalu push ke `main` — GitHub Pages menerbitkan ulang
+otomatis.
 
-1. **Ubah lewat repo arena asal**, lalu tarik perubahannya ke sini:
-
-   ```bash
-   git fetch ./HydroArena main          # atau remote GitHub-nya
-   git subtree pull --prefix=HydroArena ./HydroArena main -m "chore: sinkron HydroArena"
-   ```
-
-2. **Ubah langsung di sini** (folder `HydroArena/` atau `VectorArena/`),
-   lalu commit seperti biasa. Jika begini, push juga ke repo arena asal
-   agar tidak terjadi drift.
-
-> **Perhatian saat `git subtree push`:** `index.html` tiap arena punya
-> `og:url`/`og:image` yang **berbeda** antara repo mandiri
-> (`farrelfz.github.io/VectorArena/`) dan monorepo
-> (`farrelfz.github.io/ArenaFisikaseru/VectorArena/`). Perintah itu akan
-> ikut menimpa blok meta tersebut, jadi sesuaikan lagi setelah push.
+Jangan memakai `git subtree push` ke repo lama lagi: isinya sudah berupa
+halaman pengalihan, jadi dorongan subtree akan mengembalikan salinan aplikasi
+kedua dan menghidupkan lagi masalah dua versi.
 
 ## Pemeriksaan cepat
 

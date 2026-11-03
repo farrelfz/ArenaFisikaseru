@@ -1,0 +1,7 @@
+# Satu-satunya lokasi resmi ArenaFisikaSeru.
+# Repo farrelfz/VectorArena dan farrelfz/HydroArena hanya berisi halaman
+# pengalihan ke alamat di bawah ini.
+User-agent: *
+Allow: /
+
+Sitemap: https://farrelfz.github.io/ArenaFisikaseru/sitemap.xml

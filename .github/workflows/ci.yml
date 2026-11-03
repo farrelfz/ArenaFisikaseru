@@ -54,3 +54,7 @@ jobs:
 
       - name: Cek tautan aset lokal
         run: node scripts/check-links.mjs
+
+      - name: Cek sitemap valid
+        run: |
+          python3 -c "import xml.etree.ElementTree as ET; ET.parse('sitemap.xml'); print('sitemap.xml valid')"
