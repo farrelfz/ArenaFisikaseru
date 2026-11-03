@@ -26,6 +26,10 @@ ArenaFisikaseru/
 │   └── simulated_10_students.json · simulated_25_students.json
 └── VectorArena/                # aplikasi arena 2 (Kelas X, vektor)
     ├── index.html
+    ├── apps-script/
+    │   ├── Code.gs             # backend webhook (deploy terpisah dari HydroArena)
+    │   ├── README.md           # langkah deploy
+    │   └── test-code-gs.cjs    # uji logika tanpa Google
     ├── css/ js/ assets/ docs/ public/ scripts/ server/ tests/
     ├── data/questions.json     # bank soal (build:bank)
     └── simulated_*.json

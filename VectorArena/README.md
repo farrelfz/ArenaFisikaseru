@@ -1,6 +1,6 @@
 # VectorArena — Arena Evaluasi Kompetitif Fisika Vektor & Kinematika
 
-[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-Online-22c55e?style=flat&logo=github)](https://farrelfz.github.io/VectorArena/)
+[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-Online-22c55e?style=flat&logo=github)](https://farrelfz.github.io/ArenaFisikaseru/VectorArena/)
 [![SMAN 78 Jakarta](https://img.shields.io/badge/SMAN_78_Jakarta-Kurikulum_Merdeka-312e81?style=flat)](https://sman78-jkt.sch.id/)
 [![Tests](https://img.shields.io/badge/Tests-72_Passing-success?style=flat)](tests/)
 
@@ -43,7 +43,17 @@ Portal evaluasi dan kompetisi sains fisika terpadu materi **Vektor Analitis** da
 ## 🌐 Akses Publik
 
 Aplikasi dapat diakses langsung melalui:
-👉 **[https://farrelfz.github.io/VectorArena/](https://farrelfz.github.io/VectorArena/)**
+👉 **[https://farrelfz.github.io/ArenaFisikaseru/VectorArena/](https://farrelfz.github.io/ArenaFisikaseru/VectorArena/)**
+
+Alamat lama `farrelfz.github.io/VectorArena/` kini hanya mengalihkan ke sini.
+
+## 🔌 Backend Google Spreadsheet
+
+Penyimpanan nilai otomatis ke Google Sheets memakai Apps Script di
+**[`apps-script/Code.gs`](apps-script/Code.gs)** — **webhook terpisah** dari
+HydroArena (spreadsheet dan deployment sendiri). Langkah deploy ada di
+[`apps-script/README.md`](apps-script/README.md); uji logikanya tanpa Google
+lewat `node apps-script/test-code-gs.cjs`.
 
 ---
 *Dibuat untuk evaluasi pembelajaran Fisika Kelas XI SMAN 78 Jakarta.*

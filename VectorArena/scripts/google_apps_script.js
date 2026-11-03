@@ -1,4 +1,11 @@
 // ==========================================================================
+// ⚠️  FILE INI SUDAH TIDAK DIPAKAI UNTUK DEPLOY.
+// Versi yang benar & sudah diperbaiki ada di: apps-script/Code.gs
+// (file ini punya bug `startRow is not defined` sehingga penyimpanan nilai
+//  selalu gagal pada kiriman pertama; lihat apps-script/README.md).
+// Disimpan hanya sebagai riwayat.
+// ==========================================================================
+// ==========================================================================
 // KODE GOOGLE APPS SCRIPT VECTORARENA SMAN 78 JAKARTA (EDISI 25 BUTIR SOAL)
 // PORTAL EVALUASI & KOMPETISI SAINS: VEKTOR & KINEMATIKA GERAK VERTIKAL
 // KELAS X A s.d. X K (11 ROMBEL) — SMAN 78 JAKARTA

@@ -52,6 +52,14 @@ jobs:
         working-directory: HydroArena
         run: npm test --silent
 
+      - name: Cek sintaks Code.gs (Apps Script)
+        run: |
+          cp VectorArena/apps-script/Code.gs "$RUNNER_TEMP/Code.js"
+          node --check "$RUNNER_TEMP/Code.js"
+
+      - name: Tes backend Apps Script VectorArena
+        run: node VectorArena/apps-script/test-code-gs.cjs
+
       - name: Cek tautan aset lokal
         run: node scripts/check-links.mjs
 
