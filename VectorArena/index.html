@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VectorArena — Arena Evaluasi Kompetitif Fisika Vektor & Kinematika | SMAN 78 Jakarta</title>
+    <meta name="description" content="Portal evaluasi dan kompetisi sains fisika materi Vektor dan Kinematika Gerak Vertikal untuk Kelas X SMAN 78 Jakarta. Dilengkapi 25 butir soal evaluasi terstandarisasi C2–C4, 8 Cakupan Topik Silabus, Diagram Visual SVG, dan Peringkat Komprehensif.">
+    <meta name="theme-color" content="#1e1b4b">
+
+    <!-- Open Graph & Twitter Social Metadata -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://farrelfz.github.io/VectorArena/">
+    <meta property="og:title" content="VectorArena — Arena Kompetisi Fisika Vektor & Kinematika">
+    <meta property="og:description" content="Arena kompetisi sains interaktif materi Vektor dan Kinematika Gerak Vertikal Kelas X SMAN 78 Jakarta. Dilengkapi 8 Cakupan Topik Silabus, diagram SVG interaktif, dan pemeringkatan real-time.">
+    <meta property="og:image" content="https://farrelfz.github.io/VectorArena/assets/logo.svg">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="VectorArena — SMAN 78 Jakarta">
+    <meta name="twitter:description" content="Platform evaluasi pembelajaran kompetitif fisika vektor dan kinematika kelas X SMAN 78 Jakarta.">
+
+    <!-- Favicon Resmi VectorArena -->
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Stylesheet Desain Sistem VectorArena -->
+    <link rel="stylesheet" href="css/style.css?v=1.1.0">
+
+    <script>
+        if (typeof tailwind !== 'undefined') {
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ['Inter', 'system-ui', 'sans-serif'],
+                            mono: ['"JetBrains Mono"', 'monospace'],
+                        },
+                        colors: {
+                            brand: {
+                                50: '#eef2ff',
+                                100: '#e0e7ff',
+                                200: '#c7d2fe',
+                                500: '#6366f1',
+                                600: '#4f46e5',
+                                700: '#4338ca',
+                                800: '#3730a3',
+                                900: '#312e81',
+                                950: '#1e1b4b'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col antialiased bg-slate-50 text-slate-900">
+
+    <!-- ================================================================= -->
+    <!-- HEADER / TOP NAVIGATION (Persis HydroArena)                        -->
+    <!-- ================================================================= -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2 sm:h-16 sm:py-0 flex flex-wrap sm:flex-nowrap items-center justify-between gap-y-2 gap-x-3">
+
+            <!-- Identitas Sekolah & Aplikasi (Easter egg 3x klik logo untuk akses Guru) -->
+            <div id="app-header-brand" class="flex items-center gap-2.5 order-1 min-w-0 cursor-pointer select-none" title="VectorArena SMAN 78 (Klik 3x untuk Portal Guru)">
+                <div id="app-main-logo" class="flex items-center gap-2.5">
+                    <img id="app-header-logo" src="assets/logo.svg" alt="VectorArena Logo" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 drop-shadow-sm transition-transform active:scale-95">
+                    <div class="flex flex-col leading-tight min-w-0">
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-bold text-sm text-slate-900 tracking-tight">VectorArena</span>
+                            <span class="hidden md:inline-block text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-900 border border-indigo-200">FISIKA X</span>
+                        </div>
+                        <span class="text-[10px] sm:text-[11px] text-slate-500 font-medium truncate">SMAN 78 Jakarta • Vektor & Kinematika</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Autentikasi Guru (kanan atas) -->
+            <div id="header-teacher-auth-container" class="flex items-center order-2 sm:order-3 shrink-0 gap-2">
+                <button id="header-btn-login-trigger" type="button" onclick="TeacherAdminModule.openLoginModal()" class="px-2.5 py-1.5 rounded-md bg-white hover:bg-slate-50 border border-slate-300 text-xs font-semibold text-slate-700 flex items-center gap-1.5 transition shadow-sm" title="Portal Administrator Guru">
+                    <i data-lucide="key-round" class="w-3.5 h-3.5 text-indigo-700"></i>
+                    <span class="hidden sm:inline">Portal Guru</span>
+                </button>
+                <button id="btn-teacher-portal" type="button" onclick="TeacherAdminModule.openLoginModal()" class="hidden"></button>
+                <div id="header-badge-admin-active" class="hidden items-center gap-1.5">
+                    <span class="edu-badge edu-badge-green gap-1">
+                        <i data-lucide="shield-check" class="w-3 h-3"></i>
+                        <span>Admin</span>
+                    </span>
+                    <button type="button" onclick="TeacherAdminModule.exportCsv()" class="edu-btn-secondary px-3 py-1.5 text-xs text-indigo-900 border-indigo-200 hover:bg-indigo-50 flex items-center gap-1.5 font-bold" title="Unduh rekapitulasi nilai dalam format file CSV">
+                            <i data-lucide="download" class="w-3.5 h-3.5 text-indigo-700"></i>
+                            <span>Unduh CSV</span>
+                        </button>
+                        <button type="button" onclick="window.print()" class="edu-btn-secondary px-3 py-1.5 text-xs text-slate-700 border-slate-300 hover:bg-slate-50 flex items-center gap-1.5" title="Cetak tampilan dokumen">
+                            <i data-lucide="printer" class="w-3.5 h-3.5 text-slate-500"></i>
+                            <span>Cetak</span>
+                        </button>
+                        <button type="button" onclick="TeacherAdminModule.logout()" class="p-1.5 rounded-md bg-white hover:bg-rose-50 border border-slate-300 hover:border-rose-300 text-slate-500 hover:text-rose-600 transition" title="Keluar dari sesi Administrator">
+                        <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigasi & Indikator Sistem -->
+            <div class="flex items-center gap-2 sm:gap-3 order-3 sm:order-2 w-full sm:w-auto">
+
+                <!-- Indikator Status Ujian -->
+                <div id="header-exam-status-pill" class="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-800 shrink-0">
+                    <span id="header-exam-status-dot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="header-exam-status-text">Ujian Buka</span>
+                </div>
+
+                <!-- Indikator Jaringan & Status Sistem -->
+                <div class="hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-md bg-slate-50 border border-slate-200 text-xs font-mono text-slate-600 shrink-0">
+                    <span id="ip-status-dot" class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span id="ip-status-text" class="font-medium text-slate-700">Sistem Siap</span>
+                    <span id="header-ip-display" class="hidden"></span>
+                </div>
+
+                <!-- 3 Tab Navigasi Utama: Ujian (Exam), Klasemen (Leaderboard), Panel Guru (Sheet) -->
+                <nav class="flex items-center p-1 rounded-lg bg-slate-100 border border-slate-200 gap-0.5 flex-1 sm:flex-none">
+                    <button id="nav-tab-exam" onclick="App.switchView('exam')" class="px-3 sm:px-3.5 py-1.5 rounded-md text-xs font-bold transition-all bg-indigo-900 text-white shadow-sm flex items-center justify-center gap-1.5 flex-1 sm:flex-none">
+                        <i data-lucide="clipboard-list" class="w-3.5 h-3.5"></i>
+                        <span>Ujian</span>
+                    </button>
+                    <button id="nav-tab-leaderboard" onclick="App.switchView('leaderboard')" class="px-3 sm:px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all text-slate-600 hover:text-slate-900 flex items-center justify-center gap-1.5 flex-1 sm:flex-none">
+                        <i data-lucide="trophy" class="w-3.5 h-3.5 text-amber-500"></i>
+                        <span>Klasemen</span>
+                        <span id="nav-participant-count" class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-700 font-mono text-[10px] font-bold tabular-nums">0</span>
+                    </button>
+                    <button id="nav-tab-sheet" onclick="App.switchView('sheet')" class="px-3 sm:px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all text-slate-600 hover:text-slate-900 flex items-center justify-center gap-1.5 flex-1 sm:flex-none">
+                        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-indigo-700"></i>
+                        <span>Panel Guru</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================================================================= -->
+    <!-- KONTEN UTAMA APLIKASI (3 VIEW TAMPILAN RESMI)                     -->
+    <!-- ================================================================= -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6">
+
+        <!-- ============================================================= -->
+        <!-- VIEW 1: PORTAL UJIAN SISWA (view-exam)                        -->
+        <!-- ============================================================= -->
+        <section id="view-exam" class="space-y-6">
+
+            <!-- 1A. LOBI PENDAFTARAN SISWA (screen-lobby) -->
+            <div id="screen-lobby" class="space-y-6">
+
+                <!-- Banner: Ujian Ditutup oleh Guru -->
+                <div id="exam-closed-banner" class="hidden p-4 rounded-lg bg-rose-50 border border-rose-200 space-y-1.5">
+                    <div class="flex items-start gap-2.5">
+                        <i data-lucide="shield-alert" class="w-4 h-4 text-rose-600 shrink-0 mt-0.5"></i>
+                        <div class="space-y-0.5">
+                            <div class="text-sm font-bold text-rose-900">Pendaftaran Ujian Sedang Ditutup</div>
+                            <p class="text-xs text-rose-700 leading-relaxed">
+                                Guru / Administrator utama sedang mengunci akses lembar ujian. Silakan hubungi pengawas ruang untuk informasi pembukaan kembali.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Banner Sesi Terkunci (IP Lock) jika sudah mengumpulkan -->
+                <div id="ip-locked-banner" class="hidden edu-card p-4 sm:p-5 border-amber-300 bg-amber-50/80 shadow-sm space-y-2">
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-full bg-amber-100 border border-amber-300 text-amber-800 flex items-center justify-center shrink-0">
+                            <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                        </div>
+                        <div class="flex-1 space-y-1">
+                            <h3 class="text-sm font-bold text-amber-950">Perangkat Telah Menyelesaikan Ujian</h3>
+                            <p class="text-xs text-amber-800 leading-relaxed">
+                                Alamat IP perangkat ini tercatat telah mengumpulkan hasil pengerjaan atas nama <strong id="locked-student-name" class="font-bold text-amber-950">-</strong> (Kelas <span id="locked-student-class">-</span>, Absen #<span id="locked-student-absen">-</span>) dengan total perolehan skor <strong id="locked-student-score" class="font-mono font-bold text-amber-950">0</strong> Pts. Pengerjaan ulang dibatasi untuk menjaga kejujuran kompetisi akademik.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid 12 Kolom: Kiri (Hero + Form Registrasi), Kanan (Top 5 + Ringkasan Silabus) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+                    <!-- Kiri 7 Kolom: Orientasi Silabus & Formulir Identitas Siswa -->
+                    <div class="lg:col-span-7 edu-card p-5 sm:p-7 space-y-6">
+
+                        <!-- Header Informasi Modul -->
+                        <div class="space-y-2 border-b border-slate-200 pb-5">
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-indigo-900">
+                                    Evaluasi Kurikulum Merdeka • Kelas X SMAN 78 Jakarta
+                                </span>
+                                <div class="inline-flex items-center gap-1.5 text-[11px] font-mono">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    <span class="text-emerald-700 font-medium">Sistem Evaluasi Siap</span>
+                                </div>
+                            </div>
+
+                            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+                                Fisika Vektor & Kinematika Vertikal
+                            </h1>
+
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Instrumen evaluasi pembelajaran kompetitif materi <strong>Vektor Analitis</strong> dan <strong>Gerak Lurus Berubah Beraturan (GVA, GVB, GJB, Grafik v-t)</strong>. Dilengkapi visualisasi grafik interaktif, 25 butir soal terstandarisasi C2–C4, dan pengacakan opsi jawaban ganda.
+                            </p>
+
+                            <!-- Spesifikasi Evaluasi Fisika -->
+                            <div class="pt-2">
+                                <div class="p-3 rounded-xl bg-indigo-50/80 border border-indigo-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                                    <div class="flex items-center gap-2.5">
+                                        <div class="w-8 h-8 rounded-lg bg-indigo-900 text-white flex items-center justify-center shrink-0">
+                                            <i data-lucide="award" class="w-4 h-4"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-bold text-indigo-950">Evaluasi Resmi 25 Butir Soal</div>
+                                            <div class="text-[11px] text-indigo-800/80">Sebaran merata 8 Cakupan Topik Silabus (C2 – C4)</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 self-start sm:self-auto font-mono text-xs">
+                                        <span class="px-2.5 py-1 rounded-md bg-white border border-indigo-200 text-indigo-900 font-bold">25 Soal</span>
+                                        <span class="px-2.5 py-1 rounded-md bg-white border border-indigo-200 text-indigo-900 font-bold">90 Menit</span>
+                                        <span class="px-2.5 py-1 rounded-md bg-emerald-100 border border-emerald-300 text-emerald-900 font-bold">KKM: 75.0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulir Pendaftaran Ujian Siswa -->
+                        <form id="exam-start-form" onsubmit="ExamModule.start(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-12 gap-3.5">
+                                <div class="sm:col-span-6 space-y-1">
+                                    <label for="input-name" class="block text-xs font-bold text-slate-700">
+                                        Nama Lengkap Siswa <span class="text-rose-600">*</span>
+                                    </label>
+                                    <input id="input-name" type="text" required maxlength="50" placeholder="Sesuai presensi resmi SMAN 78"
+                                        class="edu-input w-full px-3 py-2 text-xs placeholder:text-slate-400">
+                                </div>
+
+                                <div class="sm:col-span-3 space-y-1">
+                                    <label for="input-class" class="block text-xs font-bold text-slate-700">
+                                        Kelas <span class="text-rose-600">*</span>
+                                    </label>
+                                    <select id="input-class" required class="edu-input w-full px-2.5 py-2 text-xs">
+                                        <option value="" disabled selected>Pilih Rombel</option>
+                                        <option value="X A">X A</option>
+                                        <option value="X B">X B</option>
+                                        <option value="X C">X C</option>
+                                        <option value="X D">X D</option>
+                                        <option value="X E">X E</option>
+                                        <option value="X F">X F</option>
+                                        <option value="X G">X G</option>
+                                        <option value="X H">X H</option>
+                                        <option value="X I">X I</option>
+                                        <option value="X J">X J</option>
+                                        <option value="X K">X K</option>
+                                    </select>
+                                </div>
+
+                                <div class="sm:col-span-3 space-y-1">
+                                    <label for="input-absen" class="block text-xs font-bold text-slate-700">
+                                        No. Absen <span class="text-rose-600">*</span>
+                                    </label>
+                                    <input id="input-absen" type="number" required min="1" max="40" placeholder="1 – 40"
+                                        class="edu-input w-full px-3 py-2 text-xs font-mono tabular-nums placeholder:text-slate-400">
+                                </div>
+                            </div>
+
+                            <!-- Panel Spesifikasi Sesi -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+                                <div class="edu-panel p-2.5">
+                                    <div class="text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Jumlah Soal</div>
+                                    <div class="text-xs font-mono font-bold text-slate-900 mt-0.5">25 Butir Soal</div>
+                                </div>
+                                <div class="edu-panel p-2.5">
+                                    <div class="text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Konstanta g</div>
+                                    <div class="text-xs font-mono font-bold text-slate-900 mt-0.5">9,8 & 10 m/s²</div>
+                                </div>
+                                <div class="edu-panel p-2.5">
+                                    <div class="text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Skor Dasar</div>
+                                    <div class="text-xs font-mono font-bold text-slate-900 mt-0.5">3.000 / Soal</div>
+                                </div>
+                                <div class="edu-panel p-2.5">
+                                    <div class="text-[10px] font-semibold text-slate-500 uppercase tracking-wide">Bonus Speed</div>
+                                    <div class="text-xs font-mono font-bold text-emerald-700 mt-0.5">+25.000 Max</div>
+                                </div>
+                            </div>
+
+                            <!-- Tombol Mulai & Navigasi -->
+                            <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                                <button id="btn-start-exam" type="submit" class="edu-btn-primary px-5 py-3 text-sm flex-1 flex items-center justify-center gap-2">
+                                    <span>Mulai Masuk Arena Evaluasi</span>
+                                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                </button>
+                                <button type="button" onclick="App.switchView('leaderboard')" class="edu-btn-secondary px-4 py-3 text-sm flex items-center justify-center gap-2">
+                                    <i data-lucide="bar-chart-3" class="w-4 h-4 text-slate-500"></i>
+                                    <span>Lihat Klasemen</span>
+                                </button>
+                            </div>
+
+                            <p class="text-[11px] text-slate-500 leading-relaxed flex items-start gap-1.5 pt-1">
+                                <i data-lucide="shield-alert" class="w-3.5 h-3.5 shrink-0 mt-0.5 text-indigo-700"></i>
+                                <span>Pakta Integritas: Sistem mendeteksi perpindahan tab browser. Siswa dengan 0x tab switch dianugerahi gelar <strong>🛡️ Fokus Penuh</strong> pada papan peringkat.</span>
+                            </p>
+                        </form>
+                    </div>
+
+                    <!-- Kanan 5 Kolom: Top 5 Sementara & Cakupan 8 Topik Silabus -->
+                    <div class="lg:col-span-5 space-y-6">
+
+                        <!-- Kartu Klasemen Top 5 Sementara -->
+                        <div class="edu-card p-5 space-y-3.5">
+                            <div class="flex items-center justify-between border-b border-slate-200 pb-2.5">
+                                <div>
+                                    <h2 class="text-sm font-bold text-slate-900">Klasemen Top 5 Peserta</h2>
+                                    <p class="text-xs text-slate-500">Perolehan total skor tertinggi angkatan</p>
+                                </div>
+                                <button type="button" onclick="App.switchView('leaderboard')" class="text-indigo-800 hover:text-indigo-900 font-bold text-xs flex items-center gap-1 font-mono">
+                                    <span>Lengkap</span>
+                                    <i data-lucide="chevron-right" class="w-3 h-3"></i>
+                                </button>
+                            </div>
+
+                            <div id="lobby-top5-list" class="space-y-2">
+                                <!-- Diisi oleh JavaScript (renderLobbyTop5) -->
+                            </div>
+                        </div>
+
+                        <!-- Cakupan 8 Topik Silabus Vektor & Kinematika -->
+                        <div class="edu-card p-5 space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700">8 Cakupan Topik Silabus</h3>
+                                <span class="edu-badge edu-badge-indigo font-mono text-[10px]">25 Soal Terkurasi</span>
+                            </div>
+                            <div class="space-y-1.5 text-xs">
+                                <div class="flex items-center justify-between py-1 border-b border-slate-100">
+                                    <span class="text-slate-700 font-medium">1. Konsep Dasar & Notasi Vektor</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">3 Soal</span>
+                                </div>
+                                <div class="flex items-center justify-between py-1 border-b border-slate-100">
+                                    <span class="text-slate-700 font-medium">2. Vektor Posisi & Komponen 2D</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">3 Soal</span>
+                                </div>
+                                <div class="flex items-center justify-between py-1 border-b border-slate-100">
+                                    <span class="text-slate-700 font-medium">3. Penjumlahan Grafis & Jajaran Genjang</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">3 Soal</span>
+                                </div>
+                                <div class="flex items-center justify-between py-1 border-b border-slate-100">
+                                    <span class="text-slate-700 font-medium">4. Metode Geometris & Aturan Kosinus</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">3 Soal</span>
+                                </div>
+                                <div class="flex items-center justify-between py-1 border-b border-slate-100">
+                                    <span class="text-slate-700 font-medium">5. Penguraian Komponen Sumbu X-Y</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">3 Soal</span>
+                                </div>
+                                <div class="flex items-center justify-between py-1 border-b border-slate-100">
+                                    <span class="text-slate-700 font-medium">6. Gerak Vertikal ke Atas (GVA)</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">3 Soal</span>
+                                </div>
+                                <div class="flex items-center justify-between py-1 border-b border-slate-100">
+                                    <span class="text-slate-700 font-medium">7. Gerak Vertikal ke Bawah (GVB)</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">3 Soal</span>
+                                </div>
+                                <div class="flex items-center justify-between py-1">
+                                    <span class="text-slate-700 font-medium">8. Gerak Jatuh Bebas (GJB)</span>
+                                    <span class="font-mono font-bold text-slate-600 tabular-nums">4 Soal</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1B. SESI UJIAN AKTIF (screen-active-exam) -->
+            <div id="screen-active-exam" class="hidden space-y-5">
+
+                <!-- Bar Status Ujian & Progres Terpadu -->
+                <div class="edu-card overflow-hidden shadow-sm">
+                    <!-- Header HUD -->
+                    <div class="p-4 flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 bg-slate-50/70">
+                        <div class="flex items-center gap-3">
+                            <div class="px-2.5 py-1 rounded bg-indigo-50 border border-indigo-200 font-mono text-xs font-bold text-indigo-900 tabular-nums" id="exam-hud-class">
+                                X A • #01
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-slate-900" id="exam-hud-name">Nama Siswa</div>
+                                <div class="text-[11px] font-mono text-indigo-700 font-semibold" id="exam-hud-mode">Mode Ranked</div>
+                            </div>
+                        </div>
+
+                        <!-- Timer Sesi Ujian -->
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-slate-900 text-white font-mono shadow-sm">
+                                <i data-lucide="clock" class="w-4 h-4 text-indigo-400 animate-pulse"></i>
+                                <span id="exam-hud-timer" class="text-base font-bold tracking-wider tabular-nums">00:00</span>
+                            </div>
+                            <span id="exam-hud-cheat-count" class="edu-badge edu-badge-green font-mono text-[11px]">
+                                🛡️ Fokus Penuh
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Sub-bar Info Soal & Tombol Ragu-Ragu -->
+                    <div class="px-4 py-2.5 bg-white flex flex-wrap items-center justify-between gap-2 border-b border-slate-100">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-mono font-bold text-slate-900">
+                                Soal No. <span id="q-current-number" class="text-indigo-700 text-sm">1</span> dari <span id="q-total-number">25</span>
+                            </span>
+                            <span id="q-topic-badge" class="edu-badge edu-badge-indigo">Topik: Vektor</span>
+                            <span id="q-difficulty-badge" class="edu-badge edu-badge-amber">MEDIUM</span>
+                            <span id="q-status-badge" class="edu-badge">Belum Dijawab</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span id="q-answered-count" class="text-xs font-mono text-slate-500 font-semibold">0 / 25 Terjawab</span>
+                            <button type="button" id="btn-doubt-toggle" onclick="ExamModule.toggleDoubt()" class="px-3 py-1.5 rounded-md border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-50 flex items-center gap-1.5 transition">
+                                <i data-lucide="square" class="w-3.5 h-3.5 text-slate-400"></i>
+                                <span>Tandai Ragu</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layout Area Ujian: Kiri 8 Kolom (Soal & Opsi), Kanan 4 Kolom (Palet Soal) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+
+                    <!-- Kiri: Soal, Diagram SVG, & Opsi Pilihan Ganda -->
+                    <div class="lg:col-span-8 space-y-4">
+
+                        <!-- Kartu Pertanyaan & Opsi -->
+                        <div class="edu-card p-5 sm:p-6 space-y-5">
+                            <!-- Stem / Teks Soal -->
+                            <div id="q-stem-text" class="text-sm sm:text-base font-medium text-slate-900 leading-relaxed">
+                                Memuat butir pertanyaan fisika...
+                            </div>
+
+                            <!-- Kontainer Diagram SVG Fisika Murni -->
+                            <div id="q-diagram-container" class="hidden my-3 p-4 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-center overflow-x-auto">
+                                <!-- SVG visualizer di-inject oleh diagrams.js -->
+                            </div>
+
+                            <!-- Opsi Pilihan Ganda [A] - [E] -->
+                            <div id="q-options-container" class="space-y-2.5 pt-2">
+                                <!-- Diisi secara dinamis oleh ExamModule.renderQuestion -->
+                            </div>
+                        </div>
+
+                        <!-- Tombol Aksi Navigasi (Prev, Next, Selesai) -->
+                        <div class="flex items-center justify-between gap-3 pt-1">
+                            <button type="button" id="btn-prev-question" onclick="ExamModule.navigate(-1)" class="edu-btn-secondary px-4 py-2.5 text-xs font-semibold flex items-center gap-1.5">
+                                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                                <span>Soal Sebelumnya</span>
+                            </button>
+                            <button type="button" id="btn-next-question" onclick="ExamModule.navigate(1)" class="edu-btn-primary px-5 py-2.5 text-xs font-bold flex items-center gap-1.5">
+                                <span>Soal Berikutnya</span>
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Kanan: Palet Nomor Soal & Pintasan -->
+                    <div class="lg:col-span-4 space-y-4">
+                        <div class="edu-card p-4 sm:p-5 space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-200 pb-2.5">
+                                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700">Palet Nomor Soal</h3>
+                                <span class="text-[11px] font-mono text-slate-500">Pintasan Cepat</span>
+                            </div>
+
+                            <!-- Grid Nomor Soal -->
+                            <div id="exam-palette-grid" class="grid grid-cols-5 gap-2 pt-1">
+                                <!-- Diisi oleh ExamModule.renderPalette -->
+                            </div>
+
+                            <!-- Petunjuk Navigasi Keyboard -->
+                            <div class="pt-3 border-t border-slate-100 text-[11px] text-slate-500 space-y-1">
+                                <div class="font-semibold text-slate-700">Shortcut Keyboard:</div>
+                                <div class="flex flex-wrap gap-1 text-[10px] font-mono">
+                                    <span class="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200">[A]-[E] Pilih Opsi</span>
+                                    <span class="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200">[←][→] Navigasi</span>
+                                    <span class="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200">[R] Ragu-Ragu</span>
+                                </div>
+                            </div>
+
+                            <!-- Tombol Kumpulkan Ujian -->
+                            <div class="pt-2">
+                                <button type="button" onclick="ExamModule.openSubmitModal()" class="w-full edu-btn-primary py-2.5 text-xs font-bold bg-emerald-700 hover:bg-emerald-800 flex items-center justify-center gap-1.5">
+                                    <i data-lucide="send" class="w-4 h-4"></i>
+                                    <span>Kumpulkan Lembar Jawaban</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1C. REVIEW HASIL PENGERJAAN & PEMBAHASAN (screen-review) -->
+            <div id="screen-review" class="hidden space-y-6">
+
+                <!-- Ringkasan Hasil Pengerjaan -->
+                <div class="edu-card p-6 sm:p-8 space-y-5">
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-slate-200 pb-5">
+                        <div class="space-y-1">
+                            <span class="edu-badge edu-badge-green">Evaluasi Selesai</span>
+                            <h2 class="text-xl font-bold text-slate-900 pt-1" id="review-student-name">Nama Siswa</h2>
+                            <p class="text-xs text-slate-500 font-mono" id="review-student-meta">Kelas • Absen</p>
+                        </div>
+                        <button type="button" onclick="ExamModule.backToLobbyFromReview()" class="edu-btn-secondary px-4 py-2 text-xs flex items-center gap-1.5 self-start">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>Kembali ke Lobi Arena</span>
+                        </button>
+                    </div>
+
+                    <!-- 4 Metrik Utama Hasil Ujian -->
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="edu-panel p-4 space-y-0.5">
+                            <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">Nilai Akademik</div>
+                            <div id="review-academic-grade" class="text-3xl font-mono font-bold text-indigo-900 tabular-nums">0.0</div>
+                            <div class="text-[11px] text-slate-500">Skala 100 • Standar KKM 75</div>
+                        </div>
+
+                        <div class="edu-panel p-4 space-y-0.5">
+                            <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">Ketepatan Jawaban</div>
+                            <div id="review-correct-count" class="text-3xl font-mono font-bold text-emerald-700 tabular-nums">0 / 25</div>
+                            <div class="text-[11px] text-slate-500">Butir Dijawab Tepat</div>
+                        </div>
+
+                        <div class="edu-panel p-4 space-y-0.5">
+                            <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">Total Skor Kompetitif</div>
+                            <div id="review-total-score" class="text-3xl font-mono font-bold text-amber-700 tabular-nums">0</div>
+                            <div class="text-[11px] text-slate-500">Skor Dasar + Bonus Kecepatan</div>
+                        </div>
+
+                        <div class="edu-panel p-4 space-y-0.5">
+                            <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">Durasi Pengerjaan</div>
+                            <div id="review-duration-text" class="text-3xl font-mono font-bold text-slate-800 tabular-nums">0m 0s</div>
+                            <div class="text-[11px] text-slate-500">Waktu Tercatat</div>
+                        </div>
+                    </div>
+
+                    <!-- Rincian Poin & KKM -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono">
+                        <div class="flex items-center gap-4">
+                            <span>Skor Dasar: <strong id="review-base-score" class="text-slate-900">0</strong> Pts</span>
+                            <span>Bonus Kecepatan: <strong id="review-speed-bonus" class="text-emerald-700">+0</strong> Pts</span>
+                        </div>
+                        <span id="review-kkm-status" class="edu-badge edu-badge-green">
+                            Tuntas KKM (≥75)
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Kontainer Pembahasan Soal -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                            <i data-lucide="book-open" class="w-4 h-4 text-indigo-700"></i>
+                            <span>Pembahasan Soal & Kunci Jawaban</span>
+                        </h3>
+                        <span class="text-xs text-slate-500 font-mono">Penjelasan Konseptual Fisika</span>
+                    </div>
+
+                    <!-- Pemberitahuan jika pembahasan dikunci oleh Guru -->
+                    <div id="review-locked-notice" class="hidden edu-card p-6 text-center space-y-2 border-amber-300 bg-amber-50/60">
+                        <i data-lucide="lock" class="w-8 h-8 text-amber-600 mx-auto"></i>
+                        <h4 class="font-bold text-amber-950">Pembahasan Soal Sedang Dikunci</h4>
+                        <p class="text-xs text-amber-800 max-w-md mx-auto">
+                            Guru administrator sedang mengunci akses kunci jawaban dan pembahasan hingga seluruh sesi kelas selesai dilaksanakan.
+                        </p>
+                    </div>
+
+                    <!-- Daftar Pembahasan Seluruh Butir Soal -->
+                    <div id="review-questions-list" class="space-y-4">
+                        <!-- Diisi secara dinamis oleh ExamModule._renderReviewQuestions -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- VIEW 2: ARENA KLASEMEN & GAMIFIKASI KOMPETISI (view-leaderboard) -->
+        <!-- ============================================================= -->
+        <section id="view-leaderboard" class="hidden space-y-6">
+
+            <!-- Banner: Sesi Ujian Selesai (Tampil saat Guru Tutup Ujian setelah ada pengisian) -->
+            <div id="lb-exam-finished-banner" class="hidden p-4 rounded-xl bg-gradient-to-r from-amber-500/15 via-indigo-500/10 to-emerald-500/15 border-2 border-amber-300 shadow-sm flex items-center gap-3.5">
+                <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
+                    <i data-lucide="trophy" class="w-5 h-5 text-amber-600"></i>
+                </div>
+                <div>
+                    <div class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                        <span>Sesi Evaluasi Ujian Telah Resmi Berakhir</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300">HASIL FINAL</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-0.5">Pengerjaan lembar soal telah resmi ditutup oleh Guru. Di bawah ini adalah hasil rekapitulasi nilai dan peringkat akhir seluruh murid kelas X A – X K.</p>
+                </div>
+            </div>
+
+            <!-- 2A. Header Arena & Statistik Angkatan (Gaya Frosted Luxury Glass) -->
+            <div class="edu-card p-6 sm:p-7 space-y-5 bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-900 text-white rounded-xl shadow-md border-0 relative overflow-hidden">
+                <div class="absolute -right-8 -bottom-8 opacity-10 pointer-events-none text-white">
+                    <i data-lucide="trophy" class="w-64 h-64"></i>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+                    <div class="space-y-1">
+                        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-xs font-mono font-semibold text-amber-300">
+                            <i data-lucide="flame" class="w-3.5 h-3.5"></i>
+                            <span>ARENA KOMPETISI SAINS SMAN 78</span>
+                        </div>
+                        <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-white">Klasemen & Hall of Fame Fisika Vektor & Kinematika</h2>
+                        <p class="text-xs text-slate-300 max-w-xl leading-relaxed">
+                            Peringkat dihitung secara otomatis berdasarkan akumulasi <strong>Skor Dasar Akurasi (25 Butir Soal Terstandarisasi)</strong> dan <strong>Bonus Kecepatan (Speedrun)</strong> dengan pengawasan pakta integritas.
+                        </p>
+                    </div>
+                    <button type="button" onclick="LeaderboardModule.renderAll(); Utils.showToast('Data klasemen berhasil diperbarui.');" class="self-start sm:self-center px-3.5 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-mono font-bold flex items-center gap-2 transition text-white shrink-0">
+                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                        <span>Segarkan Papan</span>
+                    </button>
+                </div>
+
+                <!-- 4 Metrik Ringkasan Angkatan -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 pt-2 relative z-10 text-white">
+                    <div class="bg-white/10 hover:bg-white/15 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow-md space-y-1 transition duration-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-semibold text-slate-300 uppercase tracking-wider font-mono">Siswa Berlaga</span>
+                            <div class="w-7 h-7 rounded-lg bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center text-indigo-300">
+                                <i data-lucide="users" class="w-3.5 h-3.5"></i>
+                            </div>
+                        </div>
+                        <div id="lb-stat-count" class="text-2xl font-mono font-bold text-white tracking-tight tabular-nums">0 Siswa</div>
+                        <div class="text-[10px] text-slate-300 font-mono flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                            <span>Lintas X A s/d X K (11 Rombel)</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/10 hover:bg-white/15 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow-md space-y-1 transition duration-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-semibold text-slate-300 uppercase tracking-wider font-mono">Rerata Nilai</span>
+                            <div class="w-7 h-7 rounded-lg bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300">
+                                <i data-lucide="activity" class="w-3.5 h-3.5"></i>
+                            </div>
+                        </div>
+                        <div id="lb-stat-avg" class="text-2xl font-mono font-bold text-cyan-300 tracking-tight tabular-nums">0.0 / 100</div>
+                        <div class="text-[10px] text-slate-300 font-mono flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                            <span>Standar KKM 75.0</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/10 hover:bg-white/15 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow-md space-y-1 transition duration-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-semibold text-slate-300 uppercase tracking-wider font-mono">Skor Tertinggi</span>
+                            <div class="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300">
+                                <i data-lucide="crown" class="w-3.5 h-3.5"></i>
+                            </div>
+                        </div>
+                        <div id="lb-stat-top" class="text-2xl font-mono font-bold text-amber-300 tracking-tight tabular-nums">0 Pts</div>
+                        <div class="text-[10px] text-slate-300 font-mono flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                            <span>Juara #1 Angkatan</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/10 hover:bg-white/15 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow-md space-y-1 transition duration-300">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] font-semibold text-slate-300 uppercase tracking-wider font-mono">Kelulusan KKM</span>
+                            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-300">
+                                <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                            </div>
+                        </div>
+                        <div id="lb-stat-pass" class="text-2xl font-mono font-bold text-emerald-300 tracking-tight tabular-nums">0% (0 Tuntas)</div>
+                        <div class="text-[10px] text-slate-300 font-mono flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                            <span>Target KKM ≥ 75.0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2B. Podium Juara 3 Besar Emas, Perak, Perunggu -->
+            <div class="space-y-2">
+                <div class="flex items-center justify-between px-1">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                        <i data-lucide="crown" class="w-4 h-4 text-amber-500"></i>
+                        <span id="lb-podium-title">Podium Kehormatan 3 Besar</span>
+                    </h3>
+                    <span class="text-[11px] font-mono text-slate-500">Live Top 3 Competitors</span>
+                </div>
+                <div id="lb-podium-container" class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end pt-2">
+                    <!-- Diisi oleh JavaScript (Juara 2 Perak, Juara 1 Emas di tengah, Juara 3 Perunggu) -->
+                </div>
+            </div>
+
+            <!-- 2B-2. Deretan 10 Terbaik Satu Angkatan (Top 10 Hall of Fame) -->
+            <div class="edu-card p-5 space-y-3.5 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white shadow-xl border border-slate-800">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                    <div class="space-y-0.5">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                            <h3 class="text-sm font-bold text-white flex items-center gap-2 tracking-wide font-mono">
+                                <i data-lucide="medal" class="w-4 h-4 text-amber-400"></i>
+                                <span>10 TERBAIK SATU ANGKATAN • TOP 10 HALL OF FAME</span>
+                            </h3>
+                        </div>
+                        <p class="text-xs text-slate-400">Daftar kehormatan 10 siswa peraih total skor kompetitif tertinggi lintas seluruh rombel X A – X K</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="px-2.5 py-1 rounded bg-amber-400/20 text-amber-300 border border-amber-400/40 font-mono text-[11px] font-bold flex items-center gap-1.5">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
+                            <span>Top 10 Angkatan</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Container Grid 10 Terbaik Angkatan (5 Kolom x 2 Baris) -->
+                <div id="lb-top10-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                    <!-- Diisi oleh JavaScript (10 Kartu Elit) -->
+                </div>
+            </div>
+
+            <!-- 2C. Main Grid: Klasemen Kelas + Tabel Siswa & Analisis Butir -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+                <!-- Kiri 8 Kolom: Papan Rombel + Tabel Peringkat Lengkap -->
+                <div class="lg:col-span-8 space-y-6">
+
+                    <!-- Papan Rombel / Class Cup -->
+                    <div class="edu-card p-5 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-2.5">
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                                    <i data-lucide="award" class="w-4 h-4 text-indigo-700"></i>
+                                    <span>Piala Rombel • Klasemen Antar-Kelas</span>
+                                </h3>
+                                <p class="text-xs text-slate-500">Kompetisi agregat skor rata-rata rombel belajar X A – X K</p>
+                            </div>
+                            <span class="edu-badge edu-badge-indigo font-mono text-[10px]">11 Rombel</span>
+                        </div>
+                        <div id="lb-class-battle-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+                            <!-- Diisi oleh JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Tabel Klasemen Peringkat Siswa Lengkap -->
+                    <div class="edu-card overflow-hidden">
+                        <div class="p-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/50">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-sm font-bold text-slate-900">Daftar Peringkat Lengkap Seluruh Siswa</h3>
+                                    <span id="lb-table-count-badge" class="edu-badge edu-badge-indigo font-mono text-[10px] font-bold">Semua Siswa</span>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-0.5">Menampilkan seluruh data murid tanpa batasan kuota • Diurutkan dari total skor tertinggi</p>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <select id="filter-lb-class" class="edu-input px-2.5 py-1.5 text-xs font-medium">
+                                    <option value="ALL">Semua Kelas</option>
+                                    <option value="X A">X A</option>
+                                    <option value="X B">X B</option>
+                                    <option value="X C">X C</option>
+                                    <option value="X D">X D</option>
+                                    <option value="X E">X E</option>
+                                    <option value="X F">X F</option>
+                                    <option value="X G">X G</option>
+                                    <option value="X H">X H</option>
+                                    <option value="X I">X I</option>
+                                    <option value="X J">X J</option>
+                                    <option value="X K">X K</option>
+                                </select>
+                                <select id="lb-class-filter" class="hidden">
+                                    <option value="ALL">Semua Kelas</option>
+                                </select>
+                                <input type="text" id="filter-lb-search" placeholder="Cari nama, kelas, absen..."
+                                    class="edu-input px-3 py-1.5 text-xs w-full sm:w-48 placeholder:text-slate-400">
+                                <input type="text" id="lb-search-input" class="hidden">
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="border-b border-slate-200 bg-slate-100/70 text-slate-700 font-mono text-[11px] uppercase tracking-wide">
+                                        <th class="py-3 px-3.5 text-center font-bold">Rank</th>
+                                        <th class="py-3 px-3.5 font-bold">Siswa & Integritas</th>
+                                        <th class="py-3 px-3 text-center font-bold">Kelas</th>
+                                        <th class="py-3 px-3 text-center font-bold">Tier Vektor</th>
+                                        <th class="py-3 px-3 text-center font-bold">Nilai Kuis</th>
+                                        <th class="py-3 px-3 text-center font-bold">Akurasi</th>
+                                        <th class="py-3 px-3 text-center font-bold">Waktu</th>
+                                        <th class="py-3 px-3.5 text-right font-bold">Total Skor</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lb-full-table-body" class="divide-y divide-slate-100 tabular-nums">
+                                    <!-- Diisi oleh JavaScript (Seluruh Siswa) -->
+                                </tbody>
+                                <tbody id="lb-table-body" class="hidden"></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Ringkasan Footer Papan Peringkat Lengkap -->
+                        <div id="lb-table-footer" class="p-3.5 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-slate-600">
+                            <div class="flex items-center gap-1.5">
+                                <i data-lucide="users" class="w-4 h-4 text-indigo-700"></i>
+                                <span>Total Ditampilkan: <strong id="lb-footer-total-count" class="text-indigo-900">0 Siswa</strong></span>
+                            </div>
+                            <span class="text-emerald-700 font-semibold flex items-center gap-1 text-[11px]">
+                                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-600"></i>
+                                <span>Seluruh peringkat siswa di kelas ini ditampilkan lengkap tanpa batasan kuota</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kanan 4 Kolom: Panduan Tier & Analisis Integritas -->
+                <div class="lg:col-span-4 space-y-6">
+
+                    <!-- Panduan Tingkatan / Tier Kompetisi Vektor & Kinematika -->
+                    <div class="edu-card p-5 space-y-3">
+                        <div class="border-b border-slate-200 pb-2.5">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                                <i data-lucide="layers" class="w-3.5 h-3.5 text-indigo-700"></i>
+                                <span>Tingkatan Tier Fisika Vektor</span>
+                            </h3>
+                            <p class="text-[11px] text-slate-500">Gelar kehormatan berdasarkan capaian nilai evaluasi</p>
+                        </div>
+                        <div class="space-y-2 text-xs font-mono">
+                            <div class="p-2.5 rounded-lg bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 shadow-sm space-y-0.5">
+                                <div class="flex items-center justify-between font-bold">
+                                    <span class="text-purple-900 flex items-center gap-1">⚡ RELATIVISTIK</span>
+                                    <span class="text-purple-700 text-[11px] font-semibold">Nilai 95 – 100</span>
+                                </div>
+                                <div class="text-[10px] text-purple-700/80 font-sans">Kelajuan mendekati cahaya dengan dilatasi waktu purna</div>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 shadow-sm space-y-0.5">
+                                <div class="flex items-center justify-between font-bold">
+                                    <span class="text-emerald-900 flex items-center gap-1">🚀 SUPERSONIK</span>
+                                    <span class="text-emerald-700 text-[11px] font-semibold">Nilai 85 – 94</span>
+                                </div>
+                                <div class="text-[10px] text-emerald-700/80 font-sans">Menembus batas kecepatan suara dengan efisiensi tinggi</div>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-200 shadow-sm space-y-0.5">
+                                <div class="flex items-center justify-between font-bold">
+                                    <span class="text-indigo-900 flex items-center gap-1">🛰️ ORBITAL</span>
+                                    <span class="text-indigo-700 text-[11px] font-semibold">Nilai 75 – 84</span>
+                                </div>
+                                <div class="text-[10px] text-indigo-700/80 font-sans">Mencapai kecepatan lepas orbit standar tuntas KKM</div>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 shadow-sm space-y-0.5">
+                                <div class="flex items-center justify-between font-bold">
+                                    <span class="text-amber-900 flex items-center gap-1">⏳ SUBSONIK</span>
+                                    <span class="text-amber-700 text-[11px] font-semibold">Nilai 60 – 74</span>
+                                </div>
+                                <div class="text-[10px] text-amber-700/80 font-sans">Fase akselerasi dinamis menuju ambang batas KKM</div>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-gradient-to-r from-slate-50 to-gray-50 border border-slate-200 shadow-sm space-y-0.5">
+                                <div class="flex items-center justify-between font-bold">
+                                    <span class="text-slate-700 flex items-center gap-1">🎯 STATIS</span>
+                                    <span class="text-slate-500 text-[11px] font-semibold">Nilai &lt; 60</span>
+                                </div>
+                                <div class="text-[10px] text-slate-500 font-sans">Kecepatan awal nol dengan percepatan gravitasi konstan</div>
+                            </div>
+                        </div>
+
+                        <!-- Panduan Indikator Integritas Aliran (Anti-Cheat) -->
+                        <div class="pt-3 border-t border-slate-200 space-y-1.5">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1">
+                                    <i data-lucide="shield-alert" class="w-3 h-3 text-indigo-700"></i>
+                                    <span>Integritas Pengerjaan</span>
+                                </span>
+                                <span class="text-[9px] font-mono text-slate-400">Pindah Tab</span>
+                            </div>
+                            <div class="space-y-1 text-[11px] font-mono">
+                                <div class="px-2 py-1 rounded bg-emerald-50 border border-emerald-200 text-emerald-900 flex items-center justify-between text-[10px]">
+                                    <span class="font-bold">🛡️ Fokus Penuh</span>
+                                    <span>0x Tab • Purna</span>
+                                </div>
+                                <div class="px-2 py-1 rounded bg-teal-50 border border-teal-200 text-teal-900 flex items-center justify-between text-[10px]">
+                                    <span class="font-bold">⚡ Dispersi Ringan</span>
+                                    <span>1x Tab</span>
+                                </div>
+                                <div class="px-2 py-1 rounded bg-amber-50 border border-amber-200 text-amber-900 flex items-center justify-between text-[10px]">
+                                    <span class="font-bold">⚠️ Fluktuasi</span>
+                                    <span>2x Tab</span>
+                                </div>
+                                <div class="px-2 py-1 rounded bg-orange-50 border border-orange-200 text-orange-900 flex items-center justify-between text-[10px]">
+                                    <span class="font-bold">🚨 Defleksi Lintasan</span>
+                                    <span>3 – 4x Tab</span>
+                                </div>
+                                <div class="px-2 py-1 rounded bg-rose-50 border border-rose-200 text-rose-900 flex items-center justify-between text-[10px]">
+                                    <span class="font-bold">⛔ Diskontinuitas</span>
+                                    <span>&gt; 4x Tab</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- VIEW 3: PANEL ADMINISTRATOR GURU (view-sheet)                 -->
+        <!-- ============================================================= -->
+        <section id="view-sheet" class="hidden space-y-6">
+            <div id="screen-teacher-admin" class="space-y-6">
+
+                <!-- Header Panel Administrator -->
+                <div class="edu-card p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-lg bg-indigo-900 text-white flex items-center justify-center shrink-0">
+                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h2 class="text-base font-bold text-slate-900">Panel Administrator Guru</h2>
+                                <span class="edu-badge edu-badge-green">Aktif</span>
+                            </div>
+                            <p class="text-xs text-slate-500">Guru Fisika • Pengawasan Evaluasi X A–X K SMAN 78 Jakarta</p>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Navigasi Sub-Tab Admin & Logout -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div class="flex items-center p-1 rounded-lg bg-slate-100 border border-slate-200 gap-0.5 text-xs">
+                            <button type="button" data-tab="ctrl" onclick="TeacherAdminModule.switchSubTab('ctrl')" class="admin-subtab-btn px-3 py-1.5 rounded-md font-bold bg-indigo-900 text-white shadow-sm transition">
+                                Kontrol Ujian
+                            </button>
+                            <button type="button" data-tab="bank" onclick="TeacherAdminModule.switchSubTab('bank')" class="admin-subtab-btn px-3 py-1.5 rounded-md font-medium text-slate-600 hover:text-slate-900 transition">
+                                Bank 240 Soal
+                            </button>
+                            <button type="button" data-tab="sec" onclick="TeacherAdminModule.switchSubTab('sec')" class="admin-subtab-btn px-3 py-1.5 rounded-md font-medium text-slate-600 hover:text-slate-900 transition">
+                                Keamanan & Reset
+                            </button>
+                        </div>
+
+                        <button type="button" onclick="TeacherAdminModule.logout()" class="edu-btn-secondary px-3 py-1.5 text-xs text-rose-700 hover:bg-rose-50 border-rose-200 flex items-center gap-1.5">
+                            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+                            <span>Keluar Panel</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SUB-TAB 1: KONTROL UJIAN & STATISTIK -->
+                <div id="admin-panel-ctrl" class="space-y-6">
+
+                    <!-- 3 Metrik Utama Submisi -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="edu-card p-4 space-y-1">
+                            <div class="flex items-center justify-between text-slate-500 text-xs font-semibold">
+                                <span>Total Peserta Terkumpul</span>
+                                <i data-lucide="users" class="w-4 h-4"></i>
+                            </div>
+                            <div id="admin-stat-submissions" class="text-3xl font-mono font-bold text-slate-900 tabular-nums">0</div>
+                            <div class="text-[11px] text-slate-500">Dari 11 rombel kelas X (X A–X K)</div>
+                        </div>
+
+                        <div class="edu-card p-4 space-y-1">
+                            <div class="flex items-center justify-between text-slate-500 text-xs font-semibold">
+                                <span>Rata-Rata Skor Peserta</span>
+                                <i data-lucide="award" class="w-4 h-4"></i>
+                            </div>
+                            <div id="admin-stat-avg-score" class="text-3xl font-mono font-bold text-indigo-900 tabular-nums">0</div>
+                            <div class="text-[11px] text-slate-500">Rata-rata total poin</div>
+                        </div>
+
+                        <div class="edu-card p-4 space-y-1">
+                            <div class="flex items-center justify-between text-slate-500 text-xs font-semibold">
+                                <span>Tingkat Ketuntasan KKM</span>
+                                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i>
+                            </div>
+                            <div id="admin-stat-pass-rate" class="text-2xl font-mono font-bold text-emerald-700 tabular-nums">0% (0 Siswa)</div>
+                            <div class="text-[11px] text-slate-500">Nilai Akademik ≥ 75.0</div>
+                        </div>
+                    </div>
+
+                    <!-- Saklar Status Ujian & Pembahasan -->
+                    <div class="edu-card p-6 space-y-5">
+                        <div class="border-b border-slate-200 pb-3">
+                            <h3 class="text-sm font-bold text-slate-900">Saklar Pengaturan Akses Siswa</h3>
+                            <p class="text-xs text-slate-500 mt-0.5">Kontrol status pendaftaran ujian dan keterbukaan pembahasan untuk siswa</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Saklar Buka/Tutup Pendaftaran -->
+                            <div class="edu-panel p-4 flex flex-col justify-between gap-3">
+                                <div class="space-y-1">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs font-bold text-slate-900">Status Akses Pendaftaran</span>
+                                        <span id="admin-exam-status-badge" class="edu-badge edu-badge-green">TERBUKA (AKTIF)</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 leading-relaxed">
+                                        Mengatur apakah siswa diizinkan untuk memulai sesi ujian baru melalui form registrasi di lobi.
+                                    </p>
+                                </div>
+                                <button type="button" id="btn-admin-toggle-exam" onclick="TeacherAdminModule.toggleExamOpen()" class="edu-btn-secondary py-2 text-xs font-bold text-rose-700 border-rose-200">
+                                    Tutup Pendaftaran Ujian
+                                </button>
+                            </div>
+
+                            <!-- Saklar Kunci/Buka Pembahasan -->
+                            <div class="edu-panel p-4 flex flex-col justify-between gap-3">
+                                <div class="space-y-1">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs font-bold text-slate-900">Akses Kunci Jawaban</span>
+                                        <span id="admin-review-status-badge" class="edu-badge edu-badge-green">DIBUKA UNTUK SISWA</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 leading-relaxed">
+                                        Mengatur apakah siswa dapat melihat pembahasan lengkap dan kunci jawaban setelah mengumpulkan ujian.
+                                    </p>
+                                </div>
+                                <button type="button" id="btn-admin-toggle-review" onclick="TeacherAdminModule.toggleAllowReview()" class="edu-btn-secondary py-2 text-xs font-bold text-amber-700 border-amber-200">
+                                    Kunci Pembahasan Siswa
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-TAB 2: BANK 240 SOAL FISIKA -->
+                <div id="admin-panel-bank" class="hidden space-y-4">
+                    <div class="edu-card overflow-hidden">
+                        <div class="p-4 border-b border-slate-200 flex items-center justify-between">
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-900">Katalog Bank Soal Terverifikasi</h3>
+                                <p class="text-xs text-slate-500">240 butir soal Vektor & Kinematika (Z1 – Z8) tervalidasi mesin fisika deterministik</p>
+                            </div>
+                            <span class="edu-badge edu-badge-indigo font-mono">240 Soal Aktif</span>
+                        </div>
+
+                        <div class="overflow-x-auto max-h-[500px]">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead class="sticky top-0 bg-slate-50 border-b border-slate-200 z-10 font-mono text-[11px] text-slate-700">
+                                    <tr>
+                                        <th class="py-2.5 px-3">ID</th>
+                                        <th class="py-2.5 px-3">Zona & Topik</th>
+                                        <th class="py-2.5 px-3">Pertanyaan</th>
+                                        <th class="py-2.5 px-3 text-center">Tingkat</th>
+                                        <th class="py-2.5 px-3">Kunci Benar</th>
+                                        <th class="py-2.5 px-3 text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-bank-list-tbody" class="divide-y divide-slate-100">
+                                    <!-- Diisi oleh TeacherAdminModule.renderAdminBankList -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-TAB 3: KEAMANAN & PEMBERSIHAN DATA -->
+                <div id="admin-panel-sec" class="hidden space-y-5">
+                    <div class="edu-card p-6 space-y-4 border-rose-200">
+                        <div class="border-b border-slate-200 pb-3 flex items-start gap-3">
+                            <div class="w-9 h-9 rounded-full bg-rose-50 border border-rose-200 text-rose-600 flex items-center justify-center shrink-0">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-bold text-slate-900">Pembersihan Riwayat Data Lokal</h3>
+                                <p class="text-xs text-slate-500 mt-0.5">Mereset catatan hasil pengerjaan siswa dan kunci IP pada peramban ini</p>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Jika Anda perlu mengosongkan riwayat evaluasi siswa untuk sesi kelas baru, gunakan tombol di bawah. Tindakan ini hanya membersihkan penyimpanan lokal browser pengawas.
+                        </p>
+
+                        <button type="button" onclick="TeacherAdminModule.clearAllRecords()" class="edu-btn-secondary px-4 py-2.5 text-xs font-bold text-rose-700 border-rose-200 hover:bg-rose-50 flex items-center gap-1.5">
+                            <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-600"></i>
+                            <span>Reset & Bersihkan Seluruh Data Siswa</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================================================================= -->
+    <!-- FOOTER RESMI (Persis HydroArena)                                  -->
+    <!-- ================================================================= -->
+    <footer class="border-t border-slate-200 bg-white/80 backdrop-blur-sm mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+            <div class="flex items-center gap-2.5">
+                <img src="assets/logo.svg" alt="VectorArena Logo" class="w-5 h-5 shrink-0 opacity-80">
+                <span class="font-mono font-bold text-slate-800">VectorArena SMAN 78 Jakarta</span>
+                <span class="text-slate-300">•</span>
+                <span>Laboratorium Fisika Kurikulum Merdeka (Vektor & Kinematika Vertikal)</span>
+            </div>
+            <div class="text-[11px] font-mono text-slate-400">
+                Build Standar Ujian v1.1.0
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================================================================= -->
+    <!-- MODAL: KONFIRMASI PENGUMPULAN UJIAN                               -->
+    <!-- ================================================================= -->
+    <div id="modal-submit-exam" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm items-center justify-center p-4">
+        <div class="edu-card max-w-md w-full p-6 space-y-4 shadow-xl">
+            <div class="flex items-start gap-3">
+                <div class="w-9 h-9 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-900 flex items-center justify-center shrink-0">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                </div>
+                <div class="space-y-1">
+                    <h3 class="text-base font-bold text-slate-900">Kumpulkan Lembar Jawaban?</h3>
+                    <p id="modal-submit-summary" class="text-xs text-slate-600 leading-relaxed">
+                        Pastikan seluruh butir soal telah diperiksa dengan teliti sebelum dikumpulkan.
+                    </p>
+                </div>
+            </div>
+            <div class="flex items-center justify-end gap-2 pt-2">
+                <button type="button" onclick="ExamModule.closeSubmitModal()" class="edu-btn-secondary px-4 py-2 text-xs">
+                    Periksa Kembali
+                </button>
+                <button type="button" onclick="ExamModule.finalizeSubmit()" class="edu-btn-primary px-4 py-2 text-xs font-bold">
+                    Ya, Kumpulkan Sekarang
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- MODAL: LOGIN GURU ADMINISTRATOR                                   -->
+    <!-- ================================================================= -->
+    <div id="modal-teacher-login" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm items-center justify-center p-4">
+        <div class="edu-card max-w-md w-full p-6 space-y-4 shadow-xl">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-900 flex items-center justify-center">
+                        <i data-lucide="shield-lock" class="w-4 h-4"></i>
+                    </div>
+                    <h3 class="text-sm font-bold text-slate-900">Login Administrator Guru</h3>
+                </div>
+                <button type="button" onclick="TeacherAdminModule.closeLoginModal()" class="text-slate-400 hover:text-slate-700 p-1 transition">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <form onsubmit="TeacherAdminModule.handleModalLogin(event)" class="space-y-4">
+                <div class="space-y-1.5">
+                    <label for="input-modal-pin" class="block text-xs font-bold text-slate-700">
+                        Kode Akses / PIN Guru <span class="text-rose-600">*</span>
+                    </label>
+                    <input id="input-modal-pin" type="password" required autocomplete="off" placeholder="Masukkan PIN administrator"
+                        class="edu-input w-full px-3.5 py-2 text-sm font-mono tracking-widest placeholder:tracking-normal placeholder:text-slate-400">
+                    <p id="modal-teacher-error" class="hidden text-xs text-rose-600 font-semibold"></p>
+                </div>
+
+                <div class="flex items-center justify-end gap-2 pt-1">
+                    <button type="button" onclick="TeacherAdminModule.closeLoginModal()" class="edu-btn-secondary px-3.5 py-2 text-xs">
+                        Batal
+                    </button>
+                    <button type="submit" class="edu-btn-primary px-4 py-2 text-xs font-bold flex items-center gap-1.5">
+                        <i data-lucide="key" class="w-3.5 h-3.5"></i>
+                        <span>Masuk Portal</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- NOTIFIKASI TOAST (va-toast & edu-toast)                           -->
+    <!-- ================================================================= -->
+    <div id="va-toast" class="fixed bottom-5 right-5 z-50 hidden items-center gap-2.5 edu-card px-4 py-3 shadow-xl text-xs font-semibold text-slate-800 max-w-sm">
+        <span id="va-toast-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
+        <span id="va-toast-text">Notifikasi</span>
+    </div>
+    <div id="edu-toast" class="hidden">
+        <span id="edu-toast-dot"></span>
+        <span id="edu-toast-text"></span>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- MUAT MODUL JAVASCRIPT APLIKASI                                    -->
+    <!-- ================================================================= -->
+    <script src="js/config.js?v=1.1.0"></script>
+    <script src="js/data/questions.js?v=1.1.0"></script>
+    <script src="js/data/curated_25.js?v=1.1.0"></script>
+    <script src="js/state.js?v=1.1.0"></script>
+    <script src="js/utils/helpers.js?v=1.1.0"></script>
+    <script src="js/visualizers/diagrams.js?v=1.1.0"></script>
+    <script src="js/modules/leaderboard.js?v=1.1.0"></script>
+    <script src="js/modules/exam.js?v=1.1.0"></script>
+    <script src="js/modules/teacherAdmin.js?v=1.1.0"></script>
+    <script src="js/app.js?v=1.1.0"></script>
+</body>
+</html>
