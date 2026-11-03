@@ -31,6 +31,7 @@ ArenaFisikaseru/
     │   ├── README.md           # langkah deploy
     │   └── test-code-gs.cjs    # uji logika tanpa Google
     ├── css/ js/ assets/ docs/ public/ scripts/ server/ tests/
+    │   └── tests/e2e/webhook.e2e.cjs   # uji antarmuka webhook
     ├── data/questions.json     # bank soal (build:bank)
     └── simulated_*.json
 ```
@@ -96,8 +97,18 @@ node scripts/check-links.mjs        # semua src/href lokal harus resolve
 node --check VectorArena/js/app.js  # cek sintaks satu berkas
 
 # dari folder masing-masing arena
-cd VectorArena && npm test          # 20 tes invarian dataset simulasi
-cd ../HydroArena && npm test        # 50 skenario simulasi
+cd VectorArena && npm test                    # 47 tes (server + modul klien)
+cd ../HydroArena && npm test                  # 50 skenario simulasi
+
+# backend & antarmuka (dari root)
+node VectorArena/apps-script/test-code-gs.cjs          # 35 cek backend tanpa Google
+node VectorArena/tests/e2e/webhook.e2e.cjs             # 28 cek antarmuka (butuh Playwright)
+```
+
+Uji fisika Python memerlukan `pytest`:
+
+```bash
+cd VectorArena && python3 -m pytest tests/test_physics_engine.py -q   # 54 lulus
 ```
 
 Semua perintah di atas juga dijalankan otomatis oleh

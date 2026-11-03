@@ -49,6 +49,18 @@ const Utils = {
         return arr;
     },
 
+    // Label tingkat kesulitan. Bank soal menyimpan difficulty sebagai angka
+    // (1–4); fungsi ini menerima angka ATAU string apa pun yang mungkin datang
+    // dari data lama, sehingga pemanggil tidak pernah memicu TypeError.
+    difficultyLabel(level) {
+        const key = Number(level);
+        if (CONFIG.DIFFICULTY_LABELS && CONFIG.DIFFICULTY_LABELS[key]) {
+            return CONFIG.DIFFICULTY_LABELS[key];
+        }
+        if (typeof level === 'string' && level.trim()) return level.trim().toUpperCase();
+        return 'SEDANG';
+    },
+
     // Escape HTML untuk Keamanan dari XSS
     escapeHtml(text) {
         if (!text) return "";

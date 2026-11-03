@@ -21,6 +21,7 @@ const App = {
         TeacherAdminModule.updateAuthUI();
         TeacherAdminModule.updateExamConfigUI();
         LeaderboardModule.renderAll();
+        this.applyExamConfigUI();
 
         await Utils.detectIp();
         ExamModule.checkAndEnforceIpLockUI();
@@ -30,6 +31,56 @@ const App = {
 
         this._bindEvents();
         if (window.lucide) lucide.createIcons();
+
+        // Sinkronkan status ujian + indikator koneksi ke webhook (non-blocking).
+        this.syncWithSpreadsheet();
+    },
+
+    // Cermin status konfigurasi ujian ke elemen antarmuka siswa: pil status di
+    // header, banner peringatan di lobi, dan kunci tombol mulai.
+    applyExamConfigUI() {
+        const isOpen = State.examConfig.isOpen;
+
+        const pill = document.getElementById('header-exam-status-pill');
+        const dot = document.getElementById('header-exam-status-dot');
+        const text = document.getElementById('header-exam-status-text');
+
+        if (pill) {
+            pill.className = isOpen
+                ? "hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-800 shrink-0"
+                : "hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-800 shrink-0";
+        }
+        if (dot) {
+            dot.className = isOpen
+                ? "w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
+                : "w-2 h-2 rounded-full bg-rose-500";
+        }
+        if (text) text.textContent = isOpen ? 'Ujian Buka' : 'Ujian Ditutup';
+
+        const banner = document.getElementById('exam-closed-banner');
+        if (banner) banner.classList.toggle('hidden', isOpen);
+
+        const startBtn = document.getElementById('btn-start-exam');
+        if (startBtn) {
+            startBtn.disabled = !isOpen;
+            startBtn.classList.toggle('opacity-50', !isOpen);
+            startBtn.classList.toggle('cursor-not-allowed', !isOpen);
+        }
+    },
+
+    // Tanya server (bila webhook diatur) lalu sesuaikan status lokal. Kegagalan
+    // tidak menghentikan aplikasi — mode mandiri tetap berjalan.
+    async syncWithSpreadsheet() {
+        if (typeof SpreadsheetService === 'undefined') return;
+
+        SpreadsheetService.updateConnectionIndicator(false);
+        if (!SpreadsheetService.isConfigured()) return;
+
+        const changed = await SpreadsheetService.syncExamConfig(false);
+        if (changed) {
+            this.applyExamConfigUI();
+            TeacherAdminModule.updateExamConfigUI();
+        }
     },
 
     switchView(viewName) {

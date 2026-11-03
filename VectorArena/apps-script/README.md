@@ -161,6 +161,19 @@ Kontrol lewat GET juga tersedia agar bisa ditembak langsung dari browser:
 - **Nama ganda dalam satu kelas akan ditolak.** Ini disengaja (anti-timpa), tapi
   bila ada dua siswa bernama identik di kelas yang sama, siswa kedua harus
   diselesaikan manual oleh guru di spreadsheet.
+- **Tidak ada antrean ulang / coba-kirim-ulang otomatis.** Bila kiriman gagal
+  (jaringan putus, webhook belum diisi, atau server menolak), hasil **tetap
+  aman di perangkat** siswa (`localStorage`) dan tidak hilang. Konsekuensinya:
+  baris di spreadsheet tidak muncul otomatis sampai guru menariknya. Jalur
+  pemulihan resminya adalah tombol **Unduh CSV** di panel guru — rekapitulasi
+  lengkap (termasuk yang belum terkirim) kemudian diunggah manual ke
+  spreadsheet. Ini disengaja: aplikasi ujian di lab sekolah berada di balik satu
+  IP NAT, dan mengantre-percobaan-ulang hanya menambah beban server tanpa
+  manfaat yang sepadan. Bila suatu saat butuh jaminan "semua nilai pasti
+  masuk", tambahkan antrean di klien, bukan retry tak terbatas.
+- **Batas waktu kirim 15 detik.** Klien membatalkan permintaan yang menggantung
+  dan menampilkan pesan jelas; tidak ada percobaan ulang otomatis (lihat poin
+  di atas).
 
 ## Uji tanpa Google
 

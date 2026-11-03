@@ -2,7 +2,7 @@
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-Online-22c55e?style=flat&logo=github)](https://farrelfz.github.io/ArenaFisikaseru/VectorArena/)
 [![SMAN 78 Jakarta](https://img.shields.io/badge/SMAN_78_Jakarta-Kurikulum_Merdeka-312e81?style=flat)](https://sman78-jkt.sch.id/)
-[![Tests](https://img.shields.io/badge/Tests-72_Passing-success?style=flat)](tests/)
+[![Tests](https://img.shields.io/badge/Tests-164_Passing-success?style=flat)](tests/)
 
 Portal evaluasi dan kompetisi sains fisika terpadu materi **Vektor Analitis** dan **Kinematika Gerak Vertikal (GVA, GVB, GJB, Grafik v-t)** untuk Kelas XI SMAN 78 Jakarta.
 
@@ -36,9 +36,15 @@ Portal evaluasi dan kompetisi sains fisika terpadu materi **Vektor Analitis** da
 
 ## 🧪 Pengujian & Verifikasi Kualitas
 
-- **Python Physics Engine**: 54/54 test pass (`tests/test_physics_engine.py`)
-- **Node.js Scoring & Server Handlers**: 18/18 test pass (`tests/js/server.test.mjs`)
-- **Total Validated Tests**: 72/72 passing
+- **Python Physics Engine**: 54/54 lulus (`tests/test_physics_engine.py`)
+- **Node.js — server, penskoran, dan modul klien**: 47/47 lulus (`tests/js/*.test.mjs`)
+- **Backend Apps Script**: 35 pemeriksaan lulus tanpa Google (`apps-script/test-code-gs.cjs`)
+- **Antarmuka (headless Chromium)**: 28 pemeriksaan rantai webhook lulus (`tests/e2e/webhook.e2e.cjs`)
+
+Total 164 pemeriksaan untuk VectorArena (belum termasuk 50 skenario HydroArena).
+
+Semuanya dijalankan di CI pada setiap push, termasuk pengecekan bahwa soal
+benar-benar tampil di layar ujian.
 
 ## 🌐 Akses Publik
 

@@ -175,7 +175,13 @@ const ExamModule = {
         document.getElementById('q-current-number').textContent = index + 1;
         document.getElementById('q-total-number').textContent = total;
         document.getElementById('q-topic-badge').textContent = q.topic || q.zoneName || `Topik ${q.zoneId}`;
-        document.getElementById('q-difficulty-badge').textContent = q.difficulty ? q.difficulty.toUpperCase() : 'MEDIUM';
+
+        // Tingkat kesulitan tersimpan sebagai angka (1–4) di bank soal, bukan
+        // string; ambil label dari CONFIG dengan cadangan yang aman.
+        const diffEl = document.getElementById('q-difficulty-badge');
+        if (diffEl) {
+            diffEl.textContent = Utils.difficultyLabel(q.difficulty);
+        }
 
         // Render Prompt Soal dengan Mini-TeX
         const stemEl = document.getElementById('q-stem-text');
@@ -409,11 +415,46 @@ const ExamModule = {
         State.ipLockRegistry[completedRecord.ip] = completedRecord;
         State.save();
 
+        // Kirim ke Google Spreadsheet (webhook Apps Script VectorArena).
+        this.submitToSpreadsheet(completedRecord);
+
         this.clearActiveSession();
         this.checkAndEnforceIpLockUI();
         LeaderboardModule.renderAll();
         this.openReviewScreen(completedRecord);
         this._isSubmitting = false;
+    },
+
+    // Kirim satu hasil ujian ke webhook. Non-blocking: UI tidak menunggu dan
+    // nilai tetap tersimpan lokal apa pun hasil kirimannya.
+    submitToSpreadsheet(record) {
+        if (typeof SpreadsheetService === 'undefined') return;
+
+        if (!SpreadsheetService.isConfigured()) {
+            SpreadsheetService.updateConnectionIndicator(false);
+            return;
+        }
+
+        SpreadsheetService.pushRecord(record).then((result) => {
+            if (result && result.status === 'ok') {
+                SpreadsheetService.updateConnectionIndicator(true);
+                if (typeof Utils !== 'undefined') {
+                    Utils.showToast('Hasil ujian tersimpan di Google Spreadsheet.');
+                }
+            } else if (result && result.status === 'skipped') {
+                SpreadsheetService.updateConnectionIndicator(true);
+                if (typeof Utils !== 'undefined') {
+                    Utils.showToast('Server menolak kiriman: ' + result.message, false);
+                }
+            } else if (result && result.status === 'local') {
+                SpreadsheetService.updateConnectionIndicator(false);
+            } else {
+                SpreadsheetService.updateConnectionIndicator(false);
+                if (typeof Utils !== 'undefined') {
+                    Utils.showToast('Gagal mengirim ke Spreadsheet. Nilai tetap tersimpan di perangkat.', false);
+                }
+            }
+        });
     },
 
     checkAndEnforceIpLockUI() {
@@ -615,7 +656,8 @@ const ExamModule = {
 
         let pool = [...QUESTIONS_BANK];
         if (modeObj.id === 'sprint') {
-            pool = pool.filter(q => q.difficulty === 'easy' || q.difficulty === 'medium');
+            // Bank 240 soal menyimpan difficulty sebagai angka (1 mudah – 4 sulit).
+            pool = pool.filter(q => Number(q.difficulty) <= 2);
         } else if (modeObj.id === 'duel') {
             pool = pool.filter(q => q.zoneId === 5 || q.zoneId === 3);
         } else if (modeObj.id === 'race') {

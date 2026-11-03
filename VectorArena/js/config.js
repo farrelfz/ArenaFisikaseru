@@ -51,6 +51,16 @@ const CONFIG = {
     ACADEMIC_KKM: 75.0,
     CLASSES: ['X A', 'X B', 'X C', 'X D', 'X E', 'X F', 'X G', 'X H', 'X I', 'X J', 'X K'],
 
+    // Bank soal menyimpan tingkat kesulitan sebagai ANGKA (1–4), mengikuti
+    // skema penskoran server (server/scoring.js). Label di bawah ini hanya
+    // untuk tampilan.
+    DIFFICULTY_LABELS: {
+        1: 'MUDAH',
+        2: 'SEDANG',
+        3: 'SULIT',
+        4: 'TANTANGAN'
+    },
+
     // Kontrol Status Akses Ujian (Manual oleh Guru / Selalu Terbuka jika tidak ditutup manual)
     SCHEDULE: {
         ENABLED: false, // Tidak ada jadwal otomatis
