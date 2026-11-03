@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="va-grad-primary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="50%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+    <linearGradient id="va-grad-accent" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#ef4444" />
+    </linearGradient>
+    <filter id="va-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Circle Badge -->
+  <circle cx="100" cy="100" r="92" fill="#0f172a" stroke="url(#va-grad-primary)" stroke-width="4" />
+  
+  <!-- Coordinate Grid Rings -->
+  <circle cx="100" cy="100" r="70" fill="none" stroke="#334155" stroke-width="1.5" stroke-dasharray="4 4" />
+  <circle cx="100" cy="100" r="42" fill="none" stroke="#1e293b" stroke-width="1.5" />
+  
+  <!-- Axes -->
+  <line x1="28" y1="100" x2="172" y2="100" stroke="#475569" stroke-width="1.5" />
+  <line x1="100" y1="172" x2="100" y2="28" stroke="#475569" stroke-width="1.5" />
+
+  <!-- Vector Arena "V" / Resultant Vector Dynamic Arrow -->
+  <g filter="url(#va-glow)">
+    <!-- Vector A Component (Horizontal) -->
+    <line x1="100" y1="100" x2="150" y2="100" stroke="#06b6d4" stroke-width="3" stroke-linecap="round" />
+    <!-- Vector B Component (Vertical - GVA upward) -->
+    <line x1="150" y1="100" x2="150" y2="46" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 3" />
+    
+    <!-- Bold Resultant Vector Arrow R -->
+    <line x1="100" y1="100" x2="148" y2="48" stroke="url(#va-grad-primary)" stroke-width="5" stroke-linecap="round" />
+    <polygon points="154,42 142,46 148,58" fill="#10b981" />
+
+    <!-- Stylized "V" Overlay -->
+    <path d="M 58,62 L 100,146 L 142,62" fill="none" stroke="#f8fafc" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 58,62 L 100,146 L 142,62" fill="none" stroke="url(#va-grad-primary)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <!-- Central Pivot Point -->
+  <circle cx="100" cy="100" r="5" fill="#38bdf8" stroke="#f8fafc" stroke-width="2" />
+  <circle cx="100" cy="146" r="3" fill="#10b981" />
+</svg>
