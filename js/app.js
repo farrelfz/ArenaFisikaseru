@@ -32,6 +32,41 @@ const App = {
         if (window.lucide) lucide.createIcons();
     },
 
+    switchView(viewName) {
+        // Cegah siswa mengakses tab panel guru jika belum terautentikasi
+        if (viewName === 'sheet' && !State.isTeacherLoggedIn) {
+            TeacherAdminModule.openLoginModal();
+            return;
+        }
+
+        const views = ['exam', 'leaderboard', 'sheet'];
+        views.forEach(v => {
+            const sectionEl = document.getElementById(`view-${v}`);
+            const tabBtn = document.getElementById(`nav-tab-${v}`);
+            if (v === viewName) {
+                if (sectionEl) sectionEl.classList.remove('hidden');
+                if (tabBtn) {
+                    tabBtn.className = "px-3 sm:px-3.5 py-1.5 rounded-md text-xs font-bold transition-all bg-indigo-900 text-white shadow-sm flex items-center justify-center gap-1.5 flex-1 sm:flex-none";
+                }
+            } else {
+                if (sectionEl) sectionEl.classList.add('hidden');
+                if (tabBtn) {
+                    tabBtn.className = "px-3 sm:px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all text-slate-600 hover:text-slate-900 flex items-center justify-center gap-1.5 flex-1 sm:flex-none";
+                }
+            }
+        });
+
+        if (viewName === 'leaderboard') {
+            LeaderboardModule.renderAll();
+        }
+        if (viewName === 'sheet') {
+            TeacherAdminModule.updateAuthUI();
+            TeacherAdminModule.renderPanel();
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (window.lucide) lucide.createIcons();
+    },
+
     _bindEvents() {
         // Form Submit Mulai Ujian
         const startForm = document.getElementById('exam-start-form');
@@ -40,18 +75,18 @@ const App = {
         }
 
         // Navigasi Filter Kelas di Klasemen
-        const filterClass = document.getElementById('filter-lb-class');
+        const filterClass = document.getElementById('filter-lb-class') || document.getElementById('lb-class-filter');
         if (filterClass) {
             filterClass.addEventListener('change', () => LeaderboardModule.renderFullTable());
         }
 
-        const filterSearch = document.getElementById('filter-lb-search');
+        const filterSearch = document.getElementById('filter-lb-search') || document.getElementById('lb-search-input');
         if (filterSearch) {
             filterSearch.addEventListener('input', Utils.debounce(() => LeaderboardModule.renderFullTable(), 250));
         }
 
         // 3x Klik Logo untuk Membuka Portal Guru Tersembunyi
-        const logoEl = document.getElementById('app-main-logo');
+        const logoEl = document.getElementById('app-main-logo') || document.getElementById('app-header-brand');
         if (logoEl) {
             let logoClicks = 0;
             let logoTimer = null;

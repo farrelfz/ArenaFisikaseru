@@ -78,21 +78,34 @@ const TeacherAdminModule = {
             return;
         }
 
-        const dash = document.getElementById('screen-teacher-admin');
-        if (dash) {
-            document.getElementById('screen-lobby').classList.add('hidden');
-            document.getElementById('screen-active-exam').classList.add('hidden');
-            document.getElementById('screen-review').classList.add('hidden');
-            dash.classList.remove('hidden');
-            this.renderAdminStats();
-            this.renderAdminBankList();
+        if (typeof App !== 'undefined' && App.switchView) {
+            App.switchView('sheet');
+        } else {
+            const dash = document.getElementById('screen-teacher-admin') || document.getElementById('view-sheet');
+            if (dash) {
+                if (document.getElementById('screen-lobby')) document.getElementById('screen-lobby').classList.add('hidden');
+                if (document.getElementById('screen-active-exam')) document.getElementById('screen-active-exam').classList.add('hidden');
+                if (document.getElementById('screen-review')) document.getElementById('screen-review').classList.add('hidden');
+                dash.classList.remove('hidden');
+                this.renderAdminStats();
+                this.renderAdminBankList();
+            }
         }
     },
 
+    renderPanel() {
+        this.renderAdminStats();
+        this.renderAdminBankList();
+    },
+
     closeAdminDashboard() {
-        const dash = document.getElementById('screen-teacher-admin');
-        if (dash) dash.classList.add('hidden');
-        document.getElementById('screen-lobby').classList.remove('hidden');
+        if (typeof App !== 'undefined' && App.switchView) {
+            App.switchView('exam');
+        } else {
+            const dash = document.getElementById('screen-teacher-admin') || document.getElementById('view-sheet');
+            if (dash) dash.classList.add('hidden');
+            if (document.getElementById('screen-lobby')) document.getElementById('screen-lobby').classList.remove('hidden');
+        }
         LeaderboardModule.renderAll();
     },
 
