@@ -227,5 +227,58 @@ const TeacherAdminModule = {
 };
 
 if (typeof module !== 'undefined') {
-    module.exports = { TeacherAdminModule };
+    module.exports = { TeacherAdminModule 
+    exportCsv() {
+        const sorted = (typeof LeaderboardModule !== 'undefined' && LeaderboardModule.getSortedRecords)
+            ? LeaderboardModule.getSortedRecords('ALL')
+            : (typeof State !== 'undefined' && State.getRecords ? State.getRecords() : []);
+
+        if (!sorted || sorted.length === 0) {
+            if (typeof Utils !== 'undefined' && Utils.showToast) {
+                Utils.showToast('Belum ada data nilai peserta untuk diunduh.', false);
+            } else {
+                alert('Belum ada data nilai peserta untuk diunduh.');
+            }
+            return;
+        }
+
+        const headers = [
+            'Peringkat', 'Timestamp', 'IP_Address', 'Nama_Lengkap',
+            'Kelas', 'No_Absen', 'Benar_Dari_25', 'Nilai_Akademik',
+            'Durasi_Detik', 'Skor_Dasar', 'Bonus_Kecepatan', 'Total_Skor', 'Pelanggaran_Tab'
+        ];
+
+        const rows = sorted.map((r, idx) => [
+            idx + 1,
+            `"${r.timestamp || ''}"`,
+            `"${r.ip || ''}"`,
+            `"${(r.name || '').replace(/"/g, '""')}"`,
+            `"${r.className || ''}"`,
+            r.absen || 0,
+            r.correctCount !== undefined ? r.correctCount : 0,
+            r.academicGrade !== undefined ? r.academicGrade : 0,
+            r.durationSec !== undefined ? r.durationSec : 0,
+            r.baseScore !== undefined ? r.baseScore : 0,
+            r.speedBonus !== undefined ? r.speedBonus : 0,
+            r.totalScore !== undefined ? r.totalScore : 0,
+            r.tabSwitches !== undefined ? r.tabSwitches : 0
+        ]);
+
+        const csvContent = [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+        const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const dateStr = new Date().toISOString().slice(0, 10);
+        a.href = url;
+        a.download = `Rekap_Nilai_VectorArena_SMAN78_${dateStr}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        if (typeof Utils !== 'undefined' && Utils.showToast) {
+            Utils.showToast('Rekap nilai berhasil diunduh dalam format CSV.');
+        }
+    },
+};
 }
