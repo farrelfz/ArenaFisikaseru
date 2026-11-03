@@ -69,6 +69,12 @@ Karena kedua arena juga masih punya repositori sendiri, ada dua alur:
    lalu commit seperti biasa. Jika begini, push juga ke repo arena asal
    agar tidak terjadi drift.
 
+> **Perhatian saat `git subtree push`:** `index.html` tiap arena punya
+> `og:url`/`og:image` yang **berbeda** antara repo mandiri
+> (`farrelfz.github.io/VectorArena/`) dan monorepo
+> (`farrelfz.github.io/ArenaFisikaseru/VectorArena/`). Perintah itu akan
+> ikut menimpa blok meta tersebut, jadi sesuaikan lagi setelah push.
+
 ## Pemeriksaan cepat
 
 ```bash
