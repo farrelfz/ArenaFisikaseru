@@ -223,11 +223,8 @@ const TeacherAdminModule = {
         LeaderboardModule.renderAll();
         ExamModule.checkAndEnforceIpLockUI();
         Utils.showToast("Seluruh riwayat pengerjaan siswa berhasil dibersihkan.");
-    }
-};
+    },
 
-if (typeof module !== 'undefined') {
-    module.exports = { TeacherAdminModule 
     exportCsv() {
         const sorted = (typeof LeaderboardModule !== 'undefined' && LeaderboardModule.getSortedRecords)
             ? LeaderboardModule.getSortedRecords('ALL')
@@ -279,6 +276,9 @@ if (typeof module !== 'undefined') {
         if (typeof Utils !== 'undefined' && Utils.showToast) {
             Utils.showToast('Rekap nilai berhasil diunduh dalam format CSV.');
         }
-    },
+    }
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = { TeacherAdminModule };
 }
