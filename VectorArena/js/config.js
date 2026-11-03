@@ -41,7 +41,7 @@ const CONFIG = {
     },
 
     // URL Webhook Google Apps Script Default (Otomatis dipakai bila terkonfigurasi)
-    DEFAULT_WEBHOOK_URL: '',
+    DEFAULT_WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbyN0jXgD2n4IDFaNz9Dz2MsVJ6Mr78NR3XkrIRhkrDVvdo_mV4wqIDHB1ol3-WREXll/exec',
 
     // Standar Evaluasi Akademik
     EXAM_DURATION_SECONDS: 5400, // 90 Menit untuk Ranked / Ujian Penuh
@@ -100,7 +100,7 @@ const CONFIG = {
     },
 
     // Default Passcode Guru Administrator
-    DEFAULT_TEACHER_PIN: '246810'
+    DEFAULT_TEACHER_PIN: 'GURUX78'
 };
 
 if (typeof module !== 'undefined') {

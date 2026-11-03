@@ -250,6 +250,26 @@ test('syncExamConfig tidak melaporkan perubahan bila status sudah sama', async (
   assert.equal(await svc.syncExamConfig(), false);
 });
 
+// Perilaku produksi: config.js membawa URL bawaan, jadi siswa yang membuka
+// halaman tanpa menyimpan apa pun tetap ikut menarik status dari server.
+// Inilah alasan DEFAULT_WEBHOOK_URL tidak boleh dikosongkan diam-diam.
+test('tanpa penyimpanan guru, URL bawaan tetap dipakai untuk menarik status', async () => {
+  const env = installBrowserStubs({ defaultUrl: FAKE_URL });
+  const svc = loadService();
+
+  let requestedUrl = null;
+  env.setFetch((url) => {
+    requestedUrl = url;
+    return jsonResponse({ status: 'active', examIsOpen: false, allowReview: false });
+  });
+
+  await svc.syncExamConfig();
+
+  assert.equal(requestedUrl, FAKE_URL, 'permintaan harus menuju URL bawaan');
+  assert.equal(State.examConfig.isOpen, false, 'status server harus terterap di siswa');
+  assert.equal(State.examConfig.overrideMode, 'manual_closed');
+});
+
 test('testConnection melaporkan pesan server saat ping berhasil', async () => {
   const env = installBrowserStubs({ defaultUrl: FAKE_URL });
   const svc = loadService();

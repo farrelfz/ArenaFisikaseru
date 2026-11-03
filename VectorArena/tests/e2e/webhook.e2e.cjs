@@ -118,6 +118,23 @@ const server = http.createServer((req, res) => {
   if (!file.startsWith(ROOT) || !fs.existsSync(file)) {
     res.writeHead(404); res.end('not found'); return;
   }
+
+  // Aplikasi produksi mengirim DEFAULT_WEBHOOK_URL yang sudah terisi (webhook
+  // asli guru). Untuk pengujian, nilai itu dikosongkan supaya tidak ada
+  // permintaan ke webhook Apps Script sungguhan yang bisa berlomba dengan
+  // fase-fase uji di bawah. (Aset CDN di index.html — Tailwind, Google Fonts,
+  // lucide — tetap diambil dari internet; itu sudah berlaku sebelum perubahan
+  // ini dan tidak memengaruhi hasil pengujian.) Bahwa URL bawaan yang
+  // benar-benar dikirim tetap lolos allowlist dijaga oleh
+  // tests/js/webhook-url.test.mjs.
+  if (rel === '/VectorArena/js/config.js') {
+    const src = fs.readFileSync(file, 'utf8')
+      .replace(/DEFAULT_WEBHOOK_URL:\s*'[^']*'/, "DEFAULT_WEBHOOK_URL: ''");
+    res.writeHead(200, { 'Content-Type': MIME['.js'] });
+    res.end(src);
+    return;
+  }
+
   res.writeHead(200, { 'Content-Type': MIME[path.extname(file)] || 'application/octet-stream' });
   fs.createReadStream(file).pipe(res);
 });

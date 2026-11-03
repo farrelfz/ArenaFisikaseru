@@ -296,7 +296,17 @@ const TeacherAdminModule = {
 
         localStorage.setItem(CONFIG.STORAGE_KEYS.WEBHOOK, url);
         this.renderWebhookUI();
-        Utils.showToast(url ? 'URL webhook disimpan di perangkat ini.' : 'URL webhook dikosongkan.');
+
+        // Mengosongkan kolom tidak mematikan integrasi bila config.js membawa
+        // URL bawaan: getWebhookUrl() akan memakai bawaan itu. Pesannya harus
+        // jujur soal apa yang sebenarnya terjadi.
+        if (url) {
+            Utils.showToast('URL webhook disimpan di perangkat ini.');
+        } else if (CONFIG.DEFAULT_WEBHOOK_URL) {
+            Utils.showToast('Kolom dikosongkan: aplikasi memakai URL bawaan dari config.js.');
+        } else {
+            Utils.showToast('URL webhook dikosongkan. Aplikasi kembali ke mode mandiri (data lokal).');
+        }
     },
 
     // Hanya URL Apps Script resmi yang boleh disimpan, supaya nilai siswa tidak
@@ -314,7 +324,9 @@ const TeacherAdminModule = {
         if (input) input.value = '';
         localStorage.removeItem(CONFIG.STORAGE_KEYS.WEBHOOK);
         this.renderWebhookUI();
-        Utils.showToast('URL webhook dihapus. Aplikasi kembali ke mode mandiri (data lokal).');
+        Utils.showToast(CONFIG.DEFAULT_WEBHOOK_URL
+            ? 'URL kembali ke bawaan dari config.js.'
+            : 'URL webhook dihapus. Aplikasi kembali ke mode mandiri (data lokal).');
     },
 
     async testWebhook() {

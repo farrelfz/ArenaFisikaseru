@@ -97,7 +97,7 @@ node scripts/check-links.mjs        # semua src/href lokal harus resolve
 node --check VectorArena/js/app.js  # cek sintaks satu berkas
 
 # dari folder masing-masing arena
-cd VectorArena && npm test                    # 47 tes (server + modul klien)
+cd VectorArena && npm test                    # 51 tes (server + modul klien)
 cd ../HydroArena && npm test                  # 50 skenario simulasi
 
 # backend & antarmuka (dari root)

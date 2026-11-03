@@ -127,7 +127,7 @@ export async function createApp({ dataDir = path.join(ROOT, 'data'), publicDir =
     store,
     readJsonBody,
     clock,
-    teacherPin: teacherPin || process.env.VECTOR_ARENA_TEACHER_PIN || '246810',
+    teacherPin: teacherPin || process.env.VECTOR_ARENA_TEACHER_PIN || 'GURUX78',
   });
 
   const routes = new Map();

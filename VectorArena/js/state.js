@@ -103,7 +103,7 @@ const State = {
                 if (Array.isArray(parsed)) {
                     this.leaderboardRecords = parsed
                         .map(r => this.sanitizeRecord(r))
-                        .filter(r => r && CONFIG.CLASSES.includes(r.className) && !/^Q\d+$/i.test(r.name) && !/tester|penguji/i.test(r.name));
+                        .filter(r => r && CONFIG.CLASSES.includes(r.className) && !/^Q\d+$/i.test(r.name) && !/tester|penguji|farrel/i.test(r.name));
                 }
             } else {
                 this.leaderboardRecords = [];
@@ -115,7 +115,7 @@ const State = {
                 const cleanIpMap = {};
                 Object.keys(parsedIp || {}).forEach(k => {
                     const rec = this.sanitizeRecord(parsedIp[k]);
-                    if (rec && CONFIG.CLASSES.includes(rec.className) && !/^Q\d+$/i.test(rec.name) && !/tester|penguji/i.test(rec.name)) {
+                    if (rec && CONFIG.CLASSES.includes(rec.className) && !/^Q\d+$/i.test(rec.name) && !/tester|penguji|farrel/i.test(rec.name)) {
                         cleanIpMap[k] = rec;
                     }
                 });

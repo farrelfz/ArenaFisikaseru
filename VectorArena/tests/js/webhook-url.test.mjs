@@ -15,16 +15,27 @@ import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+const FAKE_URL = 'https://script.google.com/macros/s/AKfycbxxxxxxxxxxxxxxxxxxxxx/exec';
 
-function loadModule() {
+function loadModule(overrides = {}) {
+  const toasts = [];
+  const input = { value: '', endsWith: () => false };
   const sandbox = {
     module: { exports: {} },
     console,
     localStorage: { getItem: () => null, setItem: () => {}, removeItem: () => {} },
-    document: { getElementById: () => null },
-    CONFIG: { STORAGE_KEYS: { TEACHER_PIN: 'pin', WEBHOOK: 'wh' }, DEFAULT_TEACHER_PIN: '000000' },
+    document: {
+      getElementById: (id) => (id === 'input-webhook-url' ? input : null),
+      activeElement: null
+    },
+    CONFIG: {
+      STORAGE_KEYS: { TEACHER_PIN: 'pin', WEBHOOK: 'wh' },
+      DEFAULT_TEACHER_PIN: '000000',
+      DEFAULT_WEBHOOK_URL: '',
+      ...overrides.CONFIG
+    },
     State: { examConfig: {}, save() {} },
-    Utils: { showToast() {}, escapeHtml: (t) => String(t) }
+    Utils: { showToast: (t, ok) => toasts.push({ text: t, ok }), escapeHtml: (t) => String(t) }
   };
   sandbox.globalThis = sandbox;
   vm.createContext(sandbox);
@@ -33,7 +44,8 @@ function loadModule() {
     sandbox,
     { filename: 'teacherAdmin.js' }
   );
-  return sandbox.module.exports.TeacherAdminModule;
+  const mod = sandbox.module.exports.TeacherAdminModule;
+  return Object.assign(mod, { _toasts: toasts, _input: input });
 }
 
 test('URL Apps Script resmi diterima', () => {
@@ -78,4 +90,49 @@ test('URL pihak ketiga dan skema berbahaya ditolak', () => {
 test('URL kosong tidak dianggap valid (dibiarkan sebagai mode mandiri)', () => {
   const mod = loadModule();
   assert.equal(mod._isAllowedWebhookUrl(''), false);
+});
+
+test('URL webhook bawaan di config.js harus lolos allowlist', () => {
+  // Menjaga agar DEFAULT_WEBHOOK_URL yang benar-benar dipakai aplikasi tidak
+  // pernah tertulis salah dan diam-diam tertolak oleh validasi di atas.
+  const src = fs.readFileSync(path.join(ROOT, 'js', 'config.js'), 'utf8');
+  const match = src.match(/DEFAULT_WEBHOOK_URL:\s*'([^']*)'/);
+  assert.ok(match, 'DEFAULT_WEBHOOK_URL tidak ditemukan di config.js');
+
+  const url = match[1];
+  if (url === '') return; // mode mandiri: bukan galat
+
+  const mod = loadModule();
+  assert.equal(mod._isAllowedWebhookUrl(url), true,
+    'DEFAULT_WEBHOOK_URL harus berupa URL Apps Script /exec yang sah: ' + url);
+});
+
+// Mengosongkan kolom tidak mematikan integrasi bila config.js membawa URL
+// bawaan. Pesan ke guru harus menyebut apa yang sebenarnya berlaku.
+test('mengosongkan kolom memberi pesan jujur saat ada URL bawaan', () => {
+  const mod = loadModule({ CONFIG: { DEFAULT_WEBHOOK_URL: FAKE_URL } });
+  mod._input.value = '';
+  mod.saveWebhookUrl();
+
+  const last = mod._toasts.pop();
+  assert.match(last.text, /bawaan/i);
+  assert.doesNotMatch(last.text, /mode mandiri/i);
+});
+
+test('mengosongkan kolom menyebut mode mandiri saat tidak ada URL bawaan', () => {
+  const mod = loadModule({ CONFIG: { DEFAULT_WEBHOOK_URL: '' } });
+  mod._input.value = '';
+  mod.saveWebhookUrl();
+
+  const last = mod._toasts.pop();
+  assert.match(last.text, /mode mandiri/i);
+});
+
+test('menghapus URL memberi tahu bahwa bawaan dipakai kembali', () => {
+  const mod = loadModule({ CONFIG: { DEFAULT_WEBHOOK_URL: FAKE_URL } });
+  mod.clearWebhookUrl();
+
+  const last = mod._toasts.pop();
+  assert.match(last.text, /bawaan/i);
+  assert.doesNotMatch(last.text, /mode mandiri/i);
 });
