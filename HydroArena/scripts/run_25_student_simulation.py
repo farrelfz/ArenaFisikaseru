@@ -22,8 +22,8 @@ import time
 import urllib.request
 from pathlib import Path
 
-# Setup Path
-WORKSPACE = Path("/home/si/AI-Workspace")
+# Setup Path — bisa dioverride lewat env AI_WORKSPACE
+WORKSPACE = Path(os.environ.get("AI_WORKSPACE", Path.home() / "AI-Workspace"))
 sys.path.append(str(WORKSPACE))
 from scripts.ai_router import API_KEY, BASE_URL
 
@@ -238,7 +238,7 @@ def main():
         print(f"  ➔ Status: {res_str} | Alasan: {', '.join(reason)}")
 
     # Simpan hasil simulasi ke berkas JSON
-    output_file = WORKSPACE / "Codingan/Ibadah/PKM/simulated_25_students.json"
+    output_file = Path(__file__).resolve().parent.parent / "simulated_25_students.json"
     output_file.write_text(json.dumps(processed_students, indent=2), encoding="utf-8")
     print(f"\n[OK] Data 25 siswa disimpan ke: {output_file.name}")
 
