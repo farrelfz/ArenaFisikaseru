@@ -18,12 +18,13 @@ const Utils = {
         });
     },
 
-    // Format Detik ke MM:SS
+    // Format Detik ke HH:MM:SS
     formatTime(seconds) {
         const sec = Math.max(0, Math.floor(seconds));
-        const m = Math.floor(sec / 60);
+        const h = Math.floor(sec / 3600);
+        const m = Math.floor((sec % 3600) / 60);
         const s = sec % 60;
-        return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
     },
 
     // Pengacakan Array Menggunakan Algoritma Fisher-Yates
