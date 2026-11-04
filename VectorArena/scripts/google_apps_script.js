@@ -1,11 +1,4 @@
 // ==========================================================================
-// ⚠️  FILE INI SUDAH TIDAK DIPAKAI UNTUK DEPLOY.
-// Versi yang benar & sudah diperbaiki ada di: apps-script/Code.gs
-// (file ini punya bug `startRow is not defined` sehingga penyimpanan nilai
-//  selalu gagal pada kiriman pertama; lihat apps-script/README.md).
-// Disimpan hanya sebagai riwayat.
-// ==========================================================================
-// ==========================================================================
 // KODE GOOGLE APPS SCRIPT VECTORARENA SMAN 78 JAKARTA (EDISI 25 BUTIR SOAL)
 // PORTAL EVALUASI & KOMPETISI SAINS: VEKTOR & KINEMATIKA GERAK VERTIKAL
 // KELAS X A s.d. X K (11 ROMBEL) — SMAN 78 JAKARTA
@@ -140,6 +133,31 @@ function doPost(e) {
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
+    // Aksi Reset/Hapus Seluruh Data Siswa dari Spreadsheet (Keep Header + Bank Soal)
+    if (d.action === "clearAllData") {
+      const allSheets = ss.getSheets();
+      let clearedSheets = 0;
+      let clearedRows = 0;
+      allSheets.forEach(function(sh) {
+        const sName = sh.getName();
+        // LINDUNGI sheet Bank Soal & Kunci Jawaban — JANGAN dihapus
+        if (sName === "Pertanyaan & Kunci Jawaban") return;
+        const lastRow = sh.getLastRow();
+        if (lastRow > 1) {
+          // Hapus semua baris data siswa (baris 2 s/d terakhir), pertahankan baris header (baris 1)
+          sh.deleteRows(2, lastRow - 1);
+          clearedSheets++;
+          clearedRows += (lastRow - 1);
+        }
+      });
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "ok",
+        message: "Seluruh data siswa di spreadsheet berhasil dihapus (" + clearedRows + " baris dari " + clearedSheets + " sheet). Bank Soal & Kunci Jawaban tetap utuh.",
+        clearedSheets: clearedSheets,
+        clearedRows: clearedRows
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
     // Validasi data identitas siswa
     if (!d.name || !d.className || isNaN(parseInt(d.absen, 10))) {
       return ContentService.createTextOutput(JSON.stringify({
@@ -179,11 +197,11 @@ function doPost(e) {
     const statusKKM = grade >= 75.0 ? "TUNTAS" : "REMEDIAL";
     const salahCount = 25 - (parseInt(d.correctCount, 10) || 0);
     const sw = parseInt(d.tabSwitches, 10) || 0;
-    let tabSwitchStr = "Level 1: Fokus Penuh (0x Tab)";
-    if (sw === 1) tabSwitchStr = "Level 2: Fluktuasi (1x Tab)";
-    else if (sw === 2) tabSwitchStr = "Level 3: Waspada (2x Tab)";
-    else if (sw >= 3 && sw <= 4) tabSwitchStr = "Level 4: Peringatan (" + sw + "x Tab)";
-    else if (sw >= 5) tabSwitchStr = "Level 5: Pelanggaran Berat (" + sw + "x Tab)";
+    let tabSwitchStr = "Level 1: JUJUR (0x Tab)";
+    if (sw === 1) tabSwitchStr = "Level 2: KECURANGAN RINGAN (1x Tab)";
+    else if (sw === 2) tabSwitchStr = "Level 3: TERINDIKASI KECURANGAN (2x Tab)";
+    else if (sw >= 3 && sw <= 4) tabSwitchStr = "Level 4: CURANG BERAT (" + sw + "x Tab)";
+    else if (sw >= 5) tabSwitchStr = "Level 5: CURANG EKSTREM (" + sw + "x Tab)";
 
     const inputNameClean = String(d.name || "").trim().toLowerCase();
     const inputIpClean = String(d.ip || "").trim().toLowerCase();
@@ -592,6 +610,7 @@ function ensureQuestionBankSheet(ss) {
   ]
 ];
 
+    const startRow = 2;
     const numRows = masterData.length;
     qSheet.getRange(startRow, 1, numRows, 7).setValues(masterData);
 
@@ -653,6 +672,29 @@ function doGet(e) {
       if (e.parameter.allowReview !== undefined) {
         props.setProperty("REVIEW_OVERRIDE", e.parameter.allowReview === "true" ? "manual_allowed" : "manual_locked");
       }
+    }
+
+    // Aksi Reset/Hapus Seluruh Data Siswa via GET parameter (CORS-friendly)
+    if (e && e.parameter && e.parameter.action === "clearAllData") {
+      const allSheets = ss.getSheets();
+      let clearedSheets = 0;
+      let clearedRows = 0;
+      allSheets.forEach(function(sh) {
+        const sName = sh.getName();
+        if (sName === "Pertanyaan & Kunci Jawaban") return;
+        const lastRow = sh.getLastRow();
+        if (lastRow > 1) {
+          sh.deleteRows(2, lastRow - 1);
+          clearedSheets++;
+          clearedRows += (lastRow - 1);
+        }
+      });
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "ok",
+        message: "Seluruh data siswa di spreadsheet berhasil dihapus.",
+        clearedSheets: clearedSheets,
+        clearedRows: clearedRows
+      })).setMimeType(ContentService.MimeType.JSON);
     }
 
     const overrideMode = props.getProperty("EXAM_OVERRIDE") || "manual_open";

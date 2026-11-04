@@ -148,35 +148,18 @@ const TeacherAdminModule = {
         const container = document.getElementById('admin-bank-list-tbody');
         if (!container) return;
 
-        // Bank ujian resmi (25 butir terkurasi); jatuh ke bank besar bila belum ada.
-        const bank = (typeof CURATED_25_QUESTIONS !== 'undefined' && CURATED_25_QUESTIONS.length > 0)
-            ? CURATED_25_QUESTIONS
-            : QUESTIONS_BANK;
-
-        const DIFFICULTY_STYLE = {
-            1: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
-            2: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
-            3: 'bg-rose-500/20 text-rose-300 border-rose-500/30',
-            4: 'bg-fuchsia-500/20 text-fuchsia-300 border-fuchsia-500/30'
-        };
-
-        container.innerHTML = bank.slice(0, 50).map((q) => {
-            const stem = q.question || q.questionText || '';
-            const answer = q.correctAnswer !== undefined
-                ? q.correctAnswer
-                : ((q.options && q.correctIndex !== undefined) ? q.options[q.correctIndex] : '-');
-            const level = Number(q.difficulty);
-            const style = DIFFICULTY_STYLE[level] || 'bg-slate-500/20 text-slate-300 border-slate-500/30';
-
+        container.innerHTML = QUESTIONS_BANK.slice(0, 50).map((q, idx) => {
             return `
                 <tr class="border-b border-slate-800 hover:bg-slate-800/40 text-xs">
-                    <td class="p-3 font-mono font-bold text-slate-300">#${Utils.escapeHtml(q.id)}</td>
-                    <td class="p-3 text-slate-300">Zona ${Utils.escapeHtml(String(q.zoneId))} • ${Utils.escapeHtml(q.subtopic || q.bloom || q.zoneName || '-')}</td>
-                    <td class="p-3 text-white font-medium truncate max-w-xs">${Utils.escapeHtml(stem.slice(0, 60))}${stem.length > 60 ? '…' : ''}</td>
+                    <td class="p-3 font-mono font-bold text-slate-300">#${q.id}</td>
+                    <td class="p-3 text-slate-300">Zona ${q.zoneId} • ${q.topic || '-'}</td>
+                    <td class="p-3 text-white font-medium truncate max-w-xs">${q.question.slice(0, 60)}...</td>
                     <td class="p-3 font-mono text-center">
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold border ${style}">${Utils.escapeHtml(Utils.difficultyLabel(q.difficulty))}</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${q.difficulty === 'hard' ? 'bg-rose-500/20 text-rose-300' : q.difficulty === 'medium' ? 'bg-amber-500/20 text-amber-300' : 'bg-emerald-500/20 text-emerald-300'}">
+                            ${q.difficulty}
+                        </span>
                     </td>
-                    <td class="p-3 text-emerald-400 font-mono font-bold">${Utils.escapeHtml(answer)}</td>
+                    <td class="p-3 text-emerald-400 font-mono font-bold">${q.options[q.correctIndex]}</td>
                     <td class="p-3 text-center">
                         <span class="px-2 py-0.5 rounded text-[10px] bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
                             PUBLISHED
@@ -188,49 +171,20 @@ const TeacherAdminModule = {
     },
 
     toggleExamOpen() {
-        return this._toggleConfig('isOpen');
+        State.examConfig.isOpen = !State.examConfig.isOpen;
+        State.save();
+        this.updateExamConfigUI();
+        Utils.showToast(`Pendaftaran Ujian telah ${State.examConfig.isOpen ? 'DIBUKA' : 'DITUTUP'}.`);
     },
 
     toggleAllowReview() {
-        return this._toggleConfig('allowReview');
-    },
-
-    // Ubah satu saklar status: terapkan segera ke layar (responsif), lalu
-    // kirim ke server. Bila webhook sudah diatur tetapi server menolak/gagal,
-    // saklar dikembalikan ke nilai semula supaya guru tidak melihat status
-    // "TERBUKA" pada perangkatnya padahal siswa tidak menerimanya.
-    // Dalam mode mandiri (webhook kosong) pembalikan tidak dilakukan karena
-    // memang tidak ada perangkat lain yang perlu disinkronkan.
-    async _toggleConfig(key) {
-        const previous = State.examConfig[key];
-        const next = !previous;
-        State.examConfig[key] = next;
+        State.examConfig.allowReview = !State.examConfig.allowReview;
         State.save();
         this.updateExamConfigUI();
-
-        const label = key === 'isOpen' ? 'Pendaftaran ujian' : 'Kunci jawaban & pembahasan';
-        Utils.showToast(`${label} telah ${next ? 'DIBUKA' : 'DITUTUP'}.`);
-
-        if (typeof App !== 'undefined' && App.applyExamConfigUI) App.applyExamConfigUI();
-        if (typeof SpreadsheetService === 'undefined') return;
-
-        if (!SpreadsheetService.isConfigured()) return;
-
-        const ok = await SpreadsheetService.setExamConfig({ [key]: next });
-
-        if (!ok) {
-            // Server tidak menerima perubahan: batalkan supaya layar guru
-            // tidak menampilkan status yang tidak dipegang siswa.
-            State.examConfig[key] = previous;
-            State.save();
-            this.updateExamConfigUI();
-            if (typeof App !== 'undefined' && App.applyExamConfigUI) App.applyExamConfigUI();
-            Utils.showToast(`Gagal menyimpan status ke server. ${label} dikembalikan ke ${previous ? 'DIBUKA' : 'DITUTUP'}.`, false);
-        }
+        Utils.showToast(`Kunci Jawaban & Pembahasan telah ${State.examConfig.allowReview ? 'DIIZINKAN' : 'DIKUNCI'}.`);
     },
 
     updateExamConfigUI() {
-        this.renderWebhookUI();
         const statusBadge = document.getElementById('admin-exam-status-badge');
         const reviewBadge = document.getElementById('admin-review-status-badge');
         const btnToggleExam = document.getElementById('btn-admin-toggle-exam');
@@ -258,101 +212,44 @@ const TeacherAdminModule = {
         }
     },
 
-    // ------------------------------------------------------------------
-    // WEBHOOK GOOGLE SPREADSHEET (backend: VectorArena/apps-script/Code.gs)
-    // ------------------------------------------------------------------
-
-    renderWebhookUI() {
-        if (typeof SpreadsheetService === 'undefined') return;
-
-        const url = SpreadsheetService.getWebhookUrl();
-        const input = document.getElementById('input-webhook-url');
-        const badge = document.getElementById('admin-webhook-badge');
-        const hint = document.getElementById('admin-webhook-hint');
-
-        // Jangan timpa apa yang sedang diketik guru.
-        if (input && document.activeElement !== input) input.value = url;
-
-        if (badge) {
-            badge.textContent = url ? (url.endsWith('/exec') ? 'Terpasang' : 'Periksa URL') : 'Belum diatur';
-            badge.className = url ? 'edu-badge edu-badge-green' : 'edu-badge edu-badge-blue';
-        }
-        if (hint) {
-            hint.textContent = url
-                ? 'Status ujian dibuka/ditutup juga dikirim ke server, sehingga berlaku untuk semua perangkat siswa.'
-                : 'Nilai siswa tersimpan lokal walau webhook kosong. Isi webhook supaya hasil masuk ke Google Spreadsheet.';
-        }
-    },
-
-    saveWebhookUrl() {
-        const input = document.getElementById('input-webhook-url');
-        if (!input) return;
-        const url = String(input.value || '').trim();
-
-        if (url && !this._isAllowedWebhookUrl(url)) {
-            Utils.showToast('URL tidak valid. Tempel URL Web App Apps Script (https://script.google.com/macros/s/.../exec).', false);
+    async clearAllRecords() {
+        if (!confirm("PERINGATAN: Apakah Anda yakin ingin mereset seluruh data riwayat ujian dan klasemen siswa?\n\nTindakan ini juga akan menghapus data di Google Spreadsheet (tampilan publik kembali ke 0). Tindakan ini tidak dapat dibatalkan.")) {
             return;
         }
 
-        localStorage.setItem(CONFIG.STORAGE_KEYS.WEBHOOK, url);
-        this.renderWebhookUI();
-
-        // Mengosongkan kolom tidak mematikan integrasi bila config.js membawa
-        // URL bawaan: getWebhookUrl() akan memakai bawaan itu. Pesannya harus
-        // jujur soal apa yang sebenarnya terjadi.
-        if (url) {
-            Utils.showToast('URL webhook disimpan di perangkat ini.');
-        } else if (CONFIG.DEFAULT_WEBHOOK_URL) {
-            Utils.showToast('Kolom dikosongkan: aplikasi memakai URL bawaan dari config.js.');
-        } else {
-            Utils.showToast('URL webhook dikosongkan. Aplikasi kembali ke mode mandiri (data lokal).');
+        // 1. KIRIM PERINTAH HAPUS DATA KE SPREADSHEET (anti-cheat: sync public display ke 0)
+        const webhookUrl = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK) || CONFIG.DEFAULT_WEBHOOK_URL;
+        let sheetCleared = false;
+        if (webhookUrl && webhookUrl.startsWith("http")) {
+            try {
+                await fetch(webhookUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: "clearAllData" })
+                });
+                sheetCleared = true;
+            } catch (e) {
+                console.error("Gagal mengirim perintah clearAllData ke spreadsheet:", e);
+            }
         }
-    },
 
-    // Hanya URL Apps Script resmi yang boleh disimpan, supaya nilai siswa tidak
-    // bisa diarahkan ke server pihak ketiga. Pengecualian diberikan untuk
-    // localhost/loopback karena itu satu-satunya alamat yang dipakai saat
-    // pengujian lokal, dan tidak mungkin membocorkan data ke luar perangkat.
-    _isAllowedWebhookUrl(url) {
-        if (/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec(\?|$)/.test(url)) return true;
-        if (/^https?:\/\/(127\.0\.0\.1|localhost|\[::1\])(:\d+)?\//.test(url)) return true;
-        return false;
-    },
-
-    clearWebhookUrl() {
-        const input = document.getElementById('input-webhook-url');
-        if (input) input.value = '';
-        localStorage.removeItem(CONFIG.STORAGE_KEYS.WEBHOOK);
-        this.renderWebhookUI();
-        Utils.showToast(CONFIG.DEFAULT_WEBHOOK_URL
-            ? 'URL kembali ke bawaan dari config.js.'
-            : 'URL webhook dihapus. Aplikasi kembali ke mode mandiri (data lokal).');
-    },
-
-    async testWebhook() {
-        if (typeof SpreadsheetService === 'undefined') return;
-        const result = await SpreadsheetService.testConnection();
-        Utils.showToast(result.message, result.ok);
-        SpreadsheetService.updateConnectionIndicator(result.ok);
-    },
-
-    async syncFromServer() {
-        if (typeof SpreadsheetService === 'undefined') return;
-        const changed = await SpreadsheetService.syncExamConfig(true);
-        if (changed) this.updateExamConfigUI();
-    },
-
-    clearAllRecords() {
-        if (!confirm("PERINGATAN: Apakah Anda yakin ingin mereset seluruh data riwayat ujian dan klasemen siswa? Tindakan ini tidak dapat dibatalkan.")) {
-            return;
-        }
+        // 2. HAPUS DATA LOKAL (localStorage)
         State.leaderboardRecords = [];
         State.ipLockRegistry = {};
         State.save();
         this.renderAdminStats();
         LeaderboardModule.renderAll();
         ExamModule.checkAndEnforceIpLockUI();
-        Utils.showToast("Seluruh riwayat pengerjaan siswa berhasil dibersihkan.");
+
+        // 3. FEEDBACK: konfirmasi lokal + spreadsheet dibersihkan
+        if (sheetCleared) {
+            Utils.showToast("✅ Data LOKAL & SPREADSHEET berhasil dibersihkan. Tampilan publik kembali ke 0.");
+        } else if (webhookUrl && webhookUrl.startsWith("http")) {
+            Utils.showToast("⚠️ Data lokal dibersihkan. Perintah hapus spreadsheet terkirim (mode no-cors, tidak dapat diverifikasi).");
+        } else {
+            Utils.showToast("Data lokal dibersihkan. Webhook spreadsheet belum dikonfigurasi.");
+        }
     },
 
     exportCsv() {

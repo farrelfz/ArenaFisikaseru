@@ -9,12 +9,12 @@
     "baseScore": 75000,
     "speedBonus": 18750,
     "totalScore": 93750,
-    "tier": "\u26a1 Relativistik",
+    "tier": "\u26a1 Einstein",
     "statusKKM": "TUNTAS",
     "tabSwitches": 0,
     "condition": "Top Rank Speedrunner (Sempurna 25/25, Relativistik)",
     "ip": "192.168.78.11",
-    "timestamp": "2026-11-03 14:47:36",
+    "timestamp": "2026-11-03 22:59:14",
     "answersJson": "{\"Q01\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q02\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q03\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q04\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q05\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q06\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q07\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q08\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q09\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q10\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q11\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q12\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q13\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q14\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q15\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q16\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q17\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q18\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q19\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q20\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q21\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q22\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q23\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q24\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q25\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}}"
   },
   {
@@ -27,12 +27,12 @@
     "baseScore": 72000,
     "speedBonus": 16489,
     "totalScore": 88489,
-    "tier": "\u26a1 Relativistik",
+    "tier": "\u26a1 Einstein",
     "statusKKM": "TUNTAS",
     "tabSwitches": 0,
     "condition": "Podium Emas/Perak (24/25, Supersonik)",
     "ip": "192.168.78.15",
-    "timestamp": "2026-11-03 14:47:36",
+    "timestamp": "2026-11-03 22:59:14",
     "answersJson": "{\"Q01\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q02\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q03\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q04\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q05\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q06\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q07\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q08\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q09\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q10\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q11\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q12\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q13\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q14\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q15\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q16\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q17\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q18\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q19\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q20\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q21\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q22\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q23\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q24\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q25\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}}"
   },
   {
@@ -45,12 +45,12 @@
     "baseScore": 69000,
     "speedBonus": 13630,
     "totalScore": 82630,
-    "tier": "\ud83d\ude80 Supersonik",
+    "tier": "\ud83c\udf0a Newton",
     "statusKKM": "TUNTAS",
     "tabSwitches": 1,
     "condition": "Toleransi Integritas Ringan (1x Tab Switch)",
     "ip": "192.168.78.22",
-    "timestamp": "2026-11-03 14:47:36",
+    "timestamp": "2026-11-03 22:59:14",
     "answersJson": "{\"Q01\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q02\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q03\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q04\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q05\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q06\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q07\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q08\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q09\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q10\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q11\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q12\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q13\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q14\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q15\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q16\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q17\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q18\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q19\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q20\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q21\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q22\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q23\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q24\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q25\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}}"
   },
   {
@@ -63,12 +63,12 @@
     "baseScore": 63000,
     "speedBonus": 10306,
     "totalScore": 73306,
-    "tier": "\ud83d\udef0\ufe0f Orbital",
+    "tier": "\ud83c\udf00 Maxwell",
     "statusKKM": "TUNTAS",
     "tabSwitches": 0,
     "condition": "Konsisten Tuntas (21/25, Supersonik)",
     "ip": "192.168.78.28",
-    "timestamp": "2026-11-03 14:47:36",
+    "timestamp": "2026-11-03 22:59:14",
     "answersJson": "{\"Q01\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q02\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q03\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q04\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q05\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q06\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q07\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q08\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q09\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q10\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q11\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q12\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q13\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q14\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q15\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q16\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q17\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q18\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q19\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q20\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q21\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q22\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q23\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q24\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q25\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}}"
   },
   {
@@ -81,12 +81,12 @@
     "baseScore": 57000,
     "speedBonus": 7741,
     "totalScore": 64741,
-    "tier": "\ud83d\udef0\ufe0f Orbital",
+    "tier": "\ud83c\udf00 Maxwell",
     "statusKKM": "TUNTAS",
     "tabSwitches": 2,
     "condition": "Ambang Batas KKM Tepat (19/25 = 76.0, 2x Tab)",
     "ip": "192.168.78.17",
-    "timestamp": "2026-11-03 14:47:36",
+    "timestamp": "2026-11-03 22:59:14",
     "answersJson": "{\"Q01\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q02\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q03\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q04\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q05\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q06\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q07\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q08\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q09\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q10\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q11\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q12\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q13\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q14\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q15\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q16\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q17\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q18\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q19\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q20\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q21\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q22\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q23\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q24\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q25\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}}"
   },
   {
@@ -99,12 +99,12 @@
     "baseScore": 54000,
     "speedBonus": 0,
     "totalScore": 54000,
-    "tier": "\u23f3 Subsonik",
+    "tier": "\u23f3 Galileo",
     "statusKKM": "REMEDIAL",
     "tabSwitches": 0,
     "condition": "Gagal KKM Tipis (18/25 = 72.0, Subsonik)",
     "ip": "192.168.78.24",
-    "timestamp": "2026-11-03 14:47:36",
+    "timestamp": "2026-11-03 22:59:14",
     "answersJson": "{\"Q01\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q02\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q03\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q04\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q05\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q06\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q07\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q08\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q09\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q10\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q11\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q12\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q13\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q14\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q15\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q16\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q17\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q18\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q19\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q20\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q21\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q22\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q23\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q24\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q25\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}}"
   },
   {
@@ -117,12 +117,12 @@
     "baseScore": 48000,
     "speedBonus": 0,
     "totalScore": 48000,
-    "tier": "\u23f3 Subsonik",
+    "tier": "\u23f3 Galileo",
     "statusKKM": "REMEDIAL",
     "tabSwitches": 4,
     "condition": "Pelanggaran Tab Kritis (4x Tab Switch, Subsonik)",
     "ip": "192.168.78.19",
-    "timestamp": "2026-11-03 14:47:36",
+    "timestamp": "2026-11-03 22:59:14",
     "answersJson": "{\"Q01\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q02\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q03\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q04\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q05\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q06\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q07\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q08\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q09\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q10\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q11\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q12\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q13\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q14\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q15\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q16\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q17\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q18\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q19\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q20\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q21\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q22\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q23\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q24\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q25\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}}"
   },
   {
@@ -135,12 +135,12 @@
     "baseScore": 39000,
     "speedBonus": 0,
     "totalScore": 39000,
-    "tier": "\ud83c\udfaf Statis",
+    "tier": "\ud83d\udca7 Archimedes",
     "statusKKM": "REMEDIAL",
     "tabSwitches": 7,
     "condition": "Pelanggaran Berat (>5x Tab, Remedial)",
     "ip": "192.168.78.32",
-    "timestamp": "2026-11-03 14:47:36",
+    "timestamp": "2026-11-03 22:59:14",
     "answersJson": "{\"Q01\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q02\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q03\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q04\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q05\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q06\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q07\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q08\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q09\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q10\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q11\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q12\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q13\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q14\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q15\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q16\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q17\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q18\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q19\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q20\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q21\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q22\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q23\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q24\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q25\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}}"
   },
   {
@@ -153,12 +153,12 @@
     "baseScore": 33000,
     "speedBonus": 0,
     "totalScore": 33000,
-    "tier": "\ud83c\udfaf Statis",
+    "tier": "\ud83d\udca7 Archimedes",
     "statusKKM": "REMEDIAL",
     "tabSwitches": 0,
     "condition": "Timeout Habis Waktu (Durasi Maksimal 90 Menit)",
     "ip": "192.168.78.13",
-    "timestamp": "2026-11-03 14:47:36",
+    "timestamp": "2026-11-03 22:59:14",
     "answersJson": "{\"Q01\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q02\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q03\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q04\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q05\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q06\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q07\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q08\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q09\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q10\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q11\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q12\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q13\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q14\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q15\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q16\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q17\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q18\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q19\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q20\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q21\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q22\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q23\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q24\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q25\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}}"
   },
   {
@@ -171,12 +171,12 @@
     "baseScore": 24000,
     "speedBonus": 0,
     "totalScore": 24000,
-    "tier": "\ud83c\udfaf Statis",
+    "tier": "\ud83d\udca7 Archimedes",
     "statusKKM": "REMEDIAL",
     "tabSwitches": 0,
     "condition": "Pengisian Parsial Cepat (Remedial Rendah)",
     "ip": "192.168.78.26",
-    "timestamp": "2026-11-03 14:47:36",
+    "timestamp": "2026-11-03 22:59:14",
     "answersJson": "{\"Q01\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q02\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q03\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q04\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q05\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q06\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q07\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q08\": {\"selected\": \"A\", \"isCorrect\": true, \"score\": 3000}, \"Q09\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q10\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q11\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q12\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q13\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q14\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q15\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q16\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q17\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q18\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q19\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q20\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q21\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q22\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q23\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q24\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}, \"Q25\": {\"selected\": \"B\", \"isCorrect\": false, \"score\": 0}}"
   }
 ]

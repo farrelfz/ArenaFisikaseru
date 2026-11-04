@@ -150,6 +150,31 @@ function doPost(e) {
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
+    // Aksi Reset/Hapus Seluruh Data Siswa dari Spreadsheet (Keep Header + Bank Soal)
+    if (d.action === "clearAllData") {
+      const allSheets = ss.getSheets();
+      let clearedSheets = 0;
+      let clearedRows = 0;
+      allSheets.forEach(function(sh) {
+        const sName = sh.getName();
+        // LINDUNGI sheet Bank Soal & Kunci Jawaban — JANGAN dihapus
+        if (sName === "Pertanyaan & Kunci Jawaban") return;
+        const lastRow = sh.getLastRow();
+        if (lastRow > 1) {
+          // Hapus semua baris data siswa (baris 2 s/d terakhir), pertahankan baris header (baris 1)
+          sh.deleteRows(2, lastRow - 1);
+          clearedSheets++;
+          clearedRows += (lastRow - 1);
+        }
+      });
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "ok",
+        message: "Seluruh data siswa di spreadsheet berhasil dihapus (" + clearedRows + " baris dari " + clearedSheets + " sheet). Bank Soal & Kunci Jawaban tetap utuh.",
+        clearedSheets: clearedSheets,
+        clearedRows: clearedRows
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+
     // Validasi data siswa wajib lengkap
     if (!d.name || !d.className || isNaN(parseInt(d.absen, 10))) {
       return ContentService.createTextOutput(JSON.stringify({
@@ -189,11 +214,11 @@ function doPost(e) {
     const statusKKM = grade >= 75.0 ? "TUNTAS" : "REMEDIAL";
     const salahCount = 25 - (parseInt(d.correctCount, 10) || 0);
     const sw = parseInt(d.tabSwitches, 10) || 0;
-    let tabSwitchStr = "Level 1: Aliran Tunak (0x Tab - Integritas Purna)";
-    if (sw === 1) tabSwitchStr = "Level 2: Riak Fluktuasi (1x Tab - Toleransi Ringan)";
-    else if (sw === 2) tabSwitchStr = "Level 3: Olakan Vortiks (2x Tab - Waspada)";
-    else if (sw >= 3 && sw <= 4) tabSwitchStr = "Level 4: Kavitasi Kritis (" + sw + "x Tab - Peringatan)";
-    else if (sw >= 5) tabSwitchStr = "Level 5: Separasi Ekstrem (" + sw + "x Tab - Pelanggaran Berat)";
+    let tabSwitchStr = "Level 1: JUJUR (0x Tab - Integritas Purna)";
+    if (sw === 1) tabSwitchStr = "Level 2: KECURANGAN RINGAN (1x Tab - Toleransi Ringan)";
+    else if (sw === 2) tabSwitchStr = "Level 3: TERINDIKASI KECURANGAN (2x Tab - Waspada)";
+    else if (sw >= 3 && sw <= 4) tabSwitchStr = "Level 4: CURANG BERAT (" + sw + "x Tab - Peringatan)";
+    else if (sw >= 5) tabSwitchStr = "Level 5: CURANG EKSTREM (" + sw + "x Tab - Pelanggaran Berat)";
 
     const inputNameClean = String(d.name || "").trim().toLowerCase();
     const inputIpClean = String(d.ip || "").trim().toLowerCase();
@@ -656,6 +681,29 @@ function doGet(e) {
       if (e.parameter.allowReview !== undefined) {
         props.setProperty("REVIEW_OVERRIDE", e.parameter.allowReview === "true" ? "manual_allowed" : "manual_locked");
       }
+    }
+
+    // Aksi Reset/Hapus Seluruh Data Siswa via GET parameter (CORS-friendly)
+    if (e && e.parameter && e.parameter.action === "clearAllData") {
+      const allSheets = ss.getSheets();
+      let clearedSheets = 0;
+      let clearedRows = 0;
+      allSheets.forEach(function(sh) {
+        const sName = sh.getName();
+        if (sName === "Pertanyaan & Kunci Jawaban") return;
+        const lastRow = sh.getLastRow();
+        if (lastRow > 1) {
+          sh.deleteRows(2, lastRow - 1);
+          clearedSheets++;
+          clearedRows += (lastRow - 1);
+        }
+      });
+      return ContentService.createTextOutput(JSON.stringify({
+        status: "ok",
+        message: "Seluruh data siswa di spreadsheet berhasil dihapus.",
+        clearedSheets: clearedSheets,
+        clearedRows: clearedRows
+      })).setMimeType(ContentService.MimeType.JSON);
     }
 
     const overrideMode = props.getProperty("EXAM_OVERRIDE") || "auto";

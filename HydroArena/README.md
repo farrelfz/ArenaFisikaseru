@@ -114,21 +114,21 @@ $$\begin{aligned}
 * **Nilai Quiz Rapor:** $(\text{Jumlah Benar} / 25) \times 100$ (Skala 0–100).
 * **Standar KKM SMAN 78:** Nilai $\mathbf{\ge 75.0}$ (Setara minimal **19 butir benar** dari 25 butir soal).
 
-### 🎖️ Tingkatan Gelar (*Tier Fluida*)
+### 🎖️ Tingkatan Gelar (*Tier Tokoh Besar Fisika*)
 Gelar kehormatan disematkan otomatis pada profil hasil dan tabel klasemen:
-* ⚡ **SUPERFLUIDA** (Nilai $95 - 100$) — Badge Ungu / Violet Glowing (Regime fluida ideal kuantum tanpa hambatan viskositas $\eta=0$).
-* 🌊 **SUPERKRITIS** (Nilai $85 - 94$) — Badge Hijau Zamrud (Regime aliran berenergi kinetik tinggi melampaui cepat rambat gelombang, Bilangan Froude $Fr > 1$).
-* 🌀 **TURBULEN** (Nilai $75 - 84$, Lolos KKM) — Badge Biru Laut (Regime pusaran berenergi tinggi dengan Bilangan Reynolds $Re > 4000$).
-* ⏳ **TRANSISI** (Nilai $60 - 74$) — Badge Amber / Kuning (Fase kritis peralihan laminer menuju turbulen $2000 \le Re \le 4000$).
-* 💧 **LAMINER** (Nilai $< 60$) — Badge Abu-abu (Aliran teratur berlapis lambat dengan hambatan gesekan viskositas dominan $Re < 2000$).
+* ⚡ **EINSTEIN** (Nilai $95 - 100$) — Badge Ungu / Violet Glowing (Kontribusi fundamental relativitas yang mengubah paradigma fisika modern).
+* 🌊 **NEWTON** (Nilai $85 - 94$) — Badge Hijau Zamrud (Hukum gerak dan gravitasi universal yang menjadi fondasi mekanika klasik).
+* 🌀 **MAXWELL** (Nilai $75 - 84$, Lolos KKM) — Badge Biru Laut (Penyatuan listrik dan magnet menjadi teori elektromagnetik tuntas KKM).
+* ⏳ **GALILEO** (Nilai $60 - 74$) — Badge Amber / Kuning (Pelopor metode ilmiah dan kinematika gerak menuju ambang batas KKM).
+* 💧 **ARCHIMEDES** (Nilai $< 60$) — Badge Abu-abu (Prinsip dasar statika fluida dan pengungkit dengan dominasi konsep dasar).
 
-### 🛡️ 5 Klasifikasi Integritas Aliran Pengerjaan (*Fluid Integrity Levels*)
+### 🛡️ 5 Klasifikasi Integritas Pengerjaan (*Integrity Levels*)
 Sistem mencatat perpindahan jendela (*tab switches*) via Page Visibility API:
-* **Level 1 (0x Pindah Tab):** `🛡️ Aliran Tunak (0x)` — Integritas Purna (*Steady laminar flow*, fokus 100% tanpa deviasi).
-* **Level 2 (1x Pindah Tab):** `💧 Riak Fluktuasi (1x)` — Toleransi Ringan (*Surface ripple*, fluktuasi kecil).
-* **Level 3 (2x Pindah Tab):** `🌀 Olakan Vortiks (2x)` — Waspada (*Vortex disturbance*, arus mulai terganggu).
-* **Level 4 (3–4x Pindah Tab):** `⚠️ Kavitasi Kritis (3–4x)` — Peringatan Keras (*Cavitation collapse*, instabilitas aliran tinggi).
-* **Level 5 (≥5x Pindah Tab):** `⛔ Separasi Ekstrem (≥5x)` — Pelanggaran Berat (*Boundary layer separation*, aliran terputus).
+* **Level 1 (0x Pindah Tab):** `🛡️ JUJUR (0x)` — Integritas Purna (fokus 100% tanpa deviasi).
+* **Level 2 (1x Pindah Tab):** `⚠️ KECURANGAN RINGAN (1x)` — Toleransi Ringan (fluktuasi kecil).
+* **Level 3 (2x Pindah Tab):** `⚠️ TERINDIKASI KECURANGAN (2x)` — Waspada (indikasi pelanggaran mulai terdeteksi).
+* **Level 4 (3–4x Pindah Tab):** `🚨 CURANG BERAT (3–4x)` — Peringatan Keras (pelanggaran integritas tinggi).
+* **Level 5 (≥5x Pindah Tab):** `⛔ CURANG EKSTREM (≥5x)` — Pelanggaran Berat (integritas pengerjaan terputus).
 
 ### 🏆 Gamifikasi & Papan Klasemen
 * **Podium Kehormatan 3 Besar:** Menampilkan 3 kartu juara berjenjang (🥇 Juara 1 Emas di tengah bermahkota, 🥈 Juara 2 Perak, 🥉 Juara 3 Perunggu).

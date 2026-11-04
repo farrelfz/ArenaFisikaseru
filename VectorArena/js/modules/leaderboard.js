@@ -22,15 +22,15 @@ const LeaderboardModule = {
     getTier(grade) {
         const g = Number(grade) || 0;
         if (g >= 95.0) {
-            return { name: "RELATIVISTIK", class: "tier-relativistik", label: "Nilai 95 – 100", desc: "Kelajuan mendekati cahaya dengan dilatasi waktu purna" };
+            return { name: "EINSTEIN", class: "tier-einstein", label: "Nilai 95 – 100", desc: "Kontribusi fundamental relativitas yang mengubah paradigma fisika modern" };
         } else if (g >= 85.0) {
-            return { name: "SUPERSONIK", class: "tier-supersonik", label: "Nilai 85 – 94", desc: "Menembus batas kecepatan suara dengan efisiensi tinggi" };
+            return { name: "NEWTON", class: "tier-newton", label: "Nilai 85 – 94", desc: "Hukum gerak dan gravitasi universal yang menjadi fondasi mekanika klasik" };
         } else if (g >= 75.0) {
-            return { name: "ORBITAL", class: "tier-orbital", label: "Nilai 75 – 84", desc: "Mencapai kecepatan lepas orbit standar tuntas KKM" };
+            return { name: "MAXWELL", class: "tier-maxwell", label: "Nilai 75 – 84", desc: "Penyatuan listrik dan magnet menjadi teori elektromagnetik tuntas KKM" };
         } else if (g >= 60.0) {
-            return { name: "SUBSONIK", class: "tier-subsonik", label: "Nilai 60 – 74", desc: "Fase akselerasi dinamis menuju ambang batas KKM" };
+            return { name: "GALILEO", class: "tier-galileo", label: "Nilai 60 – 74", desc: "Pelopor metode ilmiah dan kinematika gerak menuju ambang batas KKM" };
         } else {
-            return { name: "STATIS", class: "tier-statis", label: "Nilai < 60", desc: "Kecepatan awal nol dengan percepatan gravitasi konstan" };
+            return { name: "ARCHIMEDES", class: "tier-archimedes", label: "Nilai < 60", desc: "Prinsip dasar statika fluida dan pengungkit dengan dominasi konsep dasar" };
         }
     },
 
@@ -39,27 +39,27 @@ const LeaderboardModule = {
         if (sw === 0) {
             return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200" title="Integritas Sempurna • 0x Pindah Tab">
                 <i data-lucide="shield-check" class="w-3 h-3 text-emerald-600"></i>
-                <span>🛡️ Fokus Penuh (0x)</span>
+                <span>🛡️ JUJUR (0x)</span>
             </span>`;
         } else if (sw === 1) {
-            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-teal-50 text-teal-800 border border-teal-200" title="Dispersi Ringan • 1x Pindah Tab">
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-teal-50 text-teal-800 border border-teal-200" title="Kecurangan Ringan • 1x Pindah Tab">
                 <i data-lucide="zap" class="w-3 h-3 text-teal-600"></i>
-                <span>⚡ Dispersi (1x)</span>
+                <span>⚠️ KECURANGAN RINGAN (1x)</span>
             </span>`;
         } else if (sw === 2) {
-            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200" title="Fluktuasi Sedang • 2x Pindah Tab">
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200" title="Terindikasi Kecurangan • 2x Pindah Tab">
                 <i data-lucide="alert-circle" class="w-3 h-3 text-amber-600"></i>
-                <span>⚠️ Fluktuasi (2x)</span>
+                <span>⚠️ TERINDIKASI KECURANGAN (2x)</span>
             </span>`;
         } else if (sw <= 4) {
-            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-orange-50 text-orange-800 border border-orange-200" title="Defleksi Lintasan • ${sw}x Pindah Tab">
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-orange-50 text-orange-800 border border-orange-200" title="Curang Berat • ${sw}x Pindah Tab">
                 <i data-lucide="alert-triangle" class="w-3 h-3 text-orange-600"></i>
-                <span>🚨 Defleksi (${sw}x)</span>
+                <span>🚨 CURANG BERAT (${sw}x)</span>
             </span>`;
         } else {
-            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-50 text-rose-800 border border-rose-200" title="Diskontinuitas Fokus Ekstrem • ${sw}x Pindah Tab">
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-50 text-rose-800 border border-rose-200" title="Curang Ekstrem • ${sw}x Pindah Tab">
                 <i data-lucide="octagon-alert" class="w-3 h-3 text-rose-600"></i>
-                <span>⛔ Diskontinuitas (${sw}x)</span>
+                <span>⛔ CURANG EKSTREM (${sw}x)</span>
             </span>`;
         }
     },
@@ -204,7 +204,7 @@ const LeaderboardModule = {
                             </div>
                             <div class="w-full p-3 rounded-lg bg-white/90 border border-amber-200 text-xs font-mono text-amber-900 font-semibold space-y-0.5">
                                 <div>Target: Akurasi Tinggi + Speedrun</div>
-                                <div class="text-[10px] text-amber-700 font-normal">Tier Relativistik • Fokus Penuh</div>
+                                <div class="text-[10px] text-amber-700 font-normal">Tier Einstein • Jujur</div>
                             </div>
                         </div>
                     `;

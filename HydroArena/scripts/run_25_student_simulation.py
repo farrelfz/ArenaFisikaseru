@@ -4,11 +4,11 @@ SIMULASI 25 MURID HYDROARENA SMAN 78 JAKARTA
 Berkolaborasi bersama model ID/DeepSeek-V4.1-Flash (via 9Router)
 
 Kondisi siswa yang disimulasikan:
-1. Siswa Top Rank / Speedrunner (SUPERFLUIDA 100k scale)
-2. Siswa Unggul Konsisten (SUPERKRITIS & TURBULEN)
+1. Siswa Top Rank / Speedrunner (EINSTEIN 100k scale)
+2. Siswa Unggul Konsisten (NEWTON & MAXWELL)
 3. Siswa Ambang Batas KKM (Tepat 19 Benar / 76.0)
 4. Siswa Remedial (< 75.0 KKM)
-5. Siswa Pelanggar Integritas Tab (Riak 1x, Olakan 2x, Kavitasi 3-4x, Separasi >=5x)
+5. Siswa Pelanggar Integritas Tab (Kecurangan Ringan 1x, Terindikasi 2x, Curang Berat 3-4x, Curang Ekstrem >=5x)
 6. Siswa Timeout (Waktu Habis 90 Menit / Bonus Kecepatan 0)
 7. Siswa Parsial / Kosong Sebagian
 8. Siswa Pulih Sesi (Session Restored)
@@ -22,8 +22,8 @@ import time
 import urllib.request
 from pathlib import Path
 
-# Setup Path — bisa dioverride lewat env AI_WORKSPACE
-WORKSPACE = Path(os.environ.get("AI_WORKSPACE", Path.home() / "AI-Workspace"))
+# Setup Path
+WORKSPACE = Path("/home/si/AI-Workspace")
 sys.path.append(str(WORKSPACE))
 from scripts.ai_router import API_KEY, BASE_URL
 
@@ -32,25 +32,25 @@ STUDENTS_25 = [
     # Kelas XI A (4 Siswa)
     {"name": "Muhammad Zaidan Al-Farisi", "className": "XI A", "absen": 1, "durationSec": 1350, "tabSwitches": 0, "correctCount": 25, "condition": "Juara 1 Speedrunner (Sempurna)"},
     {"name": "Annisa Nabila Rahma", "className": "XI A", "absen": 14, "durationSec": 1690, "tabSwitches": 0, "correctCount": 24, "condition": "Siswa Unggul (Top Podium)"},
-    {"name": "Rizky Fadhillah", "className": "XI A", "absen": 25, "durationSec": 2205, "tabSwitches": 1, "correctCount": 22, "condition": "Toleransi 1x Tab (Riak Fluktuasi)"},
+    {"name": "Rizky Fadhillah", "className": "XI A", "absen": 25, "durationSec": 2205, "tabSwitches": 1, "correctCount": 22, "condition": "Toleransi 1x Tab (Kecurangan Ringan)"},
     {"name": "Farhan Surya Wijaya", "className": "XI A", "absen": 32, "durationSec": 3130, "tabSwitches": 0, "correctCount": 19, "condition": "Ambang Batas KKM Tepat (19 Benar)"},
 
     # Kelas XI B (4 Siswa)
     {"name": "Bima Arya Wicaksana", "className": "XI B", "absen": 4, "durationSec": 1780, "tabSwitches": 0, "correctCount": 24, "condition": "Juara 3 Utama (Top Podium)"},
     {"name": "Siti Sarah Nurhaliza", "className": "XI B", "absen": 12, "durationSec": 2300, "tabSwitches": 0, "correctCount": 23, "condition": "Siswa Teliti Konsisten"},
     {"name": "Bagas Pratama Putra", "className": "XI B", "absen": 21, "durationSec": 2640, "tabSwitches": 0, "correctCount": 17, "condition": "Remedial (17 Benar / 68.0)"},
-    {"name": "Dinda Aurelia Jasmine", "className": "XI B", "absen": 35, "durationSec": 3675, "tabSwitches": 2, "correctCount": 20, "condition": "Waspada Integritas (Olakan Vortiks 2x)"},
+    {"name": "Dinda Aurelia Jasmine", "className": "XI B", "absen": 35, "durationSec": 3675, "tabSwitches": 2, "correctCount": 20, "condition": "Waspada Integritas (Terindikasi Kecurangan 2x)"},
 
     # Kelas XI C (4 Siswa)
     {"name": "Ahmad Rayhan Kusuma", "className": "XI C", "absen": 3, "durationSec": 2052, "tabSwitches": 0, "correctCount": 23, "condition": "Top 10 Hall of Fame"},
-    {"name": "Fathia Zahra Azzahra", "className": "XI C", "absen": 15, "durationSec": 2970, "tabSwitches": 1, "correctCount": 21, "condition": "Tuntas KKM (Riak Fluktuasi 1x)"},
-    {"name": "Gilang Ramadhan", "className": "XI C", "absen": 22, "durationSec": 2525, "tabSwitches": 3, "correctCount": 21, "condition": "Peringatan Keras (Kavitasi Kritis 3x)"},
+    {"name": "Fathia Zahra Azzahra", "className": "XI C", "absen": 15, "durationSec": 2970, "tabSwitches": 1, "correctCount": 21, "condition": "Tuntas KKM (Kecurangan Ringan 1x)"},
+    {"name": "Gilang Ramadhan", "className": "XI C", "absen": 22, "durationSec": 2525, "tabSwitches": 3, "correctCount": 21, "condition": "Peringatan Keras (Curang Berat 3x)"},
     {"name": "Jessica Olivia Tan", "className": "XI C", "absen": 30, "durationSec": 3500, "tabSwitches": 0, "correctCount": 14, "condition": "Remedial Murni (14 Benar / 56.0)"},
 
     # Kelas XI D (4 Siswa)
     {"name": "Clarissa Aurelia Putri", "className": "XI D", "absen": 6, "durationSec": 2210, "tabSwitches": 0, "correctCount": 23, "condition": "Top 10 Hall of Fame"},
     {"name": "Dimas Wahyu Pratama", "className": "XI D", "absen": 17, "durationSec": 3850, "tabSwitches": 0, "correctCount": 19, "condition": "Tuntas KKM Pas-pasan"},
-    {"name": "Hendra Saputra", "className": "XI D", "absen": 24, "durationSec": 1880, "tabSwitches": 6, "correctCount": 18, "condition": "Pelanggaran Berat (Separasi Ekstrem 6x)"},
+    {"name": "Hendra Saputra", "className": "XI D", "absen": 24, "durationSec": 1880, "tabSwitches": 6, "correctCount": 18, "condition": "Pelanggaran Berat (Curang Ekstrem 6x)"},
     {"name": "Nadia Eka Putri", "className": "XI D", "absen": 33, "durationSec": 2775, "tabSwitches": 0, "correctCount": 22, "condition": "Siswa Stabil Berprestasi"},
 
     # Kelas XI E (4 Siswa)
@@ -64,7 +64,7 @@ STUDENTS_25 = [
     {"name": "Aditya Nugraha Pratama", "className": "XI F", "absen": 16, "durationSec": 5400, "tabSwitches": 0, "correctCount": 18, "condition": "Timeout Auto-Submit (90m Habis / Bonus 0)"},
     {"name": "Zahra Syakira Putri", "className": "XI F", "absen": 23, "durationSec": 4100, "tabSwitches": 0, "correctCount": 16, "condition": "Parsial / 5 Nomor Kosong (64.0)"},
     {"name": "Fachri Alamsyah", "className": "XI F", "absen": 31, "durationSec": 2910, "tabSwitches": 1, "correctCount": 21, "condition": "Sesi Sempat Refresh & Pulih"},
-    {"name": "Tiara Maharani", "className": "XI F", "absen": 38, "durationSec": 3340, "tabSwitches": 4, "correctCount": 20, "condition": "Peringatan Integritas (Kavitasi 4x)"}
+    {"name": "Tiara Maharani", "className": "XI F", "absen": 38, "durationSec": 3340, "tabSwitches": 4, "correctCount": 20, "condition": "Peringatan Integritas (Curang Berat 4x)"}
 ]
 
 # Kasus Uji Coba Celah Duplikasi (Anti-Overwrite Attacks)
@@ -76,18 +76,18 @@ DUPLICATE_ATTACK_CASES = [
 
 def get_tier(grade):
     g = float(grade)
-    if g >= 95.0: return "SUPERFLUIDA"
-    elif g >= 85.0: return "SUPERKRITIS"
-    elif g >= 75.0: return "TURBULEN"
-    elif g >= 60.0: return "TRANSISI"
-    else: return "LAMINER"
+    if g >= 95.0: return "EINSTEIN"
+    elif g >= 85.0: return "NEWTON"
+    elif g >= 75.0: return "MAXWELL"
+    elif g >= 60.0: return "GALILEO"
+    else: return "ARCHIMEDES"
 
 def get_integrity_label(sw):
-    if sw == 0: return "Aliran Tunak (0x)"
-    elif sw == 1: return "Riak Fluktuasi (1x)"
-    elif sw == 2: return "Olakan Vortiks (2x)"
-    elif 3 <= sw <= 4: return f"Kavitasi Kritis ({sw}x)"
-    else: return f"Separasi Ekstrem ({sw}x)"
+    if sw == 0: return "JUJUR (0x)"
+    elif sw == 1: return "KECURANGAN RINGAN (1x)"
+    elif sw == 2: return "TERINDIKASI KECURANGAN (2x)"
+    elif 3 <= sw <= 4: return f"CURANG BERAT ({sw}x)"
+    else: return f"CURANG EKSTREM ({sw}x)"
 
 def calculate_score(correct_count, duration_sec):
     total_q = 25
@@ -238,7 +238,7 @@ def main():
         print(f"  ➔ Status: {res_str} | Alasan: {', '.join(reason)}")
 
     # Simpan hasil simulasi ke berkas JSON
-    output_file = Path(__file__).resolve().parent.parent / "simulated_25_students.json"
+    output_file = WORKSPACE / "Codingan/Ibadah/PKM/simulated_25_students.json"
     output_file.write_text(json.dumps(processed_students, indent=2), encoding="utf-8")
     print(f"\n[OK] Data 25 siswa disimpan ke: {output_file.name}")
 

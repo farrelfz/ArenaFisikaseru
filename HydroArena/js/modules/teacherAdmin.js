@@ -613,15 +613,42 @@ const TeacherAdminModule = {
         }
     },
 
-    confirmResetAllData() {
+    async confirmResetAllData() {
         this.closeResetDataModal();
+
+        // 1. KIRIM PERINTAH HAPUS DATA KE SPREADSHEET (anti-cheat: sync public display ke 0)
+        const webhookUrl = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK) || CONFIG.DEFAULT_WEBHOOK_URL;
+        let sheetCleared = false;
+        if (webhookUrl && webhookUrl.startsWith("http")) {
+            try {
+                await fetch(webhookUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: "clearAllData" })
+                });
+                sheetCleared = true;
+            } catch (e) {
+                console.error("Gagal mengirim perintah clearAllData ke spreadsheet:", e);
+            }
+        }
+
+        // 2. HAPUS DATA LOKAL (localStorage)
         State.leaderboardRecords = [];
         State.ipLockRegistry = {};
         State.save();
         ExamModule.clearActiveSession();
         App.renderAllViews();
         ExamModule.checkAndEnforceIpLockUI();
-        Utils.showToast("Data klasemen lokal telah berhasil dibersihkan.");
+
+        // 3. FEEDBACK: konfirmasi lokal + spreadsheet dibersihkan
+        if (sheetCleared) {
+            Utils.showToast("✅ Data klasemen LOKAL & SPREADSHEET berhasil dibersihkan. Tampilan publik akan kembali ke 0.");
+        } else if (webhookUrl && webhookUrl.startsWith("http")) {
+            Utils.showToast("⚠️ Data lokal dibersihkan. Perintah hapus spreadsheet terkirim namun respons tidak dapat diverifikasi (mode no-cors).");
+        } else {
+            Utils.showToast("Data klasemen lokal dibersihkan. Webhook spreadsheet belum dikonfigurasi.");
+        }
     },
 
     saveWebhookUrl() {

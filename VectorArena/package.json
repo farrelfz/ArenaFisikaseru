@@ -6,8 +6,8 @@
   "description": "Vector Arena — platform belajar vektor & gerak vertikal berbasis kompetisi",
   "scripts": {
     "start": "node server/server.js",
-    "test": "node --test tests/js/*.test.mjs",
-    "test:server": "node --test tests/js/server.test.mjs",
+    "test": "node --test tests/js/",
+    "test:server": "node --test tests/js/",
     "build:bank": "python3 scripts/build_bank.py && python3 scripts/trim_bank.py data/questions.json",
     "validate:bank": "python3 scripts/validate_bank.py data/questions.json --report docs/PHYSICS_VALIDATION.md"
   },

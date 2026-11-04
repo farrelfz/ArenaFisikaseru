@@ -18,7 +18,7 @@ const CONFIG = {
     },
 
     // URL Webhook Google Apps Script Default (Otomatis dipakai di semua gawai siswa)
-    DEFAULT_WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbx5WaAPsS8-JLzo9id6HB3ogoUV0wPoqgn_jcz3h9RuuRy5wFn5C_BRA3dreH_JrbbMIw/exec',
+    DEFAULT_WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbxLbj6yrrAox3ZBu3DptPIPmzHBMB7yc3jX6B6bnFV17xsaNIIrcN2bGpjjD9Jl5MNy2g/exec',
 
     // Standar Evaluasi Akademik
     EXAM_DURATION_SECONDS: 5400, // 1 Jam 30 Menit (90 Menit)
@@ -68,7 +68,7 @@ const CONFIG = {
     },
 
     // Default Passcode Guru Administrator
-    DEFAULT_TEACHER_PIN: 'GURUXI78'
+    DEFAULT_TEACHER_PIN: 'GURU78'
 };
 
 if (typeof module !== 'undefined') {

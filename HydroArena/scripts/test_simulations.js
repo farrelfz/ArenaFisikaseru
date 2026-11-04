@@ -113,16 +113,16 @@ console.log("\n2. UJI THRESHOLD KKM & TIER FLUIDA:");
   assert("19 Benar (76.0) berstatus TUNTAS KKM (>= 75.0)", grade19 >= CONFIG.ACADEMIC_KKM, `Grade: ${grade19}`);
 
   // Tier names
-  assert("Nilai 100 = SUPERFLUIDA", LeaderboardModule.getTier(100).name === "SUPERFLUIDA");
-  assert("Nilai 95 = SUPERFLUIDA", LeaderboardModule.getTier(95).name === "SUPERFLUIDA");
-  assert("Nilai 92 = SUPERKRITIS", LeaderboardModule.getTier(92).name === "SUPERKRITIS");
-  assert("Nilai 85 = SUPERKRITIS", LeaderboardModule.getTier(85).name === "SUPERKRITIS");
-  assert("Nilai 80 = TURBULEN", LeaderboardModule.getTier(80).name === "TURBULEN");
-  assert("Nilai 75 = TURBULEN", LeaderboardModule.getTier(75).name === "TURBULEN");
-  assert("Nilai 70 = TRANSISI", LeaderboardModule.getTier(70).name === "TRANSISI");
-  assert("Nilai 60 = TRANSISI", LeaderboardModule.getTier(60).name === "TRANSISI");
-  assert("Nilai 55 = LAMINER", LeaderboardModule.getTier(55).name === "LAMINER");
-  assert("Nilai 0 = LAMINER", LeaderboardModule.getTier(0).name === "LAMINER");
+  assert("Nilai 100 = EINSTEIN", LeaderboardModule.getTier(100).name === "EINSTEIN");
+  assert("Nilai 95 = EINSTEIN", LeaderboardModule.getTier(95).name === "EINSTEIN");
+  assert("Nilai 92 = NEWTON", LeaderboardModule.getTier(92).name === "NEWTON");
+  assert("Nilai 85 = NEWTON", LeaderboardModule.getTier(85).name === "NEWTON");
+  assert("Nilai 80 = MAXWELL", LeaderboardModule.getTier(80).name === "MAXWELL");
+  assert("Nilai 75 = MAXWELL", LeaderboardModule.getTier(75).name === "MAXWELL");
+  assert("Nilai 70 = GALILEO", LeaderboardModule.getTier(70).name === "GALILEO");
+  assert("Nilai 60 = GALILEO", LeaderboardModule.getTier(60).name === "GALILEO");
+  assert("Nilai 55 = ARCHIMEDES", LeaderboardModule.getTier(55).name === "ARCHIMEDES");
+  assert("Nilai 0 = ARCHIMEDES", LeaderboardModule.getTier(0).name === "ARCHIMEDES");
 }
 
 // --------------------------------------------------------------------------
@@ -138,13 +138,13 @@ console.log("\n3. UJI 5 TINGKAT INTEGRITAS ALIRAN (ANTI-CHEAT):");
   const b5 = LeaderboardModule.getFairPlayBadge(5);
   const b10 = LeaderboardModule.getFairPlayBadge(10);
 
-  assert("0x Tab = Aliran Tunak", b0.includes("Aliran Tunak (0x)"));
-  assert("1x Tab = Riak Fluktuasi", b1.includes("Riak Fluktuasi (1x)"));
-  assert("2x Tab = Olakan Vortiks", b2.includes("Olakan Vortiks (2x)"));
-  assert("3x Tab = Kavitasi Kritis (3x)", b3.includes("Kavitasi Kritis (3x)"));
-  assert("4x Tab = Kavitasi Kritis (4x)", b4.includes("Kavitasi Kritis (4x)"));
-  assert("5x Tab = Separasi Ekstrem (5x)", b5.includes("Separasi Ekstrem (5x)"));
-  assert("10x Tab = Separasi Ekstrem (10x)", b10.includes("Separasi Ekstrem (10x)"));
+  assert("0x Tab = JUJUR", b0.includes("JUJUR (0x)"));
+  assert("1x Tab = KECURANGAN RINGAN", b1.includes("KECURANGAN RINGAN (1x)"));
+  assert("2x Tab = TERINDIKASI KECURANGAN", b2.includes("TERINDIKASI KECURANGAN (2x)"));
+  assert("3x Tab = CURANG BERAT (3x)", b3.includes("CURANG BERAT (3x)"));
+  assert("4x Tab = CURANG BERAT (4x)", b4.includes("CURANG BERAT (4x)"));
+  assert("5x Tab = CURANG EKSTREM (5x)", b5.includes("CURANG EKSTREM (5x)"));
+  assert("10x Tab = CURANG EKSTREM (10x)", b10.includes("CURANG EKSTREM (10x)"));
 }
 
 // --------------------------------------------------------------------------
@@ -218,7 +218,7 @@ console.log("\n5. UJI 3 LAPIS ANTI-TIMPA / DUPLIKASI SPREADSHEET:");
 {
   const existingSheetData = [
     ["No. Absen", "Nama Lengkap", "Kelas", "Nilai", "KKM", "Skor", "Benar", "Salah", "SalahNo", "Waktu", "Integritas", "Timestamp", "IP"],
-    [1, "Farrel Fauzan", "XI A", 92, "TUNTAS", 90000, 23, 2, "Q05, Q14", "35m 12s", "Level 1: Aliran Tunak", "2026-11-04 08:00", "192.168.1.50"]
+    [1, "Farrel Fauzan", "XI A", 92, "TUNTAS", 90000, 23, 2, "Q05, Q14", "35m 12s", "Level 1: JUJUR", "2026-11-04 08:00", "192.168.1.50"]
   ];
 
   function validateNewSubmission(row, newEntry) {

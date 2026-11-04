@@ -674,32 +674,32 @@ const ExamModule = {
         if (count === 0) {
             return {
                 badgeClass: "text-emerald-700 font-bold tabular-nums",
-                statusLabel: "0x • Aliran Tunak",
+                statusLabel: "0x • JUJUR",
                 warningText: ""
             };
         } else if (count === 1) {
             return {
                 badgeClass: "text-blue-600 font-bold tabular-nums",
-                statusLabel: "1x Tab • Riak Fluktuasi",
-                warningText: "💧 Peringatan Integritas: Terdeteksi 1x Riak Fluktuasi (meninggalkan jendela ujian). Harap jaga aliran fokus tetap tunak."
+                statusLabel: "1x Tab • KECURANGAN RINGAN",
+                warningText: "⚠️ Peringatan Integritas: Terdeteksi 1x KECURANGAN RINGAN (meninggalkan jendela ujian). Harap jaga fokus pengerjaan tetap jujur."
             };
         } else if (count === 2) {
             return {
                 badgeClass: "text-amber-600 font-bold tabular-nums",
-                statusLabel: "2x Tab • Olakan Vortiks",
-                warningText: "🌀 Peringatan Pengawas: Terdeteksi 2x Olakan Vortiks (berpindah tab). Pengawas memantau deviasi aliran pengerjaan Anda."
+                statusLabel: "2x Tab • TERINDIKASI KECURANGAN",
+                warningText: "⚠️ Peringatan Pengawas: Terdeteksi 2x TERINDIKASI KECURANGAN (berpindah tab). Pengawas memantau deviasi pengerjaan Anda."
             };
         } else if (count >= 3 && count <= 4) {
             return {
                 badgeClass: "text-orange-600 font-bold tabular-nums",
-                statusLabel: `${count}x Tab • Kavitasi Kritis`,
-                warningText: `⚠️ Pelanggaran Integritas: Terdeteksi ${count}x Kavitasi Kritis! Instabilitas aliran pengerjaan Anda masuk pemantauan ketat pengawas!`
+                statusLabel: `${count}x Tab • CURANG BERAT`,
+                warningText: `🚨 Pelanggaran Integritas: Terdeteksi ${count}x CURANG BERAT! Pengerjaan Anda masuk pemantauan ketat pengawas!`
             };
         } else {
             return {
                 badgeClass: "text-rose-600 font-bold tabular-nums animate-pulse",
-                statusLabel: `${count}x Tab • Separasi Ekstrem`,
-                warningText: `⛔ Pelanggaran Berat: Terdeteksi ${count}x Separasi Ekstrem! Integritas aliran pengerjaan terputus dan terekam di berita acara pengawas.`
+                statusLabel: `${count}x Tab • CURANG EKSTREM`,
+                warningText: `⛔ Pelanggaran Berat: Terdeteksi ${count}x CURANG EKSTREM! Integritas pengerjaan terputus dan terekam di berita acara pengawas.`
             };
         }
     },

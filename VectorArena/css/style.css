@@ -286,8 +286,8 @@ body {
     border-top-right-radius: 0.65rem;
 }
 
-/* Tier Badges Vektor & Kinematika */
-.tier-relativistik,
+/* Tier Badges Tokoh Fisika */
+.tier-einstein,
 .tier-superfluida {
     background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
     color: #6b21a8;
@@ -295,7 +295,7 @@ body {
     font-weight: 700;
 }
 
-.tier-supersonik,
+.tier-newton,
 .tier-superkritis {
     background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
     color: #065f46;
@@ -303,7 +303,7 @@ body {
     font-weight: 700;
 }
 
-.tier-orbital,
+.tier-maxwell,
 .tier-turbulen {
     background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
     color: #3730a3;
@@ -311,7 +311,7 @@ body {
     font-weight: 700;
 }
 
-.tier-subsonik,
+.tier-galileo,
 .tier-transisi {
     background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
     color: #92400e;
@@ -319,7 +319,7 @@ body {
     font-weight: 600;
 }
 
-.tier-statis,
+.tier-archimedes,
 .tier-laminer {
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
     color: #475569;
@@ -347,4 +347,87 @@ body {
     border: 2px dashed #f97316;
     position: relative;
     border-radius: 0.85rem;
+}
+
+/* Efek Glow & Tag Arena */
+.arena-rank-badge {
+    box-shadow: 0 0 12px rgba(67, 56, 202, 0.15);
+}
+
+.arena-shimmer {
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+    background-size: 200% 100%;
+    animation: arenaShimmer 3s infinite;
+}
+
+@keyframes arenaShimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Hall of Fame Dark Metallic Cards */
+.hof-card-gold {
+    background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.15) 0%, rgba(15, 23, 42, 0.95) 70%);
+    border: 1px solid rgba(245, 158, 11, 0.5);
+    box-shadow: 0 4px 14px -2px rgba(245, 158, 11, 0.18);
+}
+
+.hof-card-silver {
+    background: radial-gradient(circle at top right, rgba(148, 163, 184, 0.15) 0%, rgba(15, 23, 42, 0.95) 70%);
+    border: 1px solid rgba(148, 163, 184, 0.45);
+    box-shadow: 0 4px 14px -2px rgba(148, 163, 184, 0.15);
+}
+
+.hof-card-bronze {
+    background: radial-gradient(circle at top right, rgba(234, 88, 12, 0.15) 0%, rgba(15, 23, 42, 0.95) 70%);
+    border: 1px solid rgba(234, 88, 12, 0.45);
+    box-shadow: 0 4px 14px -2px rgba(234, 88, 12, 0.15);
+}
+
+.hof-card-elite {
+    background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.12) 0%, rgba(15, 23, 42, 0.95) 70%);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+}
+
+.hof-card-empty {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px dashed rgba(71, 85, 105, 0.6);
+}
+
+/* ==========================================================================
+   PRINT STYLES
+   ========================================================================== */
+@media print {
+    header,
+    footer,
+    #modal-backdrop,
+    #modal-teacher-auth,
+    #modal-reset-data,
+    #teacher-gate-card,
+    .edu-btn-primary,
+    .edu-btn-secondary,
+    button {
+        display: none !important;
+    }
+
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 11pt;
+    }
+
+    #view-sheet {
+        display: block !important;
+    }
+
+    #teacher-unlocked-workspace {
+        display: block !important;
+    }
+
+    .edu-card,
+    .edu-panel {
+        box-shadow: none !important;
+        border: 1px solid #cbd5e1 !important;
+        break-inside: avoid;
+    }
 }

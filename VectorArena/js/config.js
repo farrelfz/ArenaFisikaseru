@@ -29,7 +29,7 @@ const CONFIG = {
     ],
 
     // Google Spreadsheet Integration (Dapat dikonfigurasi melalui panel guru)
-    SPREADSHEET_ID: '',
+    SPREADSHEET_ID: '', // Opsional: isi jika script standalone. Jika script ditempel di Extensions > Apps Script pada sheet, biarkan kosong.
     get SPREADSHEET_EDIT_URL() {
         return this.SPREADSHEET_ID ? `https://docs.google.com/spreadsheets/d/${this.SPREADSHEET_ID}/edit?usp=sharing` : '';
     },
@@ -41,7 +41,7 @@ const CONFIG = {
     },
 
     // URL Webhook Google Apps Script Default (Otomatis dipakai bila terkonfigurasi)
-    DEFAULT_WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbyN0jXgD2n4IDFaNz9Dz2MsVJ6Mr78NR3XkrIRhkrDVvdo_mV4wqIDHB1ol3-WREXll/exec',
+    DEFAULT_WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbzIW8TEidqdI-M4OF0shifeDxmtmklulwjkMNoxyqqpSvzt_S5MHLKaFKe8FShJxw5b/exec',
 
     // Standar Evaluasi Akademik
     EXAM_DURATION_SECONDS: 5400, // 90 Menit untuk Ranked / Ujian Penuh
@@ -50,16 +50,6 @@ const CONFIG = {
     MAX_SPEED_BONUS: 25000,         // Maksimum Bonus Kecepatan = 25.000 Pts (Puncak = 100.000 Pts)
     ACADEMIC_KKM: 75.0,
     CLASSES: ['X A', 'X B', 'X C', 'X D', 'X E', 'X F', 'X G', 'X H', 'X I', 'X J', 'X K'],
-
-    // Bank soal menyimpan tingkat kesulitan sebagai ANGKA (1–4), mengikuti
-    // skema penskoran server (server/scoring.js). Label di bawah ini hanya
-    // untuk tampilan.
-    DIFFICULTY_LABELS: {
-        1: 'MUDAH',
-        2: 'SEDANG',
-        3: 'SULIT',
-        4: 'TANTANGAN'
-    },
 
     // Kontrol Status Akses Ujian (Manual oleh Guru / Selalu Terbuka jika tidak ditutup manual)
     SCHEDULE: {
@@ -100,7 +90,7 @@ const CONFIG = {
     },
 
     // Default Passcode Guru Administrator
-    DEFAULT_TEACHER_PIN: 'GURUX78'
+    DEFAULT_TEACHER_PIN: '246810'
 };
 
 if (typeof module !== 'undefined') {

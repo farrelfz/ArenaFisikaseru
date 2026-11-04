@@ -4,12 +4,12 @@ SIMULASI 10 & 25 SISWA VECTORARENA (SMAN 78 JAKARTA - KELAS X A s.d. X K)
 Berkolaborasi bersama model cbai/deepseek-v4.1-flash via 9Router
 
 Menguji segala macam kondisi pengerjaan dan batas evaluasi:
-1. Siswa Top Rank / Speedrunner Sempurna (Relativistik 100k scale)
-2. Siswa Unggul Konsisten (Supersonik 85-94)
-3. Siswa Ambang Batas KKM Tepat (Orbital KKM 75.0 / 76.0)
-4. Siswa Subsonik / Menengah (Nilai 60-74)
-5. Siswa Remedial / Statis (< 60.0)
-6. Siswa Pelanggar Integritas Tab (0x Fokus Penuh, 1x Fluktuasi, 2x Waspada, 3x Kritis, >=5x Berat)
+1. Siswa Top Rank / Speedrunner Sempurna (Einstein 100k scale)
+2. Siswa Unggul Konsisten (Newton 85-94)
+3. Siswa Ambang Batas KKM Tepat (Maxwell KKM 75.0 / 76.0)
+4. Siswa Galileo / Menengah (Nilai 60-74)
+5. Siswa Remedial / Archimedes (< 60.0)
+6. Siswa Pelanggar Integritas Tab (0x Jujur, 1x Kecurangan Ringan, 2x Terindikasi, 3x Curang Berat, >=5x Curang Ekstrem)
 7. Siswa Timeout (Waktu Habis 90 Menit / Bonus Kecepatan 0)
 8. Siswa Parsial / Kosong Sebagian
 9. Siswa Uji Coba Duplikasi (Anti-Overwrite Protection)
@@ -191,15 +191,15 @@ def calculate_physics_score(correct_count, duration_sec, total_q=25, base_pts=30
     
     # 4. Predikat Tier
     if grade >= 95.0:
-        tier = "⚡ Relativistik"
+        tier = "⚡ Einstein"
     elif grade >= 85.0:
-        tier = "🚀 Supersonik"
+        tier = "🌊 Newton"
     elif grade >= 75.0:
-        tier = "🛰️ Orbital"
+        tier = "🌀 Maxwell"
     elif grade >= 60.0:
-        tier = "⏳ Subsonik"
+        tier = "⏳ Galileo"
     else:
-        tier = "🎯 Statis"
+        tier = "💧 Archimedes"
         
     status_kkm = "TUNTAS" if grade >= 75.0 else "REMEDIAL"
     

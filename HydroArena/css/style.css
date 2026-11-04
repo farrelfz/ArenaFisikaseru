@@ -291,8 +291,8 @@ body {
     border-top-right-radius: 0.65rem;
 }
 
-/* Tier Badges (Nama Regim Fluida Fisika) */
-.tier-superfluida,
+/* Tier Badges (Nama Tokoh Besar Fisika) */
+.tier-einstein,
 .tier-supersonik {
     background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
     color: #6b21a8;
@@ -300,7 +300,7 @@ body {
     font-weight: 700;
 }
 
-.tier-superkritis,
+.tier-newton,
 .tier-kritis {
     background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
     color: #065f46;
@@ -308,21 +308,21 @@ body {
     font-weight: 700;
 }
 
-.tier-turbulen {
+.tier-maxwell {
     background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
     color: #1d4ed8;
     border: 1px solid #93c5fd;
     font-weight: 700;
 }
 
-.tier-transisi {
+.tier-galileo {
     background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
     color: #92400e;
     border: 1px solid #fcd34d;
     font-weight: 600;
 }
 
-.tier-laminer {
+.tier-archimedes {
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
     color: #475569;
     border: 1px solid #cbd5e1;

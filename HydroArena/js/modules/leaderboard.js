@@ -18,44 +18,44 @@ const LeaderboardModule = {
     getTier(grade) {
         const g = Number(grade) || 0;
         if (g >= 95.0) {
-            return { name: "SUPERFLUIDA", class: "tier-superfluida", label: "≥ 95" };
+            return { name: "EINSTEIN", class: "tier-einstein", label: "≥ 95" };
         } else if (g >= 85.0) {
-            return { name: "SUPERKRITIS", class: "tier-superkritis", label: "85-94" };
+            return { name: "NEWTON", class: "tier-newton", label: "85-94" };
         } else if (g >= 75.0) {
-            return { name: "TURBULEN", class: "tier-turbulen", label: "75-84" };
+            return { name: "MAXWELL", class: "tier-maxwell", label: "75-84" };
         } else if (g >= 60.0) {
-            return { name: "TRANSISI", class: "tier-transisi", label: "60-74" };
+            return { name: "GALILEO", class: "tier-galileo", label: "60-74" };
         } else {
-            return { name: "LAMINER", class: "tier-laminer", label: "< 60" };
+            return { name: "ARCHIMEDES", class: "tier-archimedes", label: "< 60" };
         }
     },
 
     getFairPlayBadge(tabSwitches) {
         const sw = Number(tabSwitches) || 0;
         if (sw === 0) {
-            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200" title="Klasifikasi 1: Integritas Purna (Aliran Tunak • 0x Pindah Tab)">
+            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200" title="Klasifikasi 1: Integritas Purna (JUJUR • 0x Pindah Tab)">
                 <i data-lucide="shield-check" class="w-3 h-3 text-emerald-600"></i>
-                <span>Aliran Tunak (0x)</span>
+                <span>JUJUR (0x)</span>
             </span>`;
         } else if (sw === 1) {
-            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200" title="Klasifikasi 2: Toleransi Ringan (Riak Fluktuasi • 1x Pindah Tab)">
+            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200" title="Klasifikasi 2: Toleransi Ringan (KECURANGAN RINGAN • 1x Pindah Tab)">
                 <i data-lucide="waves" class="w-3 h-3 text-blue-600"></i>
-                <span>Riak Fluktuasi (1x)</span>
+                <span>KECURANGAN RINGAN (1x)</span>
             </span>`;
         } else if (sw === 2) {
-            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200" title="Klasifikasi 3: Waspada (Olakan Vortiks • 2x Pindah Tab)">
+            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200" title="Klasifikasi 3: Waspada (TERINDIKASI KECURANGAN • 2x Pindah Tab)">
                 <i data-lucide="alert-circle" class="w-3 h-3 text-amber-600"></i>
-                <span>Olakan Vortiks (2x)</span>
+                <span>TERINDIKASI KECURANGAN (2x)</span>
             </span>`;
         } else if (sw >= 3 && sw <= 4) {
-            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-orange-50 text-orange-700 border border-orange-200" title="Klasifikasi 4: Peringatan Keras (Kavitasi Kritis • ${sw}x Pindah Tab)">
+            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-orange-50 text-orange-700 border border-orange-200" title="Klasifikasi 4: Peringatan Keras (CURANG BERAT • ${sw}x Pindah Tab)">
                 <i data-lucide="alert-triangle" class="w-3 h-3 text-orange-600"></i>
-                <span>Kavitasi Kritis (${sw}x)</span>
+                <span>CURANG BERAT (${sw}x)</span>
             </span>`;
         } else {
-            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-200" title="Klasifikasi 5: Pelanggaran Berat (Separasi Ekstrem • ≥5x Pindah Tab)">
+            return `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-200" title="Klasifikasi 5: Pelanggaran Berat (CURANG EKSTREM • ≥5x Pindah Tab)">
                 <i data-lucide="alert-octagon" class="w-3 h-3 text-rose-600"></i>
-                <span>Separasi Ekstrem (${sw}x)</span>
+                <span>CURANG EKSTREM (${sw}x)</span>
             </span>`;
         }
     },
@@ -169,7 +169,7 @@ const LeaderboardModule = {
                             </div>
                             <div class="w-full p-3 rounded-lg bg-white/90 border border-amber-200 text-xs font-mono text-amber-900 font-semibold space-y-0.5">
                                 <div>Target: Akurasi Tinggi + Speedrun</div>
-                                <div class="text-[10px] text-amber-700 font-normal">Tier Superfluida • Aliran Tunak</div>
+                                <div class="text-[10px] text-amber-700 font-normal">Tier Einstein • Jujur</div>
                             </div>
                         </div>
                     `;
