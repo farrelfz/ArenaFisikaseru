@@ -409,6 +409,12 @@ const ExamModule = {
         State.ipLockRegistry[completedRecord.ip] = completedRecord;
         State.save();
 
+        // Kirim ke Google Spreadsheet via webhook (jika terkonfigurasi)
+        if (typeof SpreadsheetService !== 'undefined' && SpreadsheetService.pushRecord) {
+            // pushRecord sudah handle State.save() internal, tapi kita sudah save di atas jadi aman
+            SpreadsheetService.pushRecord(completedRecord);
+        }
+
         this.clearActiveSession();
         this.checkAndEnforceIpLockUI();
         LeaderboardModule.renderAll();

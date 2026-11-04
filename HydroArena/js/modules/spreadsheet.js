@@ -94,6 +94,38 @@ const SpreadsheetService = {
         this._updateConnectionIndicator(isConnected);
 
         // 3. Gabungkan data spreadsheet ke State dengan sanitasi ketat (mencegah format usang 35 soal)
+        // AUTO-SYNC RECONCILIATION: Hapus data lokal yang TIDAK ADA di spreadsheet
+        //   (mencegah siswa terkunci selamanya setelah guru menghapus datanya dari spreadsheet)
+        if (isConnected && data && data.status === 'active') {
+            // Bangun set IP yang valid dari spreadsheet
+            const validIps = new Set(fetchedRows.map(r => State.sanitizeRecord(r)).filter(Boolean).map(r => String(r.ip).trim()));
+            const validKeys = new Set(fetchedRows.map(r => State.sanitizeRecord(r)).filter(Boolean).map(r => `${r.name}|||${r.className}|||${r.absen}`));
+
+            // Hapus record lokal yang IP-nya tidak ada di spreadsheet
+            //   (kecuali record dengan IP 0.0.0.0 yang mungkin masih dalam proses sync)
+            const beforeCount = State.leaderboardRecords.length;
+            State.leaderboardRecords = State.leaderboardRecords.filter(rec => {
+                const ip = String(rec.ip || '').trim();
+                const key = `${rec.name}|||${rec.className}|||${rec.absen}`;
+                // Pertahankan jika: IP ada di spreadsheet ATAU record belum dikirim (IP 0.0.0.0)
+                if (ip === '0.0.0.0' || ip === '' || ip === 'Mendeteksi...') return true;
+                return validIps.has(ip) || validKeys.has(key);
+            });
+
+            // Bersihkan ipLockRegistry dari IP yang tidak ada di spreadsheet
+            Object.keys(State.ipLockRegistry).forEach(ip => {
+                const cleanIp = String(ip).trim();
+                if (cleanIp === '0.0.0.0' || cleanIp === '' || cleanIp === 'Mendeteksi...') return;
+                if (!validIps.has(cleanIp)) {
+                    delete State.ipLockRegistry[ip];
+                }
+            });
+
+            if (beforeCount !== State.leaderboardRecords.length) {
+                console.log(`[Auto-Sync] ${beforeCount - State.leaderboardRecords.length} record lokal dihapus (tidak ada di spreadsheet).`);
+            }
+        }
+
         if (fetchedRows.length > 0) {
             fetchedRows.forEach(remoteRec => {
                 const sanitized = State.sanitizeRecord(remoteRec);
@@ -108,8 +140,8 @@ const SpreadsheetService = {
                 }
                 State.ipLockRegistry[sanitized.ip] = sanitized;
             });
-            State.save();
         }
+        State.save();
 
         if (showNotification) {
             if (isConnected) {

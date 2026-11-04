@@ -28,8 +28,28 @@ const App = {
         // Pulihkan sesi ujian jika halaman ter-refresh saat aktif
         ExamModule.restoreActiveSession();
 
+        // Sinkronisasi dengan Google Spreadsheet (auto-sync: hapus data lokal yang tidak ada di server)
+        if (typeof SpreadsheetService !== 'undefined') {
+            await SpreadsheetService.sync(false);
+            LeaderboardModule.renderAll();
+            ExamModule.checkAndEnforceIpLockUI();
+            this._startLobbyPolling();
+        }
+
         this._bindEvents();
         if (window.lucide) lucide.createIcons();
+    },
+
+    _startLobbyPolling() {
+        clearInterval(this._lobbyPollInterval);
+        this._lobbyPollInterval = setInterval(async () => {
+            const activeExamScreen = document.getElementById('screen-active-exam');
+            if (activeExamScreen && !activeExamScreen.classList.contains('hidden')) return;
+            if (State.isTeacherLoggedIn) return;
+            if (typeof SpreadsheetService !== 'undefined') {
+                await SpreadsheetService.sync(false);
+            }
+        }, 12000); // Polling otomatis setiap 12 detik
     },
 
     switchView(viewName) {
