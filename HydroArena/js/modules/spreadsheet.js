@@ -6,6 +6,7 @@ const SpreadsheetService = {
     async sync(showNotification = false) {
         let fetchedRows = [];
         let isConnected = false;
+        let data = null; // WAJIB deklarasi di scope luar — dipakai oleh auto-sync reconciliation di bawah
 
         const webhookUrl = localStorage.getItem(CONFIG.STORAGE_KEYS.WEBHOOK) || CONFIG.DEFAULT_WEBHOOK_URL;
 
@@ -14,7 +15,7 @@ const SpreadsheetService = {
             try {
                 const res = await fetch(webhookUrl, { cache: 'no-store' });
                 if (res.ok) {
-                    const data = await res.json();
+                    data = await res.json();
 
                     // Sinkronisasi status ujian global dari server jika ada
                     if (data && typeof data.examIsOpen === 'boolean') {
