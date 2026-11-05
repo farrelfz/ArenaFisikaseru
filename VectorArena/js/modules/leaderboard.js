@@ -322,40 +322,96 @@ const LeaderboardModule = {
         const container = document.getElementById('lb-top10-container');
         if (!container) return;
 
-        const sorted = this.getSortedRecords("ALL").slice(0, 10);
-        if (sorted.length === 0) {
-            container.innerHTML = `
-                <div class="col-span-full p-6 text-center text-xs text-slate-400 bg-slate-900/40 rounded-xl border border-slate-800">
-                    Belum ada siswa yang masuk dalam jajaran 10 Terbaik Satu Angkatan.
-                </div>
-            `;
-            return;
+        const list = this.getSortedRecords("ALL").slice(0, 10);
+        let html = '';
+
+        for (let i = 0; i < 10; i++) {
+            const r = list[i] || null;
+            const rank = i + 1;
+
+            if (r) {
+                const tier = this.getTier(r.academicGrade);
+                const mins = Math.floor((r.durationSec || 0) / 60);
+                const secs = (r.durationSec || 0) % 60;
+                const initials = (r.name || "V").split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
+
+                let rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-slate-800 text-slate-300 border border-slate-700">#${rank}</span>`;
+                let cardStyle = "hof-card-elite";
+
+                if (rank === 1) {
+                    rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-gradient-to-r from-amber-400 to-yellow-300 text-slate-950 shadow-sm flex items-center gap-1">🥇 #1</span>`;
+                    cardStyle = "hof-card-gold";
+                } else if (rank === 2) {
+                    rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-slate-200 text-slate-900 shadow-sm flex items-center gap-1">🥈 #2</span>`;
+                    cardStyle = "hof-card-silver";
+                } else if (rank === 3) {
+                    rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-orange-400 text-slate-950 shadow-sm flex items-center gap-1">🥉 #3</span>`;
+                    cardStyle = "hof-card-bronze";
+                } else if (rank <= 5) {
+                    rankBadge = `<span class="px-2 py-0.5 rounded font-mono font-bold text-[11px] bg-indigo-900/80 text-indigo-300 border border-indigo-600/50">🎖️ #${rank}</span>`;
+                }
+
+                html += `
+                    <div class="p-3.5 rounded-xl ${cardStyle} flex flex-col justify-between transition-all hover:-translate-y-1 shadow-sm text-left">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                ${rankBadge}
+                                <span class="px-2 py-0.5 rounded font-mono text-[10px] font-bold ${tier.class}">${tier.name}</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 pt-1">
+                                <div class="w-7 h-7 rounded-full bg-slate-800 border border-slate-700 text-white font-mono font-bold text-[10px] flex items-center justify-center shrink-0">
+                                    ${initials}
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <h4 class="text-xs font-bold text-white truncate" title="${Utils.escapeHtml(r.name)}">${Utils.escapeHtml(r.name)}</h4>
+                                    <div class="text-[10px] text-slate-400 font-mono flex items-center gap-1 mt-0.5">
+                                        <span class="px-1.5 py-0.2 rounded bg-slate-800 text-indigo-300 font-bold border border-slate-700">${Utils.escapeHtml(r.className)}</span>
+                                        <span>Absen #${String(r.absen || 0).padStart(2, '0')}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 pt-2 border-t border-slate-800/80 flex items-center justify-between font-mono">
+                            <div>
+                                <div class="text-[9px] text-slate-400 uppercase tracking-wider">Total Skor</div>
+                                <div class="text-xs font-bold text-amber-300">${Utils.formatNumber(r.totalScore)} Pts</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-[9px] text-slate-400 uppercase tracking-wider">Nilai • Waktu</div>
+                                <div class="text-[11px] font-semibold text-emerald-400">${r.academicGrade} <span class="text-slate-500">•</span> ${mins}m ${secs}s</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="p-3.5 rounded-xl hof-card-empty flex flex-col justify-between text-left min-h-[125px] transition-all hover:border-slate-700">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2 py-0.5 rounded font-mono font-bold text-[10px] ${rank === 1 ? 'bg-amber-400/20 text-amber-300 border border-amber-400/40' : rank <= 3 ? 'bg-slate-700 text-slate-300' : 'bg-slate-800 text-slate-400'}">
+                                #${rank} TERBUKA
+                            </span>
+                            <span class="text-[9px] font-mono text-slate-500">Hall of Fame</span>
+                        </div>
+                        <div class="my-1.5 space-y-0.5">
+                            <div class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full ${rank === 1 ? 'bg-amber-400 animate-pulse' : 'bg-slate-500'}"></span>
+                                <span>Slot Diperebutkan</span>
+                            </div>
+                            <div class="text-[10px] text-slate-500 font-mono">Target: Tuntas KKM (≥75)</div>
+                        </div>
+                        <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between font-mono text-[10px] text-slate-400">
+                            <span>Kelas X A – X K</span>
+                            <span class="text-indigo-400 font-semibold">Siap Berlaga</span>
+                        </div>
+                    </div>
+                `;
+            }
         }
 
-        container.innerHTML = sorted.map((r, idx) => {
-            const medal = idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : `#${idx + 1}`;
-            const tier = this.getTier(r.academicGrade);
-            const initials = (r.name || "V").split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
-
-            return `
-                <div class="p-3 rounded-lg bg-slate-900/70 border border-slate-800 hover:border-slate-700 transition flex items-center justify-between gap-2.5">
-                    <div class="flex items-center gap-2 min-w-0">
-                        <span class="font-mono font-bold text-xs w-5 text-center text-amber-400 shrink-0">${medal}</span>
-                        <div class="w-7 h-7 rounded-full bg-slate-800 border border-slate-700 text-slate-200 flex items-center justify-center text-[10px] font-bold font-mono shrink-0">
-                            ${initials}
-                        </div>
-                        <div class="min-w-0">
-                            <div class="text-xs font-bold text-white truncate max-w-[100px] sm:max-w-[120px]">${Utils.escapeHtml(r.name)}</div>
-                            <div class="text-[10px] text-slate-400 font-mono">${r.className} • #${r.absen}</div>
-                        </div>
-                    </div>
-                    <div class="text-right shrink-0">
-                        <div class="text-xs font-mono font-bold text-amber-300">${Utils.formatNumber(r.totalScore)}</div>
-                        <div class="text-[9px] text-emerald-400 font-mono">${r.academicGrade}%</div>
-                    </div>
-                </div>
-            `;
-        }).join('');
+        container.innerHTML = html;
+        if (window.lucide) lucide.createIcons();
     },
 
     renderClassBattle() {
