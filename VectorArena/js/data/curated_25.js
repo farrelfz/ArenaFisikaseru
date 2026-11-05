@@ -265,7 +265,7 @@ const CURATED_25_QUESTIONS = [
     ],
     "correctKey": "C",
     "correctAnswer": "5",
-    "explanation": "Kedua vektor tidak tegak lurus, sehingga komponen silang harus diperhitungkan melalui aturan kosinus.",
+    "explanation": "Kedua vektor saling tegak lurus (θ = 90°), sehingga cos 90° = 0 dan resultan dapat dihitung dengan teorema Pythagoras: R = √(A² + B²) = √(3² + 4²) = √25 = 5 satuan.",
     "diagram": {
       "type": "vector-parallelogram",
       "params": {
