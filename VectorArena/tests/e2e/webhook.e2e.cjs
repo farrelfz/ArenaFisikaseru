@@ -193,11 +193,11 @@ function check(name, cond, detail = '') {
   await page.waitForTimeout(400);
   check('URL tersimpan di localStorage',
     await page.evaluate(() => localStorage.getItem('vectorarena_webhook_url_v1_live')) === execUrl);
-  const badge = await page.textContent('#admin-webhook-badge');
-  check('lencana panel menandai terpasang', /Terpasang/i.test(badge), badge);
+  const badge = await page.textContent('#webhook-status-badge');
+  check('lencana panel menandai terhubung', /Terhubung/i.test(badge), badge);
 
   console.log('3) Uji Koneksi (POST action=ping)');
-  await page.click('text=Uji Koneksi');
+  await page.evaluate(() => TeacherAdminModule.testWebhook());
   await page.waitForTimeout(900);
   const ping = received.find((r) => r.body.action === 'ping');
   check('server menerima ping', !!ping);
@@ -210,10 +210,10 @@ function check(name, cond, detail = '') {
   console.log('4) Tarik Status dari server (examIsOpen=false di server)');
   examIsOpen = false;
   allowReview = false;
-  await page.click('text=Tarik Status');
+  await page.evaluate(() => TeacherAdminModule.syncFromServer());
   await page.waitForTimeout(900);
-  const badgeExam = await page.textContent('#admin-exam-status-badge');
-  check('panel guru mengikuti status server', /TERTUTUP/i.test(badgeExam), badgeExam);
+  const metricExam = await page.textContent('#metric-exam-status-text');
+  check('panel guru mengikuti status server', /DITUTUP/i.test(metricExam), metricExam);
 
   console.log('5) Reload siswa — status tertutup ikut terbawa');
   await page.evaluate(() => App.switchView('exam'));

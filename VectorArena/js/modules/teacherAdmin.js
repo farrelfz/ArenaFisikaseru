@@ -189,6 +189,27 @@ const TeacherAdminModule = {
         Utils.showToast("Kode login Guru berhasil diganti.");
     },
 
+    copyAppsScriptCode() {
+        const pre = document.getElementById('apps-script-code');
+        if (!pre) return;
+        const text = pre.textContent || '';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(() => {
+                Utils.showToast('Kode Apps Script disalin ke clipboard.');
+            }).catch(() => {
+                Utils.showToast('Gagal menyalin. Salin manual.', false);
+            });
+        } else {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); Utils.showToast('Kode Apps Script disalin.'); }
+            catch (err) { Utils.showToast('Gagal menyalin. Salin manual.', false); }
+            document.body.removeChild(ta);
+        }
+    },
+
     updateAuthUI() {
         const triggerBtn = document.getElementById('header-btn-login-trigger');
         const adminBadge = document.getElementById('header-badge-admin-active');
@@ -369,13 +390,6 @@ const TeacherAdminModule = {
             metricExam.className = State.examConfig.isOpen
                 ? "text-lg font-mono font-bold text-emerald-700"
                 : "text-lg font-mono font-bold text-rose-700";
-        }
-        const adminExamBadge = document.getElementById('admin-exam-status-badge');
-        if (adminExamBadge) {
-            adminExamBadge.textContent = State.examConfig.isOpen ? 'TERBUKA (AKTIF)' : 'TERTUTUP (NONAKTIF)';
-            adminExamBadge.className = State.examConfig.isOpen
-                ? 'edu-badge edu-badge-green text-[10px]'
-                : 'edu-badge edu-badge-rose text-[10px]';
         }
         if (btnToggleExam) {
             btnToggleExam.textContent = State.examConfig.isOpen ? "Tutup Pendaftaran" : "Buka Pendaftaran";
@@ -810,24 +824,16 @@ const TeacherAdminModule = {
 
         const url = SpreadsheetService.getWebhookUrl();
         const input = document.getElementById('input-webhook-url');
-        const hint = document.getElementById('admin-webhook-hint');
 
         // Jangan timpa apa yang sedang diketik guru.
         if (input && document.activeElement !== input) input.value = url;
 
         this.updateWebhookBadge();
-
-        if (hint) {
-            hint.textContent = url
-                ? 'Status ujian dibuka/ditutup juga dikirim ke server, sehingga berlaku untuk semua perangkat siswa.'
-                : 'Nilai siswa tersimpan lokal walau webhook kosong. Isi webhook supaya hasil masuk ke Google Spreadsheet.';
-        }
     },
 
     updateWebhookBadge() {
         const badge = document.getElementById('webhook-status-badge');
-        const adminBadge = document.getElementById('admin-webhook-badge');
-        if (!badge && !adminBadge) return;
+        if (!badge) return;
 
         let url = '';
         if (typeof SpreadsheetService !== 'undefined') {
@@ -837,32 +843,14 @@ const TeacherAdminModule = {
         }
 
         if (url && this._isAllowedWebhookUrl(url)) {
-            if (badge) {
-                badge.className = "edu-badge edu-badge-green text-[10px]";
-                badge.textContent = "Terhubung (/exec)";
-            }
-            if (adminBadge) {
-                adminBadge.className = "edu-badge edu-badge-green text-[10px]";
-                adminBadge.textContent = "Terpasang";
-            }
+            badge.className = "edu-badge edu-badge-green text-[10px]";
+            badge.textContent = "Terhubung (/exec)";
         } else if (url) {
-            if (badge) {
-                badge.className = "edu-badge edu-badge-rose text-[10px]";
-                badge.textContent = "Periksa URL";
-            }
-            if (adminBadge) {
-                adminBadge.className = "edu-badge edu-badge-rose text-[10px]";
-                adminBadge.textContent = "Periksa URL";
-            }
+            badge.className = "edu-badge edu-badge-rose text-[10px]";
+            badge.textContent = "Periksa URL";
         } else {
-            if (badge) {
-                badge.className = "edu-badge edu-badge-amber text-[10px]";
-                badge.textContent = "Belum Terpasang";
-            }
-            if (adminBadge) {
-                adminBadge.className = "edu-badge edu-badge-amber text-[10px]";
-                adminBadge.textContent = "Belum Terpasang";
-            }
+            badge.className = "edu-badge edu-badge-amber text-[10px]";
+            badge.textContent = "Belum Terpasang";
         }
     },
 

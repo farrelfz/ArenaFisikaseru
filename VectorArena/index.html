@@ -1316,10 +1316,7 @@
                                 <span>Status Ujian</span>
                                 <i data-lucide="power" class="w-4 h-4"></i>
                             </div>
-                            <div class="flex items-center justify-between gap-2">
-                                <div id="metric-exam-status-text" class="text-lg font-mono font-bold text-emerald-700">TERBUKA</div>
-                                <span id="admin-exam-status-badge" class="edu-badge edu-badge-green text-[10px]">TERBUKA (AKTIF)</span>
-                            </div>
+                            <div id="metric-exam-status-text" class="text-lg font-mono font-bold text-emerald-700">TERBUKA</div>
                             <div class="text-[11px] text-slate-500">Akses siswa</div>
                         </div>
                     </div>
@@ -1349,7 +1346,7 @@
                                 <div class="edu-panel p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                                     <div class="space-y-0.5">
                                         <div class="text-xs font-bold text-slate-800">Kunci Jawaban & Pembahasan</div>
-                                        <div class="text-[11px] text-slate-600 leading-relaxed" id="ctrl-review-status-desc">Status: DIBUKA untuk siswa.</div>
+                                        <div class="text-[11px] text-slate-600 leading-relaxed" id="ctrl-review-status-desc">Status: DIKUNCI MANUAL oleh Guru.</div>
                                     </div>
                                     <div class="flex items-center gap-1.5 shrink-0">
                                         <button type="button" id="btn-toggle-review-status" onclick="TeacherAdminModule.toggleReviewStatus()" class="edu-btn-secondary px-3.5 py-2 text-xs font-semibold shrink-0 text-amber-700 border-amber-200">
@@ -1523,10 +1520,7 @@
                             <div class="border-b border-slate-200 pb-4 space-y-1">
                                 <div class="flex items-center justify-between gap-2">
                                     <span class="text-[11px] font-mono uppercase tracking-wider text-emerald-700 font-bold">Integrasi Google Spreadsheet</span>
-                                    <div class="flex items-center gap-1">
-                                        <span id="admin-webhook-badge" class="edu-badge edu-badge-amber text-[10px]">Belum Terpasang</span>
-                                        <span id="webhook-status-badge" class="edu-badge edu-badge-amber text-[10px]">Belum Terpasang</span>
-                                    </div>
+                                    <span id="webhook-status-badge" class="edu-badge edu-badge-amber text-[10px]">Belum Terpasang</span>
                                 </div>
                                 <h3 class="text-base font-bold text-slate-900">Sinkronisasi Data Nilai</h3>
                                 <p class="text-xs text-slate-600 leading-relaxed">
@@ -1535,8 +1529,8 @@
                             </div>
 
                             <div class="space-y-2">
-                                <label for="input-webhook-url" class="block text-xs font-bold text-slate-700">
-                                    URL Web App Google Apps Script (Wajib Diisi untuk Ekspor ke Sheets)
+                                <label for="input-webhook-url" class="block text-xs font-bold text-slate-700 flex items-center justify-between">
+                                    <span>URL Web App Google Apps Script (Wajib Diisi untuk Ekspor ke Sheets)</span>
                                 </label>
                                 <div class="flex flex-col sm:flex-row gap-2">
                                     <input id="input-webhook-url" type="url" placeholder="https://script.google.com/macros/s/AKfycb.../exec"
@@ -1545,16 +1539,24 @@
                                         Simpan URL
                                     </button>
                                 </div>
-                                <div class="flex flex-wrap items-center gap-2 pt-1 text-[11px]">
-                                    <button type="button" onclick="TeacherAdminModule.testWebhook()" class="edu-btn-secondary px-3 py-1.5 text-xs font-semibold">Uji Koneksi</button>
-                                    <button type="button" onclick="TeacherAdminModule.syncFromServer()" class="edu-btn-secondary px-3 py-1.5 text-xs font-semibold">Tarik Status</button>
-                                    <button type="button" onclick="TeacherAdminModule.clearWebhookUrl()" class="edu-btn-secondary px-3 py-1.5 text-xs font-semibold text-rose-700 border-rose-200">Hapus</button>
-                                    <button type="button" onclick="TeacherAdminModule.syncAllToSpreadsheet()" class="text-indigo-800 hover:text-indigo-900 font-bold flex items-center gap-1 ml-auto">
+                                <div class="flex flex-wrap items-center justify-between gap-2 pt-1 text-[11px]">
+                                    <span class="text-slate-500">Tautan Apps Script hasil Deploy Web App (berakhiran <code class="font-mono text-slate-700">/exec</code>).</span>
+                                    <button type="button" onclick="TeacherAdminModule.syncAllToSpreadsheet()" class="text-indigo-800 hover:text-indigo-900 font-bold flex items-center gap-1">
                                         <i data-lucide="upload-cloud" class="w-3.5 h-3.5"></i>
                                         <span>Kirim Ulang Semua Data Lokal</span>
                                     </button>
                                 </div>
-                                <p id="admin-webhook-hint" class="text-xs text-slate-500">Nilai siswa tersimpan lokal walau webhook kosong. Isi webhook supaya hasil masuk ke Google Spreadsheet.</p>
+                            </div>
+
+                            <div class="space-y-2 pt-2 border-t border-slate-200">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold text-slate-800">Kode Google Apps Script</span>
+                                    <button type="button" onclick="TeacherAdminModule.copyAppsScriptCode()" class="edu-btn-secondary px-3 py-1.5 text-xs font-mono flex items-center gap-1.5">
+                                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                        <span>Salin Kode</span>
+                                    </button>
+                                </div>
+                                <pre id="apps-script-code" class="edu-panel p-3.5 text-[11px] font-mono text-slate-700 overflow-x-auto leading-relaxed max-h-[300px]">// Tempel kode dari apps-script/Code.gs ke Extensions > Apps Script di spreadsheet tujuan.</pre>
                             </div>
                         </div>
 

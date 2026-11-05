@@ -700,7 +700,7 @@ function ensureQuestionBankSheet(ss, force) {
   "Dua vektor besarnya 3 satuan dan 4 satuan membentuk sudut 90°. Besar resultan kedua vektor adalah … satuan.",
   "C",
   "5",
-  "Kedua vektor tidak tegak lurus, sehingga komponen silang harus diperhitungkan melalui aturan kosinus."
+  "Kedua vektor saling tegak lurus (θ = 90°), sehingga cos 90° = 0 dan resultan dapat dihitung dengan teorema Pythagoras: R = √(A² + B²) = √(3² + 4²) = √25 = 5 satuan."
 ],
 [
   13,
