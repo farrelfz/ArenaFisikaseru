@@ -528,18 +528,8 @@ const ExamModule = {
             formInputs.forEach(el => el.disabled = false);
             if (ipDot) ipDot.className = "w-2 h-2 rounded-full bg-emerald-500";
             if (ipText) {
-                const ip = State.clientIpAddress;
-                if (ip && ip !== "Mendeteksi..." && !ip.includes("Lokal")) {
-                    ipText.textContent = "Siap • " + ip;
-                } else if (ip && ip.includes("Lokal")) {
-                    ipText.textContent = "Siap (Lokal)";
-                } else {
-                    ipText.textContent = "Sistem Siap";
-                }
+                ipText.textContent = "Sistem Siap";
                 ipText.className = "font-medium text-slate-700";
-            }
-            if (ipDisplay) {
-                ipDisplay.textContent = State.clientIpAddress || '';
             }
         }
     },
