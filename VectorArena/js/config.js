@@ -57,6 +57,16 @@ const CONFIG = {
         LABEL: 'Akses Penuh Manual (Dikontrol oleh Guru)'
     },
 
+    // Bank soal menyimpan tingkat kesulitan sebagai ANGKA (1–4), mengikuti
+    // skema penskoran server (server/scoring.js). Label di bawah ini hanya
+    // untuk tampilan.
+    DIFFICULTY_LABELS: {
+        1: 'MUDAH',
+        2: 'SEDANG',
+        3: 'SULIT',
+        4: 'TANTANGAN'
+    },
+
     // Helper Dinamis (Menghindari Hardcode Angka di Template UI)
     get DURATION_MINUTES() {
         return Math.floor(this.EXAM_DURATION_SECONDS / 60);

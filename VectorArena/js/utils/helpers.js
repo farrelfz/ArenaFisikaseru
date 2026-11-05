@@ -18,13 +18,12 @@ const Utils = {
         });
     },
 
-    // Format Detik ke HH:MM:SS
+    // Format Detik ke MM:SS
     formatTime(seconds) {
         const sec = Math.max(0, Math.floor(seconds));
-        const h = Math.floor(sec / 3600);
-        const m = Math.floor((sec % 3600) / 60);
+        const m = Math.floor(sec / 60);
         const s = sec % 60;
-        return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
     },
 
     // Pengacakan Array Menggunakan Algoritma Fisher-Yates
@@ -48,6 +47,18 @@ const Utils = {
             [arr[i], arr[j]] = [arr[j], arr[i]];
         }
         return arr;
+    },
+
+    // Label tingkat kesulitan. Bank soal menyimpan difficulty sebagai angka
+    // (1–4); fungsi ini menerima angka ATAU string apa pun yang mungkin datang
+    // dari data lama, sehingga pemanggil tidak pernah memicu TypeError.
+    difficultyLabel(level) {
+        const key = Number(level);
+        if (CONFIG.DIFFICULTY_LABELS && CONFIG.DIFFICULTY_LABELS[key]) {
+            return CONFIG.DIFFICULTY_LABELS[key];
+        }
+        if (typeof level === 'string' && level.trim()) return level.trim().toUpperCase();
+        return 'SEDANG';
     },
 
     // Escape HTML untuk Keamanan dari XSS

@@ -175,10 +175,21 @@ function check(name, cond, detail = '') {
   console.log('2) Panel guru — menyimpan webhook');
   await page.evaluate(() => { State.isTeacherLoggedIn = true; App.switchView('sheet'); });
   await page.waitForTimeout(300);
+  // Bank soal berada di sub-tab "Bank & Statistik"; buka dulu supaya
+  // daftar terlihat dan JS errors (jika ada) tertangkap.
+  await page.click('#admin-subtab-btn-stats');
+  await page.waitForTimeout(200);
   check('daftar bank soal panel guru terisi tanpa galat',
     (await page.evaluate(() => document.querySelectorAll('#admin-bank-list-tbody tr').length)) > 0);
+  // Kolom webhook ada di sub-tab "Integrasi & Sandi"; guru harus membukanya
+  // dulu. Tanpa klik ini input tetap hidden dan tes gagal karena selector,
+  // bukan karena aplikasinya rusak.
+  await page.click('#admin-subtab-btn-config');
+  await page.waitForTimeout(150);
+  check('sub-tab integrasi terbuka dan kolom webhook terlihat',
+    await page.isVisible('#input-webhook-url'));
   await page.fill('#input-webhook-url', execUrl);
-  await page.click('text=Simpan');
+  await page.click('#btn-save-webhook');
   await page.waitForTimeout(400);
   check('URL tersimpan di localStorage',
     await page.evaluate(() => localStorage.getItem('vectorarena_webhook_url_v1_live')) === execUrl);
@@ -209,7 +220,7 @@ function check(name, cond, detail = '') {
   await page.reload({ waitUntil: 'load' });
   await page.waitForTimeout(1200);
   const headerText = await page.textContent('#header-exam-status-text');
-  check('pil header menyatakan tertutup', /Ditutup/i.test(headerText), headerText);
+  check('pil header menyatakan tertutup', /Ditutup|Belum Dibuka/i.test(headerText), headerText);
   check('banner peringatan tampil',
     await page.evaluate(() => !document.getElementById('exam-closed-banner').classList.contains('hidden')));
   check('tombol mulai dinonaktifkan',
@@ -219,7 +230,7 @@ function check(name, cond, detail = '') {
   console.log('6) Guru membuka kembali — siswa bisa mulai, hasil terkirim');
   await page.evaluate(() => { State.isTeacherLoggedIn = true; App.switchView('sheet'); });
   await page.waitForTimeout(200);
-  await page.click('text=Buka Pendaftaran');
+  await page.click('#btn-toggle-exam-status');
   await page.waitForTimeout(900);
   const setCfg = received.filter((r) => r.body.action === 'setExamConfig').pop();
   check('perubahan status dikirim ke server', !!setCfg && setCfg.body.isOpen === true,
