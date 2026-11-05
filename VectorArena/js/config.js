@@ -100,7 +100,7 @@ const CONFIG = {
     },
 
     // Default Passcode Guru Administrator
-    DEFAULT_TEACHER_PIN: '246810'
+    DEFAULT_TEACHER_PIN: 'GURUX78'
 };
 
 if (typeof module !== 'undefined') {
