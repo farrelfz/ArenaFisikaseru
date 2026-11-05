@@ -502,6 +502,7 @@ const ExamModule = {
         const lockedBanner = document.getElementById('ip-locked-banner');
         const ipDot = document.getElementById('ip-status-dot');
         const ipText = document.getElementById('ip-status-text');
+        const ipDisplay = document.getElementById('header-ip-display');
 
         if (lockedRecord) {
             if (lockedBanner) lockedBanner.classList.remove('hidden');
@@ -516,19 +517,29 @@ const ExamModule = {
 
             const formInputs = document.querySelectorAll('#exam-start-form input, #exam-start-form select, #btn-start-exam');
             formInputs.forEach(el => el.disabled = true);
-            if (ipDot) ipDot.className = "w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse";
+            if (ipDot) ipDot.className = "w-2 h-2 rounded-full bg-amber-500 animate-pulse";
             if (ipText) {
                 ipText.textContent = "Sesi Selesai (Terkunci)";
-                ipText.className = "font-medium text-amber-400";
+                ipText.className = "font-medium text-amber-600";
             }
         } else {
             if (lockedBanner) lockedBanner.classList.add('hidden');
             const formInputs = document.querySelectorAll('#exam-start-form input, #exam-start-form select, #btn-start-exam');
             formInputs.forEach(el => el.disabled = false);
-            if (ipDot) ipDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500";
+            if (ipDot) ipDot.className = "w-2 h-2 rounded-full bg-emerald-500";
             if (ipText) {
-                ipText.textContent = "Sistem Siap";
-                ipText.className = "font-medium text-slate-300";
+                const ip = State.clientIpAddress;
+                if (ip && ip !== "Mendeteksi..." && !ip.includes("Lokal")) {
+                    ipText.textContent = "Siap • " + ip;
+                } else if (ip && ip.includes("Lokal")) {
+                    ipText.textContent = "Siap (Lokal)";
+                } else {
+                    ipText.textContent = "Sistem Siap";
+                }
+                ipText.className = "font-medium text-slate-700";
+            }
+            if (ipDisplay) {
+                ipDisplay.textContent = State.clientIpAddress || '';
             }
         }
     },

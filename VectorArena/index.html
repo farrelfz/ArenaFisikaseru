@@ -405,8 +405,8 @@
 
                     <!-- Formulir Identitas Siswa -->
                     <form id="exam-start-form" onsubmit="ExamModule.start(event)" class="space-y-5">
-                        <!-- Pemilih Mode Permainan (5 Mode Khas VectorArena) -->
-                        <div class="space-y-2">
+                        <!-- Pemilih Mode Permainan (5 Mode Khas VectorArena) — Disembunyikan saat ujian resmi -->
+                        <div class="space-y-2 hidden" id="game-mode-selector">
                             <div class="flex flex-wrap items-center justify-between gap-2">
                                 <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
                                     <i data-lucide="gamepad-2" class="w-3.5 h-3.5 text-indigo-700"></i>
