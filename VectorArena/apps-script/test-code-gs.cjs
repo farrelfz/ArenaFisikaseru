@@ -210,6 +210,27 @@ const inflated = post({ ...base, name: 'Siswa Klaim', absen: 5, correctCount: 5,
 check('nilai dihitung dari correctCount', inflated.grade === 20, inflated);
 check('KKM ditentukan server', inflated.statusKKM === 'REMEDIAL', inflated);
 
+// 6c. Nomor soal salah dari bank soal kurasi berformat VEC-ZZ-NNN
+// (kunci answersJson dari js/data/curated_25.js) — harus muncul di kolom 9,
+// bukan "Sempurna (0 Salah)".
+post({
+  ...base,
+  name: 'Siswa Vektor Salah',
+  absen: 6,
+  correctCount: 23,
+  academicGrade: 92,
+  totalScore: 89329,
+  tabSwitches: 2,
+  ip: '10.0.0.6',
+  answersJson: JSON.stringify({
+    'VEC-02-011': { isCorrect: false },
+    'VEC-05-005': { isCorrect: false }
+  })
+});
+const vectorSalah = classSheet.data.find((row) => row[1] === 'Siswa Vektor Salah');
+check('jumlah salah 2', vectorSalah && vectorSalah[7] === 2, vectorSalah && vectorSalah[8]);
+check('nomor salah VEC tampil', vectorSalah && vectorSalah[8] === 'VEC-02-011, VEC-05-005', vectorSalah && vectorSalah[8]);
+
 // 7. Reset bank soal idempoten
 gas.manualInitQuestionBank();
 check('reset bank soal tidak menduplikasi', bank.data.length === 26, bank.data.length);

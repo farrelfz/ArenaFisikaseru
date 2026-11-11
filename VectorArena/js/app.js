@@ -28,6 +28,7 @@ const App = {
 
         // Sinkronkan status ujian + indikator koneksi ke webhook (non-blocking).
         this.syncWithSpreadsheet();
+        this.flushPendingSync();
         this._startLobbyPolling();
     },
 
@@ -76,6 +77,10 @@ const App = {
                 this.applyExamConfigUI();
                 TeacherAdminModule.updateExamConfigUI();
                 this.renderAllViews();
+            }
+            // Kirim ulang record tertahan yang belum tersinkron (anti data-hilang).
+            if (SpreadsheetService.getPendingCount() > 0) {
+                SpreadsheetService.flushPendingQueue();
             }
         }, 12000);
     },
@@ -187,18 +192,34 @@ const App = {
         }
     },
 
-    // Tanya server (bila webhook diatur) lalu sesuaikan status lokal. Kegagalan
-    // tidak menghentikan aplikasi — mode mandiri tetap berjalan.
+    // Tanya server (bila webhook diatur) lalu sesuaikan status + data lokal.
+    // Sinkron penuh: status ujian DAN seluruh record spreadsheet, karena papan
+    // klasemen harus memuat data yang dikumpulkan dari perangkat siswa lain.
+    // Kegagalan tidak menghentikan aplikasi — mode mandiri tetap berjalan.
     async syncWithSpreadsheet() {
         if (typeof SpreadsheetService === 'undefined') return;
 
         SpreadsheetService.updateConnectionIndicator(false);
         if (!SpreadsheetService.isConfigured()) return;
 
-        const changed = await SpreadsheetService.syncExamConfig(false);
+        const changed = await SpreadsheetService.sync(false);
         if (changed) {
             this.applyExamConfigUI();
             TeacherAdminModule.updateExamConfigUI();
+            this.renderAllViews();
+        }
+    },
+
+    // Kirim ulang record yang tertahan di antrean pending (mis. gagal dikirim
+    // saat ujian offline). Dipanggil saat boot; non-blocking & aman diulang.
+    async flushPendingSync() {
+        if (typeof SpreadsheetService === 'undefined') return;
+        if (!SpreadsheetService.isConfigured()) return;
+        if (SpreadsheetService.getPendingCount() === 0) return;
+        try {
+            await SpreadsheetService.flushPendingQueue();
+        } catch (e) {
+            console.warn('flushPendingQueue gagal:', e);
         }
     },
 

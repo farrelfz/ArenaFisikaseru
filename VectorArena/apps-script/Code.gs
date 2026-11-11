@@ -211,7 +211,11 @@ function normalizeWrongNumbers_(wrong) {
   (wrong || []).forEach(function (raw) {
     let id = String(raw).trim().toUpperCase();
     if (/^\d+$/.test(id)) id = 'Q' + (id.length < 2 ? '0' + id : id);
-    if (!/^Q\d{1,2}$/.test(id) || seen[id]) return;
+    // ID soal resmi terdiri dari dua pola: "Q01"–"Q25" (format lama) dan
+    // "VEC-ZZ-NNN" (format ID bank soal kurasi, kunci answersJson siswa).
+    // Regex dulunya hanya menerima Q%, sehingga seluruh nomor salah dari
+    // bank VEK kebuang dan kolom "Nomor Soal Salah" selalu "Sempurna (0 Salah)".
+    if (!/^(Q\d{1,2}|VEC-\d{2}-\d{3})$/.test(id) || seen[id]) return;
     seen[id] = true;
     out.push(id);
   });

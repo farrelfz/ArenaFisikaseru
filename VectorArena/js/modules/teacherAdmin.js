@@ -908,8 +908,11 @@ const TeacherAdminModule = {
 
     async syncFromServer() {
         if (typeof SpreadsheetService === 'undefined') return;
-        const changed = await SpreadsheetService.syncExamConfig(true);
-        if (changed) this.updateExamConfigUI();
+        const changed = await SpreadsheetService.sync(true);
+        if (changed) {
+            this.updateExamConfigUI();
+            this._renderAllViews();
+        }
     },
 
     async syncAllToSpreadsheet() {
@@ -927,6 +930,11 @@ const TeacherAdminModule = {
         if (records.length === 0) {
             Utils.showToast("Tidak ada data murid lokal untuk dikirim.", false);
             return;
+        }
+
+        // Kirim ulang record yang tertahan di antrean pending terlebih dahulu.
+        if (SpreadsheetService.getPendingCount() > 0) {
+            await SpreadsheetService.flushPendingQueue();
         }
 
         Utils.showToast(`Mengirim ${records.length} data murid ke Google Spreadsheet...`);
@@ -963,6 +971,7 @@ const TeacherAdminModule = {
         const headers = [
             'Peringkat', 'Timestamp', 'IP_Address', 'Nama_Lengkap',
             'Kelas', 'No_Absen', 'Benar_Dari_25', 'Nilai_Akademik',
+            'Status_KKM', 'Nomor_Soal_Salah',
             'Durasi_Detik', 'Skor_Dasar', 'Bonus_Kecepatan', 'Total_Skor', 'Pelanggaran_Tab'
         ];
 
@@ -975,6 +984,8 @@ const TeacherAdminModule = {
             r.absen || 0,
             r.correctCount !== undefined ? r.correctCount : 0,
             r.academicGrade !== undefined ? r.academicGrade : 0,
+            `"${State.statusKKMFor(r)}"`,
+            `"${State.wrongNumbersFor(r)}"`,
             r.durationSec !== undefined ? r.durationSec : 0,
             r.baseScore !== undefined ? r.baseScore : 0,
             r.speedBonus !== undefined ? r.speedBonus : 0,

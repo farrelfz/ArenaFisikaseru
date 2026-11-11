@@ -7,6 +7,7 @@ const ExamModule = {
 
     init() {
         this._bindAntiCheat();
+        this._bindQuestionProtection();
         this._bindKeyboardNavigation();
         this._bindBeforeUnload();
     },
@@ -43,18 +44,136 @@ const ExamModule = {
     },
 
     _bindAntiCheat() {
+        // Beralih tab / sembunyikan jendela = pelanggaran integritas + soal disamarkan.
         document.addEventListener('visibilitychange', () => {
-            if (document.hidden && State.activeSession && State.activeSession.startTimeMs > 0 && !this._isSubmitting) {
-                State.activeSession.tabSwitches = (State.activeSession.tabSwitches || 0) + 1;
-                this.saveActiveSession();
-                const cheatCount = document.getElementById('exam-hud-cheat-count');
-                if (cheatCount) {
-                    const st = this._getAntiCheatStatus(State.activeSession.tabSwitches);
-                    cheatCount.textContent = st.statusLabel;
-                    cheatCount.className = st.badgeClass;
-                }
+            if (document.hidden) {
+                this._setQuestionBlur(true);
+                this._recordViolation();
+            } else {
+                this._setQuestionBlur(false);
             }
         });
+        // Kehilangan fokus (buka aplikasi/jendela lain, split-screen) → samarkan soal.
+        window.addEventListener('blur', () => {
+            if (State.activeSession && State.activeSession.startTimeMs > 0) this._setQuestionBlur(true);
+        });
+        window.addEventListener('focus', () => this._setQuestionBlur(false));
+    },
+
+    // Proteksi anti-salin/klik-kanan/cetak + injeksi watermark identitas.
+    // Berfungsi hanya ketika layar ujian terbuka, supaya halaman lain
+    // (lobby/review/guru) tidak ikut terkunci.
+    _bindQuestionProtection() {
+        if (this._protectionBound) return;
+        this._protectionBound = true;
+
+        const style = document.createElement('style');
+        style.id = 'exam-protection-style';
+        style.textContent = [
+            '#exam-question-panel { position: relative; overflow: hidden; }',
+            '#exam-question-panel .exam-watermark { position:absolute; inset:0; z-index:12; pointer-events:none; background-repeat:repeat; }',
+            '#exam-question-panel.exam-focus-lost #q-stem-text,',
+            '#exam-question-panel.exam-focus-lost #q-diagram-container,',
+            '#exam-question-panel.exam-focus-lost #q-options-container,',
+            '#exam-question-panel.exam-focus-lost #q-topic-badge,',
+            '#exam-question-panel.exam-focus-lost #q-difficulty-badge,',
+            '#exam-question-panel.exam-focus-lost #q-status-badge { filter: blur(7px); pointer-events:none; user-select:none; }',
+            '#exam-focus-overlay { position:absolute; inset:0; z-index:30; display:none; align-items:center; justify-content:center; background:rgba(255,255,255,0.94); padding:24px; text-align:center; }',
+            '#exam-question-panel.exam-focus-lost #exam-focus-overlay { display:flex; }'
+        ].join('\n');
+        document.head.appendChild(style);
+
+        const examActive = () => {
+            const screen = document.getElementById('screen-active-exam');
+            return !!(screen && !screen.classList.contains('hidden') &&
+                State.activeSession && State.activeSession.startTimeMs > 0);
+        };
+
+        // Blokir salin / potong / klik-kanan / pilih-teks / tempel saat ujian.
+        ['copy', 'cut', 'contextmenu', 'selectstart', 'paste', 'dragstart'].forEach((evt) => {
+            document.addEventListener(evt, (e) => {
+                if (!examActive()) return;
+                e.preventDefault();
+                if (evt !== 'selectstart' && evt !== 'dragstart') this._recordViolation();
+            });
+        });
+
+        // Cetak: buramkan konten + hitung (Ctrl+P diblokir di bawah; menu File>Print dihitung di sini).
+        window.addEventListener('beforeprint', () => {
+            if (!examActive()) return;
+            this._recordViolation();
+            this._setQuestionBlur(true);
+        });
+        window.addEventListener('afterprint', () => this._setQuestionBlur(false));
+
+        // Pintasan papan klip / cetak / simpan.
+        document.addEventListener('keydown', (e) => {
+            if (!examActive()) return;
+            const k = (e.key || '').toLowerCase();
+            const mod = e.ctrlKey || e.metaKey;
+            if (mod && (k === 'c' || k === 'x' || k === 'v' || k === 'a' || k === 'p' || k === 's')) {
+                e.preventDefault();
+                this._recordViolation();
+            } else if (e.key === 'PrintScreen') {
+                this._recordViolation();
+            }
+        });
+
+        // Wadah watermark (di bawah konten) + overlay peringatan fokus (di atas).
+        const panel = document.getElementById('exam-question-panel');
+        if (panel) {
+            const wm = document.createElement('div');
+            wm.className = 'exam-watermark';
+            panel.insertBefore(wm, panel.firstChild);
+
+            const overlay = document.createElement('div');
+            overlay.id = 'exam-focus-overlay';
+            overlay.innerHTML = '<div><i data-lucide="eye-off" class="w-6 h-6 mx-auto text-rose-500"></i><p class="mt-2 text-sm font-bold text-slate-800">Layar tidak difokus</p><p class="mt-1 text-xs text-slate-500">Konten soal disamarkan. Setiap meninggalkan layar ujian dihitung sebagai pelanggaran integritas.</p></div>';
+            panel.insertBefore(overlay, wm);
+        }
+    },
+
+    // Catat satu pelanggaran integritas (tab switch / salin / klik-kanan / cetak)
+    // ke penghitung yang sama (tabSwitches) lalu perbarui indikator di HUD.
+    _recordViolation() {
+        if (!State.activeSession || !State.activeSession.startTimeMs || this._isSubmitting) return;
+        State.activeSession.tabSwitches = (State.activeSession.tabSwitches || 0) + 1;
+        this.saveActiveSession();
+        const cheatCount = document.getElementById('exam-hud-cheat-count');
+        if (cheatCount) {
+            const st = this._getAntiCheatStatus(State.activeSession.tabSwitches);
+            cheatCount.textContent = st.statusLabel;
+            cheatCount.className = st.badgeClass;
+        }
+    },
+
+    // Samarkan / tampilkan kembali konten soal saat jendela kehilangan fokus.
+    _setQuestionBlur(blur) {
+        const panel = document.getElementById('exam-question-panel');
+        if (!panel) return;
+        if (blur) panel.classList.add('exam-focus-lost');
+        else panel.classList.remove('exam-focus-lost');
+    },
+
+    // Bangun ulang watermark identitas (nama + kelas + absen) yang dibakar di
+    // seluruh kartu soal. Jejak ini membuat screenshot/foto layar apa pun
+    // langsung telusur ke pemiliknya — pencegah kebocoran soal terkuat.
+    _updateWatermark() {
+        const wm = document.querySelector('#exam-question-panel .exam-watermark');
+        if (!wm) return;
+        const name = String((State.activeSession && State.activeSession.name) || '').trim();
+        const className = String((State.activeSession && State.activeSession.className) || '').trim().toUpperCase();
+        const absen = parseInt((State.activeSession && State.activeSession.absen), 10) || 1;
+        if (!name) { wm.style.backgroundImage = 'none'; return; }
+
+        const line1 = name;
+        const line2 = className + ' • #' + String(absen).padStart(2, '0');
+        const svg =
+            "<svg xmlns='http://www.w3.org/2000/svg' width='380' height='210'>" +
+            "<text x='50%' y='44%' font-size='16' font-family='Arial, sans-serif' font-weight='700' fill='rgba(79,70,229,0.15)' text-anchor='middle' transform='rotate(-30 190 100)'>" + line1 + "</text>" +
+            "<text x='50%' y='62%' font-size='13' font-family='Arial, sans-serif' font-weight='700' fill='rgba(190,18,60,0.16)' text-anchor='middle' transform='rotate(-30 190 100)'>" + line2 + "</text>" +
+            "</svg>";
+        wm.style.backgroundImage = "url('data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg) + "')";
     },
 
     _getAntiCheatStatus(switches) {
@@ -174,6 +293,7 @@ const ExamModule = {
             cheatCount.className = st.badgeClass;
         }
 
+        this._updateWatermark();
         this._startTimer();
         this.renderQuestion(0);
         this.renderPalette();
@@ -819,6 +939,7 @@ const ExamModule = {
                 cheatCount.className = st.badgeClass;
             }
 
+            this._updateWatermark();
             this._startTimer();
             this.renderQuestion(State.activeSession.currentIndex || 0);
             this.renderPalette();
@@ -831,6 +952,7 @@ const ExamModule = {
             clearInterval(State.activeSession.timerInterval);
         }
         localStorage.removeItem(CONFIG.STORAGE_KEYS.ACTIVE_SESSION);
+        this._setQuestionBlur(false);
         State.activeSession = {
             name: "",
             className: "X A",

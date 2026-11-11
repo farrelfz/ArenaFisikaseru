@@ -94,6 +94,64 @@ const State = {
         };
     },
 
+    // Status KKM (TUNTAS / REMEDIAL) — dipakai untuk paritas ekspor CSV/Excel
+    // dengan kolom "Status KKM" di Google Spreadsheet. Record yang sudah ditarik
+    // dari server membawa nilai otoritatif; selebihnya dihitung dari nilai.
+    statusKKMFor(r) {
+        if (r && r.statusKKM && String(r.statusKKM).trim()) {
+            return String(r.statusKKM).trim().toUpperCase();
+        }
+        const kkm = (CONFIG.ACADEMIC_KKM != null) ? CONFIG.ACADEMIC_KKM : 75;
+        let grade = Number(r && r.academicGrade);
+        if (isNaN(grade)) {
+            const totalQ = Number(r && r.totalQuestions) || CONFIG.TOTAL_QUESTIONS || 25;
+            const correct = Number(r && r.correctCount);
+            grade = isNaN(correct) ? 0 : (correct / totalQ) * 100;
+        }
+        return grade >= kkm ? 'TUNTAS' : 'REMEDIAL';
+    },
+
+    // Nomor Soal Salah ("VEC-01-001, ..." atau "Sempurna (0 Salah)"). Nilai dari
+    // server diutamakan; bila belum ada, diturunkan dari answersJson siswa.
+    wrongNumbersFor(r) {
+        if (r && r.wrongNumbers && String(r.wrongNumbers).trim()) {
+            return String(r.wrongNumbers).trim();
+        }
+        const wrong = this._collectWrongNumbers(r);
+        return wrong.length > 0 ? wrong.join(', ') : 'Sempurna (0 Salah)';
+    },
+
+    // Kumpulkan ID soal yang salah dari answersJson. Normalisasi mengikuti
+    // normalizeWrongNumbers_ di backend (kunci "Q01"–"Q25" / "VEC-ZZ-NNN").
+    _collectWrongNumbers(r) {
+        let parsed = r && r.answersJson;
+        if (typeof parsed === 'string') {
+            try { parsed = JSON.parse(parsed); } catch (e) { parsed = null; }
+        }
+        if (!parsed) return [];
+
+        const seen = {};
+        const out = [];
+        const collect = (raw) => {
+            let id = String(raw).trim().toUpperCase();
+            if (/^\d+$/.test(id)) id = 'Q' + (id.length < 2 ? '0' + id : id);
+            if (!/^(Q\d{1,2}|VEC-\d{2}-\d{3})$/.test(id) || seen[id]) return;
+            seen[id] = true;
+            out.push(id);
+        };
+
+        if (Array.isArray(parsed)) {
+            parsed.forEach(collect);
+        } else if (typeof parsed === 'object') {
+            Object.keys(parsed).forEach(key => {
+                const item = parsed[key];
+                if (item && typeof item === 'object' && item.isCorrect === false) collect(key);
+            });
+        }
+        out.sort();
+        return out;
+    },
+
     // Persistence Functions
     load() {
         try {

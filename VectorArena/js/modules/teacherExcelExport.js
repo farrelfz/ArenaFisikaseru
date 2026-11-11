@@ -29,6 +29,7 @@ const TeacherExcelExport = {
         const headers = [
             "Peringkat", "Waktu Submit", "IP Address", "Nama Lengkap",
             "Kelas", "No Absen", "Benar (dari 25)", "Nilai Akademik (0-100)",
+            "Status KKM", "Nomor Soal Salah",
             "Durasi (Detik)", "Skor Dasar", "Bonus Kecepatan", "Total Skor", "Pelanggaran Tab"
         ];
 
@@ -41,6 +42,12 @@ const TeacherExcelExport = {
             r.absen || 1,
             r.correctCount || 0,
             r.academicGrade || 0,
+            (typeof State !== 'undefined' && State.statusKKMFor)
+                ? State.statusKKMFor(r)
+                : ((r.academicGrade >= (CONFIG.ACADEMIC_KKM || 75)) ? 'TUNTAS' : 'REMEDIAL'),
+            (typeof State !== 'undefined' && State.wrongNumbersFor)
+                ? State.wrongNumbersFor(r)
+                : 'Sempurna (0 Salah)',
             r.durationSec || 0,
             r.baseScore || 0,
             r.speedBonus || 0,

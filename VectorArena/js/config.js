@@ -29,7 +29,7 @@ const CONFIG = {
     ],
 
     // Google Spreadsheet Integration (Dapat dikonfigurasi melalui panel guru)
-    SPREADSHEET_ID: '', // Opsional: isi jika script standalone. Jika script ditempel di Extensions > Apps Script pada sheet, biarkan kosong.
+    SPREADSHEET_ID: '1EjFRurV6b7iBd9ILSIXO8Dr7Nf6S8wrq0T92PHjC5tQ', // Opsional: isi jika script standalone. Jika script ditempel di Extensions > Apps Script pada sheet, biarkan kosong.
     get SPREADSHEET_EDIT_URL() {
         return this.SPREADSHEET_ID ? `https://docs.google.com/spreadsheets/d/${this.SPREADSHEET_ID}/edit?usp=sharing` : '';
     },
@@ -41,7 +41,7 @@ const CONFIG = {
     },
 
     // URL Webhook Google Apps Script Default (Otomatis dipakai bila terkonfigurasi)
-    DEFAULT_WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbzIW8TEidqdI-M4OF0shifeDxmtmklulwjkMNoxyqqpSvzt_S5MHLKaFKe8FShJxw5b/exec',
+    DEFAULT_WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbwPvQY_pL7Eq5fCDhTrxNbqxAvGqFYYoxahsuK9R9FgyjkIN0FjUHYUa7LZAtdW-V2q/exec',
 
     // Standar Evaluasi Akademik
     EXAM_DURATION_SECONDS: 5400, // 90 Menit untuk Ranked / Ujian Penuh
@@ -96,7 +96,16 @@ const CONFIG = {
         TEACHER_SESSION: 'vectorarena_teacher_session_v1_live',
         FALLBACK_IP: 'vectorarena_device_ip_v1_live',
         ACTIVE_SESSION: 'vectorarena_active_exam_session_v1_live',
-        GAME_MODE: 'vectorarena_selected_mode_v1'
+        GAME_MODE: 'vectorarena_selected_mode_v1',
+        PENDING_SYNC: 'vectorarena_pending_sync_v1_live'
+    },
+
+    // Parameter Ketahanan Pengiriman ke Google Spreadsheet
+    // (retry eksponensial + verifikasi read-back agar data siswa tidak hilang).
+    SYNC_RETRY: {
+        MAX_ATTEMPTS: 5,          // Maksimal percobaan per pengiriman
+        BASE_DELAY_MS: 1200,      // Jeda awal antar percobaan (backoff eksponensial)
+        REQUEST_TIMEOUT_MS: 20000 // Batas waktu satu permintaan fetch
     },
 
     // Default Passcode Guru Administrator
