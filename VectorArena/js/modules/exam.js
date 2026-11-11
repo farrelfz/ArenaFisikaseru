@@ -4,6 +4,7 @@
 
 const ExamModule = {
     _isSubmitting: false,
+    _lockedRecord: null,
 
     init() {
         this._bindAntiCheat();
@@ -233,22 +234,25 @@ const ExamModule = {
             return;
         }
 
-        // 2. Verifikasi Kunci IP Siswa
-        const existingRecord = State.findRecordByIp(State.clientIpAddress);
-        if (existingRecord) {
-            this.checkAndEnforceIpLockUI();
-            Utils.showToast("Alamat IP Anda sudah tercatat menyelesaikan evaluasi ini.", false);
-            this.openLockedReviewMode();
-            return;
-        }
-
-        // 3. Validasi Form Identitas
+        // 2. Validasi Form Identitas
         const nameVal = document.getElementById('input-name').value.trim();
         const classVal = document.getElementById('input-class').value;
         const absenVal = parseInt(document.getElementById('input-absen').value, 10);
 
         if (!nameVal || !classVal || isNaN(absenVal) || absenVal < 1 || absenVal > 40) {
             Utils.showToast("Harap lengkapi Nama Lengkap, Kelas (X A–K), dan No. Absen (1–40).", false);
+            return;
+        }
+
+        // 3. Verifikasi sekali-kerjakan berdasar IDENTITAS (nama + kelas + absen),
+        //    bukan IP — satu sekolah berbagi IP NAT sehingga kunci IP justru salah
+        //    mengunci siswa lain di jaringan yang sama.
+        const existingRecord = State.findRecordByIdentity(nameVal, classVal, absenVal);
+        if (existingRecord) {
+            this._lockedRecord = existingRecord;
+            this.checkAndEnforceIpLockUI(existingRecord);
+            Utils.showToast("Identitas siswa ini sudah tercatat menyelesaikan evaluasi.", false);
+            this.openLockedReviewMode(existingRecord);
             return;
         }
 
@@ -617,8 +621,7 @@ const ExamModule = {
         });
     },
 
-    checkAndEnforceIpLockUI() {
-        const lockedRecord = State.findRecordByIp(State.clientIpAddress);
+    checkAndEnforceIpLockUI(lockedRecord = null) {
         const lockedBanner = document.getElementById('ip-locked-banner');
         const ipDot = document.getElementById('ip-status-dot');
         const ipText = document.getElementById('ip-status-text');
@@ -654,10 +657,10 @@ const ExamModule = {
         }
     },
 
-    openLockedReviewMode() {
-        const lockedRec = State.findRecordByIp(State.clientIpAddress);
+    openLockedReviewMode(record) {
+        const lockedRec = record || this._lockedRecord;
         if (!lockedRec) {
-            Utils.showToast("Belum ada data pengerjaan yang tercatat untuk IP ini.", false);
+            Utils.showToast("Belum ada data pengerjaan yang tercatat untuk identitas ini.", false);
             return;
         }
         this.openReviewScreen(lockedRec);

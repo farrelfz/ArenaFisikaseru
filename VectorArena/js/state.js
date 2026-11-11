@@ -225,6 +225,23 @@ const State = {
         if (!ip || ip === "Mendeteksi...") return null;
         if (this.ipLockRegistry[ip]) return this.ipLockRegistry[ip];
         return this.leaderboardRecords.find(r => String(r.ip).trim() === String(ip).trim()) || null;
+    },
+
+    // Kunci identitas siswa = NAMA + KELAS + ABSEN (bukan IP: satu sekolah
+    // berbagi IP NAT sehingga kunci IP justru salah mengunci siswa lain).
+    identityKeyFor(name, className, absen) {
+        return [
+            String(name || '').trim().toLowerCase(),
+            String(className || '').trim().toUpperCase(),
+            String(parseInt(absen, 10) || 0)
+        ].join('|||');
+    },
+
+    findRecordByIdentity(name, className, absen) {
+        const key = this.identityKeyFor(name, className, absen);
+        return this.leaderboardRecords.find(
+            (r) => this.identityKeyFor(r.name, r.className, r.absen) === key
+        ) || null;
     }
 };
 

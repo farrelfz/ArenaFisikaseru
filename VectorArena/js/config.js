@@ -3,7 +3,7 @@
 // ==========================================================================
 
 const CONFIG = {
-    VERSION: '1.0.0',
+    VERSION: '1.0.1',
     APP_NAME: 'VectorArena',
     APP_SUBTITLE: 'Evaluasi Kompetitif Vektor & Kinematika Gerak Vertikal',
 
