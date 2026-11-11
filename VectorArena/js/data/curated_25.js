@@ -1,5 +1,6 @@
 // ==========================================================================
-// VECTORARENA - DATA RESMI 25 BUTIR SOAL TERKURASI (C2 - C4)
+// VECTORARENA - DATA RESMI 25 BUTIR SOAL TERKURASI (C1 - C4) — SEIMBANG 4 TOPIK
+// Vektor(7) + GLB(6) + GLBB(6) + Kinematika Vertikal(6)
 // ==========================================================================
 
 const CURATED_25_QUESTIONS = [
@@ -45,26 +46,6 @@ const CURATED_25_QUESTIONS = [
   },
   {
     "no": 3,
-    "id": "VEC-01-030",
-    "zoneId": 1,
-    "zoneName": "Vector Fundamentals",
-    "difficulty": 3,
-    "bloom": "C4 (Analisis)",
-    "question": "Sebuah mobil menempuh perjalanan: 40 km ke timur lalu 30 km ke utara. Perbandingan besar perpindahan terhadap jarak total yang ditempuh adalah …",
-    "options": [
-      "70 : 50 = 7 : 5",
-      "30 : 70 = 3 : 7",
-      "40 : 30 = 4 : 3",
-      "1 : 1",
-      "50 : 70 = 5 : 7"
-    ],
-    "correctKey": "E",
-    "correctAnswer": "50 : 70 = 5 : 7",
-    "explanation": "Jarak total = 40 + 30 = 70 km. Perpindahan adalah resultan tegak lurus: √(40² + 30²) = 50 km. Jadi perpindahan : jarak = 50 : 70 = 5 : 7.",
-    "diagram": null
-  },
-  {
-    "no": 4,
     "id": "VEC-02-001",
     "zoneId": 2,
     "zoneName": "Vector Representation",
@@ -84,58 +65,7 @@ const CURATED_25_QUESTIONS = [
     "diagram": null
   },
   {
-    "no": 5,
-    "id": "VEC-02-011",
-    "zoneId": 2,
-    "zoneName": "Vector Representation",
-    "difficulty": 2,
-    "bloom": "C3 (Aplikasi)",
-    "question": "Vektor posisi sebuah drone adalah r = 3i + 4j meter. Jarak drone dari titik asal adalah …",
-    "options": [
-      "5",
-      "7",
-      "1",
-      "25"
-    ],
-    "correctKey": "A",
-    "correctAnswer": "5",
-    "explanation": "Jarak dari titik asal sama dengan besar vektor posisi.",
-    "diagram": {
-      "type": "vector-plane",
-      "params": {
-        "vectors": [
-          {
-            "x": 3,
-            "y": 4,
-            "label": "r"
-          }
-        ],
-        "showResultant": true
-      }
-    }
-  },
-  {
-    "no": 6,
-    "id": "VEC-02-005",
-    "zoneId": 2,
-    "zoneName": "Vector Representation",
-    "difficulty": 1,
-    "bloom": "C2 (Pemahaman)",
-    "question": "Sebuah benda bergerak 4 m ke kiri sepanjang sumbu X. Dalam notasi vektor dengan arah kanan positif, perpindahan benda ditulis …",
-    "options": [
-      "+4i m",
-      "+4j m",
-      "4(i + j) m",
-      "−4i m",
-      "−4j m"
-    ],
-    "correctKey": "D",
-    "correctAnswer": "−4i m",
-    "explanation": "Gerak ke kiri berlawanan dengan arah positif sumbu X sehingga komponennya −4 m pada arah i.",
-    "diagram": null
-  },
-  {
-    "no": 7,
+    "no": 4,
     "id": "VEC-03-004",
     "zoneId": 3,
     "zoneName": "Vector Operations",
@@ -155,7 +85,7 @@ const CURATED_25_QUESTIONS = [
     "diagram": null
   },
   {
-    "no": 8,
+    "no": 5,
     "id": "VEC-03-007",
     "zoneId": 3,
     "zoneName": "Vector Operations",
@@ -174,43 +104,7 @@ const CURATED_25_QUESTIONS = [
     "diagram": null
   },
   {
-    "no": 9,
-    "id": "VEC-03-032",
-    "zoneId": 3,
-    "zoneName": "Vector Operations",
-    "difficulty": 2,
-    "bloom": "C3 (Aplikasi)",
-    "question": "Gambar 1 menunjukkan dua vektor dengan hubungan vektor tegak lurus. Besar resultannya adalah … satuan.",
-    "options": [
-      "20",
-      "10",
-      "5",
-      "14"
-    ],
-    "correctKey": "B",
-    "correctAnswer": "10",
-    "explanation": "Resultan dihitung dari komponen kedua vektor, sesuai arah masing-masing pada diagram.",
-    "diagram": {
-      "type": "vector-plane",
-      "params": {
-        "vectors": [
-          {
-            "x": 6,
-            "y": 0,
-            "label": "F₁"
-          },
-          {
-            "x": 0,
-            "y": 8,
-            "label": "F₂"
-          }
-        ],
-        "showResultant": true
-      }
-    }
-  },
-  {
-    "no": 10,
+    "no": 6,
     "id": "VEC-04-001",
     "zoneId": 4,
     "zoneName": "Geometrical Vector Methods",
@@ -230,53 +124,7 @@ const CURATED_25_QUESTIONS = [
     "diagram": null
   },
   {
-    "no": 11,
-    "id": "VEC-04-004",
-    "zoneId": 4,
-    "zoneName": "Geometrical Vector Methods",
-    "difficulty": 2,
-    "bloom": "C3 (Aplikasi)",
-    "question": "Rumus aturan kosinus untuk besar resultan dua vektor yang membentuk sudut θ adalah …",
-    "options": [
-      "R = A B sin θ",
-      "R = √(A² − B²)",
-      "R = √(A² + B² + 2AB cos θ)",
-      "R = √(A² + B² − 2AB cos θ)",
-      "R = A + B cos θ"
-    ],
-    "correctKey": "C",
-    "correctAnswer": "R = √(A² + B² + 2AB cos θ)",
-    "explanation": "Untuk resultan (bukan selisih), tanda pada suku silang adalah positif: R² = A² + B² + 2AB cos θ.",
-    "diagram": null
-  },
-  {
-    "no": 12,
-    "id": "VEC-04-006",
-    "zoneId": 4,
-    "zoneName": "Geometrical Vector Methods",
-    "difficulty": 3,
-    "bloom": "C4 (Analisis)",
-    "question": "Dua vektor besarnya 3 satuan dan 4 satuan membentuk sudut 90°. Besar resultan kedua vektor adalah … satuan.",
-    "options": [
-      "7",
-      "1",
-      "5",
-      "6"
-    ],
-    "correctKey": "C",
-    "correctAnswer": "5",
-    "explanation": "Kedua vektor saling tegak lurus (θ = 90°), sehingga cos 90° = 0 dan resultan dapat dihitung dengan teorema Pythagoras: R = √(A² + B²) = √(3² + 4²) = √25 = 5 satuan.",
-    "diagram": {
-      "type": "vector-parallelogram",
-      "params": {
-        "a": 3,
-        "b": 4,
-        "theta": 90
-      }
-    }
-  },
-  {
-    "no": 13,
+    "no": 7,
     "id": "VEC-05-002",
     "zoneId": 5,
     "zoneName": "Vector Components",
@@ -296,69 +144,247 @@ const CURATED_25_QUESTIONS = [
     "diagram": null
   },
   {
-    "no": 14,
-    "id": "VEC-05-005",
-    "zoneId": 5,
-    "zoneName": "Vector Components",
-    "difficulty": 2,
-    "bloom": "C3 (Aplikasi)",
-    "question": "Sebuah vektor gaya besarnya 10 N membentuk sudut 30° terhadap sumbu X positif. Komponen horizontal (sumbu X) vektor tersebut adalah … N.",
+    "no": 8,
+    "id": "VEC-09-001",
+    "zoneId": 9,
+    "zoneName": "GLB — Gerak Lurus Beraturan",
+    "difficulty": 1,
+    "bloom": "C1 (Pengetahuan)",
+    "question": "Sebuah mobil bergerak lurus dengan kecepatan konstan 20 m/s. Jarak yang ditempuh mobil selama 10 sekon adalah…",
     "options": [
-      "8,66",
-      "-8,66",
-      "10",
-      "5"
+      "100 m",
+      "150 m",
+      "200 m",
+      "250 m",
+      "400 m"
+    ],
+    "correctKey": "C",
+    "correctAnswer": "200 m",
+    "explanation": "Jarak dihitung dengan rumus s = v · t. Dengan v = 20 m/s dan t = 10 s, diperoleh s = 20 × 10 = 200 m. Jadi mobil menempuh jarak 200 meter.",
+    "diagram": null
+  },
+  {
+    "no": 9,
+    "id": "VEC-09-007",
+    "zoneId": 9,
+    "zoneName": "GLB — Gerak Lurus Beraturan",
+    "difficulty": 2,
+    "bloom": "C2 (Pemahaman)",
+    "question": "Pada grafik jarak terhadap waktu (s–t), gerak lurus beraturan digambarkan oleh…",
+    "options": [
+      "garis lurus dengan kemiringan tetap",
+      "garis mendatar sejajar sumbu waktu",
+      "kurva melengkung ke atas",
+      "parabola terbuka ke atas",
+      "garis zig-zag"
     ],
     "correctKey": "A",
-    "correctAnswer": "8,66",
-    "explanation": "Gunakan Ax = A cos θ dan Ay = A sin θ. Pada θ = 30°, komponen x = 10 × cos 30°.",
-    "diagram": {
-      "type": "vector-plane",
-      "params": {
-        "vectors": [
-          {
-            "x": 8.66,
-            "y": 5,
-            "label": "A"
-          }
-        ],
-        "showComponents": true
-      }
-    }
+    "correctAnswer": "garis lurus dengan kemiringan tetap",
+    "explanation": "Pada GLB, jarak bertambah secara merata terhadap waktu sehingga grafik s–t berupa garis lurus. Kemiringan garis yang tetap menunjukkan kecepatan konstan. Garis mendatar justru menunjukkan benda diam.",
+    "diagram": null
+  },
+  {
+    "no": 10,
+    "id": "VEC-09-008",
+    "zoneId": 9,
+    "zoneName": "GLB — Gerak Lurus Beraturan",
+    "difficulty": 2,
+    "bloom": "C2 (Pemahaman)",
+    "question": "Pada grafik kecepatan terhadap waktu (v–t), gerak lurus beraturan digambarkan oleh…",
+    "options": [
+      "garis mendatar sejajar sumbu waktu",
+      "garis lurus menanjak",
+      "garis lurus menurun",
+      "parabola terbuka ke atas",
+      "kurva melengkung ke bawah"
+    ],
+    "correctKey": "A",
+    "correctAnswer": "garis mendatar sejajar sumbu waktu",
+    "explanation": "Pada GLB, kecepatan benda tetap sehingga pada grafik v–t nilai kecepatan tidak berubah terhadap waktu. Hal ini digambarkan oleh garis mendatar yang sejajar sumbu waktu. Ketinggian garis menyatakan besar kecepatan konstan tersebut.",
+    "diagram": null
+  },
+  {
+    "no": 11,
+    "id": "VEC-09-014",
+    "zoneId": 9,
+    "zoneName": "GLB — Gerak Lurus Beraturan",
+    "difficulty": 3,
+    "bloom": "C3 (Aplikasi)",
+    "question": "Sebuah mobil menempuh 36 km dalam 0,5 jam, kemudian melanjutkan 54 km dalam 1,5 jam. Kelajuan rata-rata mobil untuk seluruh perjalanan adalah…",
+    "options": [
+      "40 km/jam",
+      "45 km/jam",
+      "50 km/jam",
+      "54 km/jam",
+      "60 km/jam"
+    ],
+    "correctKey": "B",
+    "correctAnswer": "45 km/jam",
+    "explanation": "Total jarak = 36 + 54 = 90 km dan total waktu = 0,5 + 1,5 = 2 jam. Kelajuan rata-rata adalah 90/2 = 45 km/jam. Jadi kelajuan rata-rata mobil adalah 45 km/jam.",
+    "diagram": null
+  },
+  {
+    "no": 12,
+    "id": "VEC-09-015",
+    "zoneId": 9,
+    "zoneName": "GLB — Gerak Lurus Beraturan",
+    "difficulty": 3,
+    "bloom": "C3 (Aplikasi)",
+    "question": "Sebuah benda bergerak lurus beraturan menempuh 250 m dalam 20 sekon. Kelajuan benda tersebut dalam satuan km/jam adalah…",
+    "options": [
+      "12,5 km/jam",
+      "25 km/jam",
+      "45 km/jam",
+      "50 km/jam",
+      "90 km/jam"
+    ],
+    "correctKey": "C",
+    "correctAnswer": "45 km/jam",
+    "explanation": "Kelajuan dalam m/s adalah v = 250/20 = 12,5 m/s. Untuk mengubah ke km/jam, kalikan 3,6 sehingga 12,5 × 3,6 = 45 km/jam. Jadi kelajuan benda adalah 45 km/jam.",
+    "diagram": null
+  },
+  {
+    "no": 13,
+    "id": "VEC-09-021",
+    "zoneId": 9,
+    "zoneName": "GLB — Gerak Lurus Beraturan",
+    "difficulty": 4,
+    "bloom": "C4 (Analisis)",
+    "question": "Sebuah mobil menempuh perjalanan dari A ke B dengan kelajuan 40 km/jam, lalu kembali dari B ke A dengan kelajuan 60 km/jam melalui lintasan yang sama. Kelajuan rata-rata seluruh perjalanan adalah…",
+    "options": [
+      "45 km/jam",
+      "48 km/jam",
+      "50 km/jam",
+      "52 km/jam",
+      "55 km/jam"
+    ],
+    "correctKey": "B",
+    "correctAnswer": "48 km/jam",
+    "explanation": "Untuk lintasan pulang-pergi yang sama, kelajuan rata-rata dihitung sebagai 2/(1/40 + 1/60) = 2/(3/120 + 2/120) = 2/(5/120) = 2 × 120/5 = 48 km/jam. Jadi kelajuan rata-rata mobil adalah 48 km/jam.",
+    "diagram": null
+  },
+  {
+    "no": 14,
+    "id": "VEC-10-001",
+    "zoneId": 10,
+    "zoneName": "GLBB — Gerak Lurus Berubah Beraturan",
+    "difficulty": 1,
+    "bloom": "C1 (Pengetahuan)",
+    "question": "Sebuah mobil melaju lurus dan kecepatannya bertambah dari 10 m/s menjadi 30 m/s dalam waktu 4 sekon. Besar percepatan mobil tersebut adalah …",
+    "options": [
+      "2 m/s²",
+      "3 m/s²",
+      "4 m/s²",
+      "5 m/s²",
+      "10 m/s²"
+    ],
+    "correctKey": "D",
+    "correctAnswer": "5 m/s²",
+    "explanation": "Percepatan dihitung dari perubahan kecepatan dibagi selang waktu, a = (30 − 10) / 4 = 20 / 4 = 5 m/s².",
+    "diagram": null
   },
   {
     "no": 15,
-    "id": "VEC-05-011",
-    "zoneId": 5,
-    "zoneName": "Vector Components",
+    "id": "VEC-10-007",
+    "zoneId": 10,
+    "zoneName": "GLBB — Gerak Lurus Berubah Beraturan",
     "difficulty": 2,
-    "bloom": "C3 (Aplikasi)",
-    "question": "Sebuah vektor gaya besarnya 12 N membentuk sudut 120° terhadap sumbu X positif. Komponen horizontal (sumbu X) vektor tersebut adalah … N.",
+    "bloom": "C2 (Pemahaman)",
+    "question": "Sebuah mobil melaju 25 m/s lalu direm dengan perlambatan tetap 5 m/s². Kecepatan mobil setelah 3 sekon pengereman adalah …",
     "options": [
-      "12",
-      "-6",
-      "6",
-      "10,39"
+      "5 m/s",
+      "10 m/s",
+      "15 m/s",
+      "20 m/s",
+      "25 m/s"
     ],
     "correctKey": "B",
-    "correctAnswer": "-6",
-    "explanation": "Gunakan Ax = A cos θ dan Ay = A sin θ. Pada θ = 120°, komponen x = 12 × cos 120°.",
-    "diagram": {
-      "type": "vector-plane",
-      "params": {
-        "vectors": [
-          {
-            "x": -6,
-            "y": 10.392,
-            "label": "A"
-          }
-        ],
-        "showComponents": true
-      }
-    }
+    "correctAnswer": "10 m/s",
+    "explanation": "Perlambatan berarti a = −5 m/s², sehingga v = 25 − 5 × 3 = 25 − 15 = 10 m/s.",
+    "diagram": null
   },
   {
     "no": 16,
+    "id": "VEC-10-008",
+    "zoneId": 10,
+    "zoneName": "GLBB — Gerak Lurus Berubah Beraturan",
+    "difficulty": 2,
+    "bloom": "C2 (Pemahaman)",
+    "question": "Sebuah benda bergerak lurus berubah beraturan dengan kecepatan awal 6 m/s dan percepatan 2 m/s². Setelah menempuh 16 m, kecepatannya menjadi …",
+    "options": [
+      "8 m/s",
+      "10 m/s",
+      "12 m/s",
+      "14 m/s",
+      "16 m/s"
+    ],
+    "correctKey": "B",
+    "correctAnswer": "10 m/s",
+    "explanation": "v² = 6² + 2 × 2 × 16 = 36 + 64 = 100, sehingga v = √100 = 10 m/s.",
+    "diagram": null
+  },
+  {
+    "no": 17,
+    "id": "VEC-10-014",
+    "zoneId": 10,
+    "zoneName": "GLBB — Gerak Lurus Berubah Beraturan",
+    "difficulty": 3,
+    "bloom": "C3 (Aplikasi)",
+    "question": "Sebuah mobil dipercepat 3 m/s² pada lintasan lurus sejauh 50 m hingga mencapai 20 m/s. Kecepatan awal mobil tersebut adalah …",
+    "options": [
+      "5 m/s",
+      "10 m/s",
+      "15 m/s",
+      "20 m/s",
+      "25 m/s"
+    ],
+    "correctKey": "B",
+    "correctAnswer": "10 m/s",
+    "explanation": "v₀² = v² − 2·a·s = 20² − 2 × 3 × 50 = 400 − 300 = 100, sehingga v₀ = 10 m/s.",
+    "diagram": null
+  },
+  {
+    "no": 18,
+    "id": "VEC-10-015",
+    "zoneId": 10,
+    "zoneName": "GLBB — Gerak Lurus Berubah Beraturan",
+    "difficulty": 3,
+    "bloom": "C3 (Aplikasi)",
+    "question": "Sebuah benda dari keadaan diam dipercepat 2 m/s². Jarak yang ditempuh benda tepat pada detik kelima (selang t = 4 s sampai t = 5 s) adalah …",
+    "options": [
+      "5 m",
+      "7 m",
+      "9 m",
+      "11 m",
+      "15 m"
+    ],
+    "correctKey": "C",
+    "correctAnswer": "9 m",
+    "explanation": "s(5) = ½ × 2 × 25 = 25 m dan s(4) = ½ × 2 × 16 = 16 m, sehingga jarak pada detik kelima = 25 − 16 = 9 m.",
+    "diagram": null
+  },
+  {
+    "no": 19,
+    "id": "VEC-10-021",
+    "zoneId": 10,
+    "zoneName": "GLBB — Gerak Lurus Berubah Beraturan",
+    "difficulty": 4,
+    "bloom": "C4 (Analisis)",
+    "question": "Sebuah benda bergerak lurus dengan kecepatan awal 8 m/s dan percepatan 2 m/s². Jarak yang ditempuh tepat pada detik keenam (selang t = 5 s sampai t = 6 s) adalah …",
+    "options": [
+      "15 m",
+      "17 m",
+      "19 m",
+      "21 m",
+      "23 m"
+    ],
+    "correctKey": "C",
+    "correctAnswer": "19 m",
+    "explanation": "s(6) = 8 × 6 + ½ × 2 × 36 = 84 m dan s(5) = 8 × 5 + ½ × 2 × 25 = 65 m, sehingga jarak detik keenam = 19 m.",
+    "diagram": null
+  },
+  {
+    "no": 20,
     "id": "VEC-06-005",
     "zoneId": 6,
     "zoneName": "GVA — Gerak Vertikal ke Atas",
@@ -378,7 +404,7 @@ const CURATED_25_QUESTIONS = [
     "diagram": null
   },
   {
-    "no": 17,
+    "no": 21,
     "id": "VEC-06-009",
     "zoneId": 6,
     "zoneName": "GVA — Gerak Vertikal ke Atas",
@@ -404,33 +430,7 @@ const CURATED_25_QUESTIONS = [
     }
   },
   {
-    "no": 18,
-    "id": "VEC-06-059",
-    "zoneId": 6,
-    "zoneName": "GVA — Gerak Vertikal ke Atas",
-    "difficulty": 3,
-    "bloom": "C4 (Analisis)",
-    "question": "Grafik kecepatan terhadap waktu untuk sebuah benda GVA berupa garis lurus dengan v = 30 − 10t (m/s). Kecepatan benda pada t = 5 s adalah … m/s.",
-    "options": [
-      "20",
-      "30",
-      "-20",
-      "0"
-    ],
-    "correctKey": "C",
-    "correctAnswer": "-20",
-    "explanation": "Substitusikan t = 5 s: v = 30 − 10(5) = −20 m/s. Tanda negatif menandakan benda sudah bergerak turun.",
-    "diagram": {
-      "type": "graph-vt",
-      "params": {
-        "v0": 30,
-        "g": 10,
-        "tMax": 8
-      }
-    }
-  },
-  {
-    "no": 19,
+    "no": 22,
     "id": "VEC-07-002",
     "zoneId": 7,
     "zoneName": "GVB — Gerak Vertikal ke Bawah",
@@ -450,7 +450,7 @@ const CURATED_25_QUESTIONS = [
     "diagram": null
   },
   {
-    "no": 20,
+    "no": 23,
     "id": "VEC-07-009",
     "zoneId": 7,
     "zoneName": "GVB — Gerak Vertikal ke Bawah",
@@ -476,33 +476,7 @@ const CURATED_25_QUESTIONS = [
     }
   },
   {
-    "no": 21,
-    "id": "VEC-07-010",
-    "zoneId": 7,
-    "zoneName": "GVB — Gerak Vertikal ke Bawah",
-    "difficulty": 2,
-    "bloom": "C3 (Aplikasi)",
-    "question": "Benda dilempar vertikal ke bawah dengan kecepatan  awal 10 m/s dari ketinggian 15 m (g = 10 m/s²). Kecepatan benda saat tiba di tanah adalah … m/s.",
-    "options": [
-      "20",
-      "160",
-      "10",
-      "150"
-    ],
-    "correctKey": "A",
-    "correctAnswer": "20",
-    "explanation": "Gunakan vₜ² = v₀² + 2gh. Perhatikan bahwa v₀ tidak boleh diabaikan.",
-    "diagram": {
-      "type": "gvb",
-      "params": {
-        "v0": 10,
-        "h": 15,
-        "g": 10
-      }
-    }
-  },
-  {
-    "no": 22,
+    "no": 24,
     "id": "VEC-08-002",
     "zoneId": 8,
     "zoneName": "GJB — Gerak Jatuh Bebas",
@@ -522,7 +496,7 @@ const CURATED_25_QUESTIONS = [
     "diagram": null
   },
   {
-    "no": 23,
+    "no": 25,
     "id": "VEC-08-009",
     "zoneId": 8,
     "zoneName": "GJB — Gerak Jatuh Bebas",
@@ -545,51 +519,6 @@ const CURATED_25_QUESTIONS = [
         "g": 10
       }
     }
-  },
-  {
-    "no": 24,
-    "id": "VEC-08-018",
-    "zoneId": 8,
-    "zoneName": "GJB — Gerak Jatuh Bebas",
-    "difficulty": 2,
-    "bloom": "C3 (Aplikasi)",
-    "question": "Benda jatuh bebas dari ketinggian 20 m (g = 10 m/s²). Kelajuan benda saat menyentuh tanah adalah … m/s.",
-    "options": [
-      "20",
-      "10",
-      "40",
-      "200"
-    ],
-    "correctKey": "A",
-    "correctAnswer": "20",
-    "explanation": "Dengan v₀ = 0, rumus v² = v₀² + 2gh tereduksi menjadi v = √(2gh). Untuk h = 20 m: v = √(400) ≈ 20 m/s.",
-    "diagram": {
-      "type": "gjb",
-      "params": {
-        "h": 20,
-        "g": 10
-      }
-    }
-  },
-  {
-    "no": 25,
-    "id": "VEC-08-031",
-    "zoneId": 8,
-    "zoneName": "GJB — Gerak Jatuh Bebas",
-    "difficulty": 3,
-    "bloom": "C4 (Analisis)",
-    "question": "Dua benda dijatuhkan dari ketinggian h dan 4h. Perbandingan waktu jatuh keduanya adalah …",
-    "options": [
-      "1 : √2",
-      "1 : 4",
-      "1 : 2",
-      "1 : 16",
-      "2 : 1"
-    ],
-    "correctKey": "C",
-    "correctAnswer": "1 : 2",
-    "explanation": "t ∝ √h, sehingga t₂/t₁ = √4 = 2.",
-    "diagram": null
   }
 ];
 

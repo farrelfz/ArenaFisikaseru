@@ -16,7 +16,9 @@ const CONFIG = {
         { id: 5, name: 'Vector Components', code: 'VC', target: 40, icon: 'maximize-2' },
         { id: 6, name: 'GVA — Gerak Vertikal ke Atas', code: 'GVA', target: 30, icon: 'arrow-up-circle' },
         { id: 7, name: 'GVB — Gerak Vertikal ke Bawah', code: 'GVB', target: 25, icon: 'arrow-down-circle' },
-        { id: 8, name: 'GJB — Gerak Jatuh Bebas', code: 'GJB', target: 25, icon: 'chevrons-down' }
+        { id: 8, name: 'GJB — Gerak Jatuh Bebas', code: 'GJB', target: 25, icon: 'chevrons-down' },
+        { id: 9, name: 'GLB — Gerak Lurus Beraturan', code: 'GLB', target: 50, icon: 'move-right' },
+        { id: 10, name: 'GLBB — Gerak Lurus Berubah Beraturan', code: 'GLBB', target: 50, icon: 'activity' }
     ],
 
     // Mode Permainan

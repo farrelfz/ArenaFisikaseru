@@ -69,11 +69,11 @@ test('setiap soal di bank 25 butir dapat dirender tanpa melempar', () => {
   }
 });
 
-test('seluruh bank 240 soal memakai difficulty numerik 1–4 sesuai skema server', () => {
+test('seluruh bank soal (340) memakai difficulty numerik 1–4 sesuai skema server', () => {
   const sandbox = loadContext();
   const bank = readBank(sandbox, 'js/data/questions.js', 'QUESTIONS_BANK');
 
-  assert.equal(bank.length, 240);
+  assert.equal(bank.length, 340);
   for (const q of bank) {
     const level = Number(q.difficulty);
     assert.ok(Number.isInteger(level) && level >= 1 && level <= 4, `difficulty ${q.id} tidak valid`);
