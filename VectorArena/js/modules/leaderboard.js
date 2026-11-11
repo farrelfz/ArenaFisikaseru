@@ -37,27 +37,27 @@ const LeaderboardModule = {
     getFairPlayBadge(tabSwitches) {
         const sw = Number(tabSwitches) || 0;
         if (sw === 0) {
-            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200" title="Integritas Sempurna • 0x Pindah Tab">
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200" title="Integritas Sempurna • 0x Pelanggaran">
                 <i data-lucide="shield-check" class="w-3 h-3 text-emerald-600"></i>
                 <span>🛡️ JUJUR (0x)</span>
             </span>`;
         } else if (sw === 1) {
-            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-teal-50 text-teal-800 border border-teal-200" title="Kecurangan Ringan • 1x Pindah Tab">
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-teal-50 text-teal-800 border border-teal-200" title="Kecurangan Ringan • 1x Pelanggaran">
                 <i data-lucide="zap" class="w-3 h-3 text-teal-600"></i>
                 <span>⚠️ KECURANGAN RINGAN (1x)</span>
             </span>`;
         } else if (sw === 2) {
-            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200" title="Terindikasi Kecurangan • 2x Pindah Tab">
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200" title="Terindikasi Kecurangan • 2x Pelanggaran">
                 <i data-lucide="alert-circle" class="w-3 h-3 text-amber-600"></i>
                 <span>⚠️ TERINDIKASI KECURANGAN (2x)</span>
             </span>`;
         } else if (sw <= 4) {
-            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-orange-50 text-orange-800 border border-orange-200" title="Curang Berat • ${sw}x Pindah Tab">
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-orange-50 text-orange-800 border border-orange-200" title="Curang Berat • ${sw}x Pelanggaran">
                 <i data-lucide="alert-triangle" class="w-3 h-3 text-orange-600"></i>
                 <span>🚨 CURANG BERAT (${sw}x)</span>
             </span>`;
         } else {
-            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-50 text-rose-800 border border-rose-200" title="Curang Ekstrem • ${sw}x Pindah Tab">
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-50 text-rose-800 border border-rose-200" title="Curang Ekstrem • ${sw}x Pelanggaran">
                 <i data-lucide="octagon-alert" class="w-3 h-3 text-rose-600"></i>
                 <span>⛔ CURANG EKSTREM (${sw}x)</span>
             </span>`;
@@ -491,8 +491,6 @@ const LeaderboardModule = {
                         <div class="font-bold text-slate-900">${Utils.escapeHtml(r.name)}</div>
                         <div class="text-[10px] text-slate-400 font-mono flex items-center gap-1.5 mt-0.5">
                             <span>Absen #${r.absen}</span>
-                            <span>•</span>
-                            <span>${r.ip || '-'}</span>
                         </div>
                     </td>
                     <td class="py-3 px-3 font-mono text-center font-bold text-slate-800">${r.className}</td>
