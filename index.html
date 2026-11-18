@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArenaFisikaSeru — Dua Arena Evaluasi Kompetitif Fisika | SMAN 78 Jakarta</title>
-    <meta name="description" content="ArenaFisikaSeru: kumpulan arena evaluasi kompetitif Fisika SMAN 78 Jakarta. HydroArena untuk Fluida (Kelas XI) dan VectorArena untuk Vektor & Kinematika (Kelas X).">
+    <title>ArenaFisikaSeru — Tiga Arena Evaluasi Kompetitif Fisika | SMAN 78 Jakarta</title>
+    <meta name="description" content="ArenaFisikaSeru: kumpulan arena evaluasi kompetitif Fisika SMAN 78 Jakarta. HydroArena (Fluida), VectorArena (Vektor & Kinematika), dan Hydro Challenge (Venturi & Penyemprot Cairan).">
     <meta name="theme-color" content="#06070d">
     <link rel="icon" type="image/svg+xml" href="VectorArena/assets/logo.svg">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://farrelfz.github.io/ArenaFisikaseru/">
     <link rel="canonical" href="https://farrelfz.github.io/ArenaFisikaseru/">
-    <meta property="og:title" content="ArenaFisikaSeru — Dua Arena Evaluasi Kompetitif Fisika">
-    <meta property="og:description" content="HydroArena (Fluida, Kelas XI) dan VectorArena (Vektor & Kinematika, Kelas X) — platform evaluasi kompetitif Fisika SMAN 78 Jakarta.">
+    <meta property="og:title" content="ArenaFisikaSeru — Tiga Arena Evaluasi Kompetitif Fisika">
+    <meta property="og:description" content="HydroArena, VectorArena, dan Hydro Challenge — platform evaluasi kompetitif Fisika SMAN 78 Jakarta.">
 
     <style>
         :root {
@@ -25,6 +25,8 @@
             --hydro-soft: rgba(59, 130, 246, 0.16);
             --vector: #8b5cf6;
             --vector-soft: rgba(139, 92, 246, 0.16);
+            --challenge: #06b6d4;
+            --challenge-soft: rgba(6, 182, 212, 0.16);
         }
 
         * { box-sizing: border-box; }
@@ -144,6 +146,7 @@
 
         .card--hydro::after { background: radial-gradient(28rem 14rem at 20% 0%, var(--hydro-soft), transparent 70%); }
         .card--vector::after { background: radial-gradient(28rem 14rem at 20% 0%, var(--vector-soft), transparent 70%); }
+        .card--challenge::after { background: radial-gradient(28rem 14rem at 20% 0%, var(--challenge-soft), transparent 70%); }
 
         .card:hover,
         .card:focus-visible {
@@ -157,6 +160,7 @@
 
         .card--hydro:hover, .card--hydro:focus-visible { border-color: rgba(59, 130, 246, 0.55); }
         .card--vector:hover, .card--vector:focus-visible { border-color: rgba(139, 92, 246, 0.55); }
+        .card--challenge:hover, .card--challenge:focus-visible { border-color: rgba(6, 182, 212, 0.55); }
 
         .card__top {
             display: flex;
@@ -228,6 +232,7 @@
 
         .card--hydro .cta { color: #93c5fd; }
         .card--vector .cta { color: #c4b5fd; }
+        .card--challenge .cta { color: #67e8f9; }
 
         .cta svg { width: 15px; height: 15px; transition: transform 200ms ease; }
         .card:hover .cta svg { transform: translateX(4px); }
@@ -257,7 +262,7 @@
         <p class="eyebrow">SMAN 78 Jakarta · Fisika</p>
         <h1>Arena<span>FisikaSeru</span></h1>
         <p class="lede">
-            Dua arena evaluasi kompetitif fisika dalam satu tempat. Pilih medan
+            Tiga arena evaluasi kompetitif fisika dalam satu tempat. Pilih medan
             pertandinganmu — masing-masing punya soal terkurasi, bonus kecepatan,
             dan klasemen real-time.
         </p>
@@ -309,6 +314,30 @@
                 </div>
                 <span class="cta">
                     Masuk VectorArena
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
+            </a>
+
+            <a class="card card--challenge" href="HydroChallenge/">
+                <div class="card__top">
+                    <span class="card__logo"><img src="HydroChallenge/assets/logo.svg" alt="" width="28" height="28"></span>
+                    <div>
+                        <h2 class="card__name">Hydro Challenge</h2>
+                        <p class="card__topic">Venturi &amp; Penyemprot Cairan</p>
+                    </div>
+                </div>
+                <p class="card__desc">
+                    Tantangan fokus fluida dinamis untuk Kelas XI: pipa horizontal menyempit,
+                    tabung venturi, manometer, dan penyemprot cairan. 15 soal berjenjang,
+                    pembahasan lengkap, dan klasemen tersimpan lokal.
+                </p>
+                <div class="tags">
+                    <span class="tag">Kelas XI A–XI F</span>
+                    <span class="tag">15 Soal</span>
+                    <span class="tag">Bernoulli</span>
+                </div>
+                <span class="cta">
+                    Masuk Hydro Challenge
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                 </span>
             </a>
